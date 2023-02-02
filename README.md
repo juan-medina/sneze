@@ -20,11 +20,11 @@ SNEZE is a high-level, entity component system based 2D game engine that provide
 - Multi-platform : Windows, Mac, Linux.
 
 ## Background
-After several years using different game engines I always end create a lot of common code with features that are usually to high-level for those engines to support but are required for most of the games that I do. 
+After several years using different game engines I always end create a lot of common code with features that are usually too high-level for those engines to support but are required for most of the games that I do. 
 
-This could be as simple flashing an sprite in red color when a player hit an enemy, transition between game states such fade-in-out or to allow the game window to be resize and keeping the game scaling correctly, even if the aspect ratio change.
+This could be as simple flashing a sprite in red color when a player hit an enemy, transition between game states such fade-in-out or to allow the game window to be resized and keeping the game scaling correctly, even if the aspect ratio change.
 
-This engine is trying to step-up that effort to allow to focus on the game logic and solve common problems, however keep it configurable some this could be customized by the game.
+This engine is trying to step up that effort to allow to focus on the game logic and solve common problems, however keep it configurable some this could be customized by the game.
 
 ## Getting Started
 To get started, simply follow the instructions in the [Getting Started](GETTING_STARTED.MD) guide.

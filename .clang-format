@@ -1,18 +1,17 @@
 ---
 BasedOnStyle: 'Google'
 AccessModifierOffset: -2
-AlignEscapedNewlinesLeft: true
+AlignEscapedNewlines: Left
 AlignConsecutiveAssignments: false
-AlignEscapedNewlinesLeft: true
 AlignTrailingComments: true
-AllowShortBlocksOnASingleLine: true
+AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: 'Inline'
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: false
+AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
-AlwaysBreakTemplateDeclarations: true
+AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: true
 BinPackParameters: true
 BreakBeforeBinaryOperators: 'None'
@@ -23,13 +22,12 @@ ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
 Cpp11BracedListStyle: true
-DerivePointerBinding: true
 IndentCaseLabels: true
 IndentWidth: 2
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: true
 MaxEmptyLinesToKeep: 1
-NamespaceIndentation: 'None'
+NamespaceIndentation: All
 PointerAlignment: 'Left'
 SpaceBeforeAssignmentOperators: true
 SpaceBeforeParens: 'ControlStatements'
