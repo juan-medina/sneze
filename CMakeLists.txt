@@ -26,10 +26,22 @@ cmake_minimum_required (VERSION 3.0)
 
 project (sneze)
 
+include(CMakeOptions.txt)
+
 set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Generate compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 add_subdirectory (lib)
-add_subdirectory (example)
+
+if (${BUILD_SNEZE_EXAMPLES})
+    MESSAGE(STATUS "Building examples is enabled")
+    add_subdirectory(example)
+else()
+    MESSAGE(STATUS "Building examples is not enabled")
+endif()
+

@@ -1,0 +1,1 @@
+option(BUILD_SNEZE_EXAMPLES "Build the examples." ON)

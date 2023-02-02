@@ -24,12 +24,30 @@ SOFTWARE.
 
 #include "Application.h"
 
+#include "raylib.h"
+
+int screenWidth = 800;
+int screenHeight = 450;
+
+
 namespace sneze
 {
 
   int Application::run()
   {
     this->OnStart();
+    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    while (!WindowShouldClose())    // Detect window close button or ESC key
+    {
+      BeginDrawing();
+
+      ClearBackground(RAYWHITE);
+
+      DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+
+      EndDrawing();
+    }
+    CloseWindow();
     this->OnEnd();
     return 0;
   }
