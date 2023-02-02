@@ -29,9 +29,6 @@ set (APP_NAME "example")
 set (APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/${APP_NAME}")
 set (APP_SRC_PATH  "${APP_MODULE_PATH}/src" )
 
-#find our library
-find_package(sneze QUIET)
-
 #set sources
 file (GLOB APP_HEADER_FILES "${APP_SRC_PATH}/*.h")
 file (GLOB APP_SOURCE_FILES "${APP_SRC_PATH}/*.cpp")
