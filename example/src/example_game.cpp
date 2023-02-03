@@ -22,7 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
+#include "example_game.h"
 
-#include "application.h"
-#include "logger.h"
+void example_game::on_start() {
+    LOG_DEBUG("on: {}", "start");
+}
+void example_game::on_end() {
+    LOG_DEBUG("on {}", "end");
+}

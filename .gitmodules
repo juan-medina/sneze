@@ -1,3 +1,6 @@
 [submodule "lib/external/raylib"]
 	path = lib/external/raylib
 	url = https://github.com/raysan5/raylib
+[submodule "lib/external/spdlog"]
+	path = lib/external/spdlog
+	url = https://github.com/gabime/spdlog

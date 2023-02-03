@@ -37,11 +37,18 @@ file (GLOB LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 ## add raylib
 add_subdirectory(external/raylib)
 
+## add spdlog
+add_subdirectory(external/spdlog)
+
+if(WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
+endif()
+
 #set library
 add_library (${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
-target_link_libraries(${LIB_NAME} PUBLIC raylib)
+target_link_libraries(${LIB_NAME} PUBLIC raylib PUBLIC spdlog)
 
 #set includes
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})

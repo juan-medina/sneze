@@ -24,15 +24,13 @@ SOFTWARE.
 
 #pragma once
 
-namespace sneze
-{
-
-  class Application
-  {
-  public:
+namespace sneze {
+class application {
+public:
+    application();
     int run();
-    virtual void OnStart()=0;
-    virtual void OnEnd()=0;
-  };
+    virtual void on_start() = 0;
+    virtual void on_end() = 0;
+};
 
 } // namespace sneze
