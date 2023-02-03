@@ -24,13 +24,12 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze.h>
+#include "sneze.h"
 
 using namespace sneze;
 
-class ExampleGame : public Application
-{
+class example_game: public application {
 public:
-  void OnStart() override;
-  void OnEnd() override;
+    void on_start() override;
+    void on_end() override;
 };

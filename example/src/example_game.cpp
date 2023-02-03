@@ -22,16 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "ExampleGame.h"
+#include "example_game.h"
 
-#include <iostream>
-using namespace std;
-
-void ExampleGame::OnStart()
-{
-  cout << "start" << endl;
+void example_game::on_start() {
+    LOG_DEBUG("on: {}", "start");
 }
-void ExampleGame::OnEnd()
-{
-  cout << "end" << endl;
+void example_game::on_end() {
+    LOG_DEBUG("on {}", "end");
 }

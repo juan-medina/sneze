@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "ExampleGame.h"
+#include "example_game.h"
 
 int main()
 {
-  return ExampleGame().run();
+  return example_game().run();
 }
