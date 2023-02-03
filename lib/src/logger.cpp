@@ -71,31 +71,31 @@ void set_log_level(log_level level) noexcept {
     int raylib_level;
 
     switch(level) {
-    case trace:
+    case log_level::trace:
         spdlog_level = spdlog::level::trace;
         raylib_level = LOG_TRACE;
         break;
-    case debug:
+    case log_level::debug:
         spdlog_level = spdlog::level::debug;
         raylib_level = LOG_DEBUG;
         break;
-    case info:
+    case log_level::info:
         spdlog_level = spdlog::level::info;
         raylib_level = LOG_INFO;
         break;
-    case warn:
+    case log_level::warn:
         spdlog_level = spdlog::level::warn;
         raylib_level = LOG_WARNING;
         break;
-    case err:
+    case log_level::err:
         spdlog_level = spdlog::level::err;
         raylib_level = LOG_ERROR;
         break;
-    case critical:
+    case log_level::critical:
         spdlog_level = spdlog::level::critical;
         raylib_level = LOG_FATAL;
         break;
-    case off:
+    case log_level::off:
         spdlog_level = spdlog::level::off;
         raylib_level = LOG_NONE;
         break;

@@ -26,7 +26,7 @@ SOFTWARE.
 #include "logger.h"
 #include "raylib.h"
 
-        int screenWidth = 800;
+int screenWidth = 800;
 int screenHeight = 450;
 
 namespace sneze {
@@ -71,12 +71,12 @@ int application::run() {
 }
 application::application() {
 #ifdef NDEBUG
-    set_log_level(sneze::off);
+    set_log_level(sneze::log_level::off);
 #    if defined(_WIN32)
 #        pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #    endif
 #else
-    set_log_level(sneze::info);
+    set_log_level(sneze::log_level::debug);
 #endif
 }
 

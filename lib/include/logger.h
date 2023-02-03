@@ -24,6 +24,9 @@ SOFTWARE.
 
 #pragma once
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedMacroInspection"
+
 #include "spdlog/spdlog.h"
 
 namespace sneze {
@@ -50,11 +53,16 @@ enum log_level : int {
 #define LOG_WARN(s, ...) \
     spdlog::warn("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
 
-#define LOG_ERROR(s, ...) \
+#define LOG_ERR(s, ...) \
     spdlog::error("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+
+#define LOG_CRITICAL(s, ...) \
+    spdlog::critical("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
 
 void hook_raylib_log() noexcept;
 
 void set_log_level(log_level level) noexcept;
 
 } // namespace sneze
+
+#pragma clang diagnostic pop
