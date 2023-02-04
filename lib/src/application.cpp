@@ -23,6 +23,7 @@ SOFTWARE.
 ****************************************************************************/
 
 #include "application.h"
+#include <utility>
 #include "logger.h"
 #include "raylib.h"
 
@@ -31,8 +32,20 @@ int screenHeight = 450;
 
 namespace sneze {
 
+application::application(std::string &&name) {
+    name_ = std::move(name);
+#ifdef NDEBUG
+    set_log_level(sneze::log_level::off);
+#    if defined(_WIN32)
+#        pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#    endif
+#else
+    set_log_level(sneze::log_level::debug);
+#endif
+}
+
 int application::run() {
-    LOG_DEBUG("Starting application");
+    LOG_DEBUG("Starting application: {}", name());
 
     hook_raylib_log();
 
@@ -41,7 +54,7 @@ int application::run() {
 
     LOG_DEBUG("Creating Window");
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, name().c_str());
 
     LOG_DEBUG("Window Created");
 
@@ -65,19 +78,9 @@ int application::run() {
     LOG_DEBUG("Triggering On End");
     on_end();
 
-    LOG_DEBUG("Stopping application");
+    LOG_DEBUG("Stopping application: {}", name());
 
     return 0;
-}
-application::application() {
-#ifdef NDEBUG
-    set_log_level(sneze::log_level::off);
-#    if defined(_WIN32)
-#        pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#    endif
-#else
-    set_log_level(sneze::log_level::debug);
-#endif
 }
 
 } // namespace sneze

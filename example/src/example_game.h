@@ -30,6 +30,10 @@ using namespace sneze;
 
 class example_game: public application {
 public:
+    example_game();
+    ~example_game() override = default;
+
+private:
     void on_start() override;
     void on_end() override;
 };
