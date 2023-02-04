@@ -25,7 +25,7 @@ SOFTWARE.
 #include "example_game.h"
 
 example_game::example_game()
-    : application("Example Game") {
+    : application("New Olds", "Example Game") {
 }
 
 void example_game::on_start() {

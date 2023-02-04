@@ -32,7 +32,8 @@ int screenHeight = 450;
 
 namespace sneze {
 
-application::application(std::string &&name) {
+application::application(std::string &&team, std::string &&name) {
+    team_ = std::move(team);
     name_ = std::move(name);
 #ifdef NDEBUG
     set_log_level(sneze::log_level::off);
@@ -45,7 +46,7 @@ application::application(std::string &&name) {
 }
 
 int application::run() {
-    LOG_DEBUG("Starting application: {}", name());
+    LOG_DEBUG("Starting application: {} (Team: {})", name(), team());
 
     hook_raylib_log();
 

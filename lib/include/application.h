@@ -29,7 +29,7 @@ SOFTWARE.
 namespace sneze {
 class application {
 public:
-    application(std::string &&name); // NOLINT(google-explicit-constructor)
+    application(std::string &&team, std::string &&name); // NOLINT(google-explicit-constructor)
     virtual ~application() = default;
 
     int run();
@@ -37,11 +37,16 @@ public:
     virtual void on_start() = 0;
     virtual void on_end() = 0;
 
+    [[nodiscard]] inline const std::string &team() const noexcept {
+        return team_;
+    }
+
     [[nodiscard]] inline const std::string &name() const noexcept {
         return name_;
     }
 
 protected:
+    std::string team_;
     std::string name_;
 };
 
