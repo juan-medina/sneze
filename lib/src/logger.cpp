@@ -34,28 +34,29 @@ void raylib_log_callback(int level, const char *text, va_list args) {
 
     spdlog::level::level_enum spdlog_level;
     switch(level) {
+        using enum spdlog::level::level_enum;
     case LOG_TRACE:
-        spdlog_level = spdlog::level::trace;
+        spdlog_level = trace;
         break;
     case LOG_DEBUG:
-        spdlog_level = spdlog::level::debug;
+        spdlog_level = debug;
         break;
     case LOG_INFO:
-        spdlog_level = spdlog::level::info;
+        spdlog_level = info;
         break;
     case LOG_WARNING:
-        spdlog_level = spdlog::level::warn;
+        spdlog_level = warn;
         break;
     case LOG_ERROR:
-        spdlog_level = spdlog::level::err;
+        spdlog_level = err;
         break;
     case LOG_FATAL:
-        spdlog_level = spdlog::level::critical;
+        spdlog_level = critical;
         break;
-    case LOG_NONE:
-        spdlog_level = spdlog::level::off;
+    [[likely]] case LOG_NONE:
+        spdlog_level = off;
         break;
-    default:
+    [[unlikely]] default:
         spdlog_level = spdlog::level::info;
         break;
     }
@@ -95,11 +96,11 @@ void set_log_level(log_level level) noexcept {
         spdlog_level = spdlog::level::critical;
         raylib_level = LOG_FATAL;
         break;
-    case log_level::off:
+    [[likely]] case log_level::off:
         spdlog_level = spdlog::level::off;
         raylib_level = LOG_NONE;
         break;
-    default:
+    [[unlikely]] default:
         spdlog_level = spdlog::level::info;
         raylib_level = LOG_INFO;
         break;
