@@ -43,6 +43,13 @@ public:
 
     error(const error &other) {
         message_ = other.message_;
+        causes_ = other.causes_;
+    };
+
+    error(const std::string &message, const error &other) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
+        message_ = message;
+        causes_ = other.causes_;
+        causes_.push_back(other.message_);
     };
 
     virtual ~error() noexcept = default;
@@ -51,6 +58,11 @@ public:
         return message_;
     }
 
+    [[nodiscard]] inline auto causes() const noexcept {
+        return causes_;
+    }
+
 private:
     std::string message_;
+    std::vector<std::string> causes_;
 };

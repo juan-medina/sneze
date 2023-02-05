@@ -37,6 +37,7 @@ class result: public std::variant<Value, Error> {
 public:
     inline result(const Value &value) // NOLINT(google-explicit-constructor)
         : std::variant<Value, Error>(value) {}
+
     inline result(const Error &err) // NOLINT(google-explicit-constructor)
         : std::variant<Value, Error>(err) {}
 
@@ -63,4 +64,12 @@ public:
             return value();
         }
     }
+
+    std::tuple<std::optional<Value>, std::optional<Error>> check() {
+        if(has_error()) {
+            return {std::nullopt, error()};
+        } else {
+            return {value(), std::nullopt};
+        }
+    };
 };
