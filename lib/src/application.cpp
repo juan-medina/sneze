@@ -23,6 +23,7 @@ SOFTWARE.
 ****************************************************************************/
 
 #include "application.h"
+#include "boxer/boxer.h"
 #include "logger.h"
 #include "raylib.h"
 
@@ -44,6 +45,15 @@ application::application(const std::string &team, const std::string &name)
 }
 
 result<bool, error> application::run() {
+    auto result = launch();
+
+    if(result.has_error()) {
+        boxer::show(result.error().message().c_str(), name().c_str(), boxer::Style::Error, boxer::Buttons::Quit);
+    }
+
+    return result;
+}
+result<bool, error> application::launch() {
     LOG_DEBUG("Starting application: {} (Team: {})", name(), team());
 
     RETURN_ERR_IF_RESULT(config_.read(), "can't run application")

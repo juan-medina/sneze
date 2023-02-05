@@ -52,6 +52,9 @@ protected:
     std::string team_;
     std::string name_;
     config config_;
+
+private:
+    result<bool, error> launch();
 };
 
 } // namespace sneze

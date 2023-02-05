@@ -43,10 +43,11 @@ protected:
     std::string application_;
 
 private:
+    constexpr static const char *const CONFIG_FILE_NAME = "config.toml??";
+
     static result<bool, error> exist_or_create_directory(const std::filesystem::path &path) noexcept;
     static result<bool, error> exist_or_create_file(const std::filesystem::path &path) noexcept;
 
-    constexpr static const char *const CONFIG_FILE_NAME = "config.toml";
     result<bool, error> calculate_config_file_path();
 
     [[nodiscard]] inline const std::filesystem::path &config_file_path() const noexcept {

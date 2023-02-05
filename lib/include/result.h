@@ -32,34 +32,35 @@ SOFTWARE.
         RETURN_ERR(s, ##__VA_ARGS__) \
     }
 
-template<class V, class E = error>
-class result: public std::variant<V, E> {
+template<class Value, class Error = class error>
+class result: public std::variant<Value, Error> {
 public:
-    inline result(const V &value) // NOLINT(google-explicit-constructor)
-        : std::variant<V, E>(value) {}
-    inline result(const E &err) // NOLINT(google-explicit-constructor)
-        : std::variant<V, E>(err) {}
+    inline result(const Value &value) // NOLINT(google-explicit-constructor)
+        : std::variant<Value, Error>(value) {}
+    inline result(const Error &err) // NOLINT(google-explicit-constructor)
+        : std::variant<Value, Error>(err) {}
+
     inline bool has_error() {
-        return std::holds_alternative<E>(*this);
+        return std::holds_alternative<Error>(*this);
     }
+
     [[maybe_unused]] inline bool has_value() {
-        return std::holds_alternative<V>(*this);
+        return std::holds_alternative<Value>(*this);
     }
 
-    template<class T>
-    [[maybe_unused]] inline T map_or(T mapper(V), T else_value) {
+    [[maybe_unused]] [[nodiscard]] inline Error error() const noexcept {
+        return std::get<Error>(*this);
+    }
+
+    [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept {
+        return std::get<Value>(*this);
+    }
+
+    [[maybe_unused]] inline Value value_or(Value else_value) {
         if(has_error()) {
             return else_value;
         } else {
-            return mapper(V(this));
-        }
-    }
-
-    [[maybe_unused]] inline V value_or(V else_value) {
-        if(has_error()) {
-            return else_value;
-        } else {
-            return V(this);
+            return value();
         }
     }
 };

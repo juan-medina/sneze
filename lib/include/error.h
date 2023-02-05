@@ -26,8 +26,6 @@ SOFTWARE.
 
 #include <string>
 
-// https://github.com/aaronmjacobs/Boxer
-
 #define RETURN_ERR(s, ...) \
     LOG_ERR(s, ##__VA_ARGS__); \
     auto msg = std::format(s, ##__VA_ARGS__); \
@@ -40,8 +38,8 @@ SOFTWARE.
 
 class error {
 public:
-    error(std::string message) // NOLINT(google-explicit-constructor)
-        : message_{std::move(message)} {}
+    error(const std::string &message) // NOLINT(google-explicit-constructor,modernize-pass-by-value)
+        : message_{message} {}
 
     error(const error &other) {
         message_ = other.message_;

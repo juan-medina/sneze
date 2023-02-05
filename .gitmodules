@@ -7,3 +7,6 @@
 [submodule "lib/external/PlatformFolders"]
 	path = lib/external/PlatformFolders
 	url = https://github.com/sago007/PlatformFolders
+[submodule "lib/external/Boxer"]
+	path = lib/external/Boxer
+	url = https://github.com/aaronmjacobs/Boxer

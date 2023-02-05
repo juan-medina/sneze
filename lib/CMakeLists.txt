@@ -44,6 +44,9 @@ add_subdirectory(external/spdlog)
 add_subdirectory(external/PlatformFolders)
 find_package(platform_folders QUIET)
 
+## add Boxer
+add_subdirectory("external/Boxer")
+
 if(WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
 endif()
@@ -52,7 +55,7 @@ endif()
 add_library (${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
-target_link_libraries(${LIB_NAME} PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders)
+target_link_libraries(${LIB_NAME} PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer)
 
 #set includes
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
