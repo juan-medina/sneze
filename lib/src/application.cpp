@@ -45,18 +45,29 @@ application::application(const std::string &team, const std::string &name)
 }
 
 result<bool, error> application::run() {
-    auto result = launch();
-
-    if(result.has_error()) {
-        boxer::show(result.error().message().c_str(), name().c_str(), boxer::Style::Error, boxer::Buttons::Quit);
+    if(auto [val, err] = launch().check(); err) {
+        std::string message = err->message();
+        auto causes = err->causes();
+        if(!causes.empty()) {
+            message += " Caused by:\n";
+            for(const auto &cause: causes) {
+                message += "\n - " + cause;
+            }
+        }
+        auto message_title = std::format("{} : Error!", name());
+        boxer::show(message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit);
+        return false;
+    } else {
+        return *val;
     }
-
-    return result;
 }
 result<bool, error> application::launch() {
     LOG_DEBUG("Starting application: {} (Team: {})", name(), team());
 
-    RETURN_ERR_IF_RESULT(config_.read(), "can't run application")
+    if(auto [val, err] = config_.read().check(); err) {
+        LOG_ERR("error reading config");
+        return error("Can't read config.", *err);
+    }
 
     hook_raylib_log();
 

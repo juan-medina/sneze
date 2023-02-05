@@ -25,5 +25,8 @@ SOFTWARE.
 #include "example_game.h"
 
 int main() {
-    return example_game().run().value_or(false) ? 0 : -1;
+    if(auto [val, err] = example_game().run().check(); err) {
+        return -1;
+    }
+    return 0;
 }

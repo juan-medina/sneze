@@ -27,11 +27,6 @@ SOFTWARE.
 #include <variant>
 #include "error.h"
 
-#define RETURN_ERR_IF_RESULT(result, s, ...) \
-    if(result.has_error()) { \
-        RETURN_ERR(s, ##__VA_ARGS__) \
-    }
-
 template<class Value, class Error = class error>
 class result: public std::variant<Value, Error> {
 public:
@@ -55,14 +50,6 @@ public:
 
     [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept {
         return std::get<Value>(*this);
-    }
-
-    [[maybe_unused]] inline Value value_or(Value else_value) {
-        if(has_error()) {
-            return else_value;
-        } else {
-            return value();
-        }
     }
 
     std::tuple<std::optional<Value>, std::optional<Error>> check() {

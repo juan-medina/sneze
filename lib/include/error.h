@@ -26,16 +26,6 @@ SOFTWARE.
 
 #include <string>
 
-#define RETURN_ERR(s, ...) \
-    LOG_ERR(s, ##__VA_ARGS__); \
-    auto msg = std::format(s, ##__VA_ARGS__); \
-    return error(msg);
-
-#define RETURN_ERR_IF(cond, s, ...) \
-    if(cond) { \
-        RETURN_ERR(s, ##__VA_ARGS__) \
-    }
-
 class error {
 public:
     error(const std::string &message) // NOLINT(google-explicit-constructor,modernize-pass-by-value)
@@ -49,7 +39,7 @@ public:
     error(const std::string &message, const error &other) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
         message_ = message;
         causes_ = other.causes_;
-        causes_.push_back(other.message_);
+        causes_.insert(causes_.begin(), other.message_);
     };
 
     virtual ~error() noexcept = default;
