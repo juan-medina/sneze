@@ -36,6 +36,10 @@ SNEZE is powered by these incredible projects:
 - [EnTT](https://github.com/skypjack/entt) : A fast and reliable entity component system.
 - [raylib](https://www.raylib.com/) : A simple and easy-to-use library to enjoy videogames programming.
 - [spdlog](https://github.com/gabime/spdlog) : Fast C++ logging library.
+- [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories.
+- [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes.
+
+*They are already included as submodules.*
 
 ## Contributions
 SNEZE is an open source project and contributions are welcome. If you'd like to contribute, please follow the guidelines in the [Contributing](CONTRIBUTING.md) file and make a pull request.
