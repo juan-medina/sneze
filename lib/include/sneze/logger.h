@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "spdlog/spdlog.h"
+#include <spdlog/spdlog.h>
 
 #if __CLION_IDE__
 #    pragma clang diagnostic push
@@ -31,37 +31,37 @@ SOFTWARE.
 
 namespace sneze {
 
-enum log_level : int {
-    trace = spdlog::level::trace,
-    debug = spdlog::level::debug,
-    info = spdlog::level::info,
-    warn = spdlog::level::warn,
-    err = spdlog::level::err,
-    critical = spdlog::level::critical,
-    off = spdlog::level::off
-};
+    enum log_level : int {
+        trace = spdlog::level::trace,
+        debug = spdlog::level::debug,
+        info = spdlog::level::info,
+        warn = spdlog::level::warn,
+        err = spdlog::level::err,
+        critical = spdlog::level::critical,
+        off = spdlog::level::off
+    };
 
-#define LOG_TRACE(s, ...) \
-    spdlog::trace("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+#define LOG_TRACE( s, ... ) \
+    spdlog::trace( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_DEBUG(s, ...) \
-    spdlog::debug("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+#define LOG_DEBUG( s, ... ) \
+    spdlog::debug( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_INFO(s, ...) \
-    spdlog::info("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+#define LOG_INFO( s, ... ) \
+    spdlog::info( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_WARN(s, ...) \
-    spdlog::warn("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__) // NOLINT(OCUnusedMacroInspection)
+#define LOG_WARN( s, ... ) \
+    spdlog::warn( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_ERR(s, ...) \
-    spdlog::error("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+#define LOG_ERR( s, ... ) \
+    spdlog::error( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_CRITICAL(s, ...) \
-    spdlog::critical("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+#define LOG_CRITICAL( s, ... ) \
+    spdlog::critical( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-void hook_raylib_log() noexcept;
+    void hook_raylib_log() noexcept;
 
-void set_log_level(log_level level) noexcept;
+    void set_log_level( log_level level ) noexcept;
 
 } // namespace sneze
 

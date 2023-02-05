@@ -24,39 +24,35 @@ SOFTWARE.
 
 #pragma once
 
-#include <variant>
-#include "error.h"
+#include <string>
 
-template<class Value, class Error = class error>
-class result: public std::variant<Value, Error> {
-public:
-    inline result(const Value &value) // NOLINT(google-explicit-constructor)
-        : std::variant<Value, Error>(value) {}
+namespace sneze {
 
-    inline result(const Error &err) // NOLINT(google-explicit-constructor)
-        : std::variant<Value, Error>(err) {}
+    class error {
+    public:
+        error( const std::string& message ): // NOLINT(google-explicit-constructor,modernize-pass-by-value)
+            message_{ message } {}
 
-    inline bool has_error() {
-        return std::holds_alternative<Error>(*this);
-    }
+        error( const error& other ) {
+            message_ = other.message_;
+            causes_ = other.causes_;
+        };
 
-    [[maybe_unused]] inline bool has_value() {
-        return std::holds_alternative<Value>(*this);
-    }
+        error( const std::string& message, const error& other ) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
+            message_ = message;
+            causes_ = other.causes_;
+            causes_.insert( causes_.begin(), other.message_ );
+        };
 
-    [[maybe_unused]] [[nodiscard]] inline Error error() const noexcept {
-        return std::get<Error>(*this);
-    }
+        virtual ~error() noexcept = default;
 
-    [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept {
-        return std::get<Value>(*this);
-    }
+        [[nodiscard]] inline auto message() const noexcept { return message_; }
 
-    std::tuple<std::optional<Value>, std::optional<Error>> check() {
-        if(has_error()) {
-            return {std::nullopt, error()};
-        } else {
-            return {value(), std::nullopt};
-        }
+        [[nodiscard]] inline auto causes() const noexcept { return causes_; }
+
+    private:
+        std::string message_;
+        std::vector<std::string> causes_;
     };
-};
+
+} // namespace sneze

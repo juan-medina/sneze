@@ -24,8 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include "logger.h"
-#include "error.h"
-#include "result.h"
-#include "config.h"
-#include "application.h"
+#include <sneze/application.h>
+#include <sneze/config.h>
+#include <sneze/error.h>
+#include <sneze/logger.h>
+#include <sneze/result.h>

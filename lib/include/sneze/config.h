@@ -24,35 +24,35 @@ SOFTWARE.
 
 #pragma once
 
+// https://github.com/ToruNiina/toml11
+
+#include <filesystem>
 #include <string>
 
-class error {
-public:
-    error(const std::string &message) // NOLINT(google-explicit-constructor,modernize-pass-by-value)
-        : message_{message} {}
+#include <sneze/result.h>
 
-    error(const error &other) {
-        message_ = other.message_;
-        causes_ = other.causes_;
+namespace sneze {
+
+    class config {
+    public:
+        config( std::string team, std::string application );
+
+        virtual ~config() = default;
+
+        result<bool, error> read();
+
+    protected:
+        std::string team_;
+        std::string application_;
+
+    private:
+        constexpr static const char* const CONFIG_FILE_NAME = "config.toml";
+
+        static result<bool, error> exist_or_create_directory( const std::filesystem::path& path ) noexcept;
+
+        static result<bool, error> exist_or_create_file( const std::filesystem::path& path ) noexcept;
+
+        result<std::filesystem::path, error> calculate_config_file_path();
     };
 
-    error(const std::string &message, const error &other) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
-        message_ = message;
-        causes_ = other.causes_;
-        causes_.insert(causes_.begin(), other.message_);
-    };
-
-    virtual ~error() noexcept = default;
-
-    [[nodiscard]] inline auto message() const noexcept {
-        return message_;
-    }
-
-    [[nodiscard]] inline auto causes() const noexcept {
-        return causes_;
-    }
-
-private:
-    std::string message_;
-    std::vector<std::string> causes_;
-};
+} // namespace sneze

@@ -22,11 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
+#include <cstdlib>
+
 #include "example_game.h"
 
 int main() {
-    if(auto [val, err] = example_game().run().check(); err) {
-        return -1;
+    if ( auto [val, err] = example_game().run().check(); err ) {
+        return EXIT_FAILURE;
     }
-    return 0;
+    return EXIT_SUCCESS;
 }

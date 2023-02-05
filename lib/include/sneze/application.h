@@ -24,31 +24,40 @@ SOFTWARE.
 
 #pragma once
 
-// https://github.com/ToruNiina/toml11
-
-#include <filesystem>
 #include <string>
-#include "result.h"
+
+#include <sneze/config.h>
+#include <sneze/error.h>
 
 namespace sneze {
-class config {
-public:
-    config(std::string team, std::string application); // NOLINT(google-explicit-constructor)
-    virtual ~config() = default;
 
-    result<bool, error> read();
+    class application {
+    public:
+        application( const std::string& team, const std::string& name );
 
-protected:
-    std::string team_;
-    std::string application_;
+        virtual ~application() = default;
 
-private:
-    constexpr static const char *const CONFIG_FILE_NAME = "config.toml??";
+        result<bool, error> run();
 
-    static result<bool, error> exist_or_create_directory(const std::filesystem::path &path) noexcept;
+        virtual void on_start() = 0;
 
-    static result<bool, error> exist_or_create_file(const std::filesystem::path &path) noexcept;
+        virtual void on_end() = 0;
 
-    result<std::filesystem::path, error> calculate_config_file_path();
-};
+        [[nodiscard]] inline const std::string& team() const noexcept {
+            return team_;
+        }
+
+        [[nodiscard]] inline const std::string& name() const noexcept {
+            return name_;
+        }
+
+    protected:
+        std::string team_;
+        std::string name_;
+        config config_;
+
+    private:
+        result<bool, error> launch();
+    };
+
 } // namespace sneze

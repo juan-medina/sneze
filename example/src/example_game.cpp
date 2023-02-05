@@ -24,13 +24,13 @@ SOFTWARE.
 
 #include "example_game.h"
 
-example_game::example_game()
-    : application("sneze", "Example Game") {
+example_game::example_game():
+    application( "sneze", "Example Game" ) {
 }
 
 void example_game::on_start() {
-    LOG_DEBUG("on: {}", "start");
+    LOG_DEBUG( "on: {}", "start" );
 }
 void example_game::on_end() {
-    LOG_DEBUG("on {}", "end");
+    LOG_DEBUG( "on {}", "end" );
 }

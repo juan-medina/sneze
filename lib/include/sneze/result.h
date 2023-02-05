@@ -24,37 +24,44 @@ SOFTWARE.
 
 #pragma once
 
-#include <string>
-#include "config.h"
-#include "error.h"
+#include <variant>
+
+#include <sneze/error.h>
 
 namespace sneze {
 
-class application {
-public:
-    application(const std::string &team, const std::string &name); // NOLINT(google-explicit-constructor)
-    virtual ~application() = default;
+    template <class Value, class Error = class error>
+    class result : public std::variant<Value, Error> {
+    public:
+        inline result( const Value& value ): // NOLINT(google-explicit-constructor)
+            std::variant<Value, Error>( value ) {}
 
-    result<bool, error> run();
+        inline result( const Error& err ): // NOLINT(google-explicit-constructor)
+            std::variant<Value, Error>( err ) {}
 
-    virtual void on_start() = 0;
-    virtual void on_end() = 0;
+        inline bool has_error() {
+            return std::holds_alternative<Error>( *this );
+        }
 
-    [[nodiscard]] inline const std::string &team() const noexcept {
-        return team_;
-    }
+        [[maybe_unused]] inline bool has_value() {
+            return std::holds_alternative<Value>( *this );
+        }
 
-    [[nodiscard]] inline const std::string &name() const noexcept {
-        return name_;
-    }
+        [[maybe_unused]] [[nodiscard]] inline Error error() const noexcept {
+            return std::get<Error>( *this );
+        }
 
-protected:
-    std::string team_;
-    std::string name_;
-    config config_;
+        [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept {
+            return std::get<Value>( *this );
+        }
 
-private:
-    result<bool, error> launch();
-};
+        std::tuple<std::optional<Value>, std::optional<Error>> check() {
+            if ( has_error() ) {
+                return { std::nullopt, error() };
+            } else {
+                return { value(), std::nullopt };
+            }
+        };
+    };
 
 } // namespace sneze

@@ -22,87 +22,87 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "application.h"
-#include "boxer/boxer.h"
-#include "logger.h"
-#include "raylib.h"
+#include <boxer/boxer.h>
+#include <raylib.h>
+#include <sneze/application.h>
+#include <sneze/logger.h>
 
 int screenWidth = 800;
 int screenHeight = 450;
 
 namespace sneze {
 
-application::application(const std::string &team, const std::string &name)
-    : team_{team}, name_{name}, config_{team, name} {
+    application::application( const std::string& team, const std::string& name ):
+        team_{ team }, name_{ name }, config_{ team, name } {
 #ifdef NDEBUG
-    set_log_level(sneze::log_level::off);
-#    if defined(_WIN32)
-#        pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+        set_log_level( sneze::log_level::off );
+#    if defined( _WIN32 )
+#        pragma comment( linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup" )
 #    endif
 #else
-    set_log_level(sneze::log_level::debug);
+        set_log_level( sneze::log_level::debug );
 #endif
-}
+    }
 
-result<bool, error> application::run() {
-    if(auto [val, err] = launch().check(); err) {
-        std::string message = err->message();
-        auto causes = err->causes();
-        if(!causes.empty()) {
-            message += " Caused by:\n";
-            for(const auto &cause: causes) {
-                message += "\n - " + cause;
+    result<bool, error> application::run() {
+        if ( auto [val, err] = launch().check(); err ) {
+            std::string message = err->message();
+            auto causes = err->causes();
+            if ( !causes.empty() ) {
+                message += " Caused by:\n";
+                for ( const auto& cause : causes ) {
+                    message += "\n - " + cause;
+                }
             }
+            auto message_title = std::format( "{} : Error!", name() );
+            boxer::show( message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit );
+            return *err;
+        } else {
+            return *val;
         }
-        auto message_title = std::format("{} : Error!", name());
-        boxer::show(message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit);
-        return false;
-    } else {
-        return *val;
     }
-}
-result<bool, error> application::launch() {
-    LOG_DEBUG("Starting application: {} (Team: {})", name(), team());
+    result<bool, error> application::launch() {
+        LOG_DEBUG( "Starting application: {} (Team: {})", name(), team() );
 
-    if(auto [val, err] = config_.read().check(); err) {
-        LOG_ERR("error reading config");
-        return error("Can't read config.", *err);
+        if ( auto [val, err] = config_.read().check(); err ) {
+            LOG_ERR( "error reading config" );
+            return error( "Can't read config.", *err );
+        }
+
+        hook_raylib_log();
+
+        LOG_DEBUG( "Triggering On Start" );
+        on_start();
+
+        LOG_DEBUG( "Creating Window" );
+
+        InitWindow( screenWidth, screenHeight, name().c_str() );
+
+        LOG_DEBUG( "Window Created" );
+
+        while ( !WindowShouldClose() ) // Detect window close button or ESC key
+        {
+            BeginDrawing();
+
+            ClearBackground( RAYWHITE );
+
+            DrawText( "Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY );
+
+            EndDrawing();
+        }
+
+        LOG_DEBUG( "Closing Window" );
+
+        CloseWindow();
+
+        LOG_DEBUG( "Window Closed" );
+
+        LOG_DEBUG( "Triggering On End" );
+        on_end();
+
+        LOG_DEBUG( "Stopping application: {}", name() );
+
+        return true;
     }
-
-    hook_raylib_log();
-
-    LOG_DEBUG("Triggering On Start");
-    on_start();
-
-    LOG_DEBUG("Creating Window");
-
-    InitWindow(screenWidth, screenHeight, name().c_str());
-
-    LOG_DEBUG("Window Created");
-
-    while(!WindowShouldClose()) // Detect window close button or ESC key
-    {
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-        EndDrawing();
-    }
-
-    LOG_DEBUG("Closing Window");
-
-    CloseWindow();
-
-    LOG_DEBUG("Window Closed");
-
-    LOG_DEBUG("Triggering On End");
-    on_end();
-
-    LOG_DEBUG("Stopping application: {}", name());
-
-    return true;
-}
 
 } // namespace sneze

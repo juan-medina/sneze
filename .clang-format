@@ -1,17 +1,9 @@
 BasedOnStyle: llvm
 ---
-AccessModifierOffset: -4
-AlignEscapedNewlines: DontAlign
-AllowShortBlocksOnASingleLine: Empty
-AllowShortEnumsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: Empty
-AllowShortIfStatementsOnASingleLine: WithoutElse
-AllowShortLoopsOnASingleLine: true
-AlwaysBreakTemplateDeclarations: Yes
-BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeTernaryOperators: true
-ColumnLimit: 0
-DerivePointerAlignment: false
+Language: Cpp
+Standard: c++20
+SortIncludes: CaseInsensitive
+IncludeBlocks: Regroup
 IncludeCategories:
   - Regex: '<[[:alnum:]_]+>'
     Priority: 1
@@ -21,19 +13,34 @@ IncludeCategories:
     Priority: 4
   - Regex: '.*'
     Priority: 5
-IndentPPDirectives: AfterHash
-IndentWidth: 4
-KeepEmptyLinesAtTheStartOfBlocks: false
-Language: Cpp
-PointerAlignment: Right
-SpaceAfterCStyleCast: false
-SpaceAfterTemplateKeyword: false
-SpaceAroundPointerQualifiers: After
-SpaceBeforeCaseColon: false
-SpaceBeforeCtorInitializerColon: false
-SpaceBeforeInheritanceColon: false
-SpaceBeforeParens: Never
-SpaceBeforeRangeBasedForLoopColon: false
-Standard: 'c++20'
 TabWidth: 4
 UseTab: Never
+
+AllowShortBlocksOnASingleLine: Always
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: Inline
+
+AccessModifierOffset: -4
+AlignEscapedNewlines: Left
+AllowAllConstructorInitializersOnNextLine: true
+BinPackArguments: false
+BinPackParameters: false
+BreakConstructorInitializers: AfterColon
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+DerivePointerAlignment: false
+FixNamespaceComments: true
+IndentCaseLabels: false
+IndentPPDirectives: AfterHash
+IndentWidth: 4
+NamespaceIndentation: All
+PointerAlignment: Left
+SpaceBeforeCtorInitializerColon: false
+SpaceInEmptyParentheses: false
+SpacesInParentheses: true
+AlwaysBreakTemplateDeclarations: Yes
+SpaceAfterTemplateKeyword: true
+SortUsingDeclarations: true
+ReflowComments: true
+ColumnLimit: 0

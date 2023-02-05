@@ -24,11 +24,11 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze.h"
+#include <sneze/sneze.h>
 
 using namespace sneze;
 
-class example_game: public application {
+class example_game : public application {
 public:
     example_game();
     ~example_game() override = default;
