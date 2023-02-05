@@ -24,5 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include "application.h"
 #include "logger.h"
+#include "error.h"
+#include "result.h"
+#include "config.h"
+#include "application.h"

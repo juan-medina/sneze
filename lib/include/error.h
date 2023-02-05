@@ -22,8 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.h"
+#pragma once
 
-int main() {
-    return example_game().run().value_or(false) ? 0 : -1;
-}
+#include <string>
+
+// https://github.com/aaronmjacobs/Boxer
+
+#define RETURN_ERR(s, ...) \
+    LOG_ERR(s, ##__VA_ARGS__); \
+    auto msg = std::format(s, ##__VA_ARGS__); \
+    return error(msg);
+
+#define RETURN_ERR_IF(cond, s, ...) \
+    if(cond) { \
+        RETURN_ERR(s, ##__VA_ARGS__) \
+    }
+
+class error {
+public:
+    error(std::string message) // NOLINT(google-explicit-constructor)
+        : message_{std::move(message)} {}
+
+    error(const error &other) {
+        message_ = other.message_;
+    };
+
+    virtual ~error() noexcept = default;
+
+    [[nodiscard]] inline auto message() const noexcept {
+        return message_;
+    }
+
+private:
+    std::string message_;
+};

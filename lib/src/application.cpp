@@ -23,7 +23,6 @@ SOFTWARE.
 ****************************************************************************/
 
 #include "application.h"
-#include <utility>
 #include "logger.h"
 #include "raylib.h"
 
@@ -32,9 +31,8 @@ int screenHeight = 450;
 
 namespace sneze {
 
-application::application(std::string &&team, std::string &&name) {
-    team_ = std::move(team);
-    name_ = std::move(name);
+application::application(const std::string &team, const std::string &name)
+    : team_{team}, name_{name}, config_{team, name} {
 #ifdef NDEBUG
     set_log_level(sneze::log_level::off);
 #    if defined(_WIN32)
@@ -45,8 +43,10 @@ application::application(std::string &&team, std::string &&name) {
 #endif
 }
 
-int application::run() {
+result<bool, error> application::run() {
     LOG_DEBUG("Starting application: {} (Team: {})", name(), team());
+
+    RETURN_ERR_IF_RESULT(config_.read(), "can't run application")
 
     hook_raylib_log();
 
@@ -81,7 +81,7 @@ int application::run() {
 
     LOG_DEBUG("Stopping application: {}", name());
 
-    return 0;
+    return true;
 }
 
 } // namespace sneze

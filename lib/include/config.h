@@ -22,8 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.h"
+#pragma once
 
-int main() {
-    return example_game().run().value_or(false) ? 0 : -1;
-}
+// https://github.com/ToruNiina/toml11
+
+#include <filesystem>
+#include <string>
+#include "result.h"
+
+namespace sneze {
+class config {
+public:
+    config(std::string team, std::string application); // NOLINT(google-explicit-constructor)
+    virtual ~config() = default;
+
+    result<bool, error> read();
+
+protected:
+    std::string team_;
+    std::string application_;
+
+private:
+    static result<bool, error> exist_or_create_directory(const std::filesystem::path &path) noexcept;
+    static result<bool, error> exist_or_create_file(const std::filesystem::path &path) noexcept;
+
+    constexpr static const char *const CONFIG_FILE_NAME = "config.toml";
+    result<bool, error> calculate_config_file_path();
+
+    [[nodiscard]] inline const std::filesystem::path &config_file_path() const noexcept {
+        return config_file_path_;
+    }
+
+    std::filesystem::path config_file_path_;
+};
+} // namespace sneze

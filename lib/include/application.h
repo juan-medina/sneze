@@ -25,14 +25,17 @@ SOFTWARE.
 #pragma once
 
 #include <string>
+#include "config.h"
+#include "error.h"
 
 namespace sneze {
+
 class application {
 public:
-    application(std::string &&team, std::string &&name); // NOLINT(google-explicit-constructor)
+    application(const std::string &team, const std::string &name); // NOLINT(google-explicit-constructor)
     virtual ~application() = default;
 
-    int run();
+    result<bool, error> run();
 
     virtual void on_start() = 0;
     virtual void on_end() = 0;
@@ -48,6 +51,7 @@ public:
 protected:
     std::string team_;
     std::string name_;
+    config config_;
 };
 
 } // namespace sneze

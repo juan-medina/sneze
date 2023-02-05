@@ -4,3 +4,6 @@
 [submodule "lib/external/spdlog"]
 	path = lib/external/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "lib/external/PlatformFolders"]
+	path = lib/external/PlatformFolders
+	url = https://github.com/sago007/PlatformFolders

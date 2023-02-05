@@ -22,8 +22,44 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.h"
+#pragma once
 
-int main() {
-    return example_game().run().value_or(false) ? 0 : -1;
-}
+#include <variant>
+#include "error.h"
+
+#define RETURN_ERR_IF_RESULT(result, s, ...) \
+    if(result.has_error()) { \
+        RETURN_ERR(s, ##__VA_ARGS__) \
+    }
+
+template<class V, class E = error>
+class result: public std::variant<V, E> {
+public:
+    inline result(const V &value) // NOLINT(google-explicit-constructor)
+        : std::variant<V, E>(value) {}
+    inline result(const E &err) // NOLINT(google-explicit-constructor)
+        : std::variant<V, E>(err) {}
+    inline bool has_error() {
+        return std::holds_alternative<E>(*this);
+    }
+    [[maybe_unused]] inline bool has_value() {
+        return std::holds_alternative<V>(*this);
+    }
+
+    template<class T>
+    [[maybe_unused]] inline T map_or(T mapper(V), T else_value) {
+        if(has_error()) {
+            return else_value;
+        } else {
+            return mapper(V(this));
+        }
+    }
+
+    [[maybe_unused]] inline V value_or(V else_value) {
+        if(has_error()) {
+            return else_value;
+        } else {
+            return V(this);
+        }
+    }
+};

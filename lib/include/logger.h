@@ -22,12 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
-
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedMacroInspection"
-
 #include "spdlog/spdlog.h"
+
+#if __CLION_IDE__
+#    pragma clang diagnostic push
+#    pragma ide diagnostic ignored "OCUnusedMacroInspection"
+#endif
 
 namespace sneze {
 
@@ -51,7 +51,7 @@ enum log_level : int {
     spdlog::info("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
 
 #define LOG_WARN(s, ...) \
-    spdlog::warn("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+    spdlog::warn("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__) // NOLINT(OCUnusedMacroInspection)
 
 #define LOG_ERR(s, ...) \
     spdlog::error("[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
@@ -65,4 +65,6 @@ void set_log_level(log_level level) noexcept;
 
 } // namespace sneze
 
-#pragma clang diagnostic pop
+#if __CLION_IDE__
+#    pragma clang diagnostic pop
+#endif
