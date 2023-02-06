@@ -24,10 +24,10 @@ SOFTWARE.
 
 #pragma once
 
-#include <string>
-
 #include <sneze/config.h>
 #include <sneze/error.h>
+
+#include <string>
 
 namespace sneze {
 

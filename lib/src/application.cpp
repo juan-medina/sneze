@@ -22,10 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <boxer/boxer.h>
-#include <raylib.h>
 #include <sneze/application.h>
 #include <sneze/logger.h>
+
+#include <boxer/boxer.h>
+#include <raylib.h>
 
 int screenWidth = 800;
 int screenHeight = 450;

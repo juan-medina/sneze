@@ -5,14 +5,15 @@ Standard: c++20
 SortIncludes: CaseInsensitive
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '<[[:alnum:]_]+>'
+  - Regex: '<sneze/.*\.h>'
     Priority: 1
+  - Regex: '<[[:alnum:]_]+>'
+    Priority: 2
   - Regex: '<[[:alnum:]_./]+>'
     Priority: 3
-  - Regex: '<sneze/'
-    Priority: 4
   - Regex: '.*'
-    Priority: 5
+    Priority: 4
+
 TabWidth: 4
 UseTab: Never
 

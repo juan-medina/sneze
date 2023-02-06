@@ -26,10 +26,10 @@ SOFTWARE.
 
 // https://github.com/ToruNiina/toml11
 
+#include <sneze/result.h>
+
 #include <filesystem>
 #include <string>
-
-#include <sneze/result.h>
 
 namespace sneze {
 
