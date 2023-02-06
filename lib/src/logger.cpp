@@ -22,10 +22,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
+#include <memory>
+
 #include <raylib.h>
 #include <sneze/logger.h>
+#include <spdlog/sinks/dist_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+
+#if defined( _MSC_VER ) && defined( _DEBUG )
+#    include <spdlog/sinks/msvc_sink.h>
+#endif
 
 namespace sneze {
+
+    void setup_spdlog() noexcept {
+        auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+        auto dist_sink = std::make_shared<spdlog::sinks::dist_sink_st>();
+        dist_sink->add_sink( color_sink );
+
+#if defined( _MSC_VER ) && defined( _DEBUG )
+        auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
+        dist_sink->add_sink( debug_sink );
+#endif
+        auto logger = std::make_shared<spdlog::logger>( "console", dist_sink );
+        spdlog::set_default_logger( logger );
+    }
 
     void raylib_log_callback( int level, const char* text, va_list args ) {
         const int MAX_RAYLIB_MSG_LENGTH = 128;
@@ -65,6 +86,20 @@ namespace sneze {
 
     void hook_raylib_log() noexcept {
         SetTraceLogCallback( raylib_log_callback );
+    }
+
+    void setup_log() noexcept {
+#ifdef NDEBUG
+#    if defined( _WIN32 )
+#        pragma comment( linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup" )
+#    endif
+        set_log_level( sneze::log_level::off );
+#else
+        setup_spdlog();
+        hook_raylib_log();
+
+        set_log_level( sneze::log_level::debug );
+#endif
     }
 
     void set_log_level( log_level level ) noexcept {

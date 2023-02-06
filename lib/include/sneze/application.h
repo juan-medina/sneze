@@ -33,7 +33,8 @@ namespace sneze {
 
     class application {
     public:
-        application( const std::string& team, const std::string& name );
+        inline application( const std::string& team, const std::string& name ):
+            team_{ team }, name_{ name }, config_{ team, name } {}
 
         virtual ~application() = default;
 

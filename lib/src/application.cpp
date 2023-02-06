@@ -32,18 +32,6 @@ int screenHeight = 450;
 
 namespace sneze {
 
-    application::application( const std::string& team, const std::string& name ):
-        team_{ team }, name_{ name }, config_{ team, name } {
-#ifdef NDEBUG
-        set_log_level( sneze::log_level::off );
-#    if defined( _WIN32 )
-#        pragma comment( linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup" )
-#    endif
-#else
-        set_log_level( sneze::log_level::debug );
-#endif
-    }
-
     result<bool, error> application::run() {
         if ( auto [val, err] = launch().check(); err ) {
             std::string message = err->message();
@@ -62,14 +50,14 @@ namespace sneze {
         }
     }
     result<bool, error> application::launch() {
+        setup_log();
+
         LOG_DEBUG( "Starting application: {} (Team: {})", name(), team() );
 
         if ( auto [val, err] = config_.read().check(); err ) {
             LOG_ERR( "error reading config" );
             return error( "Can't read config.", *err );
         }
-
-        hook_raylib_log();
 
         LOG_DEBUG( "Triggering On Start" );
         on_start();

@@ -117,16 +117,16 @@ namespace sneze {
             file.open( path, std::ios::out );
             if ( file.fail() ) {
                 LOG_ERR( "failed to open file: {}", path.generic_string() );
-                return error( "Can't create config file." );
+                return error( "Can't create empty config file." );
             }
             file.close();
             if ( file.fail() ) {
                 LOG_ERR( "failed to close file: {}", path.generic_string() );
-                return error( "Can't create config file." );
+                return error( "Can't create empty config file." );
             }
             if ( !fs::exists( path ) ) {
                 LOG_ERR( "file does no exists after creating: {}", path.generic_string() );
-                return error( "Can't create config file." );
+                return error( "Can't create empty config file." );
             }
         }
         return true;

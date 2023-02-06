@@ -41,25 +41,38 @@ namespace sneze {
         off = spdlog::level::off
     };
 
-#define LOG_TRACE( s, ... ) \
-    spdlog::trace( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#if defined( NDEBUG )
 
-#define LOG_DEBUG( s, ... ) \
-    spdlog::debug( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_TRACE( ... ) (void)0
+#    define LOG_DEBUG( ... ) (void)0
+#    define LOG_INFO( ... ) (void)0
+#    define LOG_WARN( ... ) (void)0
+#    define LOG_ERR( ... ) (void)0
+#    define LOG_CRITICAL( ... ) (void)0
 
-#define LOG_INFO( s, ... ) \
-    spdlog::info( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#else
 
-#define LOG_WARN( s, ... ) \
-    spdlog::warn( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_TRACE( s, ... ) \
+        spdlog::trace( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_ERR( s, ... ) \
-    spdlog::error( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_DEBUG( s, ... ) \
+        spdlog::debug( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#define LOG_CRITICAL( s, ... ) \
-    spdlog::critical( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_INFO( s, ... ) \
+        spdlog::info( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-    void hook_raylib_log() noexcept;
+#    define LOG_WARN( s, ... ) \
+        spdlog::warn( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+
+#    define LOG_ERR( s, ... ) \
+        spdlog::error( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+
+#    define LOG_CRITICAL( s, ... ) \
+        spdlog::critical( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+
+#endif
+
+    void setup_log() noexcept;
 
     void set_log_level( log_level level ) noexcept;
 
