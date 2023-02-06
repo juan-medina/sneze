@@ -24,8 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-// https://github.com/ToruNiina/toml11
-
 #include <sneze/result.h>
 
 #include <filesystem>
@@ -53,6 +51,10 @@ namespace sneze {
         static result<bool, error> exist_or_create_file( const std::filesystem::path& path ) noexcept;
 
         result<std::filesystem::path, error> calculate_config_file_path();
+
+        result<bool, error> read_toml_config();
+
+        std::filesystem::path config_file_path_;
     };
 
 } // namespace sneze

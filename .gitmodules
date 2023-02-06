@@ -10,3 +10,6 @@
 [submodule "lib/external/Boxer"]
 	path = lib/external/Boxer
 	url = https://github.com/aaronmjacobs/Boxer
+[submodule "lib/external/toml11"]
+	path = lib/external/toml11
+	url = https://github.com/ToruNiina/toml11

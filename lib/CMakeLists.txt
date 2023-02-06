@@ -23,16 +23,16 @@
 # CMake build : library
 
 #configure variables
-set (LIB_NAME "${PROJECT_NAME}")
+set(LIB_NAME "${PROJECT_NAME}")
 
 #configure directories
-set (LIBRARY_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib")
-set (LIBRARY_SRC_PATH  "${LIBRARY_MODULE_PATH}/src" )
-set (LIBRARY_INCLUDE_PATH  "${LIBRARY_MODULE_PATH}/include")
+set(LIBRARY_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib")
+set(LIBRARY_SRC_PATH "${LIBRARY_MODULE_PATH}/src")
+set(LIBRARY_INCLUDE_PATH "${LIBRARY_MODULE_PATH}/include")
 
 #set sources
-file (GLOB LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.h")
-file (GLOB LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
+file(GLOB LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.h")
+file(GLOB LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
 ## add raylib
 add_subdirectory(external/raylib)
@@ -47,15 +47,18 @@ find_package(platform_folders QUIET)
 ## add Boxer
 add_subdirectory("external/Boxer")
 
-if(WIN32)
+## add toml11
+add_subdirectory("external/toml11")
+
+if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
-endif()
+endif ()
 
 #set library
-add_library (${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
+add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
-target_link_libraries(${LIB_NAME} PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer)
+target_link_libraries(${LIB_NAME} PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer PUBLIC toml11)
 
 #set includes
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})

@@ -30,6 +30,7 @@ SOFTWARE.
 #include <utility>
 
 #include <platform_folders.h>
+#include <toml.hpp>
 
 namespace sneze {
 
@@ -40,15 +41,22 @@ namespace sneze {
     namespace fs = std::filesystem;
 
     result<bool, error> config::read() {
-        LOG_DEBUG( "Reading config for application: {} (Team: {})", application_, team_ );
+        LOG_INFO( "Reading config for application: {} (Team: {})", application_, team_ );
 
         if ( auto [val, err] = calculate_config_file_path().check(); err ) {
             LOG_ERR( "error calculate config file path" );
             return error( "Can't calculate config file path.", *err );
         } else {
             LOG_DEBUG( "Config file: {}", val->generic_string() );
+            config_file_path_ = *val;
         }
 
+        if ( auto [val, err] = read_toml_config().check(); err ) {
+            LOG_ERR( "error reading toml file: {}", config_file_path_.generic_string() );
+            return error( "Can't read config file.", *err );
+        }
+
+        LOG_INFO( "config file read" );
         return true;
     }
 
@@ -130,6 +138,37 @@ namespace sneze {
                 return error( "Can't create empty config file." );
             }
         }
+        return true;
+    }
+
+    result<bool, error> config::read_toml_config() {
+        LOG_INFO( "reading : {}", config_file_path_.generic_string() );
+
+        try {
+            auto data = toml::parse( config_file_path_ );
+            for ( const auto& [k, v] : data.as_table() ) {
+                if ( v.is_table() ) {
+                    LOG_DEBUG( "table {}", k );
+                    for ( const auto& [t_k, t_v] : v.as_table() ) {
+                        LOG_DEBUG( "key {} value {}", t_k, t_v.as_string().str );
+                    }
+                }
+            }
+        } catch ( toml::exception& toml_exception ) {
+            const auto msg = toml_exception.what();
+            const auto& location = toml_exception.location();
+            LOG_ERR( "toml exception: {}, reading config file {} ({},{})",
+                     msg,
+                     location.file_name(),
+                     location.line(),
+                     location.column() );
+            return error( "Invalid config file." );
+        } catch ( std::runtime_error& runtime_error ) {
+            const auto msg = runtime_error.what();
+            LOG_ERR( "exception reading config file: {} ", msg );
+            return error( "Error reading config file." );
+        }
+
         return true;
     }
 
