@@ -1,4 +1,6 @@
 build
+out
+cmake-build-*
 .vscode
 .idea
-cmake-build-*
+.vs
