@@ -34,10 +34,15 @@ set(LIBRARY_INCLUDE_PATH "${LIBRARY_MODULE_PATH}/include")
 file(GLOB LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.h")
 file(GLOB LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
+## add fmt
+add_subdirectory(external/fmt)
+
 ## add raylib
 add_subdirectory(external/raylib)
 
 ## add spdlog
+set(SPDLOG_USE_STD_FORMAT OFF CACHE BOOL "do not use std format, because libc++" FORCE)
+set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "do use lib fmt" FORCE)
 add_subdirectory(external/spdlog)
 
 ## add PlatformFolders
@@ -58,7 +63,7 @@ endif ()
 add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
-target_link_libraries(${LIB_NAME} PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer PUBLIC toml11)
+target_link_libraries(${LIB_NAME} PUBLIC fmt PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer PUBLIC toml11)
 
 #set includes
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})

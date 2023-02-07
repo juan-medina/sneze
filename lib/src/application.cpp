@@ -26,6 +26,7 @@ SOFTWARE.
 #include <sneze/logger.h>
 
 #include <boxer/boxer.h>
+#include <fmt/format.h>
 #include <raylib.h>
 
 int screenWidth = 800;
@@ -43,7 +44,7 @@ namespace sneze {
                     message += "\n - " + cause;
                 }
             }
-            auto message_title = std::format( "{} : Error!", name() );
+            auto message_title = fmt::format( "{} : Error!", name() );
             boxer::show( message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit );
             return *err;
         } else {

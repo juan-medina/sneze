@@ -52,7 +52,7 @@ namespace sneze {
     void raylib_log_callback( int level, const char* text, va_list args ) {
         const int MAX_RAYLIB_MSG_LENGTH = 128;
         static char buffer[MAX_RAYLIB_MSG_LENGTH] = { 0 };
-        vsprintf_s( buffer, MAX_RAYLIB_MSG_LENGTH, text, args );
+        vsnprintf( buffer, MAX_RAYLIB_MSG_LENGTH, text, args );
 
         spdlog::level::level_enum spdlog_level;
         switch ( level ) {

@@ -150,7 +150,7 @@ namespace sneze {
                 if ( v.is_table() ) {
                     LOG_DEBUG( "table {}", k );
                     for ( const auto& [t_k, t_v] : v.as_table() ) {
-                        LOG_DEBUG( "key {} value {}", t_k, t_v.as_string().str );
+                        // LOG_DEBUG( "key {} value {}", t_k, t_v.as_string().str );
                     }
                 }
             }

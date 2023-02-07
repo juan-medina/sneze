@@ -13,3 +13,6 @@
 [submodule "lib/external/toml11"]
 	path = lib/external/toml11
 	url = https://github.com/ToruNiina/toml11
+[submodule "lib/external/fmt"]
+	path = lib/external/fmt
+	url = https://github.com/fmtlib/fmt
