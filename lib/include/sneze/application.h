@@ -44,21 +44,19 @@ namespace sneze {
 
         virtual void on_end() = 0;
 
-        [[nodiscard]] inline const std::string& team() const noexcept {
-            return team_;
-        }
+        [[nodiscard]] inline const std::string& team() const noexcept { return team_; }
 
-        [[nodiscard]] inline const std::string& name() const noexcept {
-            return name_;
-        }
+        [[nodiscard]] inline const std::string& name() const noexcept { return name_; }
 
         template <class Type>
-        [[maybe_unused]] inline void set_config_value( const std::string& section, const std::string& name, const Type& value ) {
+        [[maybe_unused]] inline void
+        set_config_value( const std::string& section, const std::string& name, const Type& value ) {
             config_.set_value( section, name, value );
         }
 
         template <class Type>
-        [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& section, const std::string& name, const Type& default_value ) {
+        [[maybe_unused]] [[nodiscard]] inline Type
+        get_config_value( const std::string& section, const std::string& name, const Type& default_value ) {
             return config_.get_value( section, name, default_value );
         }
 
@@ -68,7 +66,8 @@ namespace sneze {
         }
 
         template <class Type>
-        [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& name, const Type& default_value ) {
+        [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& name,
+                                                                     const Type& default_value ) {
             return config_.get_value( name_, name, default_value );
         }
 

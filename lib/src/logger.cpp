@@ -85,9 +85,7 @@ namespace sneze {
         spdlog::log( spdlog_level, "[raylib] {}", buffer );
     }
 
-    void hook_raylib_log() noexcept {
-        SetTraceLogCallback( raylib_log_callback );
-    }
+    void hook_raylib_log() noexcept { SetTraceLogCallback( raylib_log_callback ); }
 
     void setup_log() noexcept {
 #ifdef NDEBUG

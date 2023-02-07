@@ -49,9 +49,7 @@ namespace sneze {
 
         template <class Type>
         inline void set_value( const std::string& section, const std::string& name, const Type& value ) {
-            if ( !data_.contains( section ) ) {
-                data_[section] = config::section{};
-            }
+            if ( !data_.contains( section ) ) { data_[section] = config::section{}; }
             data_[section][name] = value;
         }
 
@@ -62,7 +60,11 @@ namespace sneze {
                 if ( data_[section].contains( name ) ) {
                     value = data_[section][name];
                     if ( !std::holds_alternative<Type>( value ) ) {
-                        LOG_ERR( "error trying to get config value with wrong type, section: {}, value: {}, default to {}", section, name, default_value );
+                        LOG_ERR(
+                            "error trying to get config value with wrong type, section: {}, value: {}, default to {}",
+                            section,
+                            name,
+                            default_value );
                         value = default_value;
                     }
                 }
@@ -95,7 +97,8 @@ namespace sneze {
 
         sections data_;
 
-        result<bool, error> add_toml_value( const std::string& section, const std::string& name, const toml::value& value );
+        result<bool, error>
+        add_toml_value( const std::string& section, const std::string& name, const toml::value& value );
     };
 
 } // namespace sneze

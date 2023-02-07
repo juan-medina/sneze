@@ -39,7 +39,8 @@ namespace sneze {
             causes_ = other.causes_;
         };
 
-        error( const std::string& message, const error& other ) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
+        error( const std::string& message,
+               const error& other ) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
             message_ = message;
             causes_ = other.causes_;
             causes_.insert( causes_.begin(), other.message_ );

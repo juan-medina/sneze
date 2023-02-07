@@ -40,21 +40,13 @@ namespace sneze {
         inline result( const Error& err ): // NOLINT(google-explicit-constructor)
             std::variant<Value, Error>( err ) {}
 
-        inline bool has_error() {
-            return std::holds_alternative<Error>( *this );
-        }
+        inline bool has_error() { return std::holds_alternative<Error>( *this ); }
 
-        [[maybe_unused]] inline bool has_value() {
-            return std::holds_alternative<Value>( *this );
-        }
+        [[maybe_unused]] inline bool has_value() { return std::holds_alternative<Value>( *this ); }
 
-        [[maybe_unused]] [[nodiscard]] inline Error error() const noexcept {
-            return std::get<Error>( *this );
-        }
+        [[maybe_unused]] [[nodiscard]] inline Error error() const noexcept { return std::get<Error>( *this ); }
 
-        [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept {
-            return std::get<Value>( *this );
-        }
+        [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept { return std::get<Value>( *this ); }
 
         std::tuple<std::optional<Value>, std::optional<Error>> check() {
             if ( has_error() ) {

@@ -44,4 +44,4 @@ AlwaysBreakTemplateDeclarations: Yes
 SpaceAfterTemplateKeyword: true
 SortUsingDeclarations: true
 ReflowComments: true
-ColumnLimit: 0
+ColumnLimit: 120

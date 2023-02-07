@@ -59,14 +59,11 @@ namespace sneze {
 #    define LOG_DEBUG( s, ... ) \
         spdlog::debug( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#    define LOG_INFO( s, ... ) \
-        spdlog::info( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_INFO( s, ... ) spdlog::info( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#    define LOG_WARN( s, ... ) \
-        spdlog::warn( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_WARN( s, ... ) spdlog::warn( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
-#    define LOG_ERR( s, ... ) \
-        spdlog::error( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
+#    define LOG_ERR( s, ... ) spdlog::error( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
 
 #    define LOG_CRITICAL( s, ... ) \
         spdlog::critical( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )

@@ -24,9 +24,7 @@ SOFTWARE.
 
 #include "example_game.h"
 
-example_game::example_game():
-    application( "sneze", "Example Game" ) {
-}
+example_game::example_game(): application( "sneze", "Example Game" ) {}
 
 void example_game::on_start() {
     LOG_DEBUG( "on: {}", "start" );
@@ -34,6 +32,4 @@ void example_game::on_start() {
     visits++;
     set_config_value( "visits", visits );
 }
-void example_game::on_end() {
-    LOG_DEBUG( "on {}", "end" );
-}
+void example_game::on_end() { LOG_DEBUG( "on {}", "end" ); }
