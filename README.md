@@ -38,6 +38,8 @@ SNEZE is powered by these incredible projects:
 - [spdlog](https://github.com/gabime/spdlog) : Fast C++ logging library.
 - [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories.
 - [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes.
+- [{fmt}](https://github.com/fmtlib/fmt) : A modern formatting library
+- [toml11](https://github.com/ToruNiina/toml11) : TOML for Modern C++
 
 *They are already included as submodules.*
 
