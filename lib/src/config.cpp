@@ -41,7 +41,7 @@ namespace sneze {
     result<bool, error> config::read() {
         LOG_INFO( "Reading config for application: {} (Team: {})", application_, team_ );
 
-        if ( auto [val, err] = calculate_config_file_path().check(); err ) {
+        if ( auto [val, err] = calculate_config_file_path().ok(); err ) {
             LOG_ERR( "error calculate config file path" );
             return error( "Can't calculate config file path.", *err );
         } else {
@@ -49,7 +49,7 @@ namespace sneze {
             config_file_path_ = *val;
         }
 
-        if ( auto [val, err] = read_toml_config().check(); err ) {
+        if ( auto err = read_toml_config().ko(); err ) {
             LOG_ERR( "error reading toml file: {}", config_file_path_.string() );
             return error( "Can't read config file.", *err );
         }
@@ -58,7 +58,7 @@ namespace sneze {
         return true;
     }
 
-    result<std::filesystem::path, error> config::calculate_config_file_path() {
+    result<std::filesystem::path> config::calculate_config_file_path() noexcept {
         auto home = sago::getConfigHome();
 
         // home path
@@ -71,7 +71,7 @@ namespace sneze {
         // team path
         fs::path team_path( team_ );
         fs::path team_full_path = home_folder / team_path;
-        if ( auto [val, err] = exist_or_create_directory( team_full_path ).check(); err ) {
+        if ( auto err = exist_or_create_directory( team_full_path ).ko(); err ) {
             LOG_ERR( "error checking team path: {}", team_full_path.string() );
             return error( "Can't get game config directory.", *err );
         }
@@ -79,7 +79,7 @@ namespace sneze {
         // application path
         fs::path application_path( application_ );
         fs::path application_full_path = team_full_path / application_path;
-        if ( auto [val, err] = exist_or_create_directory( application_full_path ).check(); err ) {
+        if ( auto err = exist_or_create_directory( application_full_path ).ko(); err ) {
             LOG_ERR( "error checking application path: {}", team_full_path.string() );
             return error( "Can't get game config directory.", *err );
         }
@@ -87,7 +87,7 @@ namespace sneze {
         // config file
         fs::path config_file( CONFIG_FILE_NAME );
         fs::path config_file_full_path = application_full_path / config_file;
-        if ( auto [val, err] = exist_or_create_file( config_file_full_path ).check(); err ) {
+        if ( auto err = exist_or_create_file( config_file_full_path ).ko(); err ) {
             LOG_ERR( "error checking config file: {}", config_file_full_path.string() );
             return error( "Can't find or create config file.", *err );
         }
@@ -95,7 +95,7 @@ namespace sneze {
         return config_file_full_path;
     }
 
-    result<bool, error> config::exist_or_create_directory( const std::filesystem::path& path ) noexcept {
+    result<> config::exist_or_create_directory( const std::filesystem::path& path ) noexcept {
         if ( fs::exists( path ) ) {
             LOG_WARN( "directory already exist: {}", path.string() );
         } else {
@@ -115,7 +115,7 @@ namespace sneze {
         return true;
     }
 
-    result<bool, error> config::exist_or_create_file( const std::filesystem::path& path ) noexcept {
+    result<> config::exist_or_create_file( const std::filesystem::path& path ) noexcept {
         if ( fs::exists( path ) ) {
             LOG_WARN( "file already exist: {}", path.string() );
         } else {
@@ -139,7 +139,7 @@ namespace sneze {
         return true;
     }
 
-    result<bool, error> config::read_toml_config() {
+    result<> config::read_toml_config() noexcept {
         LOG_INFO( "reading : {}", config_file_path_.string() );
 
         try {
@@ -147,7 +147,7 @@ namespace sneze {
             for ( const auto& [section, section_value] : data.as_table() ) {
                 if ( section_value.is_table() ) {
                     for ( const auto& [name, value] : section_value.as_table() ) {
-                        if ( auto [val, err] = add_toml_value( section, name, value ).check(); err ) {
+                        if ( auto err = add_toml_value( section, name, value ).ko(); err ) {
                             LOG_ERR( "Error parsing toml data " );
                             return error( "Error reading config file." );
                         }
@@ -172,8 +172,8 @@ namespace sneze {
         return true;
     }
 
-    result<bool, error>
-    config::add_toml_value( const std::string& section, const std::string& name, const toml::value& value ) {
+    result<>
+    config::add_toml_value( const std::string& section, const std::string& name, const toml::value& value ) noexcept {
         switch ( value.type() ) {
         case toml::value_t::boolean:
             set_value( section, name, value.as_boolean() );

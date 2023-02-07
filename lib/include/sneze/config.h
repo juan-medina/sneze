@@ -82,23 +82,22 @@ namespace sneze {
     private:
         constexpr static const char* const CONFIG_FILE_NAME = "config.toml";
 
-        static result<bool, error> exist_or_create_directory( const std::filesystem::path& path ) noexcept;
+        static result<> exist_or_create_directory( const std::filesystem::path& path ) noexcept;
 
-        static result<bool, error> exist_or_create_file( const std::filesystem::path& path ) noexcept;
+        static result<> exist_or_create_file( const std::filesystem::path& path ) noexcept;
 
-        result<std::filesystem::path, error> calculate_config_file_path();
+        result<std::filesystem::path> calculate_config_file_path() noexcept;
 
-        result<bool, error> read_toml_config();
-
-        std::filesystem::path config_file_path_;
+        result<> read_toml_config() noexcept;
 
         typedef std::unordered_map<std::string, config_value> section;
         typedef std::unordered_map<std::string, section> sections;
 
         sections data_;
+        std::filesystem::path config_file_path_;
 
-        result<bool, error>
-        add_toml_value( const std::string& section, const std::string& name, const toml::value& value );
+        result<>
+        add_toml_value( const std::string& section, const std::string& name, const toml::value& value ) noexcept;
     };
 
 } // namespace sneze

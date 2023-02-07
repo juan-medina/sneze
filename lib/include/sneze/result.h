@@ -31,7 +31,7 @@ SOFTWARE.
 
 namespace sneze {
 
-    template <class Value, class Error = class error>
+    template <class Value = bool, class Error = class error>
     class result : public std::variant<Value, Error> {
     public:
         inline result( const Value& value ): // NOLINT(google-explicit-constructor)
@@ -48,11 +48,19 @@ namespace sneze {
 
         [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept { return std::get<Value>( *this ); }
 
-        std::tuple<std::optional<Value>, std::optional<Error>> check() {
+        inline std::tuple<std::optional<Value>, std::optional<Error>> ok() {
             if ( has_error() ) {
                 return { std::nullopt, error() };
             } else {
                 return { value(), std::nullopt };
+            }
+        };
+
+        inline std::optional<Error> ko() {
+            if ( has_error() ) {
+                return error();
+            } else {
+                return std::nullopt;
             }
         };
     };

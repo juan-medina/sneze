@@ -27,8 +27,6 @@ SOFTWARE.
 #include "example_game.h"
 
 int main() {
-    if ( auto [val, err] = example_game().run().check(); err ) {
-        return EXIT_FAILURE;
-    }
+    if ( auto err = example_game().run().ko(); err ) { return EXIT_FAILURE; }
     return EXIT_SUCCESS;
 }

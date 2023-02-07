@@ -77,13 +77,13 @@ namespace sneze {
         config config_;
 
     private:
-        result<bool, error> launch();
+        result<> launch() noexcept;
 
-        result<bool, error> read_config();
+        result<> read_config() noexcept;
 
-        result<bool, error> save_config();
+        result<> save_config() noexcept;
 
-        void show_error( const error& err ) const;
+        [[nodiscard]] const error& show_error( const error& err ) const noexcept;
     };
 
 } // namespace sneze

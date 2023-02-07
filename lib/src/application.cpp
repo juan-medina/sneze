@@ -36,27 +36,16 @@ namespace sneze {
 
         LOG_DEBUG( "Running application: {} (Team: {})", name(), team() );
 
-        if ( auto [val, err] = read_config().check(); err ) {
-            show_error( *err );
-            return *err;
-        }
-
-        if ( auto [val, err] = launch().check(); err ) {
-            show_error( *err );
-            return *err;
-        }
-
-        if ( auto [val, err] = save_config().check(); err ) {
-            show_error( *err );
-            return *err;
-        }
+        if ( auto err = read_config().ko(); err ) return show_error( *err );
+        if ( auto err = launch().ko(); err ) return show_error( *err );
+        if ( auto err = save_config().ko(); err ) return show_error( *err );
 
         LOG_DEBUG( "Stopping application: {}", name() );
 
         return true;
     }
 
-    result<bool, error> application::launch() {
+    result<> application::launch() noexcept {
         LOG_DEBUG( "Triggering On Start" );
         on_start();
 
@@ -92,7 +81,7 @@ namespace sneze {
         return true;
     }
 
-    void application::show_error( const error& err ) const {
+    const error& application::show_error( const error& err ) const noexcept {
         std::string message = err.message();
         auto causes = err.causes();
         if ( !causes.empty() ) {
@@ -103,10 +92,11 @@ namespace sneze {
         }
         auto message_title = fmt::format( "{} : Error!", name() );
         boxer::show( message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit );
+        return err;
     }
 
-    result<bool, error> application::read_config() {
-        if ( auto [val, err] = config_.read().check(); err ) {
+    result<> application::read_config() noexcept {
+        if ( auto [val, err] = config_.read().ok(); err ) {
             LOG_ERR( "error reading config" );
             return error( "Can't read config.", *err );
         } else {
@@ -114,8 +104,8 @@ namespace sneze {
         }
     }
 
-    result<bool, error> application::save_config() {
-        if ( auto [val, err] = config_.save().check(); err ) {
+    result<> application::save_config() noexcept {
+        if ( auto [val, err] = config_.save().ok(); err ) {
             LOG_ERR( "error saving config" );
             return error( "Can't save config.", *err );
         } else {
