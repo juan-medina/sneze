@@ -24,10 +24,16 @@ SOFTWARE.
 
 #pragma once
 
+#include <sneze/logger.h>
 #include <sneze/result.h>
 
 #include <filesystem>
 #include <string>
+#include <unordered_map>
+#include <variant>
+#include <vector>
+
+#include <toml.hpp>
 
 namespace sneze {
 
@@ -38,6 +44,34 @@ namespace sneze {
         virtual ~config() = default;
 
         result<bool, error> read();
+
+        typedef std::variant<std::int64_t, double, bool, std::string> config_value;
+
+        template <class Type>
+        inline void set_value( const std::string& section, const std::string& name, const Type& value ) {
+            if ( !data_.contains( section ) ) {
+                data_[section] = config::section{};
+            }
+            data_[section][name] = value;
+        }
+
+        template <class Type>
+        inline Type get_value( const std::string& section, const std::string& name, const Type& default_value ) {
+            config_value value = default_value;
+            if ( data_.contains( section ) ) {
+                if ( data_[section].contains( name ) ) {
+                    value = data_[section][name];
+                    if ( !std::holds_alternative<Type>( value ) ) {
+                        LOG_ERR( "error trying to get config value with wrong type, section: {}, value: {}, default to {}", section, name, default_value );
+                        value = default_value;
+                    }
+                }
+            }
+            set_value( section, name, value );
+            return std::get<Type>( value );
+        }
+
+        result<bool, error> save();
 
     protected:
         std::string team_;
@@ -55,6 +89,13 @@ namespace sneze {
         result<bool, error> read_toml_config();
 
         std::filesystem::path config_file_path_;
+
+        typedef std::unordered_map<std::string, config_value> section;
+        typedef std::unordered_map<std::string, section> sections;
+
+        sections data_;
+
+        result<bool, error> add_toml_value( const std::string& section, const std::string& name, const toml::value& value );
     };
 
 } // namespace sneze

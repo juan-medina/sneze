@@ -29,44 +29,43 @@ SOFTWARE.
 #include <fmt/format.h>
 #include <raylib.h>
 
-int screenWidth = 800;
-int screenHeight = 450;
-
 namespace sneze {
 
     result<bool, error> application::run() {
-        if ( auto [val, err] = launch().check(); err ) {
-            std::string message = err->message();
-            auto causes = err->causes();
-            if ( !causes.empty() ) {
-                message += " Caused by:\n";
-                for ( const auto& cause : causes ) {
-                    message += "\n - " + cause;
-                }
-            }
-            auto message_title = fmt::format( "{} : Error!", name() );
-            boxer::show( message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit );
-            return *err;
-        } else {
-            return *val;
-        }
-    }
-    result<bool, error> application::launch() {
         setup_log();
 
-        LOG_DEBUG( "Starting application: {} (Team: {})", name(), team() );
+        LOG_DEBUG( "Running application: {} (Team: {})", name(), team() );
 
-        if ( auto [val, err] = config_.read().check(); err ) {
-            LOG_ERR( "error reading config" );
-            return error( "Can't read config.", *err );
+        if ( auto [val, err] = read_config().check(); err ) {
+            show_error( *err );
+            return *err;
         }
 
+        if ( auto [val, err] = launch().check(); err ) {
+            show_error( *err );
+            return *err;
+        }
+
+        if ( auto [val, err] = save_config().check(); err ) {
+            show_error( *err );
+            return *err;
+        }
+
+        LOG_DEBUG( "Stopping application: {}", name() );
+
+        return true;
+    }
+
+    result<bool, error> application::launch() {
         LOG_DEBUG( "Triggering On Start" );
         on_start();
 
         LOG_DEBUG( "Creating Window" );
 
-        InitWindow( screenWidth, screenHeight, name().c_str() );
+        auto width = config_.get_value( "window", "width", 1920LL );
+        auto height = config_.get_value( "window", "height", 1080LL );
+
+        InitWindow( (int)width, (int)height, name().c_str() );
 
         LOG_DEBUG( "Window Created" );
 
@@ -90,9 +89,38 @@ namespace sneze {
         LOG_DEBUG( "Triggering On End" );
         on_end();
 
-        LOG_DEBUG( "Stopping application: {}", name() );
-
         return true;
+    }
+
+    void application::show_error( const error& err ) const {
+        std::string message = err.message();
+        auto causes = err.causes();
+        if ( !causes.empty() ) {
+            message += " Caused by:\n";
+            for ( const auto& cause : causes ) {
+                message += "\n - " + cause;
+            }
+        }
+        auto message_title = fmt::format( "{} : Error!", name() );
+        boxer::show( message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit );
+    }
+
+    result<bool, error> application::read_config() {
+        if ( auto [val, err] = config_.read().check(); err ) {
+            LOG_ERR( "error reading config" );
+            return error( "Can't read config.", *err );
+        } else {
+            return *val;
+        }
+    }
+
+    result<bool, error> application::save_config() {
+        if ( auto [val, err] = config_.save().check(); err ) {
+            LOG_ERR( "error saving config" );
+            return error( "Can't save config.", *err );
+        } else {
+            return *val;
+        }
     }
 
 } // namespace sneze

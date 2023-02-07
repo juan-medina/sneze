@@ -30,6 +30,9 @@ example_game::example_game():
 
 void example_game::on_start() {
     LOG_DEBUG( "on: {}", "start" );
+    auto visits = get_config_value( "visits", 0LL );
+    visits++;
+    set_config_value( "visits", visits );
 }
 void example_game::on_end() {
     LOG_DEBUG( "on {}", "end" );

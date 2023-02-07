@@ -52,6 +52,26 @@ namespace sneze {
             return name_;
         }
 
+        template <class Type>
+        [[maybe_unused]] inline void set_config_value( const std::string& section, const std::string& name, const Type& value ) {
+            config_.set_value( section, name, value );
+        }
+
+        template <class Type>
+        [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& section, const std::string& name, const Type& default_value ) {
+            return config_.get_value( section, name, default_value );
+        }
+
+        template <class Type>
+        [[maybe_unused]] inline void set_config_value( const std::string& name, const Type& value ) {
+            config_.set_value( name_, name, value );
+        }
+
+        template <class Type>
+        [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& name, const Type& default_value ) {
+            return config_.get_value( name_, name, default_value );
+        }
+
     protected:
         std::string team_;
         std::string name_;
@@ -59,6 +79,12 @@ namespace sneze {
 
     private:
         result<bool, error> launch();
+
+        result<bool, error> read_config();
+
+        result<bool, error> save_config();
+
+        void show_error( const error& err ) const;
     };
 
 } // namespace sneze
