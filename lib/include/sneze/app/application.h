@@ -48,43 +48,43 @@ namespace sneze {
 
         [[nodiscard]] inline const std::string& name() const noexcept { return name_; }
 
-        template <class Type>
+        template <is_value Type>
         [[maybe_unused]] inline void
         set_config_value( const std::string& section, const std::string& name, const Type& value ) {
-            config_.set_value( section, name, value );
+            config_.set_value<Type>( section, name, value );
         }
 
-        template <class Type>
+        template <is_value Type>
         [[maybe_unused]] [[nodiscard]] inline Type
         get_config_value( const std::string& section, const std::string& name, const Type& default_value ) {
-            return config_.get_value( section, name, default_value );
+            return config_.get_value<Type>( section, name, default_value );
         }
 
-        template <class Type>
+        template <is_value Type>
         [[maybe_unused]] inline void get_set_config_value( const std::string& section,
                                                            const std::string& name,
                                                            const Type& default_value,
                                                            Type ( *func )( Type ) ) {
             Type value = config_.get_value( section, name, default_value );
             value = func( value );
-            config_.set_value( section, name, value );
+            config_.set_value<Type>( section, name, value );
         }
 
-        template <class Type>
+        template <is_value Type>
         [[maybe_unused]] inline void
         get_set_config_value( const std::string& name, const Type& default_value, Type ( *func )( Type ) ) {
-            get_set_config_value( name_, name, default_value, func );
+            get_set_config_value<Type>( name_, name, default_value, func );
         }
 
-        template <class Type>
+        template <is_value Type>
         [[maybe_unused]] inline void set_config_value( const std::string& name, const Type& value ) {
-            config_.set_value( name_, name, value );
+            config_.set_value<Type>( name_, name, value );
         }
 
-        template <class Type>
+        template <is_value Type>
         [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& name,
                                                                      const Type& default_value ) {
-            return config_.get_value( name_, name, default_value );
+            return config_.get_value<Type>( name_, name, default_value );
         }
 
     protected:

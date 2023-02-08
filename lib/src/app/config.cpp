@@ -38,7 +38,7 @@ namespace sneze {
 
     namespace fs = std::filesystem;
 
-    result<bool, error> config::read() {
+    result<> config::read() {
         LOG_INFO( "Reading config for application: {} (Team: {})", application_, team_ );
 
         if ( auto [val, err] = calculate_config_file_path().ok(); err ) {
@@ -49,7 +49,7 @@ namespace sneze {
             config_file_path_ = *val;
         }
 
-        if ( auto err = read_toml_config().ko(); err ) {
+        if ( auto err = read_toml_config().ko() ) {
             LOG_ERR( "error reading toml file: {}", config_file_path_.string() );
             return error( "Can't read config file.", *err );
         }
@@ -71,7 +71,7 @@ namespace sneze {
         // team path
         fs::path team_path( team_ );
         fs::path team_full_path = home_folder / team_path;
-        if ( auto err = exist_or_create_directory( team_full_path ).ko(); err ) {
+        if ( auto err = exist_or_create_directory( team_full_path ).ko() ) {
             LOG_ERR( "error checking team path: {}", team_full_path.string() );
             return error( "Can't get game config directory.", *err );
         }
@@ -79,7 +79,7 @@ namespace sneze {
         // application path
         fs::path application_path( application_ );
         fs::path application_full_path = team_full_path / application_path;
-        if ( auto err = exist_or_create_directory( application_full_path ).ko(); err ) {
+        if ( auto err = exist_or_create_directory( application_full_path ).ko() ) {
             LOG_ERR( "error checking application path: {}", team_full_path.string() );
             return error( "Can't get game config directory.", *err );
         }
@@ -87,7 +87,7 @@ namespace sneze {
         // config file
         fs::path config_file( CONFIG_FILE_NAME );
         fs::path config_file_full_path = application_full_path / config_file;
-        if ( auto err = exist_or_create_file( config_file_full_path ).ko(); err ) {
+        if ( auto err = exist_or_create_file( config_file_full_path ).ko() ) {
             LOG_ERR( "error checking config file: {}", config_file_full_path.string() );
             return error( "Can't find or create config file.", *err );
         }
@@ -194,7 +194,7 @@ namespace sneze {
         return true;
     }
 
-    result<bool, error> config::save() {
+    result<> config::save() {
         LOG_INFO( "Saving config to: {}", config_file_path_.string() );
 
         auto toml_data = toml::basic_value<toml::preserve_comments>();

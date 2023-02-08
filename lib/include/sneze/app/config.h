@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <filesystem>
 #include <string>
+#include <type_traits>
 #include <unordered_map>
 #include <variant>
 #include <vector>
@@ -36,43 +37,44 @@ SOFTWARE.
 
 namespace sneze {
 
+    template <typename T>
+    concept is_value = std::is_same_v<T, std::int64_t> || std::is_same_v<T, double> || std::is_same_v<T, bool> ||
+                       std::is_same_v<T, std::string>;
+
     class config {
     public:
         config( std::string team, std::string application );
 
         virtual ~config() = default;
 
-        result<bool, error> read();
+        result<> read();
 
         typedef std::variant<std::int64_t, double, bool, std::string> config_value;
 
-        template <class Type>
+        template <is_value Type>
         inline void set_value( const std::string& section, const std::string& name, const Type& value ) {
-            if ( !data_.contains( section ) ) { data_[section] = config::section{}; }
-            data_[section][name] = value;
+            if ( auto it_section = data_.find( section ); it_section != data_.end() ) {
+                it_section->second[name] = value;
+            } else {
+                auto new_section = config::section{};
+                new_section[name] = value;
+                data_[section] = new_section;
+            }
         }
 
-        template <class Type>
+        template <is_value Type>
         inline Type get_value( const std::string& section, const std::string& name, const Type& default_value ) {
-            config_value value = default_value;
-            if ( data_.contains( section ) ) {
-                if ( data_[section].contains( name ) ) {
-                    value = data_[section][name];
-                    if ( !std::holds_alternative<Type>( value ) ) {
-                        LOG_ERR(
-                            "error trying to get config value with wrong type, section: {}, value: {}, default to {}",
-                            section,
-                            name,
-                            default_value );
-                        value = default_value;
-                    }
+            if ( auto it_section = data_.find( section ); it_section != data_.end() ) {
+                if ( auto it_value = it_section->second.find( name ); it_value != it_section->second.end() ) {
+                    if ( auto value = std::get_if<Type>( &it_value->second ) ) { return *value; }
                 }
             }
-            set_value( section, name, value );
-            return std::get<Type>( value );
+            LOG_DEBUG( "config value not found, section: {}, value: {}, default to {}", section, name, default_value );
+            set_value<Type>( section, name, default_value );
+            return default_value;
         }
 
-        result<bool, error> save();
+        result<> save();
 
     protected:
         std::string team_;

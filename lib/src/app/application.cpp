@@ -36,9 +36,9 @@ namespace sneze {
 
         LOG_DEBUG( "Running application: {} (Team: {})", name(), team() );
 
-        if ( auto err = read_config().ko(); err ) return show_error( *err );
-        if ( auto err = launch().ko(); err ) return show_error( *err );
-        if ( auto err = save_config().ko(); err ) return show_error( *err );
+        if ( auto err = read_config().ko() ) return show_error( *err );
+        if ( auto err = launch().ko() ) return show_error( *err );
+        if ( auto err = save_config().ko() ) return show_error( *err );
 
         LOG_DEBUG( "Stopping application: {}", name() );
 
