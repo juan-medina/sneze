@@ -61,6 +61,22 @@ namespace sneze {
         }
 
         template <class Type>
+        [[maybe_unused]] inline void get_set_config_value( const std::string& section,
+                                                           const std::string& name,
+                                                           const Type& default_value,
+                                                           Type ( *func )( Type ) ) {
+            Type value = config_.get_value( section, name, default_value );
+            value = func( value );
+            config_.set_value( section, name, value );
+        }
+
+        template <class Type>
+        [[maybe_unused]] inline void
+        get_set_config_value( const std::string& name, const Type& default_value, Type ( *func )( Type ) ) {
+            get_set_config_value( name_, name, default_value, func );
+        }
+
+        template <class Type>
         [[maybe_unused]] inline void set_config_value( const std::string& name, const Type& value ) {
             config_.set_value( name_, name, value );
         }
