@@ -22,16 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/system/logger.h"
+#include <sneze/system/logger.h>
 
 #include <memory>
 
-#include "raylib.h"
-#include "spdlog/sinks/dist_sink.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <raylib.h>
+#include <spdlog/sinks/dist_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #if defined( _MSC_VER ) && defined( _DEBUG )
-#    include "spdlog/sinks/msvc_sink.h"
+#    include <spdlog/sinks/msvc_sink.h>
 #endif
 
 namespace sneze {
