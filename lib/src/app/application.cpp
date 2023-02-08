@@ -22,18 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/app/application.h"
+#include <sneze/app/application.h>
+#include <sneze/platform/version.h>
+#include <sneze/system/logger.h>
 
-#include "boxer/boxer.h"
-#include "fmt/format.h"
-#include "raylib.h"
-#include "sneze/system/logger.h"
+#include <boxer/boxer.h>
+#include <fmt/format.h>
+#include <raylib.h>
 
 namespace sneze {
 
     result<bool, error> application::run() {
         setup_log();
 
+        LOG_INFO( "{}", VERSION );
         LOG_DEBUG( "Running application: {} (Team: {})", name(), team() );
 
         if ( auto err = read_config().ko() ) return show_error( *err );

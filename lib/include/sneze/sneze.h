@@ -28,4 +28,5 @@ SOFTWARE.
 #include "sneze/app/config.h"
 #include "sneze/platform/error.h"
 #include "sneze/platform/result.h"
+#include "sneze/platform/version.h"
 #include "sneze/system/logger.h"
