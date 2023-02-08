@@ -24,16 +24,15 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/logger.h>
-#include <sneze/result.h>
-
 #include <filesystem>
 #include <string>
 #include <unordered_map>
 #include <variant>
 #include <vector>
 
-#include <toml.hpp>
+#include "sneze/platform/result.h"
+#include "sneze/system/logger.h"
+#include "toml.hpp"
 
 namespace sneze {
 

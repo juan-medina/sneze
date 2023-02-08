@@ -22,10 +22,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
-
-#include "sneze/app/application.h"
-#include "sneze/app/config.h"
 #include "sneze/platform/error.h"
-#include "sneze/platform/result.h"
-#include "sneze/system/logger.h"
