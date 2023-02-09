@@ -23,7 +23,7 @@ SOFTWARE.
 ****************************************************************************/
 #pragma once
 
-#include "spdlog/spdlog.h"
+#include <spdlog/spdlog.h>
 
 #if __CLION_IDE__
 #    pragma clang diagnostic push

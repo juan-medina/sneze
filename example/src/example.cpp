@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include <cstdlib>
 
-#include "example_game.h"
+#include "example_game.hpp"
 
 int main() {
     if ( auto err = example_game().run().ko(); err ) { return EXIT_FAILURE; }

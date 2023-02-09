@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.h"
+#include "example_game.hpp"
 
 example_game::example_game(): application( "sneze", "Example Game" ) {}
 

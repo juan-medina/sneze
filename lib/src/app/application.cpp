@@ -22,13 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <sneze/app/application.h>
-#include <sneze/platform/version.h>
-#include <sneze/system/logger.h>
-
 #include <boxer/boxer.h>
 #include <fmt/format.h>
 #include <raylib.h>
+#include <sneze/app/application.hpp>
+#include <sneze/platform/version.hpp>
+#include <sneze/system/logger.hpp>
 
 namespace sneze {
 

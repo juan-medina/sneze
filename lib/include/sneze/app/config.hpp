@@ -24,9 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/platform/result.h>
-#include <sneze/system/logger.h>
-
 #include <filesystem>
 #include <string>
 #include <type_traits>
@@ -34,6 +31,8 @@ SOFTWARE.
 #include <variant>
 #include <vector>
 
+#include <sneze/platform/result.hpp>
+#include <sneze/system/logger.hpp>
 #include <toml.hpp>
 
 namespace sneze {

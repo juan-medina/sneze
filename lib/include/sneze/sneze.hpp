@@ -24,9 +24,9 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/app/application.h"
-#include "sneze/app/config.h"
-#include "sneze/platform/error.h"
-#include "sneze/platform/result.h"
-#include "sneze/platform/version.h"
-#include "sneze/system/logger.h"
+#include "sneze/app/application.hpp"
+#include "sneze/app/config.hpp"
+#include "sneze/platform/error.hpp"
+#include "sneze/platform/result.hpp"
+#include "sneze/platform/version.hpp"
+#include "sneze/system/logger.hpp"
