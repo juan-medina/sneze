@@ -35,7 +35,7 @@ SOFTWARE.
 
 namespace sneze {
 
-    void setup_spdlog() noexcept {
+    void logger::setup_spdlog() noexcept {
         auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
         auto dist_sink = std::make_shared<spdlog::sinks::dist_sink_st>();
         dist_sink->add_sink( color_sink );
@@ -44,7 +44,7 @@ namespace sneze {
         auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
         dist_sink->add_sink( debug_sink );
 #endif
-        auto logger = std::make_shared<spdlog::logger>( "console", dist_sink );
+        auto logger = std::make_shared<spdlog::logger>( "sneze", dist_sink );
         spdlog::set_default_logger( logger );
     }
 
@@ -84,23 +84,23 @@ namespace sneze {
         spdlog::log( spdlog_level, "[raylib] {}", buffer );
     }
 
-    void hook_raylib_log() noexcept { SetTraceLogCallback( raylib_log_callback ); }
+    void logger::hook_raylib_log() noexcept { SetTraceLogCallback( raylib_log_callback ); }
 
-    void setup_log() noexcept {
+    void logger::setup_log() noexcept {
 #ifdef NDEBUG
 #    if defined( _WIN32 )
 #        pragma comment( linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup" )
 #    endif
         set_log_level( sneze::log_level::off );
 #else
-        setup_spdlog();
-        hook_raylib_log();
+        logger::setup_spdlog();
+        logger::hook_raylib_log();
 
         set_log_level( sneze::log_level::debug );
 #endif
     }
 
-    void set_log_level( log_level level ) noexcept {
+    void logger::set_log_level( log_level level ) noexcept {
         spdlog::level::level_enum spdlog_level;
         int raylib_level;
 
@@ -141,5 +141,4 @@ namespace sneze {
         spdlog::set_level( spdlog_level );
         SetTraceLogLevel( raylib_level );
     }
-
 } // namespace sneze

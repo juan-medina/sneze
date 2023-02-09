@@ -32,32 +32,32 @@ SOFTWARE.
 namespace sneze {
 
     result<bool, error> application::run() {
-        setup_log();
+        logger::setup_log();
 
-        LOG_INFO( "{}", VERSION );
-        LOG_DEBUG( "Running application: {} (Team: {})", name(), team() );
+        logger::info( "{}", VERSION );
+        logger::debug( "Running application: {} (Team: {})", name(), team() );
 
         if ( auto err = read_config().ko() ) return show_error( *err );
         if ( auto err = launch().ko() ) return show_error( *err );
         if ( auto err = save_config().ko() ) return show_error( *err );
 
-        LOG_DEBUG( "Stopping application: {}", name() );
+        logger::debug( "Stopping application: {}", name() );
 
         return true;
     }
 
     result<> application::launch() noexcept {
-        LOG_DEBUG( "Triggering On Start" );
+        logger::debug( "Triggering On Start" );
         on_start();
 
-        LOG_DEBUG( "Creating Window" );
+        logger::debug( "Creating Window" );
 
         auto width = config_.get_value( "window", "width", 1920LL );
         auto height = config_.get_value( "window", "height", 1080LL );
 
         InitWindow( (int)width, (int)height, name().c_str() );
 
-        LOG_DEBUG( "Window Created" );
+        logger::debug( "Window Created" );
 
         while ( !WindowShouldClose() ) // Detect window close button or ESC key
         {
@@ -70,13 +70,13 @@ namespace sneze {
             EndDrawing();
         }
 
-        LOG_DEBUG( "Closing Window" );
+        logger::debug( "Closing Window" );
 
         CloseWindow();
 
-        LOG_DEBUG( "Window Closed" );
+        logger::debug( "Window Closed" );
 
-        LOG_DEBUG( "Triggering On End" );
+        logger::debug( "Triggering On End" );
         on_end();
 
         return true;
@@ -98,7 +98,7 @@ namespace sneze {
 
     result<> application::read_config() noexcept {
         if ( auto [val, err] = config_.read().ok(); err ) {
-            LOG_ERR( "error reading config" );
+            logger::error( "error reading config" );
             return error( "Can't read config.", *err );
         } else {
             return *val;
@@ -107,7 +107,7 @@ namespace sneze {
 
     result<> application::save_config() noexcept {
         if ( auto [val, err] = config_.save().ok(); err ) {
-            LOG_ERR( "error saving config" );
+            logger::error( "error saving config" );
             return error( "Can't save config.", *err );
         } else {
             return *val;

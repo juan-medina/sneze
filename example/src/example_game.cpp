@@ -27,8 +27,10 @@ SOFTWARE.
 example_game::example_game(): application( "sneze", "Example Game" ) {}
 
 void example_game::on_start() {
-    LOG_DEBUG( "on: {}", "start" );
+    logger::debug( "on: {}", "start" );
+
+    logger::info("this is a {}", "test");
 
     get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
 }
-void example_game::on_end() { LOG_DEBUG( "on {}", "end" ); }
+void example_game::on_end() { logger::debug( "on {}", "end" ); }

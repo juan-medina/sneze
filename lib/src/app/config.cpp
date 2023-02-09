@@ -39,22 +39,22 @@ namespace sneze {
     namespace fs = std::filesystem;
 
     result<> config::read() {
-        LOG_INFO( "Reading config for application: {} (Team: {})", application_, team_ );
+        logger::info( "Reading config for application: {} (Team: {})", application_, team_ );
 
         if ( auto [val, err] = calculate_config_file_path().ok(); err ) {
-            LOG_ERR( "error calculate config file path" );
+            logger::error( "error calculate config file path" );
             return error( "Can't calculate config file path.", *err );
         } else {
-            LOG_DEBUG( "Config file: {}", val->string() );
+            logger::debug( "Config file: {}", val->string() );
             config_file_path_ = *val;
         }
 
         if ( auto err = read_toml_config().ko() ) {
-            LOG_ERR( "error reading toml file: {}", config_file_path_.string() );
+            logger::error( "error reading toml file: {}", config_file_path_.string() );
             return error( "Can't read config file.", *err );
         }
 
-        LOG_INFO( "config file read" );
+        logger::info( "config file read" );
         return true;
     }
 
@@ -64,7 +64,7 @@ namespace sneze {
         // home path
         fs::path home_folder( home );
         if ( !fs::exists( home_folder ) ) {
-            LOG_ERR( "error finding home path: {}", home );
+            logger::error( "error finding home path: {}", home );
             return error( "Can't get game config directory." );
         }
 
@@ -72,7 +72,7 @@ namespace sneze {
         fs::path team_path( team_ );
         fs::path team_full_path = home_folder / team_path;
         if ( auto err = exist_or_create_directory( team_full_path ).ko() ) {
-            LOG_ERR( "error checking team path: {}", team_full_path.string() );
+            logger::error( "error checking team path: {}", team_full_path.string() );
             return error( "Can't get game config directory.", *err );
         }
 
@@ -80,7 +80,7 @@ namespace sneze {
         fs::path application_path( application_ );
         fs::path application_full_path = team_full_path / application_path;
         if ( auto err = exist_or_create_directory( application_full_path ).ko() ) {
-            LOG_ERR( "error checking application path: {}", team_full_path.string() );
+            logger::error( "error checking application path: {}", team_full_path.string() );
             return error( "Can't get game config directory.", *err );
         }
 
@@ -88,7 +88,7 @@ namespace sneze {
         fs::path config_file( CONFIG_FILE_NAME );
         fs::path config_file_full_path = application_full_path / config_file;
         if ( auto err = exist_or_create_file( config_file_full_path ).ko() ) {
-            LOG_ERR( "error checking config file: {}", config_file_full_path.string() );
+            logger::error( "error checking config file: {}", config_file_full_path.string() );
             return error( "Can't find or create config file.", *err );
         }
 
@@ -97,18 +97,18 @@ namespace sneze {
 
     result<> config::exist_or_create_directory( const std::filesystem::path& path ) noexcept {
         if ( fs::exists( path ) ) {
-            LOG_WARN( "directory already exist: {}", path.string() );
+            logger::warning( "directory already exist: {}", path.string() );
         } else {
-            LOG_DEBUG( "Creating directory: {}", path.string() );
+            logger::debug( "Creating directory: {}", path.string() );
             std::error_code ec;
             fs::create_directory( path, ec );
             std::error_condition ok;
             if ( ec != ok ) {
-                LOG_ERR( "error creating directory: {}", ec.message() );
+                logger::error( "error creating directory: {}", ec.message() );
                 return error( "Can't get config directory." );
             }
             if ( !fs::exists( path ) ) {
-                LOG_ERR( "directory does no exists after creating: {}", path.string() );
+                logger::error( "directory does no exists after creating: {}", path.string() );
                 return error( "Can't get config directory." );
             }
         }
@@ -117,22 +117,22 @@ namespace sneze {
 
     result<> config::exist_or_create_file( const std::filesystem::path& path ) noexcept {
         if ( fs::exists( path ) ) {
-            LOG_WARN( "file already exist: {}", path.string() );
+            logger::warning( "file already exist: {}", path.string() );
         } else {
-            LOG_DEBUG( "Creating empty file: {}", path.string() );
+            logger::debug( "Creating empty file: {}", path.string() );
             std::fstream file;
             file.open( path, std::ios::out );
             if ( file.fail() ) {
-                LOG_ERR( "failed to open file: {}", path.string() );
+                logger::error( "failed to open file: {}", path.string() );
                 return error( "Can't create empty config file." );
             }
             file.close();
             if ( file.fail() ) {
-                LOG_ERR( "failed to close file: {}", path.string() );
+                logger::error( "failed to close file: {}", path.string() );
                 return error( "Can't create empty config file." );
             }
             if ( !fs::exists( path ) ) {
-                LOG_ERR( "file does no exists after creating: {}", path.string() );
+                logger::error( "file does no exists after creating: {}", path.string() );
                 return error( "Can't create empty config file." );
             }
         }
@@ -140,7 +140,7 @@ namespace sneze {
     }
 
     result<> config::read_toml_config() noexcept {
-        LOG_INFO( "reading : {}", config_file_path_.string() );
+        logger::info( "reading : {}", config_file_path_.string() );
 
         try {
             auto data = toml::parse( config_file_path_ );
@@ -148,7 +148,7 @@ namespace sneze {
                 if ( section_value.is_table() ) {
                     for ( const auto& [name, value] : section_value.as_table() ) {
                         if ( auto err = add_toml_value( section, name, value ).ko(); err ) {
-                            LOG_ERR( "Error parsing toml data " );
+                            logger::error( "Error parsing toml data " );
                             return error( "Error reading config file." );
                         }
                     }
@@ -157,7 +157,7 @@ namespace sneze {
         } catch ( toml::exception& toml_exception ) {
             const auto msg = toml_exception.what();
             const auto& location = toml_exception.location();
-            LOG_ERR( "toml exception: {}, reading config file {} ({},{})",
+            logger::error( "toml exception: {}, reading config file {} ({},{})",
                      msg,
                      location.file_name(),
                      location.line(),
@@ -165,7 +165,7 @@ namespace sneze {
             return error( "Invalid config file." );
         } catch ( std::runtime_error& runtime_error ) {
             const auto msg = runtime_error.what();
-            LOG_ERR( "exception reading config file: {} ", msg );
+            logger::error( "exception reading config file: {} ", msg );
             return error( "Error reading config file." );
         }
 
@@ -188,14 +188,14 @@ namespace sneze {
             set_value( section, name, value.as_string().str );
             break;
         default:
-            LOG_ERR( "toml value no supported for value: {}, in section {}", name, section );
+            logger::error( "toml value no supported for value: {}, in section {}", name, section );
             return error( "Invalid config file." );
         }
         return true;
     }
 
     result<> config::save() {
-        LOG_INFO( "Saving config to: {}", config_file_path_.string() );
+        logger::info( "Saving config to: {}", config_file_path_.string() );
 
         auto toml_data = toml::basic_value<toml::preserve_comments>();
 
@@ -218,22 +218,22 @@ namespace sneze {
         std::ofstream file;
         file.open( config_file_path_ );
         if ( file.fail() ) {
-            LOG_ERR( "failed to open file: {}", config_file_path_.string() );
+            logger::error( "failed to open file: {}", config_file_path_.string() );
             return error( "Can't save config file." );
         }
 
         file << "# generated by " << VERSION << std::endl << std::setw( 0 ) << toml_data << std::endl;
         if ( file.fail() ) {
-            LOG_ERR( "failed to write to file: {}", config_file_path_.string() );
+            logger::error( "failed to write to file: {}", config_file_path_.string() );
             return error( "Can't save config file." );
         }
 
         file.close();
         if ( file.fail() ) {
-            LOG_ERR( "failed to close file: {}", config_file_path_.string() );
+            logger::error( "failed to close file: {}", config_file_path_.string() );
             return error( "Can't save config file." );
         }
-        LOG_INFO( "Config saved" );
+        logger::info( "Config saved" );
         return true;
     }
 

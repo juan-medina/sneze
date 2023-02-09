@@ -69,7 +69,8 @@ namespace sneze {
                     if ( auto value = std::get_if<Type>( &it_value->second ) ) { return *value; }
                 }
             }
-            LOG_DEBUG( "config value not found, section: {}, value: {}, default to {}", section, name, default_value );
+            logger::debug(
+                "config value not found, section: {}, value: {}, default to {}", section, name, default_value );
             set_value<Type>( section, name, default_value );
             return default_value;
         }

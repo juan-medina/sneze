@@ -23,6 +23,8 @@ SOFTWARE.
 ****************************************************************************/
 #pragma once
 
+#include <source_location>
+
 #include <spdlog/spdlog.h>
 
 #if __CLION_IDE__
@@ -42,37 +44,84 @@ namespace sneze {
         off = spdlog::level::off
     };
 
+    class logger {
+    public:
+        template <typename... Args>
+        struct info {
+            explicit info( fmt::format_string<Args...> fmt,
+                           Args&&... args,
+                           const std::source_location& location = std::source_location::current() ) {
+                log( log_level::info, location, fmt, std::forward<Args>( args )... );
+            }
+        };
+
+        template <typename... Args>
+        info( fmt::format_string<Args...> fmt, Args&&... ) -> info<Args...>;
+
+        template <typename... Args>
+        struct debug {
+            explicit debug( fmt::format_string<Args...> fmt,
+                            Args&&... args,
+                            const std::source_location& location = std::source_location::current() ) {
+                log( log_level::debug, location, fmt, std::forward<Args>( args )... );
+            }
+        };
+
+        template <typename... Args>
+        debug( fmt::format_string<Args...> fmt, Args&&... ) -> debug<Args...>;
+
+        template <typename... Args>
+        struct error {
+            explicit error( fmt::format_string<Args...> fmt,
+                            Args&&... args,
+                            const std::source_location& location = std::source_location::current() ) {
+                log( log_level::err, location, fmt, std::forward<Args>( args )... );
+            }
+        };
+
+        template <typename... Args>
+        error( fmt::format_string<Args...> fmt, Args&&... ) -> error<Args...>;
+
+        template <typename... Args>
+        struct warning {
+            explicit warning( fmt::format_string<Args...> fmt,
+                              Args&&... args,
+                              const std::source_location& location = std::source_location::current() ) {
+                log( log_level::warn, location, fmt, std::forward<Args>( args )... );
+            }
+        };
+
+        template <typename... Args>
+        warning( fmt::format_string<Args...> fmt, Args&&... ) -> warning<Args...>;
+
+        static void setup_log() noexcept;
+        static void set_log_level( log_level level ) noexcept;
+
+    private:
+        explicit logger(log_level level) {
+            setup_log();
+        }
+        virtual ~logger() = default;
+
+    private:
+        static logger logger_;
 #if defined( NDEBUG )
-
-#    define LOG_TRACE( ... ) (void)0
-#    define LOG_DEBUG( ... ) (void)0
-#    define LOG_INFO( ... ) (void)0
-#    define LOG_WARN( ... ) (void)0
-#    define LOG_ERR( ... ) (void)0
-#    define LOG_CRITICAL( ... ) (void)0
-
+        template <typename... Args>
+        static void log( Args&&... ) {}
 #else
+        template <typename... Args>
+        static void
+        log( const log_level level, std::source_location source, fmt::format_string<Args...> fmt, Args&&... args ) {
 
-#    define LOG_TRACE( s, ... ) \
-        spdlog::trace( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
-
-#    define LOG_DEBUG( s, ... ) \
-        spdlog::debug( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
-
-#    define LOG_INFO( s, ... ) spdlog::info( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
-
-#    define LOG_WARN( s, ... ) spdlog::warn( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
-
-#    define LOG_ERR( s, ... ) spdlog::error( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
-
-#    define LOG_CRITICAL( s, ... ) \
-        spdlog::critical( "[{}] " #s " -> {} ({})", __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__ )
-
+            using namespace spdlog;
+            auto location = source_loc{ source.file_name(), static_cast<int>( source.line() ), source.function_name() };
+            spdlog::log( location, static_cast<level::level_enum>( level ), fmt, std::forward<Args>( args )... );
+        }
 #endif
 
-    void setup_log() noexcept;
-
-    void set_log_level( log_level level ) noexcept;
+        static void hook_raylib_log() noexcept;
+        static void setup_spdlog() noexcept;
+    };
 
 } // namespace sneze
 
