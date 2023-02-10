@@ -48,7 +48,7 @@ namespace sneze {
         spdlog::set_default_logger( logger );
     }
 
-    void raylib_log_callback( int level, const char* text, va_list args ) {
+    void logger::raylib_log_callback( int level, const char* text, va_list args ) {
         const int MAX_RAYLIB_MSG_LENGTH = 128;
         static char buffer[MAX_RAYLIB_MSG_LENGTH] = { 0 };
         vsnprintf( buffer, MAX_RAYLIB_MSG_LENGTH, text, args );
@@ -84,7 +84,7 @@ namespace sneze {
         spdlog::log( spdlog_level, "[raylib] {}", buffer );
     }
 
-    void logger::hook_raylib_log() noexcept { SetTraceLogCallback( raylib_log_callback ); }
+    void logger::hook_raylib_log() noexcept { SetTraceLogCallback( logger::raylib_log_callback ); }
 
     void logger::setup_log() noexcept {
 #ifdef NDEBUG

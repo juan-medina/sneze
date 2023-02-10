@@ -27,11 +27,6 @@ SOFTWARE.
 
 #include <spdlog/spdlog.h>
 
-#if __CLION_IDE__
-#    pragma clang diagnostic push
-#    pragma ide diagnostic ignored "OCUnusedMacroInspection"
-#endif
-
 namespace sneze {
 
     enum log_level : int {
@@ -98,9 +93,7 @@ namespace sneze {
         static void set_log_level( log_level level ) noexcept;
 
     private:
-        explicit logger(log_level level) {
-            setup_log();
-        }
+        logger() = default;
         virtual ~logger() = default;
 
     private:
@@ -119,12 +112,9 @@ namespace sneze {
         }
 #endif
 
+        static void raylib_log_callback( int level, const char* text, va_list args );
         static void hook_raylib_log() noexcept;
         static void setup_spdlog() noexcept;
     };
 
 } // namespace sneze
-
-#if __CLION_IDE__
-#    pragma clang diagnostic pop
-#endif
