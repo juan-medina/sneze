@@ -31,18 +31,13 @@ namespace sneze {
 
     class error {
     public:
-        error( const std::string& message ): // NOLINT(google-explicit-constructor,modernize-pass-by-value)
-            message_{ message } {}
+        // cppcheck-suppress noExplicitConstructor
+        // NOLINTNEXTLINE (google-explicit-constructor)
+        error( const std::string& message ): message_{ message } {}
 
-        error( const error& other ) {
-            message_ = other.message_;
-            causes_ = other.causes_;
-        };
+        error( const error& other ) = default;
 
-        error( const std::string& message,
-               const error& other ) { // NOLINT(google-explicit-constructor,modernize-pass-by-value)
-            message_ = message;
-            causes_ = other.causes_;
+        error( std::string message, const error& other ): message_{ std::move( message ) }, causes_{ other.causes_ } {
             causes_.insert( causes_.begin(), other.message_ );
         };
 

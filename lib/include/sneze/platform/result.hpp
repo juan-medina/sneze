@@ -34,11 +34,13 @@ namespace sneze {
     template <class Value = bool, class Error = class error>
     class result : public std::variant<Value, Error> {
     public:
-        inline result( const Value& value ): // NOLINT(google-explicit-constructor)
-            std::variant<Value, Error>( value ) {}
+        // cppcheck-suppress noExplicitConstructor
+        // NOLINTNEXTLINE (google-explicit-constructor)
+        inline result( const Value& value ): std::variant<Value, Error>( value ) {}
 
-        inline result( const Error& err ): // NOLINT(google-explicit-constructor)
-            std::variant<Value, Error>( err ) {}
+        // cppcheck-suppress noExplicitConstructor
+        // NOLINTNEXTLINE (google-explicit-constructor)
+        inline result( const Error& err ): std::variant<Value, Error>( err ) {}
 
         inline bool has_error() { return std::holds_alternative<Error>( *this ); }
 
