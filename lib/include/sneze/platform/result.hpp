@@ -24,10 +24,10 @@ SOFTWARE.
 
 #pragma once
 
+#include <sneze/platform/error.hpp>
+
 #include <optional>
 #include <variant>
-
-#include <sneze/platform/error.hpp>
 
 namespace sneze {
 
