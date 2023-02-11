@@ -22,18 +22,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.hpp"
+#pragma once
 
-setup example_game::init() { return setup().clear_color( color::Black ); }
-
-example_game::example_game(): application( "sneze", "Example Game" ) {}
-
-void example_game::on_start() {
-    logger::debug( "on: {}", "start" );
-
-    logger::info( "this is a {}", "test" );
-
-    get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+namespace raylib {
+    typedef struct Color Color;
 }
 
-void example_game::on_end() { logger::debug( "on {}", "end" ); }
+namespace sneze {
+    class color  {
+    public:
+        color( const color& ) = default;
+        color( color&& ) = default;
+
+        color& operator=( const color& ) = default;
+        color& operator=( color&& ) = default;
+
+        static color
+        rgba( const unsigned char& r, const unsigned char& g, const unsigned char& b, const unsigned char& a ) {
+            return { r, g, b, a };
+        }
+
+        static color rgb( const unsigned char& r, const unsigned char& g, const unsigned char& b ) {
+            return rgba( r, g, b, 255 );
+        }
+
+        static color White;
+        static color Black;
+        static color Gray;
+
+        [[nodiscard]] raylib::Color to_raylib() const;
+
+    private:
+        color( const unsigned char& r, const unsigned char& g, const unsigned char& b, const unsigned char& a ):
+            r_( r ), g_( g ), b_( b ), a_( a ) {}
+
+    protected:
+        unsigned char r_;
+        unsigned char g_;
+        unsigned char b_;
+        unsigned char a_;
+    };
+
+} // namespace sneze

@@ -22,12 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <boxer/boxer.h>
-#include <fmt/format.h>
-#include <raylib.h>
 #include <sneze/app/application.hpp>
 #include <sneze/platform/version.hpp>
 #include <sneze/system/logger.hpp>
+
+#include <boxer/boxer.h>
+#include <fmt/format.h>
 
 namespace sneze {
 
@@ -50,31 +50,35 @@ namespace sneze {
         logger::debug( "Triggering On Start" );
         on_start();
 
-        logger::debug( "Creating Window" );
-
         auto width = config_.get_value( "window", "width", 1920LL );
         auto height = config_.get_value( "window", "height", 1080LL );
 
-        InitWindow( (int)width, (int)height, name().c_str() );
+        auto setup = init();
 
-        logger::debug( "Window Created" );
+        logger::debug( "Init render" );
 
-        while ( !WindowShouldClose() ) // Detect window close button or ESC key
-        {
-            BeginDrawing();
-
-            ClearBackground( RAYWHITE );
-
-            DrawText( "Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY );
-
-            EndDrawing();
+        if ( auto err = render_.init( width, height, name(), setup.clear_color_ ).ko() ) {
+            logger::error( "error initializing render" );
+            return error( "Can't launch the application", *err );
         }
 
-        logger::debug( "Closing Window" );
+        logger::debug( "Render created" );
 
-        CloseWindow();
+        while ( true ) {
+            if ( auto [val, err] = render_.want_to_close().ok(); err || *val ) { break; }
 
-        logger::debug( "Window Closed" );
+            render_.begin_frame();
+
+            //raylib::DrawText( "Congrats! You created your first window!", 190, 200, 20, raylib::LIGHTGRAY );
+
+            render_.end_frame();
+        }
+
+        logger::debug( "Ending render" );
+
+        render_.end();
+
+        logger::debug( "Render ended" );
 
         logger::debug( "Triggering On End" );
         on_end();

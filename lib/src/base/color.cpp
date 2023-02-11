@@ -22,18 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.hpp"
-
-setup example_game::init() { return setup().clear_color( color::Black ); }
-
-example_game::example_game(): application( "sneze", "Example Game" ) {}
-
-void example_game::on_start() {
-    logger::debug( "on: {}", "start" );
-
-    logger::info( "this is a {}", "test" );
-
-    get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+#include <sneze/base/color.hpp>
+namespace raylib {
+#include <raylib.h>
 }
-
-void example_game::on_end() { logger::debug( "on {}", "end" ); }
+namespace sneze {
+    color color::White = color::rgb( 255, 255, 255 );
+    color color::Black = color::rgb( 0, 0, 0 );
+    color color::Gray = color::rgb( 128, 128, 128 );
+    raylib::Color color::to_raylib() const { return { r_, g_, b_, a_ }; }
+} // namespace sneze

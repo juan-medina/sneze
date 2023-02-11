@@ -22,18 +22,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.hpp"
+#pragma once
 
-setup example_game::init() { return setup().clear_color( color::Black ); }
+#include <sneze/base/color.hpp>
+#include <sneze/platform/result.hpp>
 
-example_game::example_game(): application( "sneze", "Example Game" ) {}
+namespace sneze {
+    class render {
 
-void example_game::on_start() {
-    logger::debug( "on: {}", "start" );
+    public:
+        render() = default;
+        ~render() = default;
 
-    logger::info( "this is a {}", "test" );
+        render( const render& ) = delete;
+        render( render&& ) = delete;
 
-    get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
-}
+        render& operator=( const render& ) = delete;
+        render& operator=( render&& ) = delete;
 
-void example_game::on_end() { logger::debug( "on {}", "end" ); }
+        [[maybe_unused]] void clear_color( const color& color ) { clear_color_ = color; }
+
+        [[nodiscard]] result<>
+        init( const std::int64_t& width, const std::int64_t& height, const std::string& title, const color& color );
+
+        [[nodiscard]] result<> want_to_close() const;
+
+        void end();
+
+        void begin_frame();
+
+        void end_frame();
+
+    private:
+        color clear_color_ = color::Black;
+    };
+} // namespace sneze

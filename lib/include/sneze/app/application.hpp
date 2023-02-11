@@ -24,10 +24,12 @@ SOFTWARE.
 
 #pragma once
 
-#include <string>
-
 #include <sneze/app/config.hpp>
+#include <sneze/app/setup.hpp>
 #include <sneze/platform/error.hpp>
+#include <sneze/render/render.hpp>
+
+#include <string>
 
 namespace sneze {
 
@@ -43,6 +45,8 @@ namespace sneze {
         virtual void on_start() = 0;
 
         virtual void on_end() = 0;
+
+        [[nodiscard]] virtual setup init() = 0;
 
         [[nodiscard]] inline const std::string& team() const noexcept { return team_; }
 
@@ -93,6 +97,8 @@ namespace sneze {
         config config_;
 
     private:
+        render render_;
+
         result<> launch() noexcept;
 
         result<> read_config() noexcept;

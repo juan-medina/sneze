@@ -22,18 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.hpp"
+#include <sneze/render/render.hpp>
+#include <sneze/system/logger.hpp>
 
-setup example_game::init() { return setup().clear_color( color::Black ); }
-
-example_game::example_game(): application( "sneze", "Example Game" ) {}
-
-void example_game::on_start() {
-    logger::debug( "on: {}", "start" );
-
-    logger::info( "this is a {}", "test" );
-
-    get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+namespace raylib {
+#include <raylib.h>
 }
 
-void example_game::on_end() { logger::debug( "on {}", "end" ); }
+namespace sneze {
+    result<> render::init( const std::int64_t& width,
+                           const std::int64_t& height,
+                           const std::string& title,
+                           const color& color ) {
+        logger::debug( "Creating window" );
+        raylib::InitWindow( (int)width, (int)height, title.c_str() );
+        clear_color( color );
+        return true;
+    }
+
+    void render::end() {
+        logger::debug( "Closing window" );
+        raylib::CloseWindow();
+    }
+
+    void render::begin_frame() {
+        raylib::BeginDrawing();
+
+        ClearBackground( clear_color_.to_raylib() );
+    }
+
+    void render::end_frame() { raylib::EndDrawing(); }
+
+    result<> render::want_to_close() const { return raylib::WindowShouldClose(); }
+
+} // namespace sneze

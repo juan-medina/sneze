@@ -22,18 +22,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.hpp"
+#pragma once
 
-setup example_game::init() { return setup().clear_color( color::Black ); }
+#include <sneze/base/color.hpp>
 
-example_game::example_game(): application( "sneze", "Example Game" ) {}
+namespace sneze {
 
-void example_game::on_start() {
-    logger::debug( "on: {}", "start" );
+    class setup {
+    public:
+        explicit setup() = default;
+        ~setup() = default;
 
-    logger::info( "this is a {}", "test" );
+        setup( const setup& ) = default;
+        setup( setup&& ) = default;
 
-    get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
-}
+        setup& operator=( const setup& ) = default;
+        setup& operator=( setup&& ) = default;
 
-void example_game::on_end() { logger::debug( "on {}", "end" ); }
+        [[maybe_unused]] [[nodiscard]] setup clear_color( const color& clear_color ) {
+            clear_color_ = clear_color;
+            return *this;
+        }
+
+        color clear_color_ = color::Black;
+    };
+
+} // namespace sneze

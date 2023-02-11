@@ -32,6 +32,7 @@ class example_game : public application {
 public:
     example_game();
     ~example_game() override = default;
+    [[nodiscard]] setup init() override;
 
 private:
     void on_start() override;
