@@ -59,7 +59,7 @@ namespace sneze {
 
         if ( auto err = render_.init( width, height, name(), setup.clear_color_ ).ko() ) {
             logger::error( "error initializing render" );
-            return error( "Can't launch the application", *err );
+            return error( "Can't init the render system.", *err );
         }
 
         logger::debug( "Render created" );

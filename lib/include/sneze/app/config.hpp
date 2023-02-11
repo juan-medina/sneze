@@ -22,4 +22,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <sneze/app/setup.hpp>
+#pragma once
+
+#include <sneze/base/color.hpp>
+
+namespace sneze {
+
+    class config {
+    public:
+        explicit config() = default;
+        ~config() = default;
+
+        config( const config& ) = default;
+        config( config&& ) = default;
+
+        config& operator=( const config& ) = default;
+        config& operator=( config&& ) = default;
+
+        [[maybe_unused]] [[nodiscard]] config clear_color( const color& clear_color ) {
+            clear_color_ = clear_color;
+            return *this;
+        }
+
+        color clear_color_ = color::Black;
+    };
+
+} // namespace sneze

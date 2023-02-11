@@ -25,8 +25,8 @@ SOFTWARE.
 #pragma once
 
 #include <sneze/app/application.hpp>
+#include <sneze/app/config.hpp>
 #include <sneze/app/settings.hpp>
-#include <sneze/app/setup.hpp>
 #include <sneze/base/color.hpp>
 #include <sneze/platform/error.hpp>
 #include <sneze/platform/result.hpp>

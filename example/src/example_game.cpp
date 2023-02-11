@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "example_game.hpp"
 
-setup example_game::init() { return setup().clear_color( color::Black ); }
+config example_game::init() { return config().clear_color( color::Black ); }
 
 example_game::example_game(): application( "sneze", "Example Game" ) {}
 
