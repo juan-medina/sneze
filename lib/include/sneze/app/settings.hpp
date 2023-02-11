@@ -42,37 +42,37 @@ namespace sneze {
     concept is_value = std::is_same_v<T, std::int64_t> || std::is_same_v<T, double> || std::is_same_v<T, bool> ||
                        std::is_same_v<T, std::string>;
 
-    class config {
+    class settings {
     public:
-        config( std::string team, std::string application );
+        settings( std::string team, std::string application );
 
-        virtual ~config() = default;
+        virtual ~settings() = default;
 
         result<> read();
 
-        typedef std::variant<std::int64_t, double, bool, std::string> config_value;
+        typedef std::variant<std::int64_t, double, bool, std::string> settings_value;
 
         template <is_value Type>
-        inline void set_value( const std::string& section, const std::string& name, const Type& value ) {
+        inline void set( const std::string& section, const std::string& name, const Type& value ) {
             if ( auto it_section = data_.find( section ); it_section != data_.end() ) {
                 it_section->second[name] = value;
             } else {
-                auto new_section = config::section{};
+                auto new_section = settings::section{};
                 new_section[name] = value;
                 data_[section] = new_section;
             }
         }
 
         template <is_value Type>
-        inline Type get_value( const std::string& section, const std::string& name, const Type& default_value ) {
+        inline Type get( const std::string& section, const std::string& name, const Type& default_value ) {
             if ( auto it_section = data_.find( section ); it_section != data_.end() ) {
                 if ( auto it_value = it_section->second.find( name ); it_value != it_section->second.end() ) {
                     if ( auto value = std::get_if<Type>( &it_value->second ) ) { return *value; }
                 }
             }
             logger::debug(
-                "config value not found, section: {}, value: {}, default to {}", section, name, default_value );
-            set_value<Type>( section, name, default_value );
+                "setting value not found, section: {}, value: {}, default to {}", section, name, default_value );
+            set<Type>( section, name, default_value );
             return default_value;
         }
 
@@ -83,21 +83,21 @@ namespace sneze {
         std::string application_;
 
     private:
-        constexpr static const char* const CONFIG_FILE_NAME = "config.toml";
+        constexpr static const char* const Settings_file_name = "settings.toml";
 
         static result<> exist_or_create_directory( const std::filesystem::path& path ) noexcept;
 
         static result<> exist_or_create_file( const std::filesystem::path& path ) noexcept;
 
-        result<std::filesystem::path> calculate_config_file_path() noexcept;
+        result<std::filesystem::path> calculate_settings_file_path() noexcept;
 
-        result<> read_toml_config() noexcept;
+        result<> read_toml() noexcept;
 
-        typedef std::unordered_map<std::string, config_value> section;
+        typedef std::unordered_map<std::string, settings_value> section;
         typedef std::unordered_map<std::string, section> sections;
 
         sections data_;
-        std::filesystem::path config_file_path_;
+        std::filesystem::path settings_file_path_;
 
         result<>
         add_toml_value( const std::string& section, const std::string& name, const toml::value& value ) noexcept;

@@ -33,7 +33,7 @@ void example_game::on_start() {
 
     logger::info( "this is a {}", "test" );
 
-    get_set_config_value<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+    get_set_app_setting<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
 }
 
 void example_game::on_end() { logger::debug( "on {}", "end" ); }

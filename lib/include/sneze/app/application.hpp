@@ -24,7 +24,7 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/app/config.hpp>
+#include <sneze/app/settings.hpp>
 #include <sneze/app/setup.hpp>
 #include <sneze/platform/error.hpp>
 #include <sneze/render/render.hpp>
@@ -36,7 +36,7 @@ namespace sneze {
     class application {
     public:
         inline application( const std::string& team, const std::string& name ):
-            team_{ team }, name_{ name }, config_{ team, name } {}
+            team_{ team }, name_{ name }, settings_{ team, name } {}
 
         virtual ~application() = default;
 
@@ -54,56 +54,56 @@ namespace sneze {
 
         template <is_value Type>
         [[maybe_unused]] inline void
-        set_config_value( const std::string& section, const std::string& name, const Type& value ) {
-            config_.set_value<Type>( section, name, value );
+        set_setting( const std::string& section, const std::string& name, const Type& value ) {
+            settings_.set<Type>( section, name, value );
         }
 
         template <is_value Type>
         [[maybe_unused]] [[nodiscard]] inline Type
-        get_config_value( const std::string& section, const std::string& name, const Type& default_value ) {
-            return config_.get_value<Type>( section, name, default_value );
+        get_setting( const std::string& section, const std::string& name, const Type& default_value ) {
+            return settings_.get<Type>( section, name, default_value );
         }
 
         template <is_value Type>
-        [[maybe_unused]] inline void get_set_config_value( const std::string& section,
-                                                           const std::string& name,
-                                                           const Type& default_value,
-                                                           Type ( *func )( Type ) ) {
-            Type value = config_.get_value( section, name, default_value );
+        [[maybe_unused]] inline void get_set_setting( const std::string& section,
+                                                      const std::string& name,
+                                                      const Type& default_value,
+                                                      Type ( *func )( Type ) ) {
+            Type value = settings_.get( section, name, default_value );
             value = func( value );
-            config_.set_value<Type>( section, name, value );
+            settings_.set<Type>( section, name, value );
+        }
+
+        template <is_value Type>
+        [[maybe_unused]] inline void set_app_setting( const std::string& name, const Type& value ) {
+            settings_.set<Type>( name_, name, value );
+        }
+
+        template <is_value Type>
+        [[maybe_unused]] [[nodiscard]] inline Type get_app_setting( const std::string& name,
+                                                                    const Type& default_value ) {
+            return settings_.get<Type>( name_, name, default_value );
         }
 
         template <is_value Type>
         [[maybe_unused]] inline void
-        get_set_config_value( const std::string& name, const Type& default_value, Type ( *func )( Type ) ) {
-            get_set_config_value<Type>( name_, name, default_value, func );
-        }
-
-        template <is_value Type>
-        [[maybe_unused]] inline void set_config_value( const std::string& name, const Type& value ) {
-            config_.set_value<Type>( name_, name, value );
-        }
-
-        template <is_value Type>
-        [[maybe_unused]] [[nodiscard]] inline Type get_config_value( const std::string& name,
-                                                                     const Type& default_value ) {
-            return config_.get_value<Type>( name_, name, default_value );
+        get_set_app_setting( const std::string& name, const Type& default_value, Type ( *func )( Type ) ) {
+            get_set_setting<Type>( name_, name, default_value, func );
         }
 
     protected:
         std::string team_;
         std::string name_;
-        config config_;
+        settings settings_;
 
     private:
         render render_;
 
         result<> launch() noexcept;
 
-        result<> read_config() noexcept;
+        result<> read_settings() noexcept;
 
-        result<> save_config() noexcept;
+        result<> save_settings() noexcept;
 
         [[nodiscard]] const error& show_error( const error& err ) const noexcept;
     };

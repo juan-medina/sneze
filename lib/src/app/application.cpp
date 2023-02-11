@@ -37,9 +37,9 @@ namespace sneze {
         logger::info( "{}", VERSION );
         logger::debug( "Running application: {} (Team: {})", name(), team() );
 
-        if ( auto err = read_config().ko() ) return show_error( *err );
+        if ( auto err = read_settings().ko() ) return show_error( *err );
         if ( auto err = launch().ko() ) return show_error( *err );
-        if ( auto err = save_config().ko() ) return show_error( *err );
+        if ( auto err = save_settings().ko() ) return show_error( *err );
 
         logger::debug( "Stopping application: {}", name() );
 
@@ -50,8 +50,8 @@ namespace sneze {
         logger::debug( "Triggering On Start" );
         on_start();
 
-        auto width = config_.get_value( "window", "width", 1920LL );
-        auto height = config_.get_value( "window", "height", 1080LL );
+        auto width = settings_.get( "window", "width", 1920LL );
+        auto height = settings_.get( "window", "height", 1080LL );
 
         auto setup = init();
 
@@ -69,7 +69,7 @@ namespace sneze {
 
             render_.begin_frame();
 
-            //raylib::DrawText( "Congrats! You created your first window!", 190, 200, 20, raylib::LIGHTGRAY );
+            // raylib::DrawText( "Congrats! You created your first window!", 190, 200, 20, raylib::LIGHTGRAY );
 
             render_.end_frame();
         }
@@ -100,19 +100,19 @@ namespace sneze {
         return err;
     }
 
-    result<> application::read_config() noexcept {
-        if ( auto [val, err] = config_.read().ok(); err ) {
-            logger::error( "error reading config" );
-            return error( "Can't read config.", *err );
+    result<> application::read_settings() noexcept {
+        if ( auto [val, err] = settings_.read().ok(); err ) {
+            logger::error( "error reading settings" );
+            return error( "Can't read settings.", *err );
         } else {
             return *val;
         }
     }
 
-    result<> application::save_config() noexcept {
-        if ( auto [val, err] = config_.save().ok(); err ) {
-            logger::error( "error saving config" );
-            return error( "Can't save config.", *err );
+    result<> application::save_settings() noexcept {
+        if ( auto [val, err] = settings_.save().ok(); err ) {
+            logger::error( "error saving settings" );
+            return error( "Can't save settings.", *err );
         } else {
             return *val;
         }
