@@ -33,8 +33,5 @@ public:
     example_game();
     ~example_game() override = default;
     [[nodiscard]] config init() override;
-
-private:
-    void on_start() override;
-    void on_end() override;
+    void end() override;
 };

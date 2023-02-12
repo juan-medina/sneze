@@ -24,16 +24,12 @@ SOFTWARE.
 
 #include "example_game.hpp"
 
-config example_game::init() { return config().clear_color( color::Black ); }
-
 example_game::example_game(): application( "sneze", "Example Game" ) {}
 
-void example_game::on_start() {
-    logger::debug( "on: {}", "start" );
-
-    logger::info( "this is a {}", "test" );
-
+config example_game::init() {
+    logger::debug( "init" );
     get_set_app_setting<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+    return config().clear_color( color::Black );
 }
 
-void example_game::on_end() { logger::debug( "on {}", "end" ); }
+void example_game::end() { logger::debug( "end" ); }

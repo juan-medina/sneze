@@ -47,9 +47,6 @@ namespace sneze {
     }
 
     result<> application::launch() noexcept {
-        logger::debug( "Triggering On Start" );
-        on_start();
-
         auto width = settings_.get( "window", "width", 1920LL );
         auto height = settings_.get( "window", "height", 1080LL );
 
@@ -80,8 +77,7 @@ namespace sneze {
 
         logger::debug( "Render ended" );
 
-        logger::debug( "Triggering On End" );
-        on_end();
+        end();
 
         return true;
     }

@@ -42,11 +42,9 @@ namespace sneze {
 
         result<bool, error> run();
 
-        virtual void on_start() = 0;
-
-        virtual void on_end() = 0;
-
         [[nodiscard]] virtual config init() = 0;
+
+        virtual void end() = 0;
 
         [[nodiscard]] inline const std::string& team() const noexcept { return team_; }
 
