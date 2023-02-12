@@ -23,12 +23,9 @@ SOFTWARE.
 ****************************************************************************/
 
 #include <sneze/base/color.hpp>
-namespace raylib {
-#include <raylib.h>
-}
+
 namespace sneze {
-    color color::White = color::rgb( 255, 255, 255 );
-    color color::Black = color::rgb( 0, 0, 0 );
-    color color::Gray = color::rgb( 128, 128, 128 );
-    raylib::Color color::to_raylib() const { return { r_, g_, b_, a_ }; }
+    color color::White = color( WHITE );
+    color color::Black = color( BLACK );
+    color color::Gray = color( GRAY );
 } // namespace sneze

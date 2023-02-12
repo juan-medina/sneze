@@ -25,9 +25,7 @@ SOFTWARE.
 #include <sneze/render/render.hpp>
 #include <sneze/system/logger.hpp>
 
-namespace raylib {
 #include <raylib.h>
-}
 
 namespace sneze {
     result<> render::init( const std::int64_t& width,
@@ -35,24 +33,24 @@ namespace sneze {
                            const std::string& title,
                            const color& color ) {
         logger::debug( "Creating window" );
-        raylib::InitWindow( (int)width, (int)height, title.c_str() );
+        InitWindow( (int)width, (int)height, title.c_str() );
         clear_color( color );
         return true;
     }
 
     void render::end() {
         logger::debug( "Closing window" );
-        raylib::CloseWindow();
+        CloseWindow();
     }
 
     void render::begin_frame() {
-        raylib::BeginDrawing();
+        BeginDrawing();
 
-        ClearBackground( clear_color_.to_raylib() );
+        ClearBackground( clear_color_ );
     }
 
-    void render::end_frame() { raylib::EndDrawing(); }
+    void render::end_frame() { EndDrawing(); }
 
-    result<> render::want_to_close() const { return raylib::WindowShouldClose(); }
+    result<> render::want_to_close() const { return WindowShouldClose(); }
 
 } // namespace sneze

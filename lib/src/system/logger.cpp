@@ -26,15 +26,14 @@ SOFTWARE.
 
 #include <memory>
 
-namespace raylib {
+#include <config.h>
 #include <raylib.h>
-}
-
 #include <spdlog/sinks/dist_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 #if defined( _MSC_VER ) && defined( _DEBUG )
 #    include <spdlog/sinks/msvc_sink.h>
+
 #endif
 
 namespace sneze {
@@ -53,32 +52,31 @@ namespace sneze {
     }
 
     void logger::raylib_log_callback( int level, const char* text, va_list args ) {
-        const int MAX_RAYLIB_MSG_LENGTH = 128;
-        static char buffer[MAX_RAYLIB_MSG_LENGTH] = { 0 };
-        vsnprintf( buffer, MAX_RAYLIB_MSG_LENGTH, text, args );
+        static char buffer[MAX_TRACELOG_MSG_LENGTH] = { 0 };
+        vsnprintf( buffer, MAX_TRACELOG_MSG_LENGTH, text, args );
 
         spdlog::level::level_enum spdlog_level;
         switch ( level ) {
             using enum spdlog::level::level_enum;
-        case raylib::LOG_TRACE:
+        case LOG_TRACE:
             spdlog_level = trace;
             break;
-        case raylib::LOG_DEBUG:
+        case LOG_DEBUG:
             spdlog_level = debug;
             break;
-        case raylib::LOG_INFO:
+        case LOG_INFO:
             spdlog_level = info;
             break;
-        case raylib::LOG_WARNING:
+        case LOG_WARNING:
             spdlog_level = warn;
             break;
-        case raylib::LOG_ERROR:
+        case LOG_ERROR:
             spdlog_level = err;
             break;
-        case raylib::LOG_FATAL:
+        case LOG_FATAL:
             spdlog_level = critical;
             break;
-        [[likely]] case raylib::LOG_NONE:
+        [[likely]] case LOG_NONE:
             spdlog_level = off;
             break;
         [[unlikely]] default:
@@ -88,7 +86,7 @@ namespace sneze {
         spdlog::log( spdlog_level, "[raylib] {}", buffer );
     }
 
-    void logger::hook_raylib_log() noexcept { raylib::SetTraceLogCallback( logger::raylib_log_callback ); }
+    void logger::hook_raylib_log() noexcept { SetTraceLogCallback( logger::raylib_log_callback ); }
 
     void logger::setup_log() noexcept {
 #ifdef NDEBUG
@@ -111,38 +109,38 @@ namespace sneze {
         switch ( level ) {
         case log_level::trace:
             spdlog_level = spdlog::level::trace;
-            raylib_level = raylib::LOG_TRACE;
+            raylib_level = LOG_TRACE;
             break;
         case log_level::debug:
             spdlog_level = spdlog::level::debug;
-            raylib_level = raylib::LOG_DEBUG;
+            raylib_level = LOG_DEBUG;
             break;
         case log_level::info:
             spdlog_level = spdlog::level::info;
-            raylib_level = raylib::LOG_INFO;
+            raylib_level = LOG_INFO;
             break;
         case log_level::warn:
             spdlog_level = spdlog::level::warn;
-            raylib_level = raylib::LOG_WARNING;
+            raylib_level = LOG_WARNING;
             break;
         case log_level::err:
             spdlog_level = spdlog::level::err;
-            raylib_level = raylib::LOG_ERROR;
+            raylib_level = LOG_ERROR;
             break;
         case log_level::critical:
             spdlog_level = spdlog::level::critical;
-            raylib_level = raylib::LOG_FATAL;
+            raylib_level = LOG_FATAL;
             break;
         [[likely]] case log_level::off:
             spdlog_level = spdlog::level::off;
-            raylib_level = raylib::LOG_NONE;
+            raylib_level = LOG_NONE;
             break;
         [[unlikely]] default:
             spdlog_level = spdlog::level::info;
-            raylib_level = raylib::LOG_INFO;
+            raylib_level = LOG_INFO;
             break;
         }
         spdlog::set_level( spdlog_level );
-        raylib::SetTraceLogLevel( raylib_level );
+        SetTraceLogLevel( raylib_level );
     }
 } // namespace sneze

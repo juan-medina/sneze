@@ -24,43 +24,52 @@ SOFTWARE.
 
 #pragma once
 
-namespace raylib {
-    typedef struct Color Color;
-}
+#include <raylib.h>
 
 namespace sneze {
-    class color  {
+
+    class color : public Color {
     public:
+        typedef unsigned char component;
+
+        [[maybe_unused]] static const component translucent = 0;
+        [[maybe_unused]] static const component opaque = 255;
+
         color( const color& ) = default;
+
         color( color&& ) = default;
 
-        color& operator=( const color& ) = default;
-        color& operator=( color&& ) = default;
-
-        static color
-        rgba( const unsigned char& r, const unsigned char& g, const unsigned char& b, const unsigned char& a ) {
-            return { r, g, b, a };
+        explicit color( const Color& color ): Color() {
+            Color::r = color.r;
+            Color::g = color.g;
+            Color::b = color.b;
+            Color::a = color.a;
         }
 
-        static color rgb( const unsigned char& r, const unsigned char& g, const unsigned char& b ) {
-            return rgba( r, g, b, 255 );
+        color& operator=( const color& ) = default;
+
+        color& operator=( color&& ) = default;
+
+        [[nodiscard]] static color
+        rgba( const component& red, const component& green, const component& blue, const component& alpha ) {
+            return { red, green, blue, alpha };
+        }
+
+        [[nodiscard]] static color rgb( const component& red, const component& green, const component& blue ) {
+            return rgba( red, green, blue, opaque );
         }
 
         static color White;
         static color Black;
         static color Gray;
 
-        [[nodiscard]] raylib::Color to_raylib() const;
-
     private:
-        color( const unsigned char& r, const unsigned char& g, const unsigned char& b, const unsigned char& a ):
-            r_( r ), g_( g ), b_( b ), a_( a ) {}
-
-    protected:
-        unsigned char r_;
-        unsigned char g_;
-        unsigned char b_;
-        unsigned char a_;
+        color( const component& red, const component& green, const component& blue, const component& alpha ): Color() {
+            Color::r = red;
+            Color::g = green;
+            Color::b = blue;
+            Color::a = alpha;
+        }
     };
 
 } // namespace sneze
