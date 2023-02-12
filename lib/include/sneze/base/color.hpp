@@ -32,14 +32,18 @@ namespace sneze {
     public:
         typedef unsigned char component;
 
-        [[maybe_unused]] static const component translucent = 0;
-        [[maybe_unused]] static const component opaque = 255;
+        enum opacity : component {
+            translucent [[maybe_unused]] = 0,
+            opaque = 255
+        };
 
         color( const color& ) = default;
 
         color( color&& ) = default;
 
-        explicit color( const Color& color ): Color() {
+        // cppcheck-suppress noExplicitConstructor
+        // NOLINTNEXTLINE (google-explicit-constructor)
+        color( const Color& color ): Color() {
             Color::r = color.r;
             Color::g = color.g;
             Color::b = color.b;
@@ -56,12 +60,34 @@ namespace sneze {
         }
 
         [[nodiscard]] static color rgb( const component& red, const component& green, const component& blue ) {
-            return rgba( red, green, blue, opaque );
+            return rgba( red, green, blue, opacity::opaque );
         }
 
         static color White;
         static color Black;
         static color Gray;
+        static color LightGray;
+        static color DarkGray;
+        static color Yellow;
+        static color Gold;
+        static color Orange;
+        static color Pink;
+        static color Red;
+        static color Maroon;
+        static color Green;
+        static color Lime;
+        static color DarkGreen;
+        static color SkyBlue;
+        static color Blue;
+        static color DarkBlue;
+        static color Purple;
+        static color Violet;
+        static color DarkPurple;
+        static color Beige;
+        static color Brown;
+        static color DarkBrown;
+        static color Magenta;
+        static color RayWhite;
 
     private:
         color( const component& red, const component& green, const component& blue, const component& alpha ): Color() {
@@ -70,6 +96,6 @@ namespace sneze {
             Color::b = blue;
             Color::a = alpha;
         }
-    };
+    }; // namespace sneze
 
 } // namespace sneze
