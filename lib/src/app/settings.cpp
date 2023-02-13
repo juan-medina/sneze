@@ -22,15 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <sneze/app/settings.hpp>
-#include <sneze/platform/version.hpp>
-#include <sneze/system/logger.hpp>
+#include "sneze/app/settings.hpp"
+
+#include "sneze/platform/logger.hpp"
+#include "sneze/platform/version.hpp"
 
 #include <filesystem>
 #include <fstream>
 #include <utility>
 
-#include <platform_folders.h>
+#include "platform_folders.h"
 
 namespace sneze {
 

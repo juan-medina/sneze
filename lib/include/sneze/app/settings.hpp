@@ -24,8 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/platform/result.hpp>
-#include <sneze/system/logger.hpp>
+#include "sneze/platform/logger.hpp"
+#include "sneze/platform/result.hpp"
 
 #include <filesystem>
 #include <string>

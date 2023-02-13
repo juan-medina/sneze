@@ -25,7 +25,6 @@ SOFTWARE.
 #pragma once
 
 #include <string>
-#include <utility>
 
 namespace sneze::components {
     struct renderable {

@@ -24,7 +24,7 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/sneze.hpp>
+#include "sneze/sneze.hpp"
 
 using namespace sneze;
 

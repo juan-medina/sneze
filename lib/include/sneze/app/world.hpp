@@ -27,7 +27,7 @@ SOFTWARE.
 #include <optional>
 #include <utility>
 
-#include <entt/entt.hpp>
+#include "entt/entt.hpp"
 
 namespace sneze {
 

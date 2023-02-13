@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <sneze/base/color.hpp>
+#include "sneze/base/color.hpp"
 
 namespace sneze {
     [[maybe_unused]] color color::White = WHITE;

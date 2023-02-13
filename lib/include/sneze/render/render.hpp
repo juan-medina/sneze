@@ -24,10 +24,10 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/app/world.hpp>
-#include <sneze/base/color.hpp>
-#include <sneze/components/components.hpp>
-#include <sneze/platform/result.hpp>
+#include "sneze/app/world.hpp"
+#include "sneze/base/color.hpp"
+#include "sneze/components/components.hpp"
+#include "sneze/platform/result.hpp"
 
 namespace sneze {
     class render {

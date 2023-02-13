@@ -24,13 +24,13 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/app/application.hpp>
-#include <sneze/app/config.hpp>
-#include <sneze/app/settings.hpp>
-#include <sneze/base/color.hpp>
-#include <sneze/components/components.hpp>
-#include <sneze/platform/error.hpp>
-#include <sneze/platform/result.hpp>
-#include <sneze/platform/version.hpp>
-#include <sneze/render/render.hpp>
-#include <sneze/system/logger.hpp>
+#include "sneze/app/application.hpp"
+#include "sneze/app/config.hpp"
+#include "sneze/app/settings.hpp"
+#include "sneze/base/color.hpp"
+#include "sneze/components/components.hpp"
+#include "sneze/platform/error.hpp"
+#include "sneze/platform/logger.hpp"
+#include "sneze/platform/result.hpp"
+#include "sneze/platform/version.hpp"
+#include "sneze/render/render.hpp"

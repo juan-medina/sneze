@@ -24,11 +24,11 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/app/config.hpp>
-#include <sneze/app/settings.hpp>
-#include <sneze/app/world.hpp>
-#include <sneze/platform/error.hpp>
-#include <sneze/render/render.hpp>
+#include "sneze/app/config.hpp"
+#include "sneze/app/settings.hpp"
+#include "sneze/app/world.hpp"
+#include "sneze/platform/error.hpp"
+#include "sneze/render/render.hpp"
 
 #include <string>
 

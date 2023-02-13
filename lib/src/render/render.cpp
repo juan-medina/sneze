@@ -22,10 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <sneze/render/render.hpp>
-#include <sneze/system/logger.hpp>
+#include "sneze/render/render.hpp"
 
-#include <raylib.h>
+#include "sneze/platform/logger.hpp"
+
+#include "raylib.h"
 
 namespace sneze {
     result<> render::init( const std::int64_t& width,

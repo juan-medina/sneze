@@ -25,7 +25,7 @@ SOFTWARE.
 
 #include <source_location>
 
-#include <spdlog/spdlog.h>
+#include "spdlog/spdlog.h"
 
 namespace sneze {
 
