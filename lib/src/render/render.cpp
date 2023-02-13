@@ -55,17 +55,17 @@ namespace sneze {
 
     void render::update( world& world ) {
         using namespace components;
-        world.sort<renderable>( []( const auto& lhs, const auto& rhs ) { return lhs.depth_ < rhs.depth_; } );
+        world.sort<renderable>( render::sort_by_depth );
 
         for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
             if ( renderable.visible_ ) {
-                if ( auto txt = world.has<text>( id ) ) { DrawText( *txt, position, color ); }
+                if ( auto txt = world.has<text>( id ) ) { draw_text( *txt, position, color ); }
             }
         }
     }
 
-    void render::DrawText( const components::text& text, const components::position& position, const color& color ) {
-        ::DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
+    void render::draw_text( const components::text& text, const components::position& position, const color& color ) {
+        DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
     }
 
 } // namespace sneze
