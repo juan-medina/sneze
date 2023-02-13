@@ -55,6 +55,9 @@ add_subdirectory("external/Boxer")
 ## add toml11
 add_subdirectory("external/toml11")
 
+## add entt
+add_subdirectory("external/entt")
+
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
 endif ()
@@ -63,7 +66,7 @@ endif ()
 add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
-target_link_libraries(${LIB_NAME} PUBLIC fmt PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer PUBLIC toml11)
+target_link_libraries(${LIB_NAME} PUBLIC fmt PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer PUBLIC toml11 PUBLIC EnTT::EnTT)
 
 #set includes
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})

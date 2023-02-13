@@ -29,6 +29,17 @@ example_game::example_game(): application( "sneze", "Example Game" ) {}
 config example_game::init() {
     logger::debug( "init" );
     get_set_app_setting<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+
+    world().create( components::renderable{},
+                    components::text{ "Hello", 40.f },
+                    components::position{ 190.f, 200.f },
+                    color::White );
+
+    world().create( components::renderable{},
+                    components::text{ "World!", 40.f },
+                    components::position{ 190.f, 250.f },
+                    color::Yellow );
+
     return config().clear_color( color::Black );
 }
 

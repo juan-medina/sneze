@@ -16,3 +16,6 @@
 [submodule "lib/external/fmt"]
 	path = lib/external/fmt
 	url = https://github.com/fmtlib/fmt
+[submodule "lib/external/entt"]
+	path = lib/external/entt
+	url = https://github.com/skypjack/entt

@@ -28,6 +28,7 @@ SOFTWARE.
 #include <sneze/app/config.hpp>
 #include <sneze/app/settings.hpp>
 #include <sneze/base/color.hpp>
+#include <sneze/components/components.hpp>
 #include <sneze/platform/error.hpp>
 #include <sneze/platform/result.hpp>
 #include <sneze/platform/version.hpp>

@@ -53,4 +53,19 @@ namespace sneze {
 
     result<> render::want_to_close() const { return WindowShouldClose(); }
 
+    void render::update( world& world ) {
+        using namespace components;
+        world.sort<renderable>( []( const auto& lhs, const auto& rhs ) { return lhs.depth_ < rhs.depth_; } );
+
+        for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
+            if ( renderable.visible_ ) {
+                if ( auto txt = world.has<text>( id ) ) { DrawText( *txt, position, color ); }
+            }
+        }
+    }
+
+    void render::DrawText( const components::text& text, const components::position& position, const color& color ) {
+        ::DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
+    }
+
 } // namespace sneze

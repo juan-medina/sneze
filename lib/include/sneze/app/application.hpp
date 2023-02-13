@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <sneze/app/config.hpp>
 #include <sneze/app/settings.hpp>
+#include <sneze/app/world.hpp>
 #include <sneze/platform/error.hpp>
 #include <sneze/render/render.hpp>
 
@@ -89,12 +90,13 @@ namespace sneze {
             get_set_setting<Type>( name_, name, default_value, func );
         }
 
-    protected:
+        [[nodiscard]] inline world& world() noexcept { return world_; }
+
+    private:
         std::string team_;
         std::string name_;
         settings settings_;
-
-    private:
+        sneze::world world_;
         render render_;
 
         result<> launch() noexcept;

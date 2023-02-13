@@ -24,42 +24,22 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/app/world.hpp>
-#include <sneze/base/color.hpp>
-#include <sneze/components/components.hpp>
-#include <sneze/platform/result.hpp>
+#include <string>
+#include <utility>
 
-namespace sneze {
-    class render {
-
-    public:
-        render() = default;
-        ~render() = default;
-
-        render( const render& ) = delete;
-        render( render&& ) = delete;
-
-        render& operator=( const render& ) = delete;
-        render& operator=( render&& ) = delete;
-
-        [[maybe_unused]] void clear_color( const color& color ) { clear_color_ = color; }
-
-        [[nodiscard]] result<>
-        init( const std::int64_t& width, const std::int64_t& height, const std::string& title, const color& color );
-
-        [[nodiscard]] result<> want_to_close() const;
-
-        void end();
-
-        void begin_frame();
-
-        void update( world& world );
-
-        void end_frame();
-
-    private:
-        color clear_color_ = color::Black;
-
-        void DrawText( const components::text& text, const components::position& position, const color& color );
+namespace sneze::components {
+    struct renderable {
+        bool visible_ = true;
+        float depth_ = 0.0f;
     };
-} // namespace sneze
+
+    struct text {
+        std::string text_; // cppcheck-suppress unusedStructMember
+        float size_;       // cppcheck-suppress unusedStructMember
+    };
+
+    struct position {
+        float x; // cppcheck-suppress unusedStructMember
+        float y; // cppcheck-suppress unusedStructMember
+    };
+} // namespace sneze::components

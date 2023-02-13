@@ -66,7 +66,7 @@ namespace sneze {
 
             render_.begin_frame();
 
-            // raylib::DrawText( "Congrats! You created your first window!", 190, 200, 20, raylib::LIGHTGRAY );
+            render_.update( world_ );
 
             render_.end_frame();
         }
