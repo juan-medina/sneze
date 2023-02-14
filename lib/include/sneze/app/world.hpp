@@ -73,8 +73,31 @@ namespace sneze {
             registry_.sort<Type>( compare );
         }
 
+        template <typename EventType, auto Candidate, typename InstanceType>
+        void add_listener( InstanceType&& instance ) {
+            event_dispatcher_.sink<EventType>().template connect<Candidate>( instance );
+        }
+
+        template <typename EventType, auto Candidate, typename InstanceType>
+        [[maybe_unused]] void remove_listener( InstanceType&& instance ) {
+            event_dispatcher_.sink<EventType>().template disconnect<Candidate>( instance );
+        }
+
+        template <typename InstanceType>
+        [[maybe_unused]] void remove_listeners( InstanceType&& instance ) {
+            event_dispatcher_.disconnect( instance );
+        }
+
+        template <typename EventType>
+        void emmit( EventType event ) {
+            event_dispatcher_.enqueue( event );
+        }
+
+        void sent_events() { event_dispatcher_.update(); }
+
     private:
         entt::registry registry_;
+        entt::dispatcher event_dispatcher_;
 
         template <typename... Args>
         void recurse_create( world::id id, Args... args ) {

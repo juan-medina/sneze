@@ -27,6 +27,7 @@ SOFTWARE.
 #include "sneze/app/config.hpp"
 #include "sneze/app/settings.hpp"
 #include "sneze/app/world.hpp"
+#include "sneze/events/events.hpp"
 #include "sneze/platform/error.hpp"
 #include "sneze/render/render.hpp"
 #include "sneze/systems/system.hpp"
@@ -97,6 +98,8 @@ namespace sneze {
 
         void add_system( std::unique_ptr<system> system ) noexcept;
 
+        void app_want_closing( events::application_want_closing event ) noexcept;
+
     private:
         std::string team_;
         std::string name_;
@@ -104,6 +107,7 @@ namespace sneze {
         sneze::world world_;
         std::shared_ptr<render> render_;
         std::vector<std::unique_ptr<system>> systems_;
+        bool want_to_close_{ false };
 
         result<> launch() noexcept;
 

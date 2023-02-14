@@ -24,6 +24,10 @@ SOFTWARE.
 
 #include "sneze/systems/render_system.hpp"
 
+#include "sneze/events/events.hpp"
+
+#include "raylib.h"
+
 namespace sneze {
     void render_system::update( sneze::world& world ) {
         render_->begin_frame();
@@ -38,5 +42,7 @@ namespace sneze {
         }
 
         render_->end_frame();
+
+        if ( WindowShouldClose() ) world.emmit( events::application_want_closing{} );
     }
 } // namespace sneze

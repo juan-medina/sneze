@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "sneze/app/application.hpp"
 
+#include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
 #include "sneze/systems/render_system.hpp"
@@ -37,13 +38,13 @@ namespace sneze {
         logger::setup_log();
 
         logger::info( "{}", VERSION );
-        logger::debug( "Running application: {} (Team: {})", name(), team() );
+        logger::debug( "running application: {} (Team: {})", name(), team() );
 
         if ( auto err = read_settings().ko() ) return show_error( *err );
         if ( auto err = launch().ko() ) return show_error( *err );
         if ( auto err = save_settings().ko() ) return show_error( *err );
 
-        logger::debug( "Stopping application: {}", name() );
+        logger::debug( "stopping application: {}", name() );
 
         return true;
     }
@@ -54,30 +55,34 @@ namespace sneze {
 
         auto setup = init();
 
-        logger::debug( "Init render" );
+        logger::debug( "init render" );
 
         if ( auto err = render_->init( width, height, name(), setup.clear_color_ ).ko() ) {
             logger::error( "error initializing render" );
             return error( "Can't init the render system.", *err );
         }
 
-        logger::debug( "Render created" );
+        logger::debug( "render created" );
 
         add_system( std::make_unique<render_system>( render_ ) );
 
-        while ( true ) {
-            if ( auto [val, err] = render_->want_to_close().ok(); err || *val ) { break; }
+        world_.add_listener<events::application_want_closing, &application::app_want_closing>( this );
 
+        while ( !want_to_close_ ) {
             for ( auto& system : systems_ ) {
                 system->update( world_ );
             }
+
+            world_.sent_events();
         }
 
-        logger::debug( "Ending render" );
+        world_.remove_listeners(this);
+
+        logger::debug( "ending render" );
 
         render_->end();
 
-        logger::debug( "Render ended" );
+        logger::debug( "render ended" );
 
         end();
 
@@ -118,6 +123,11 @@ namespace sneze {
 
     void application::add_system( std::unique_ptr<system> system ) noexcept {
         systems_.push_back( std::move( system ) );
+    }
+
+    void application::app_want_closing( events::application_want_closing ) noexcept {
+        logger::debug( "application want to close" );
+        want_to_close_ = true;
     }
 
 } // namespace sneze

@@ -47,8 +47,6 @@ namespace sneze {
         [[nodiscard]] result<>
         init( const std::int64_t& width, const std::int64_t& height, const std::string& title, const color& color );
 
-        [[nodiscard]] result<> want_to_close() const;
-
         void end();
 
         void begin_frame();

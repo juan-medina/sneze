@@ -52,8 +52,6 @@ namespace sneze {
 
     void render::end_frame() { EndDrawing(); }
 
-    result<> render::want_to_close() const { return WindowShouldClose(); }
-
     void render::draw_text( const components::text& text, const components::position& position, const color& color ) {
         DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
     }
