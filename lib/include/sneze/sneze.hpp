@@ -34,3 +34,4 @@ SOFTWARE.
 #include "sneze/platform/result.hpp"
 #include "sneze/platform/version.hpp"
 #include "sneze/render/render.hpp"
+#include "sneze/systems/system.hpp"
