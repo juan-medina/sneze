@@ -29,15 +29,18 @@ SOFTWARE.
 #include "sneze/app/world.hpp"
 #include "sneze/platform/error.hpp"
 #include "sneze/render/render.hpp"
+#include "sneze/systems/system.hpp"
 
+#include <memory>
 #include <string>
+#include <vector>
 
 namespace sneze {
 
     class application {
     public:
         inline application( const std::string& team, const std::string& name ):
-            team_{ team }, name_{ name }, settings_{ team, name } {}
+            team_{ team }, name_{ name }, settings_{ team, name }, render_{ std::make_shared<render>() } {}
 
         virtual ~application() = default;
 
@@ -92,12 +95,15 @@ namespace sneze {
 
         [[nodiscard]] inline world& world() noexcept { return world_; }
 
+        void add_system( std::unique_ptr<system> system ) noexcept;
+
     private:
         std::string team_;
         std::string name_;
         settings settings_;
         sneze::world world_;
-        render render_;
+        std::shared_ptr<render> render_;
+        std::vector<std::unique_ptr<system>> systems_;
 
         result<> launch() noexcept;
 

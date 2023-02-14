@@ -53,17 +53,11 @@ namespace sneze {
 
         void begin_frame();
 
-        void update( world& world );
-
         void end_frame();
-
-    private:
-        color clear_color_ = color::Black;
 
         void draw_text( const components::text& text, const components::position& position, const color& color );
 
-        static inline bool sort_by_depth( const components::renderable& lhs, const components::renderable& rhs ) {
-            return lhs.depth_ < rhs.depth_;
-        }
+    private:
+        color clear_color_ = color::Black;
     };
 } // namespace sneze

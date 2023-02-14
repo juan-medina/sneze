@@ -22,40 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/render/render.hpp"
+#pragma once
 
-#include "sneze/platform/logger.hpp"
-
-#include "raylib.h"
+#include "sneze/app/world.hpp"
 
 namespace sneze {
-    result<> render::init( const std::int64_t& width,
-                           const std::int64_t& height,
-                           const std::string& title,
-                           const color& color ) {
-        logger::debug( "Creating window" );
-        InitWindow( (int)width, (int)height, title.c_str() );
-        clear_color( color );
-        return true;
-    }
 
-    void render::end() {
-        logger::debug( "Closing window" );
-        CloseWindow();
-    }
+    class system {
+    public:
+        system() = default;
+        virtual ~system() = default;
 
-    void render::begin_frame() {
-        BeginDrawing();
+        system( const system& ) = delete;
+        system( system&& ) = delete;
 
-        ClearBackground( clear_color_ );
-    }
+        system& operator=( const system& ) = delete;
+        system& operator=( system&& ) = delete;
 
-    void render::end_frame() { EndDrawing(); }
-
-    result<> render::want_to_close() const { return WindowShouldClose(); }
-
-    void render::draw_text( const components::text& text, const components::position& position, const color& color ) {
-        DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
-    }
+        virtual void update( world& world ) = 0;
+    };
 
 } // namespace sneze

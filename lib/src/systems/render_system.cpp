@@ -22,40 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/render/render.hpp"
-
-#include "sneze/platform/logger.hpp"
-
-#include "raylib.h"
+#include "sneze/systems/render_system.hpp"
 
 namespace sneze {
-    result<> render::init( const std::int64_t& width,
-                           const std::int64_t& height,
-                           const std::string& title,
-                           const color& color ) {
-        logger::debug( "Creating window" );
-        InitWindow( (int)width, (int)height, title.c_str() );
-        clear_color( color );
-        return true;
+    void render_system::update( sneze::world& world ) {
+        render_->begin_frame();
+
+        using namespace components;
+        world.sort<renderable>( render_system::sort_by_depth );
+
+        for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
+            if ( renderable.visible_ ) {
+                if ( auto txt = world.has<text>( id ) ) { render_->draw_text( *txt, position, color ); }
+            }
+        }
+
+        render_->end_frame();
     }
-
-    void render::end() {
-        logger::debug( "Closing window" );
-        CloseWindow();
-    }
-
-    void render::begin_frame() {
-        BeginDrawing();
-
-        ClearBackground( clear_color_ );
-    }
-
-    void render::end_frame() { EndDrawing(); }
-
-    result<> render::want_to_close() const { return WindowShouldClose(); }
-
-    void render::draw_text( const components::text& text, const components::position& position, const color& color ) {
-        DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
-    }
-
 } // namespace sneze

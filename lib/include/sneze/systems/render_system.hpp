@@ -22,40 +22,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
+#pragma once
+
+#include "sneze/components/components.hpp"
 #include "sneze/render/render.hpp"
+#include "sneze/systems/system.hpp"
 
-#include "sneze/platform/logger.hpp"
-
-#include "raylib.h"
+#include <memory>
+#include <utility>
 
 namespace sneze {
-    result<> render::init( const std::int64_t& width,
-                           const std::int64_t& height,
-                           const std::string& title,
-                           const color& color ) {
-        logger::debug( "Creating window" );
-        InitWindow( (int)width, (int)height, title.c_str() );
-        clear_color( color );
-        return true;
-    }
 
-    void render::end() {
-        logger::debug( "Closing window" );
-        CloseWindow();
-    }
+    class render_system final : public sneze::system {
+    public:
+        explicit render_system( std::shared_ptr<sneze::render> render ): render_( std::move( render ) ) {}
+        ~render_system() override = default;
 
-    void render::begin_frame() {
-        BeginDrawing();
+        render_system( const render_system& ) = delete;
+        render_system( render_system&& ) = delete;
 
-        ClearBackground( clear_color_ );
-    }
+        render_system& operator=( const render_system& ) = delete;
+        render_system& operator=( render_system&& ) = delete;
 
-    void render::end_frame() { EndDrawing(); }
+        void update( sneze::world& world ) override;
 
-    result<> render::want_to_close() const { return WindowShouldClose(); }
+    private:
+        std::shared_ptr<sneze::render> render_;
 
-    void render::draw_text( const components::text& text, const components::position& position, const color& color ) {
-        DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
-    }
+        static inline bool sort_by_depth( const components::renderable& lhs, const components::renderable& rhs ) {
+            return lhs.depth_ < rhs.depth_;
+        }
+    };
 
 } // namespace sneze
