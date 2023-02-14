@@ -64,19 +64,14 @@ namespace sneze {
 
         logger::debug( "render created" );
 
-        add_system( std::make_unique<render_system>( render_ ) );
+        world_.add_system<render_system>( render_ );
 
         world_.add_listener<events::application_want_closing, &application::app_want_closing>( this );
 
-        while ( !want_to_close_ ) {
-            for ( auto& system : systems_ ) {
-                system->update( world_ );
-            }
+        while ( !want_to_close_ )
+            world_.update();
 
-            world_.sent_events();
-        }
-
-        world_.remove_listeners(this);
+        world_.remove_listeners( this );
 
         logger::debug( "ending render" );
 
@@ -119,10 +114,6 @@ namespace sneze {
         } else {
             return *val;
         }
-    }
-
-    void application::add_system( std::unique_ptr<system> system ) noexcept {
-        systems_.push_back( std::move( system ) );
     }
 
     void application::app_want_closing( events::application_want_closing ) noexcept {

@@ -29,7 +29,7 @@ SOFTWARE.
 #include "raylib.h"
 
 namespace sneze {
-    void render_system::update( sneze::world& world ) {
+    void render_system::update( world& world ) {
         render_->begin_frame();
 
         using namespace components;

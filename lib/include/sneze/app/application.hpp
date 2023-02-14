@@ -30,11 +30,9 @@ SOFTWARE.
 #include "sneze/events/events.hpp"
 #include "sneze/platform/error.hpp"
 #include "sneze/render/render.hpp"
-#include "sneze/systems/system.hpp"
 
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace sneze {
 
@@ -96,8 +94,6 @@ namespace sneze {
 
         [[nodiscard]] inline world& world() noexcept { return world_; }
 
-        void add_system( std::unique_ptr<system> system ) noexcept;
-
         void app_want_closing( events::application_want_closing event ) noexcept;
 
     private:
@@ -106,7 +102,6 @@ namespace sneze {
         settings settings_;
         sneze::world world_;
         std::shared_ptr<render> render_;
-        std::vector<std::unique_ptr<system>> systems_;
         bool want_to_close_{ false };
 
         result<> launch() noexcept;

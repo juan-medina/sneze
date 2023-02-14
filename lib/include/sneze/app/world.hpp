@@ -24,8 +24,11 @@ SOFTWARE.
 
 #pragma once
 
+#include "sneze/systems/system.hpp"
+
 #include <optional>
 #include <utility>
+#include <vector>
 
 #include "entt/entt.hpp"
 
@@ -95,7 +98,16 @@ namespace sneze {
 
         void sent_events() { event_dispatcher_.update(); }
 
+        template <typename SystemType, typename... Args>
+        void add_system( Args... args ) noexcept {
+            systems_.push_back( std::make_unique<SystemType>( args... ) );
+            systems_.back()->init( *this );
+        }
+
+        void update();
+
     private:
+        std::vector<std::unique_ptr<system>> systems_;
         entt::registry registry_;
         entt::dispatcher event_dispatcher_;
 

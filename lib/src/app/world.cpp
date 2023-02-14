@@ -21,27 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
-
-#pragma once
+#include "sneze/app/world.hpp"
 
 namespace sneze {
-
-    class world;
-
-    class system {
-    public:
-        system() = default;
-        virtual ~system() = default;
-
-        system( const system& ) = delete;
-        system( system&& ) = delete;
-
-        system& operator=( const system& ) = delete;
-        system& operator=( system&& ) = delete;
-
-        virtual void init( world& world ) = 0;
-        virtual void update( world& world ) = 0;
-        virtual void end( world& world ) = 0;
-    };
-
+    void world::update() {
+        for ( auto& system : systems_ ) {
+            system->update( *this );
+        }
+        sent_events();
+    }
 } // namespace sneze
