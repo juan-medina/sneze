@@ -36,13 +36,6 @@ namespace sneze {
     class render_system final : public sneze::system {
     public:
         explicit render_system( std::shared_ptr<sneze::render> render ): render_( std::move( render ) ) {}
-        ~render_system() override = default;
-
-        render_system( const render_system& ) = delete;
-        render_system( render_system&& ) = delete;
-
-        render_system& operator=( const render_system& ) = delete;
-        render_system& operator=( render_system&& ) = delete;
 
         void update( sneze::world& world ) override;
 

@@ -30,15 +30,6 @@ namespace sneze {
 
     class system {
     public:
-        system() = default;
-        virtual ~system() = default;
-
-        system( const system& ) = delete;
-        system( system&& ) = delete;
-
-        system& operator=( const system& ) = delete;
-        system& operator=( system&& ) = delete;
-
         virtual void init( world& world ) = 0;
         virtual void update( world& world ) = 0;
         virtual void end( world& world ) = 0;

@@ -29,6 +29,7 @@ SOFTWARE.
 #include <optional>
 #include <utility>
 #include <vector>
+#include <queue>
 
 #include "entt/entt.hpp"
 
@@ -96,18 +97,22 @@ namespace sneze {
             event_dispatcher_.enqueue( event );
         }
 
-        void sent_events() { event_dispatcher_.update(); }
+        void sent_events();
 
         template <typename SystemType, typename... Args>
         void add_system( Args... args ) noexcept {
-            systems_.push_back( std::make_unique<SystemType>( args... ) );
-            systems_.back()->init( *this );
+            systems_to_add_.push( std::make_unique<SystemType>( args... ) );
+            systems_to_add_.back()->init( *this );
         }
 
         void update();
 
     private:
+        void update_systems();
+
         std::vector<std::unique_ptr<system>> systems_;
+        std::queue<std::unique_ptr<system>> systems_to_add_;
+
         entt::registry registry_;
         entt::dispatcher event_dispatcher_;
 

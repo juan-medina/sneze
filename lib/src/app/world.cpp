@@ -23,11 +23,23 @@ SOFTWARE.
 ****************************************************************************/
 #include "sneze/app/world.hpp"
 
+#include "sneze/platform/logger.hpp"
+
 namespace sneze {
     void world::update() {
+        update_systems();
+        sent_events();
+    }
+
+    void world::update_systems() {
+        while ( !systems_to_add_.empty() ) {
+            systems_.push_back( std::move( systems_to_add_.front() ) );
+            systems_to_add_.pop();
+        }
+
         for ( auto& system : systems_ ) {
             system->update( *this );
         }
-        sent_events();
     }
+    void world::sent_events() { event_dispatcher_.update(); }
 } // namespace sneze
