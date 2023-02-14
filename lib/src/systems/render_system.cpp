@@ -22,16 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
+#include "sneze/systems/render_system.hpp"
 
-#include "sneze/app/application.hpp"
-#include "sneze/app/config.hpp"
-#include "sneze/app/settings.hpp"
-#include "sneze/base/color.hpp"
-#include "sneze/components/components.hpp"
-#include "sneze/platform/error.hpp"
-#include "sneze/platform/logger.hpp"
-#include "sneze/platform/result.hpp"
-#include "sneze/platform/version.hpp"
-#include "sneze/render/render.hpp"
-#include "sneze/systems/system.hpp"
+namespace sneze {
+    void render_system::update( sneze::world& world ) {
+        render_->begin_frame();
+
+        using namespace components;
+        world.sort<renderable>( render_system::sort_by_depth );
+
+        for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
+            if ( renderable.visible_ ) {
+                if ( auto txt = world.has<text>( id ) ) { render_->draw_text( *txt, position, color ); }
+            }
+        }
+
+        render_->end_frame();
+    }
+} // namespace sneze

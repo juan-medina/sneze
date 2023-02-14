@@ -24,10 +24,12 @@ SOFTWARE.
 
 #include "sneze/app/application.hpp"
 
-#include "boxer/boxer.h"
-#include "fmt/format.h"
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
+#include "sneze/systems/render_system.hpp"
+
+#include "boxer/boxer.h"
+#include "fmt/format.h"
 
 namespace sneze {
 
@@ -54,26 +56,26 @@ namespace sneze {
 
         logger::debug( "Init render" );
 
-        if ( auto err = render_.init( width, height, name(), setup.clear_color_ ).ko() ) {
+        if ( auto err = render_->init( width, height, name(), setup.clear_color_ ).ko() ) {
             logger::error( "error initializing render" );
             return error( "Can't init the render system.", *err );
         }
 
         logger::debug( "Render created" );
 
+        add_system( std::make_unique<render_system>( render_ ) );
+
         while ( true ) {
-            if ( auto [val, err] = render_.want_to_close().ok(); err || *val ) { break; }
+            if ( auto [val, err] = render_->want_to_close().ok(); err || *val ) { break; }
 
-            render_.begin_frame();
-
-            render_.update( world_ );
-
-            render_.end_frame();
+            for ( auto& system : systems_ ) {
+                system->update( world_ );
+            }
         }
 
         logger::debug( "Ending render" );
 
-        render_.end();
+        render_->end();
 
         logger::debug( "Render ended" );
 
@@ -112,6 +114,10 @@ namespace sneze {
         } else {
             return *val;
         }
+    }
+
+    void application::add_system( std::unique_ptr<system> system ) noexcept {
+        systems_.push_back( std::move( system ) );
     }
 
 } // namespace sneze

@@ -24,14 +24,34 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/app/application.hpp"
-#include "sneze/app/config.hpp"
-#include "sneze/app/settings.hpp"
-#include "sneze/base/color.hpp"
 #include "sneze/components/components.hpp"
-#include "sneze/platform/error.hpp"
-#include "sneze/platform/logger.hpp"
-#include "sneze/platform/result.hpp"
-#include "sneze/platform/version.hpp"
 #include "sneze/render/render.hpp"
 #include "sneze/systems/system.hpp"
+
+#include <memory>
+#include <utility>
+
+namespace sneze {
+
+    class render_system final : public sneze::system {
+    public:
+        explicit render_system( std::shared_ptr<sneze::render> render ): render_( std::move( render ) ) {}
+        ~render_system() override = default;
+
+        render_system( const render_system& ) = delete;
+        render_system( render_system&& ) = delete;
+
+        render_system& operator=( const render_system& ) = delete;
+        render_system& operator=( render_system&& ) = delete;
+
+        void update( sneze::world& world ) override;
+
+    private:
+        std::shared_ptr<sneze::render> render_;
+
+        static inline bool sort_by_depth( const components::renderable& lhs, const components::renderable& rhs ) {
+            return lhs.depth_ < rhs.depth_;
+        }
+    };
+
+} // namespace sneze
