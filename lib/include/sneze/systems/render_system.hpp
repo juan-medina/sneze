@@ -47,7 +47,7 @@ namespace sneze {
         std::shared_ptr<sneze::render> render_;
 
         static inline bool sort_by_depth( const components::renderable& lhs, const components::renderable& rhs ) {
-            return lhs.depth_ < rhs.depth_;
+            return lhs.depth < rhs.depth;
         }
     };
 

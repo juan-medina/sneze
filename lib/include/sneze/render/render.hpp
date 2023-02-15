@@ -53,7 +53,7 @@ namespace sneze {
 
         void end_frame();
 
-        void draw_text( const components::text& text, const components::position& position, const color& color );
+        void draw_label( const components::label& label, const components::position& position, const color& color );
 
     private:
         color clear_color_ = color::Black;

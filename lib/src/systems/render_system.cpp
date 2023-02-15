@@ -37,8 +37,8 @@ namespace sneze {
         world.sort<renderable>( render_system::sort_by_depth );
 
         for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
-            if ( renderable.visible_ ) {
-                if ( auto txt = world.has<text>( id ) ) { render_->draw_text( *txt, position, color ); }
+            if ( renderable.visible ) {
+                if ( auto lbl = world.has<label>( id ) ) { render_->draw_label( *lbl, position, color ); }
             }
         }
 

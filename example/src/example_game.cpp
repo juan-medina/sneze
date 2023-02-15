@@ -33,24 +33,24 @@ config example_game::init() {
     get_set_app_setting<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
 
     world().create( components::renderable{},
-                    components::text{ "Hello", 40.f },
+                    components::label{ "Hello", 40.f },
                     components::position{ 190.f, 200.f },
                     color::White );
 
     world().create( components::renderable{},
-                    components::text{ "World!", 40.f },
+                    components::label{ "World!", 40.f },
                     components::position{ 190.f, 250.f },
                     color::Yellow );
 
     world().create( components::renderable{},
                     counter{},
-                    components::text{ "Counter:", 40.f },
+                    components::label{ "Counter:", 40.f },
                     components::position{ 190.f, 300.f },
                     color::Red );
 
     world().create( components::renderable{},
                     counter{ 10000 },
-                    components::text{ "Counter:", 40.f },
+                    components::label{ "Counter:", 40.f },
                     components::position{ 190.f, 350.f },
                     color::Blue );
 

@@ -28,13 +28,13 @@ SOFTWARE.
 
 namespace sneze::components {
     struct renderable {
-        bool visible_ = true;
-        float depth_ = 0.0f;
+        bool visible = true;
+        float depth = 0.0f;
     };
 
-    struct text {
-        std::string text_; // cppcheck-suppress unusedStructMember
-        float size_;       // cppcheck-suppress unusedStructMember
+    struct label {
+        std::string text; // cppcheck-suppress unusedStructMember
+        float size;       // cppcheck-suppress unusedStructMember
     };
 
     struct position {

@@ -52,8 +52,9 @@ namespace sneze {
 
     void render::end_frame() { EndDrawing(); }
 
-    void render::draw_text( const components::text& text, const components::position& position, const color& color ) {
-        DrawText( text.text_.c_str(), (int)position.x, (int)position.y, (int)text.size_, color );
+    void
+    render::draw_label( const components::label& label, const components::position& position, const color& color ) {
+        DrawText( label.text.c_str(), (int)position.x, (int)position.y, (int)label.size, color );
     }
 
 } // namespace sneze

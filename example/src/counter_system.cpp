@@ -30,8 +30,8 @@ void counter_system::init( world& world ) { logger::debug( "counter_system::init
 void counter_system::end( world& world ) { logger::debug( "counter_system::end" ); }
 
 void counter_system::update( world& world ) {
-    for ( auto&& [_, ct, txt] : world.view<counter, components::text>() ) {
+    for ( auto&& [_, ct, lbl] : world.view<counter, components::label>() ) {
         ct.value++;
-        txt.text_ = fmt::format( "Counter: {}", ct.value );
+        lbl.text = fmt::format( "Counter: {}", ct.value );
     }
 }
