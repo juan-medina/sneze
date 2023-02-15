@@ -22,31 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/systems/render_system.hpp"
+#include "counter_system.hpp"
 
-#include "sneze/events/events.hpp"
-#include "sneze/platform/logger.hpp"
+#include "fmt/format.h"
 
-#include "raylib.h"
+void counter_system::init( world& world ) { logger::debug( "counter_system::init" ); }
+void counter_system::end( world& world ) { logger::debug( "counter_system::end" ); }
 
-namespace sneze {
-    void render_system::update( world& world ) {
-        render_->begin_frame();
-
-        using namespace components;
-        world.sort<renderable>( render_system::sort_by_depth );
-
-        for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
-            if ( renderable.visible_ ) {
-                if ( auto txt = world.has<text>( id ) ) { render_->draw_text( *txt, position, color ); }
-            }
-        }
-
-        render_->end_frame();
-
-        if ( WindowShouldClose() ) world.emmit( events::application_want_closing{} );
+void counter_system::update( world& world ) {
+    for ( auto&& [_, ct, txt] : world.view<counter, components::text>() ) {
+        ct.value++;
+        txt.text_ = fmt::format( "Counter: {}", ct.value );
     }
-
-    void render_system::init( world& world ) { logger::debug( "render_system::init" ); }
-    void render_system::end( world& world ) { logger::debug( "render_system::end" ); }
-} // namespace sneze
+}

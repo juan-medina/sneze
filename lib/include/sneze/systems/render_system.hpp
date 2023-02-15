@@ -39,9 +39,9 @@ namespace sneze {
 
         void update( sneze::world& world ) override;
 
-        void init( sneze::world& world ) override{};
+        void init( sneze::world& world ) override;
 
-        void end( sneze::world& world ) override{};
+        void end( sneze::world& world ) override;
 
     private:
         std::shared_ptr<sneze::render> render_;

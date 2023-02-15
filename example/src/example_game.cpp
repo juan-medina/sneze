@@ -24,6 +24,8 @@ SOFTWARE.
 
 #include "example_game.hpp"
 
+#include "counter_system.hpp"
+
 example_game::example_game(): application( "sneze", "Example Game" ) {}
 
 config example_game::init() {
@@ -39,6 +41,20 @@ config example_game::init() {
                     components::text{ "World!", 40.f },
                     components::position{ 190.f, 250.f },
                     color::Yellow );
+
+    world().create( components::renderable{},
+                    counter{},
+                    components::text{ "Counter:", 40.f },
+                    components::position{ 190.f, 300.f },
+                    color::Red );
+
+    world().create( components::renderable{},
+                    counter{ 10000 },
+                    components::text{ "Counter:", 40.f },
+                    components::position{ 190.f, 350.f },
+                    color::Blue );
+
+    world().add_system<counter_system>();
 
     return config().clear_color( color::Black );
 }

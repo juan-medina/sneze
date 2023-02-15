@@ -22,31 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/systems/render_system.hpp"
+#pragma once
 
-#include "sneze/events/events.hpp"
-#include "sneze/platform/logger.hpp"
+#include "sneze/sneze.hpp"
 
-#include "raylib.h"
+using namespace sneze;
 
-namespace sneze {
-    void render_system::update( world& world ) {
-        render_->begin_frame();
+struct counter {
+    int value; // cppcheck-suppress unusedStructMember
+};
 
-        using namespace components;
-        world.sort<renderable>( render_system::sort_by_depth );
-
-        for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
-            if ( renderable.visible_ ) {
-                if ( auto txt = world.has<text>( id ) ) { render_->draw_text( *txt, position, color ); }
-            }
-        }
-
-        render_->end_frame();
-
-        if ( WindowShouldClose() ) world.emmit( events::application_want_closing{} );
-    }
-
-    void render_system::init( world& world ) { logger::debug( "render_system::init" ); }
-    void render_system::end( world& world ) { logger::debug( "render_system::end" ); }
-} // namespace sneze
+class counter_system : public system {
+    void init( world& world ) override;
+    void update( world& world ) override;
+    void end( world& world ) override;
+};

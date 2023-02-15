@@ -64,7 +64,7 @@ namespace sneze {
 
         logger::debug( "render created" );
 
-        world_.add_system<render_system>( render_ );
+        world_.add_system_with_priority<render_system>( world::priority::lowest, render_ );
 
         world_.add_listener<events::application_want_closing, &application::app_want_closing>( this );
 

@@ -26,10 +26,11 @@ SOFTWARE.
 
 #include "sneze/systems/system.hpp"
 
+#include <cstdint>
 #include <optional>
+#include <queue>
 #include <utility>
 #include <vector>
-#include <queue>
 
 #include "entt/entt.hpp"
 
@@ -99,10 +100,25 @@ namespace sneze {
 
         void sent_events();
 
+        enum priority : int32_t {
+            highest = std::numeric_limits<priority>::max(),
+            high = highest >> 1,
+
+            lowest = std::numeric_limits<priority>::min(),
+            low = lowest >> 1,
+
+            normal = 0,
+        };
+
         template <typename SystemType, typename... Args>
-        void add_system( Args... args ) noexcept {
-            systems_to_add_.push( std::make_unique<SystemType>( args... ) );
-            systems_to_add_.back()->init( *this );
+        [[maybe_unused]] void add_system( Args... args ) noexcept {
+            add_system_with_priority<SystemType>( priority::normal, args... );
+        }
+
+        template <typename SystemType, typename... Args>
+        [[maybe_unused]] void add_system_with_priority( int priority, Args... args ) noexcept {
+            systems_to_add_.push(
+                std::make_unique<system_with_priority>( priority, std::make_unique<SystemType>( args... ) ) );
         }
 
         void update();
@@ -110,8 +126,26 @@ namespace sneze {
     private:
         void update_systems();
 
-        std::vector<std::unique_ptr<system>> systems_;
-        std::queue<std::unique_ptr<system>> systems_to_add_;
+        class system_with_priority {
+        public:
+            system_with_priority( std::int32_t priority, std::unique_ptr<system> system ):
+                system_( std::move( system ) ), priority_( priority ) {}
+
+            bool operator<( const system_with_priority& other ) const { return priority_ < other.priority_; }
+
+            void init( world& world ) { system_->init( world ); }
+            void update( world& world ) { system_->update( world ); }
+            void end( world& world ) { system_->end( world ); }
+
+            [[nodiscard]] inline auto& priority() const { return priority_; }
+
+        private:
+            std::unique_ptr<system> system_;
+            std::int32_t priority_;
+        };
+
+        std::vector<std::unique_ptr<system_with_priority>> systems_;
+        std::queue<std::unique_ptr<system_with_priority>> systems_to_add_;
 
         entt::registry registry_;
         entt::dispatcher event_dispatcher_;
@@ -128,6 +162,11 @@ namespace sneze {
         }
 
         void helper_create_shift( world::id ) {}
+
+        static bool sort_by_priority( const std::unique_ptr<system_with_priority>& lhs,
+                                      const std::unique_ptr<system_with_priority>& rhs ) {
+            return lhs->priority() > rhs->priority();
+        }
     };
 
 } // namespace sneze

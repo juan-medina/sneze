@@ -33,6 +33,7 @@ namespace sneze {
         virtual void init( world& world ) = 0;
         virtual void update( world& world ) = 0;
         virtual void end( world& world ) = 0;
+        virtual ~system() = default;
     };
 
 } // namespace sneze

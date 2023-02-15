@@ -32,9 +32,15 @@ namespace sneze {
     }
 
     void world::update_systems() {
-        while ( !systems_to_add_.empty() ) {
-            systems_.push_back( std::move( systems_to_add_.front() ) );
-            systems_to_add_.pop();
+        if ( !systems_to_add_.empty() ) {
+            logger::debug( "adding systems" );
+            while ( !systems_to_add_.empty() ) {
+                systems_.push_back( std::move( systems_to_add_.front() ) );
+                systems_.back()->init( *this );
+                systems_to_add_.pop();
+            }
+            logger::debug( "sorting systems" );
+            std::sort( systems_.begin(), systems_.end(), world::sort_by_priority );
         }
 
         for ( auto& system : systems_ ) {
