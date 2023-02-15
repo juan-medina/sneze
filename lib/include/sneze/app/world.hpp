@@ -38,12 +38,11 @@ namespace sneze {
 
     class world {
     public:
-        typedef entt::entity id;
         world() = default;
         ~world() = default;
 
         template <typename Type, typename... Args>
-        void set( id entity, Args&&... args ) {
+        void set( entt::entity entity, Args&&... args ) {
             registry_.emplace<Type>( entity, std::forward<Args>( args )... );
         }
 
@@ -55,12 +54,12 @@ namespace sneze {
         }
 
         template <typename Type>
-        auto get( id entity ) {
+        auto get( entt::entity entity ) {
             registry_.get<Type>( entity );
         }
 
         template <typename Type>
-        auto has( id entity ) {
+        auto has( entt::entity entity ) {
             if ( auto ptr = registry_.try_get<Type>( entity ) ) {
                 return std::optional<Type>{ *ptr };
             } else {
@@ -151,17 +150,17 @@ namespace sneze {
         entt::dispatcher event_dispatcher_;
 
         template <typename... Args>
-        void recurse_create( world::id id, Args... args ) {
+        void recurse_create( entt::entity id, Args... args ) {
             helper_create_shift( id, args... );
         }
 
         template <typename Type, typename... Args>
-        void helper_create_shift( world::id id, Type value, Args&&... args ) {
+        void helper_create_shift( entt::entity id, Type value, Args&&... args ) {
             set<Type>( id, value );
             recurse_create( id, args... );
         }
 
-        void helper_create_shift( world::id ) {}
+        void helper_create_shift( entt::entity ) {}
 
         static bool sort_by_priority( const std::unique_ptr<system_with_priority>& lhs,
                                       const std::unique_ptr<system_with_priority>& rhs ) {
