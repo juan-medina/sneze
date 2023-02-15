@@ -28,74 +28,75 @@ SOFTWARE.
 
 namespace sneze {
 
-    class color : public Color {
-    public:
-        typedef unsigned char component;
+class color: public Color {
+public:
+    using component = unsigned char;
 
-        enum opacity : component {
-            translucent [[maybe_unused]] = 0,
-            opaque = 255
-        };
+    enum opacity : component { translucent [[maybe_unused]] = 0, opaque = 255 };
 
-        color( const color& ) = default;
+    ~color() = default;
 
-        color( color&& ) = default;
+    color(const color &) = default;
 
-        // cppcheck-suppress noExplicitConstructor
-        // NOLINTNEXTLINE (google-explicit-constructor)
-        color( const Color& color ): Color() {
-            Color::r = color.r;
-            Color::g = color.g;
-            Color::b = color.b;
-            Color::a = color.a;
-        }
+    color(color &&) = default;
 
-        color& operator=( const color& ) = default;
+    // cppcheck-suppress noExplicitConstructor
+    // NOLINTNEXTLINE (google-explicit-constructor)
+    color(const Color &color): Color() {
+        Color::r = color.r;
+        Color::g = color.g;
+        Color::b = color.b;
+        Color::a = color.a;
+    }
 
-        color& operator=( color&& ) = default;
+    auto operator=(const color &) -> color & = default;
 
-        [[nodiscard]] static color
-        rgba( const component& red, const component& green, const component& blue, const component& alpha ) {
-            return { red, green, blue, alpha };
-        }
+    auto operator=(color &&) -> color & = default;
 
-        [[nodiscard]] static color rgb( const component& red, const component& green, const component& blue ) {
-            return rgba( red, green, blue, opacity::opaque );
-        }
+    [[nodiscard]] static inline auto rgba(const component &red, const component &green, const component &blue,
+                                          const component &alpha) -> const color {
+        return {red, green, blue, alpha};
+    }
 
-        static color White;
-        static color Black;
-        static color Gray;
-        static color LightGray;
-        static color DarkGray;
-        static color Yellow;
-        static color Gold;
-        static color Orange;
-        static color Pink;
-        static color Red;
-        static color Maroon;
-        static color Green;
-        static color Lime;
-        static color DarkGreen;
-        static color SkyBlue;
-        static color Blue;
-        static color DarkBlue;
-        static color Purple;
-        static color Violet;
-        static color DarkPurple;
-        static color Beige;
-        static color Brown;
-        static color DarkBrown;
-        static color Magenta;
-        static color RayWhite;
+    [[nodiscard]] static inline auto rgb(const component &red, const component &green, const component &blue)
+        -> const color {
+        return rgba(red, green, blue, opacity::opaque);
+    }
 
-    private:
-        color( const component& red, const component& green, const component& blue, const component& alpha ): Color() {
-            Color::r = red;
-            Color::g = green;
-            Color::b = blue;
-            Color::a = alpha;
-        }
-    }; // namespace sneze
+    static const color White;
+    static const color Black;
+    static const color Gray;
+    static const color LightGray;
+    static const color DarkGray;
+    static const color Yellow;
+    static const color Gold;
+    static const color Orange;
+    static const color Pink;
+    static const color Red;
+    static const color Maroon;
+    static const color Green;
+    static const color Lime;
+    static const color DarkGreen;
+    static const color SkyBlue;
+    static const color Blue;
+    static const color DarkBlue;
+    static const color Purple;
+    static const color Violet;
+    static const color DarkPurple;
+    static const color Beige;
+    static const color Brown;
+    static const color DarkBrown;
+    static const color Magenta;
+    static const color RayWhite;
+
+private:
+    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+    color(const component &red, const component &green, const component &blue, const component &alpha): Color() {
+        Color::r = red;
+        Color::g = green;
+        Color::b = blue;
+        Color::a = alpha;
+    }
+};
 
 } // namespace sneze

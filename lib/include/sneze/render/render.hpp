@@ -30,32 +30,34 @@ SOFTWARE.
 #include "sneze/platform/result.hpp"
 
 namespace sneze {
-    class render {
+class render {
+public:
+    render() = default;
+    ~render() = default;
 
-    public:
-        render() = default;
-        ~render() = default;
+    render(const render &) = delete;
+    render(render &&) = delete;
 
-        render( const render& ) = delete;
-        render( render&& ) = delete;
+    auto operator=(const render &) -> render & = delete;
+    auto operator=(render &&) -> render & = delete;
 
-        render& operator=( const render& ) = delete;
-        render& operator=( render&& ) = delete;
+    [[maybe_unused]] void clear_color(const color &color) {
+        clear_color_ = color;
+    }
 
-        [[maybe_unused]] void clear_color( const color& color ) { clear_color_ = color; }
+    [[nodiscard]] auto init(const std::int64_t &width, const std::int64_t &height, const std::string &title,
+                                const color &color) -> result<>;
 
-        [[nodiscard]] result<>
-        init( const std::int64_t& width, const std::int64_t& height, const std::string& title, const color& color );
+    void end();
 
-        void end();
+    void begin_frame();
 
-        void begin_frame();
+    void end_frame();
 
-        void end_frame();
+    void draw_label(const components::label &label, const components::position &position, const color &color);
 
-        void draw_label( const components::label& label, const components::position& position, const color& color );
+private:
+    color clear_color_ = color::Black;
+};
 
-    private:
-        color clear_color_ = color::Black;
-    };
 } // namespace sneze

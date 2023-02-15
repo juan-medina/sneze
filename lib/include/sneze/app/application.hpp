@@ -36,81 +36,92 @@ SOFTWARE.
 
 namespace sneze {
 
-    class application {
-    public:
-        inline application( const std::string& team, const std::string& name ):
-            team_{ team }, name_{ name }, settings_{ team, name }, render_{ std::make_shared<render>() } {}
+class application {
+public:
+    inline application(const std::string &team, const std::string &name)
+        : team_{team}, name_{name}, settings_{team, name}, render_{std::make_shared<render>()} {}
 
-        virtual ~application() = default;
+    virtual ~application() = default;
 
-        result<bool, error> run();
+    application(const application &) = delete;
+    application(const application &&) = delete;
 
-        [[nodiscard]] virtual config init() = 0;
+    auto operator=(const application &) -> application & = delete;
+    auto operator=(const application &&) -> application & = delete;
 
-        virtual void end() = 0;
+    auto run() -> result<bool, error>;
 
-        [[nodiscard]] inline const std::string& team() const noexcept { return team_; }
+    [[nodiscard]] virtual auto init() -> config = 0;
 
-        [[nodiscard]] inline const std::string& name() const noexcept { return name_; }
+    virtual void end() = 0;
 
-        template <is_value Type>
-        [[maybe_unused]] inline void
-        set_setting( const std::string& section, const std::string& name, const Type& value ) {
-            settings_.set<Type>( section, name, value );
-        }
+    [[nodiscard]] inline auto team() const noexcept -> const std::string & {
+        return team_;
+    }
 
-        template <is_value Type>
-        [[maybe_unused]] [[nodiscard]] inline Type
-        get_setting( const std::string& section, const std::string& name, const Type& default_value ) {
-            return settings_.get<Type>( section, name, default_value );
-        }
+    [[nodiscard]] inline auto name() const noexcept -> const std::string & {
+        return name_;
+    }
 
-        template <is_value Type>
-        [[maybe_unused]] inline void get_set_setting( const std::string& section,
-                                                      const std::string& name,
-                                                      const Type& default_value,
-                                                      Type ( *func )( Type ) ) {
-            Type value = settings_.get( section, name, default_value );
-            value = func( value );
-            settings_.set<Type>( section, name, value );
-        }
+    template<is_value Type>
+    [[maybe_unused]] inline void set_setting(const std::string &section, const std::string &name, const Type &value) {
+        settings_.set<Type>(section, name, value);
+    }
 
-        template <is_value Type>
-        [[maybe_unused]] inline void set_app_setting( const std::string& name, const Type& value ) {
-            settings_.set<Type>( name_, name, value );
-        }
+    template<is_value Type>
+    [[maybe_unused]] [[nodiscard]] inline auto get_setting(const std::string &section, const std::string &name,
+                                                           const Type &default_value) {
+        return settings_.get<Type>(section, name, default_value);
+    }
 
-        template <is_value Type>
-        [[maybe_unused]] [[nodiscard]] inline Type get_app_setting( const std::string& name,
-                                                                    const Type& default_value ) {
-            return settings_.get<Type>( name_, name, default_value );
-        }
+    template<is_value Type>
+    [[maybe_unused]] inline void get_set_setting(const std::string &section, const std::string &name,
+                                                 const Type &default_value, Type (*func)(Type)) {
+        Type value = settings_.get(section, name, default_value);
+        value = func(value);
+        settings_.set<Type>(section, name, value);
+    }
 
-        template <is_value Type>
-        [[maybe_unused]] inline void
-        get_set_app_setting( const std::string& name, const Type& default_value, Type ( *func )( Type ) ) {
-            get_set_setting<Type>( name_, name, default_value, func );
-        }
+    template<is_value Type>
+    [[maybe_unused]] inline void set_app_setting(const std::string &name, const Type &value) {
+        settings_.set<Type>(name_, name, value);
+    }
 
-        [[nodiscard]] inline world& world() noexcept { return world_; }
+    template<is_value Type>
+    [[maybe_unused]] [[nodiscard]] inline auto get_app_setting(const std::string &name, const Type &default_value) {
+        return settings_.get<Type>(name_, name, default_value);
+    }
 
-        void app_want_closing( events::application_want_closing event ) noexcept;
+    template<is_value Type>
+    [[maybe_unused]] inline void get_set_app_setting(const std::string &name, const Type &default_value,
+                                                     Type (*func)(Type)) {
+        get_set_setting<Type>(name_, name, default_value, func);
+    }
 
-    private:
-        std::string team_;
-        std::string name_;
-        settings settings_;
-        sneze::world world_;
-        std::shared_ptr<render> render_;
-        bool want_to_close_{ false };
+    [[nodiscard]] inline auto world() noexcept -> auto & {
+        return world_;
+    }
 
-        result<> launch() noexcept;
+    void app_want_closing(events::application_want_closing event) noexcept;
 
-        result<> read_settings() noexcept;
+private:
+    static const auto default_width{1920LL};
+    static const auto default_height{1080LL};
 
-        result<> save_settings() noexcept;
+    std::string team_;
+    std::string name_;
+    settings settings_;
+    sneze::world world_;
+    std::shared_ptr<render> render_;
+    bool want_to_close_{false};
 
-        [[nodiscard]] const error& show_error( const error& err ) const noexcept;
-    };
+    auto launch() noexcept -> result<>;
+
+    auto read_settings() noexcept -> result<>;
+
+    auto save_settings() noexcept -> result<>;
+
+    [[nodiscard]] auto show_error(const error &err) const noexcept -> const auto &;
+};
 
 } // namespace sneze

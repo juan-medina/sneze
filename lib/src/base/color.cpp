@@ -25,30 +25,30 @@ SOFTWARE.
 #include "sneze/base/color.hpp"
 
 namespace sneze {
-    [[maybe_unused]] color color::White = WHITE;
-    [[maybe_unused]] color color::Black = BLACK;
-    [[maybe_unused]] color color::Gray = GRAY;
-    [[maybe_unused]] color color::LightGray = LIGHTGRAY;
-    [[maybe_unused]] color color::DarkGray = DARKGRAY;
-    [[maybe_unused]] color color::Yellow = YELLOW;
-    [[maybe_unused]] color color::Gold = GOLD;
-    [[maybe_unused]] color color::Orange = ORANGE;
-    [[maybe_unused]] color color::Pink = PINK;
-    [[maybe_unused]] color color::Red = RED;
-    [[maybe_unused]] color color::Maroon = MAROON;
-    [[maybe_unused]] color color::Green = GREEN;
-    [[maybe_unused]] color color::Lime = LIME;
-    [[maybe_unused]] color color::DarkGreen = DARKGREEN;
-    [[maybe_unused]] color color::SkyBlue = SKYBLUE;
-    [[maybe_unused]] color color::Blue = BLUE;
-    [[maybe_unused]] color color::DarkBlue = DARKBLUE;
-    [[maybe_unused]] color color::Purple = PURPLE;
-    [[maybe_unused]] color color::Violet = VIOLET;
-    [[maybe_unused]] color color::DarkPurple = DARKPURPLE;
-    [[maybe_unused]] color color::Beige = BEIGE;
-    [[maybe_unused]] color color::Brown = BROWN;
-    [[maybe_unused]] color color::DarkBrown = DARKBROWN;
-    [[maybe_unused]] color color::Magenta = MAGENTA;
-    [[maybe_unused]] color color::RayWhite = RAYWHITE;
+[[maybe_unused]] const color color::White = WHITE;
+[[maybe_unused]] const color color::Black = BLACK;
+[[maybe_unused]] const color color::Gray = GRAY;
+[[maybe_unused]] const color color::LightGray = LIGHTGRAY;
+[[maybe_unused]] const color color::DarkGray = DARKGRAY;
+[[maybe_unused]] const color color::Yellow = YELLOW;
+[[maybe_unused]] const color color::Gold = GOLD;
+[[maybe_unused]] const color color::Orange = ORANGE;
+[[maybe_unused]] const color color::Pink = PINK;
+[[maybe_unused]] const color color::Red = RED;
+[[maybe_unused]] const color color::Maroon = MAROON;
+[[maybe_unused]] const color color::Green = GREEN;
+[[maybe_unused]] const color color::Lime = LIME;
+[[maybe_unused]] const color color::DarkGreen = DARKGREEN;
+[[maybe_unused]] const color color::SkyBlue = SKYBLUE;
+[[maybe_unused]] const color color::Blue = BLUE;
+[[maybe_unused]] const color color::DarkBlue = DARKBLUE;
+[[maybe_unused]] const color color::Purple = PURPLE;
+[[maybe_unused]] const color color::Violet = VIOLET;
+[[maybe_unused]] const color color::DarkPurple = DARKPURPLE;
+[[maybe_unused]] const color color::Beige = BEIGE;
+[[maybe_unused]] const color color::Brown = BROWN;
+[[maybe_unused]] const color color::DarkBrown = DARKBROWN;
+[[maybe_unused]] const color color::Magenta = MAGENTA;
+[[maybe_unused]] const color color::RayWhite = RAYWHITE;
 
 } // namespace sneze

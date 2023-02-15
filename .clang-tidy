@@ -1,0 +1,8 @@
+Checks: '-*,
+cppcoreguidelines-*,
+modernize-*,
+google-*,
+bugprone-*,
+misc-*,
+'
+## maybe will add latter: readability-*

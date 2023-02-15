@@ -27,18 +27,20 @@ SOFTWARE.
 #include <string>
 
 namespace sneze::components {
-    struct renderable {
-        bool visible = true;
-        float depth = 0.0f;
-    };
 
-    struct label {
-        std::string text; // cppcheck-suppress unusedStructMember
-        float size;       // cppcheck-suppress unusedStructMember
-    };
+struct renderable {
+    bool visible{true}; // cppcheck-suppress unusedStructMember
+    float depth{0.0f};  // cppcheck-suppress unusedStructMember
+};
 
-    struct position {
-        float x; // cppcheck-suppress unusedStructMember
-        float y; // cppcheck-suppress unusedStructMember
-    };
+struct label {
+    std::string text; // cppcheck-suppress unusedStructMember
+    float size;       // cppcheck-suppress unusedStructMember
+};
+
+struct position {
+    float x; // cppcheck-suppress unusedStructMember
+    float y; // cppcheck-suppress unusedStructMember
+};
+
 } // namespace sneze::components

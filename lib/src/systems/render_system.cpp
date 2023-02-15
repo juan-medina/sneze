@@ -30,23 +30,29 @@ SOFTWARE.
 #include "raylib.h"
 
 namespace sneze {
-    void render_system::update( world& world ) {
-        render_->begin_frame();
+void render_system::update(world &world) {
+    render_->begin_frame();
 
-        using namespace components;
-        world.sort<renderable>( render_system::sort_by_depth );
-
-        for ( auto&& [id, renderable, position, color] : world.view<const renderable, const position, const color>() ) {
-            if ( renderable.visible ) {
-                if ( auto lbl = world.has<label>( id ) ) { render_->draw_label( *lbl, position, color ); }
+    for(auto const &&[id, renderable, position, color]:
+        world.view<const components::renderable, const components::position, const color>()) {
+        if(renderable.visible) {
+            if(auto lbl = world.has<components::label>(id)) {
+                render_->draw_label(*lbl, position, color);
             }
         }
-
-        render_->end_frame();
-
-        if ( WindowShouldClose() ) world.emmit( events::application_want_closing{} );
     }
 
-    void render_system::init( world& world ) { logger::debug( "render_system::init" ); }
-    void render_system::end( world& world ) { logger::debug( "render_system::end" ); }
+    render_->end_frame();
+
+    if(WindowShouldClose()) world.emmit(events::application_want_closing{});
+}
+
+void render_system::init(world &) {
+    logger::debug("render_system::init");
+}
+
+void render_system::end(world &) {
+    logger::debug("render_system::end");
+}
+
 } // namespace sneze

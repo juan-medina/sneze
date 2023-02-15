@@ -34,93 +34,92 @@ SOFTWARE.
 
 namespace sneze {
 
-    result<bool, error> application::run() {
-        logger::setup_log();
-
-        logger::info( "{}", VERSION );
-        logger::debug( "running application: {} (Team: {})", name(), team() );
-
-        if ( auto err = read_settings().ko() ) return show_error( *err );
-        if ( auto err = launch().ko() ) return show_error( *err );
-        if ( auto err = save_settings().ko() ) return show_error( *err );
-
-        logger::debug( "stopping application: {}", name() );
-
-        return true;
-    }
-
-    result<> application::launch() noexcept {
-        auto width = settings_.get( "window", "width", 1920LL );
-        auto height = settings_.get( "window", "height", 1080LL );
-
-        logger::debug( "init application" );
-        auto setup = init();
-
-        logger::debug( "init render" );
-        if ( auto err = render_->init( width, height, name(), setup.clear_color_ ).ko() ) {
-            logger::error( "error initializing render" );
-            return error( "Can't init the render system.", *err );
-        }
-
-        logger::debug( "adding render system to the world" );
-        world_.add_system_with_priority<render_system>( world::priority::lowest, render_ );
-
-        logger::debug( "listening for application_want_closing events" );
-        world_.add_listener<events::application_want_closing, &application::app_want_closing>( this );
-
-        while ( !want_to_close_ )
-            world_.update();
-
-        logger::debug( "ending application" );
-        end();
-
-        logger::debug( "remove any listener by sneze::application" );
-        world_.remove_listeners( this );
-
-        logger::debug( "clear world" );
-        world_.clear();
-
-        logger::debug( "ending render" );
-        render_->end();
-
-        return true;
-    }
-
-    const error& application::show_error( const error& err ) const noexcept {
-        std::string message = err.message();
-        auto causes = err.causes();
-        if ( !causes.empty() ) {
-            message += " Caused by:\n";
-            for ( const auto& cause : causes ) {
-                message += "\n - " + cause;
-            }
-        }
-        auto message_title = fmt::format( "{} : Error!", name() );
-        boxer::show( message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit );
-        return err;
-    }
-
-    result<> application::read_settings() noexcept {
-        if ( auto [val, err] = settings_.read().ok(); err ) {
-            logger::error( "error reading settings" );
-            return error( "Can't read settings.", *err );
-        } else {
-            return *val;
+auto application::show_error(const error &err) const noexcept -> const auto & {
+    std::string message = err.message();
+    auto causes = err.causes();
+    if(!causes.empty()) {
+        message += " Caused by:\n";
+        for(const auto &cause: causes) {
+            message += "\n - " + cause;
         }
     }
+    auto message_title = fmt::format("{} : Error!", name());
+    boxer::show(message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit);
+    return err;
+}
 
-    result<> application::save_settings() noexcept {
-        if ( auto [val, err] = settings_.save().ok(); err ) {
-            logger::error( "error saving settings" );
-            return error( "Can't save settings.", *err );
-        } else {
-            return *val;
-        }
+auto application::run() -> result<bool, error> {
+    logger::setup_log();
+
+    logger::info("{}", version::string);
+    logger::debug("running application: {} (Team: {})", name(), team());
+
+    if(auto err = read_settings().ko()) return show_error(*err);
+    if(auto err = launch().ko()) return show_error(*err);
+    if(auto err = save_settings().ko()) return show_error(*err);
+
+    logger::debug("stopping application: {}", name());
+
+    return true;
+}
+
+auto application::launch() noexcept -> result<> {
+    auto width = settings_.get("window", "width", default_width);
+    auto height = settings_.get("window", "height", default_height);
+
+    logger::debug("init application");
+    auto setup = init();
+
+    logger::debug("init render");
+    if(auto err = render_->init(width, height, name(), setup.clear_color()).ko()) {
+        logger::error("error initializing render");
+        return error("Can't init the render system.", *err);
     }
 
-    void application::app_want_closing( events::application_want_closing ) noexcept {
-        logger::debug( "application want to close" );
-        want_to_close_ = true;
+    logger::debug("adding render system to the world");
+    world_.add_system_with_priority<render_system>(world::priority::lowest, render_);
+
+    logger::debug("listening for application_want_closing events");
+    world_.add_listener<events::application_want_closing, &application::app_want_closing>(this);
+
+    while(!want_to_close_) world_.update();
+
+    logger::debug("ending application");
+    end();
+
+    logger::debug("remove any listener by sneze::application");
+    world_.remove_listeners(this);
+
+    logger::debug("clear world");
+    world_.clear();
+
+    logger::debug("ending render");
+    render_->end();
+
+    return true;
+}
+
+auto application::read_settings() noexcept -> result<> {
+    if(auto [val, err] = settings_.read().ok(); err) {
+        logger::error("error reading settings");
+        return error("Can't read settings.", *err);
+    } else {
+        return *val;
     }
+}
+
+auto application::save_settings() noexcept -> result<> {
+    if(auto [val, err] = settings_.save().ok(); err) {
+        logger::error("error saving settings");
+        return error("Can't save settings.", *err);
+    } else {
+        return *val;
+    }
+}
+
+void application::app_want_closing(events::application_want_closing) noexcept {
+    logger::debug("application want to close");
+    want_to_close_ = true;
+}
 
 } // namespace sneze

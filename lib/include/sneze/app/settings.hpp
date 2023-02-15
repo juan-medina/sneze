@@ -38,69 +38,68 @@ SOFTWARE.
 
 namespace sneze {
 
-    template <typename T>
-    concept is_value = std::is_same_v<T, std::int64_t> || std::is_same_v<T, double> || std::is_same_v<T, bool> ||
-                       std::is_same_v<T, std::string>;
+template<typename T>
+concept is_value = std::is_same_v<T, std::int64_t> || std::is_same_v<T, double> || std::is_same_v<T, bool>
+                   || std::is_same_v<T, std::string>;
 
-    class settings {
-    public:
-        settings( std::string team, std::string application );
+class settings {
+public:
+    settings(std::string team, std::string application);
 
-        virtual ~settings() = default;
+    auto read() -> result<>;
 
-        result<> read();
+    using settings_value = std::variant<std::int64_t, double, bool, std::string>;
 
-        typedef std::variant<std::int64_t, double, bool, std::string> settings_value;
-
-        template <is_value Type>
-        inline void set( const std::string& section, const std::string& name, const Type& value ) {
-            if ( auto it_section = data_.find( section ); it_section != data_.end() ) {
-                it_section->second[name] = value;
-            } else {
-                auto new_section = settings::section{};
-                new_section[name] = value;
-                data_[section] = new_section;
-            }
+    template<is_value Type>
+    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+    inline void set(const std::string &section, const std::string &name, const Type &value) {
+        if(auto it_section = data_.find(section); it_section != data_.end()) {
+            it_section->second[name] = value;
+        } else {
+            auto new_section = settings::section{};
+            new_section[name] = value;
+            data_[section] = new_section;
         }
+    }
 
-        template <is_value Type>
-        inline Type get( const std::string& section, const std::string& name, const Type& default_value ) {
-            if ( auto it_section = data_.find( section ); it_section != data_.end() ) {
-                if ( auto it_value = it_section->second.find( name ); it_value != it_section->second.end() ) {
-                    if ( auto value = std::get_if<Type>( &it_value->second ) ) { return *value; }
+    template<is_value Type>
+    inline auto get(const std::string &section, const std::string &name, const Type &default_value) {
+        if(auto it_section = data_.find(section); it_section != data_.end()) {
+            if(auto it_value = it_section->second.find(name); it_value != it_section->second.end()) {
+                if(auto value = std::get_if<Type>(&it_value->second)) {
+                    return *value;
                 }
             }
-            logger::debug(
-                "setting value not found, section: {}, value: {}, default to {}", section, name, default_value );
-            set<Type>( section, name, default_value );
-            return default_value;
         }
+        logger::debug("setting value not found, section: {}, value: {}, default to {}", section, name, default_value);
+        set<Type>(section, name, default_value);
+        return default_value;
+    }
 
-        result<> save();
+    auto save() -> result<>;
 
-    protected:
-        std::string team_;
-        std::string application_;
+private:
+    std::string application_;
+    std::string team_;
 
-    private:
-        constexpr static const char* const Settings_file_name = "settings.toml";
+    constexpr static const auto Settings_file_name = "settings.toml";
 
-        static result<> exist_or_create_directory( const std::filesystem::path& path ) noexcept;
+    static auto exist_or_create_directory(const std::filesystem::path &path) noexcept -> result<>;
 
-        static result<> exist_or_create_file( const std::filesystem::path& path ) noexcept;
+    static auto exist_or_create_file(const std::filesystem::path &path) noexcept -> result<>;
 
-        result<std::filesystem::path> calculate_settings_file_path() noexcept;
+    auto calculate_settings_file_path() noexcept -> result<std::filesystem::path>;
 
-        result<> read_toml() noexcept;
+    auto read_toml() noexcept -> result<>;
 
-        typedef std::unordered_map<std::string, settings_value> section;
-        typedef std::unordered_map<std::string, section> sections;
+    using section = std::unordered_map<std::string, settings_value>;
+    using sections = std::unordered_map<std::string, section>;
 
-        sections data_;
-        std::filesystem::path settings_file_path_;
+    sections data_;
+    std::filesystem::path settings_file_path_;
 
-        result<>
-        add_toml_value( const std::string& section, const std::string& name, const toml::value& value ) noexcept;
-    };
+    auto add_toml_value(const std::string &section, const std::string &name, const toml::value &value) noexcept
+        -> result<>;
+};
 
 } // namespace sneze

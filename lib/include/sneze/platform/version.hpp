@@ -28,9 +28,11 @@ SOFTWARE.
 
 #include "fmt/format.h"
 
-namespace sneze {
-    static const int MAJOR_VERSION = 0;
-    static const int MINOR_VERSION = 0;
-    static const int RELEASE_VERSION = 0;
-    static const std::string VERSION = fmt::format( "sneze v{}.{}.{}", MAJOR_VERSION, MINOR_VERSION, RELEASE_VERSION );
-} // namespace sneze
+namespace sneze::version {
+
+static const int major = 0;
+static const int minor = 0;
+static const int release = 0;
+static const std::string string = fmt::format("sneze v{}.{}.{}", major, minor, release);
+
+} // namespace sneze::version

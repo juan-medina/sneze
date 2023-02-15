@@ -31,40 +31,48 @@ SOFTWARE.
 
 namespace sneze {
 
-    template <class Value = bool, class Error = class error>
-    class result : public std::variant<Value, Error> {
-    public:
-        // cppcheck-suppress noExplicitConstructor
-        // NOLINTNEXTLINE (google-explicit-constructor)
-        inline result( const Value& value ): std::variant<Value, Error>( value ) {}
+template<class Value = bool, class Error = class error>
+class result: public std::variant<Value, Error> {
+public:
+    // cppcheck-suppress noExplicitConstructor
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    inline result(const Value &value): std::variant<Value, Error>(value) {}
 
-        // cppcheck-suppress noExplicitConstructor
-        // NOLINTNEXTLINE (google-explicit-constructor)
-        inline result( const Error& err ): std::variant<Value, Error>( err ) {}
+    // cppcheck-suppress noExplicitConstructor
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    inline result(const Error &err): std::variant<Value, Error>(err) {}
 
-        inline bool has_error() { return std::holds_alternative<Error>( *this ); }
+    inline auto has_error() {
+        return std::holds_alternative<Error>(*this);
+    }
 
-        [[maybe_unused]] inline bool has_value() { return std::holds_alternative<Value>( *this ); }
+    [[maybe_unused]] inline auto has_value() {
+        return std::holds_alternative<Value>(*this);
+    }
 
-        [[maybe_unused]] [[nodiscard]] inline Error error() const noexcept { return std::get<Error>( *this ); }
+    [[maybe_unused]] [[nodiscard]] inline auto error() const noexcept {
+        return std::get<Error>(*this);
+    }
 
-        [[maybe_unused]] [[nodiscard]] inline Value value() const noexcept { return std::get<Value>( *this ); }
+    [[maybe_unused]] [[nodiscard]] inline auto value() const noexcept {
+        return std::get<Value>(*this);
+    }
 
-        inline std::tuple<std::optional<Value>, std::optional<Error>> ok() {
-            if ( has_error() ) {
-                return { std::nullopt, error() };
-            } else {
-                return { value(), std::nullopt };
-            }
-        };
-
-        inline std::optional<Error> ko() {
-            if ( has_error() ) {
-                return error();
-            } else {
-                return std::nullopt;
-            }
-        };
+    inline auto ok() -> std::tuple<std::optional<Value>, std::optional<Error>> {
+        if(has_error()) {
+            return {std::nullopt, error()};
+        } else {
+            return {value(), std::nullopt};
+        }
     };
+
+    inline auto ko() -> std::optional<Error> {
+        if(has_error()) {
+            return error();
+        } else {
+            return std::nullopt;
+        }
+    };
+};
 
 } // namespace sneze

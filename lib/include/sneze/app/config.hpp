@@ -28,23 +28,28 @@ SOFTWARE.
 
 namespace sneze {
 
-    class config {
-    public:
-        explicit config() = default;
-        ~config() = default;
+class config {
+public:
+    explicit config() = default;
+    ~config() = default;
 
-        config( const config& ) = default;
-        config( config&& ) = default;
+    config(const config &) = default;
+    config(config &&) = default;
 
-        config& operator=( const config& ) = default;
-        config& operator=( config&& ) = default;
+    auto operator=(const config &) -> config & = default;
+    auto operator=(config &&) -> config & = default;
 
-        [[maybe_unused]] [[nodiscard]] config clear_color( const color& clear_color ) {
-            clear_color_ = clear_color;
-            return *this;
-        }
+    [[maybe_unused]] [[nodiscard]] auto clear_color(const color &clear_color) -> config {
+        clear_color_ = clear_color;
+        return *this;
+    }
 
-        color clear_color_ = color::Black;
-    };
+    [[nodiscard]] inline auto clear_color() const -> const color & {
+        return clear_color_;
+    }
+
+private:
+    color clear_color_ = color::Black;
+};
 
 } // namespace sneze

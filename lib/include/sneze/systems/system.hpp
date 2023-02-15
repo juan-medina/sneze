@@ -26,14 +26,22 @@ SOFTWARE.
 
 namespace sneze {
 
-    class world;
+class world;
 
-    class system {
-    public:
-        virtual void init( world& world ) = 0;
-        virtual void update( world& world ) = 0;
-        virtual void end( world& world ) = 0;
-        virtual ~system() = default;
-    };
+class system {
+public:
+    virtual void init(world &world) = 0;
+    virtual void update(world &world) = 0;
+    virtual void end(world &world) = 0;
+
+    system() = default;
+    virtual ~system() = default;
+
+    system(const system &) = delete;
+    system(const system &&) = delete;
+
+    auto operator=(const system &) -> system & = delete;
+    auto operator=(const system &&) -> system & = delete;
+};
 
 } // namespace sneze

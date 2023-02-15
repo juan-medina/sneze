@@ -14,34 +14,29 @@ IncludeCategories:
   - Regex: '.*'
     Priority: 4
 
-TabWidth: 4
-UseTab: Never
-
-AllowShortBlocksOnASingleLine: Always
-AllowShortEnumsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: WithoutElse
-AllowShortLambdasOnASingleLine: Inline
-
 AccessModifierOffset: -4
-AlignEscapedNewlines: Left
-AllowAllConstructorInitializersOnNextLine: true
-BinPackArguments: false
-BinPackParameters: false
-BreakConstructorInitializers: AfterColon
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
+AlignEscapedNewlines: DontAlign
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: Yes
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: true
+ColumnLimit: 120
 DerivePointerAlignment: false
-FixNamespaceComments: true
-IndentCaseLabels: false
 IndentPPDirectives: AfterHash
 IndentWidth: 4
-NamespaceIndentation: All
-PointerAlignment: Left
+KeepEmptyLinesAtTheStartOfBlocks: false
+PointerAlignment: Right
+SpaceAfterCStyleCast: false
+SpaceAfterTemplateKeyword: false
+SpaceAroundPointerQualifiers: After
+SpaceBeforeCaseColon: false
 SpaceBeforeCtorInitializerColon: false
-SpaceInEmptyParentheses: false
-SpacesInParentheses: true
-AlwaysBreakTemplateDeclarations: Yes
-SpaceAfterTemplateKeyword: true
-SortUsingDeclarations: true
-ReflowComments: true
-ColumnLimit: 120
+SpaceBeforeInheritanceColon: false
+SpaceBeforeParens: Never
+SpaceBeforeRangeBasedForLoopColon: false
+TabWidth: 4
+UseTab: Never

@@ -33,22 +33,22 @@ SOFTWARE.
 
 namespace sneze {
 
-    class render_system final : public sneze::system {
-    public:
-        explicit render_system( std::shared_ptr<sneze::render> render ): render_( std::move( render ) ) {}
+class render_system final: public sneze::system {
+public:
+    explicit render_system(std::shared_ptr<sneze::render> render): render_(std::move(render)) {}
 
-        void update( sneze::world& world ) override;
+    void update(sneze::world &world) override;
 
-        void init( sneze::world& world ) override;
+    void init(sneze::world &world) override;
 
-        void end( sneze::world& world ) override;
+    void end(sneze::world &world) override;
 
-    private:
-        std::shared_ptr<sneze::render> render_;
+private:
+    std::shared_ptr<sneze::render> render_;
 
-        static inline bool sort_by_depth( const components::renderable& lhs, const components::renderable& rhs ) {
-            return lhs.depth < rhs.depth;
-        }
-    };
+    static inline auto sort_by_depth(const components::renderable &lhs, const components::renderable &rhs) {
+        return lhs.depth < rhs.depth;
+    }
+};
 
 } // namespace sneze

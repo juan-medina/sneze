@@ -25,31 +25,42 @@ SOFTWARE.
 #pragma once
 
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace sneze {
 
-    class error {
-    public:
-        // cppcheck-suppress noExplicitConstructor
-        // NOLINTNEXTLINE (google-explicit-constructor)
-        error( const std::string& message ): message_{ message } {}
+class error {
+public:
+    // cppcheck-suppress noExplicitConstructor
+    // NOLINTNEXTLINE(google-explicit-constructor)
+    error(std::string message): message_{std::move(message)} {}
 
-        error( const error& other ) = default;
+    error(const error &other) = default;
 
-        error( std::string message, const error& other ): message_{ std::move( message ) }, causes_{ other.causes_ } {
-            causes_.insert( causes_.begin(), other.message_ );
-        };
+    error(error &&other) = default;
 
-        virtual ~error() noexcept = default;
-
-        [[nodiscard]] inline auto message() const noexcept { return message_; }
-
-        [[nodiscard]] inline auto causes() const noexcept { return causes_; }
-
-    private:
-        std::string message_;
-        std::vector<std::string> causes_;
+    error(std::string message, const error &other): message_{std::move(message)}, causes_{other.causes_} {
+        causes_.insert(causes_.begin(), other.message_);
     };
+
+    auto operator=(const error &) -> error & = default;
+
+    auto operator=(error &&) -> error & = default;
+
+    virtual ~error() noexcept = default;
+
+    [[nodiscard]] inline auto message() const noexcept {
+        return message_;
+    }
+
+    [[nodiscard]] inline auto causes() const noexcept {
+        return causes_;
+    }
+
+private:
+    std::string message_;
+    std::vector<std::string> causes_;
+};
 
 } // namespace sneze

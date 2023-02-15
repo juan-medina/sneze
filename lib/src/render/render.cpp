@@ -29,32 +29,33 @@ SOFTWARE.
 #include "raylib.h"
 
 namespace sneze {
-    result<> render::init( const std::int64_t& width,
-                           const std::int64_t& height,
-                           const std::string& title,
-                           const color& color ) {
-        logger::debug( "Creating window" );
-        InitWindow( (int)width, (int)height, title.c_str() );
-        clear_color( color );
-        return true;
-    }
 
-    void render::end() {
-        logger::debug( "Closing window" );
-        CloseWindow();
-    }
+auto render::init(const std::int64_t &width, const std::int64_t &height, const std::string &title, const color &color)
+    -> result<> {
+    logger::debug("Creating window");
+    InitWindow(static_cast<int>(width), static_cast<int>(height), title.c_str());
+    clear_color(color);
+    return true;
+}
 
-    void render::begin_frame() {
-        BeginDrawing();
+void render::end() {
+    logger::debug("Closing window");
+    CloseWindow();
+}
 
-        ClearBackground( clear_color_ );
-    }
+void render::begin_frame() {
+    BeginDrawing();
 
-    void render::end_frame() { EndDrawing(); }
+    ClearBackground(clear_color_);
+}
 
-    void
-    render::draw_label( const components::label& label, const components::position& position, const color& color ) {
-        DrawText( label.text.c_str(), (int)position.x, (int)position.y, (int)label.size, color );
-    }
+void render::end_frame() {
+    EndDrawing();
+}
+
+void render::draw_label(const components::label &label, const components::position &position, const color &color) {
+    DrawText(label.text.c_str(), static_cast<int>(position.x), static_cast<int>(position.y),
+             static_cast<int>(label.size), color);
+}
 
 } // namespace sneze
