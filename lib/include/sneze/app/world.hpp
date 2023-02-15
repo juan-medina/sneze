@@ -36,6 +36,7 @@ SOFTWARE.
 namespace sneze {
 
     class world {
+        friend class application;
     public:
         world() = default;
         ~world() = default;
@@ -91,14 +92,10 @@ namespace sneze {
             event_dispatcher_.disconnect( instance );
         }
 
-        [[maybe_unused]] void discard_pending_events() { event_dispatcher_.clear(); }
-
         template <typename EventType>
         void emmit( EventType event ) {
             event_dispatcher_.enqueue( event );
         }
-
-        void sent_events();
 
         enum priority : int32_t {
             highest = std::numeric_limits<int32_t>::max(),
@@ -116,7 +113,7 @@ namespace sneze {
         }
 
         template <typename SystemType, typename... Args>
-        [[maybe_unused]] void add_system_with_priority( int priority, Args... args ) noexcept {
+        [[maybe_unused]] void add_system_with_priority( int32_t priority, Args... args ) noexcept {
             systems_to_add_.push_back( std::make_unique<system_with_priority>(
                 entt::type_hash<SystemType>::value(), priority, std::make_unique<SystemType>( args... ) ) );
         }
@@ -124,27 +121,31 @@ namespace sneze {
         template <typename SystemType>
         [[maybe_unused]] void remove_system() noexcept {
             const entt::id_type type_to_remove = entt::type_hash<SystemType>::value();
-            if ( !remove_system_from_vector( type_to_remove, systems_ ) ) {
-                remove_system_from_vector( type_to_remove, systems_to_add_ );
-            }
+            systems_to_remove_.push_back( type_to_remove );
         }
 
-        [[maybe_unused]] void remove_all_systems() noexcept {
-            remove_all_systems_from_vector( systems_ );
-            remove_all_systems_from_vector( systems_to_add_ );
-        }
+    protected:
 
         void update();
 
+        void clear() noexcept;
+
     private:
+
+        void remove_all_systems() noexcept;
+
+        void discard_pending_events() noexcept;
+
+        void remove_pending_systems() noexcept;
+
+        void sent_events();
+
         void update_systems();
 
         class system_with_priority {
         public:
             system_with_priority( entt::id_type type, std::int32_t priority, std::unique_ptr<system> system ):
                 type_{ type }, system_( std::move( system ) ), priority_( priority ) {}
-
-            bool operator<( const system_with_priority& other ) const { return priority_ < other.priority_; }
 
             void init( world& world ) { system_->init( world ); }
             void update( world& world ) { system_->update( world ); }
@@ -159,32 +160,22 @@ namespace sneze {
             std::unique_ptr<system> system_;
         };
 
-        typedef std::vector<std::unique_ptr<system_with_priority>> systems_vector;
+        typedef std::unique_ptr<system_with_priority> system_ptr;
+        typedef std::vector<system_ptr> systems_vector;
+        typedef std::vector<entt::id_type> systems_id_vector;
+
         systems_vector systems_;
         systems_vector systems_to_add_;
+        systems_id_vector systems_to_remove_;
 
         entt::registry registry_;
         entt::dispatcher event_dispatcher_;
 
-        bool remove_system_from_vector( entt::id_type type_to_remove, systems_vector& systems ) noexcept {
-            auto it_systems = std::find_if( systems.begin(), systems.end(), [type_to_remove]( const auto& system ) {
-                return system->type() == type_to_remove;
-            } );
+        void add_pending_systems() noexcept;
 
-            if ( it_systems != systems.end() ) {
-                it_systems->get()->end( *this );
-                systems.erase( it_systems );
-                return true;
-            }
+        bool remove_system_from_vector( entt::id_type type_to_remove, systems_vector& systems ) noexcept;
 
-            return false;
-        }
-
-        void remove_all_systems_from_vector( systems_vector& systems ) noexcept {
-            for ( auto& system : systems )
-                system->end( *this );
-            systems.clear();
-        }
+        void remove_all_systems_from_vector( systems_vector& systems ) noexcept;
 
         template <typename... Args>
         void recurse_create( entt::entity id, Args... args ) {
@@ -199,10 +190,7 @@ namespace sneze {
 
         void helper_create_shift( entt::entity ) {}
 
-        static bool sort_by_priority( const std::unique_ptr<system_with_priority>& lhs,
-                                      const std::unique_ptr<system_with_priority>& rhs ) {
-            return lhs->priority() > rhs->priority();
-        }
+        static bool sort_by_priority( const system_ptr& lhs, const system_ptr& rhs ) noexcept;
     };
 
 } // namespace sneze

@@ -74,14 +74,11 @@ namespace sneze {
         logger::debug( "ending application" );
         end();
 
-        logger::debug( "remove base listeners" );
+        logger::debug( "remove any listener by sneze::application" );
         world_.remove_listeners( this );
 
-        logger::debug( "discarding pending events" );
-        world_.discard_pending_events();
-
-        logger::debug( "removing all systems" );
-        world_.remove_all_systems();
+        logger::debug( "clear world" );
+        world_.clear();
 
         logger::debug( "ending render" );
         render_->end();
