@@ -53,33 +53,38 @@ namespace sneze {
         auto width = settings_.get( "window", "width", 1920LL );
         auto height = settings_.get( "window", "height", 1080LL );
 
+        logger::debug( "init application" );
         auto setup = init();
 
         logger::debug( "init render" );
-
         if ( auto err = render_->init( width, height, name(), setup.clear_color_ ).ko() ) {
             logger::error( "error initializing render" );
             return error( "Can't init the render system.", *err );
         }
 
-        logger::debug( "render created" );
-
+        logger::debug( "adding render system to the world" );
         world_.add_system_with_priority<render_system>( world::priority::lowest, render_ );
 
+        logger::debug( "listening for application_want_closing events" );
         world_.add_listener<events::application_want_closing, &application::app_want_closing>( this );
 
         while ( !want_to_close_ )
             world_.update();
 
+        logger::debug( "ending application" );
+        end();
+
+        logger::debug( "remove base listeners" );
         world_.remove_listeners( this );
 
+        logger::debug( "discarding pending events" );
+        world_.discard_pending_events();
+
+        logger::debug( "removing all systems" );
+        world_.remove_all_systems();
+
         logger::debug( "ending render" );
-
         render_->end();
-
-        logger::debug( "render ended" );
-
-        end();
 
         return true;
     }

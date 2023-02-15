@@ -34,11 +34,11 @@ namespace sneze {
     void world::update_systems() {
         if ( !systems_to_add_.empty() ) {
             logger::debug( "adding systems" );
-            while ( !systems_to_add_.empty() ) {
-                systems_.push_back( std::move( systems_to_add_.front() ) );
+            for ( auto& system : systems_to_add_ ) {
+                systems_.push_back( std::move( system ) );
                 systems_.back()->init( *this );
-                systems_to_add_.pop();
             }
+            systems_to_add_.clear();
             logger::debug( "sorting systems" );
             std::sort( systems_.begin(), systems_.end(), world::sort_by_priority );
         }

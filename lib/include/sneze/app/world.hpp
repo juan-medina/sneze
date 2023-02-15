@@ -28,7 +28,6 @@ SOFTWARE.
 
 #include <cstdint>
 #include <optional>
-#include <queue>
 #include <utility>
 #include <vector>
 
@@ -92,6 +91,8 @@ namespace sneze {
             event_dispatcher_.disconnect( instance );
         }
 
+        [[maybe_unused]] void discard_pending_events() { event_dispatcher_.clear(); }
+
         template <typename EventType>
         void emmit( EventType event ) {
             event_dispatcher_.enqueue( event );
@@ -100,10 +101,10 @@ namespace sneze {
         void sent_events();
 
         enum priority : int32_t {
-            highest = std::numeric_limits<priority>::max(),
+            highest = std::numeric_limits<int32_t>::max(),
             high = highest >> 1,
 
-            lowest = std::numeric_limits<priority>::min(),
+            lowest = std::numeric_limits<int32_t>::min(),
             low = lowest >> 1,
 
             normal = 0,
@@ -116,8 +117,21 @@ namespace sneze {
 
         template <typename SystemType, typename... Args>
         [[maybe_unused]] void add_system_with_priority( int priority, Args... args ) noexcept {
-            systems_to_add_.push(
-                std::make_unique<system_with_priority>( priority, std::make_unique<SystemType>( args... ) ) );
+            systems_to_add_.push_back( std::make_unique<system_with_priority>(
+                entt::type_hash<SystemType>::value(), priority, std::make_unique<SystemType>( args... ) ) );
+        }
+
+        template <typename SystemType>
+        [[maybe_unused]] void remove_system() noexcept {
+            const entt::id_type type_to_remove = entt::type_hash<SystemType>::value();
+            if ( !remove_system_from_vector( type_to_remove, systems_ ) ) {
+                remove_system_from_vector( type_to_remove, systems_to_add_ );
+            }
+        }
+
+        [[maybe_unused]] void remove_all_systems() noexcept {
+            remove_all_systems_from_vector( systems_ );
+            remove_all_systems_from_vector( systems_to_add_ );
         }
 
         void update();
@@ -127,8 +141,8 @@ namespace sneze {
 
         class system_with_priority {
         public:
-            system_with_priority( std::int32_t priority, std::unique_ptr<system> system ):
-                system_( std::move( system ) ), priority_( priority ) {}
+            system_with_priority( entt::id_type type, std::int32_t priority, std::unique_ptr<system> system ):
+                type_{ type }, system_( std::move( system ) ), priority_( priority ) {}
 
             bool operator<( const system_with_priority& other ) const { return priority_ < other.priority_; }
 
@@ -137,17 +151,40 @@ namespace sneze {
             void end( world& world ) { system_->end( world ); }
 
             [[nodiscard]] inline auto& priority() const { return priority_; }
+            [[nodiscard]] inline auto& type() const { return type_; }
 
         private:
-            std::unique_ptr<system> system_;
+            entt::id_type type_;
             std::int32_t priority_;
+            std::unique_ptr<system> system_;
         };
 
-        std::vector<std::unique_ptr<system_with_priority>> systems_;
-        std::queue<std::unique_ptr<system_with_priority>> systems_to_add_;
+        typedef std::vector<std::unique_ptr<system_with_priority>> systems_vector;
+        systems_vector systems_;
+        systems_vector systems_to_add_;
 
         entt::registry registry_;
         entt::dispatcher event_dispatcher_;
+
+        bool remove_system_from_vector( entt::id_type type_to_remove, systems_vector& systems ) noexcept {
+            auto it_systems = std::find_if( systems.begin(), systems.end(), [type_to_remove]( const auto& system ) {
+                return system->type() == type_to_remove;
+            } );
+
+            if ( it_systems != systems.end() ) {
+                it_systems->get()->end( *this );
+                systems.erase( it_systems );
+                return true;
+            }
+
+            return false;
+        }
+
+        void remove_all_systems_from_vector( systems_vector& systems ) noexcept {
+            for ( auto& system : systems )
+                system->end( *this );
+            systems.clear();
+        }
 
         template <typename... Args>
         void recurse_create( entt::entity id, Args... args ) {

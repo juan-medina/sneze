@@ -59,4 +59,7 @@ config example_game::init() {
     return config().clear_color( color::Black );
 }
 
-void example_game::end() { logger::debug( "end" ); }
+void example_game::end() {
+    logger::debug( "end" );
+    world().remove_system<counter_system>();
+}
