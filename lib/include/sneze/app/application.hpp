@@ -64,6 +64,7 @@ public:
     }
 
     template<is_value Type>
+    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     [[maybe_unused]] inline void set_setting(const std::string &section, const std::string &name, const Type &value) {
         settings_.set<Type>(section, name, value);
     }
@@ -75,6 +76,7 @@ public:
     }
 
     template<is_value Type>
+    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     [[maybe_unused]] inline void get_set_setting(const std::string &section, const std::string &name,
                                                  const Type &default_value, Type (*func)(Type)) {
         Type value = settings_.get(section, name, default_value);
@@ -115,13 +117,13 @@ private:
     std::shared_ptr<render> render_;
     bool want_to_close_{false};
 
-    auto launch() noexcept -> result<>;
+    auto launch() -> result<>;
 
     auto read_settings() noexcept -> result<>;
 
     auto save_settings() noexcept -> result<>;
 
-    [[nodiscard]] auto show_error(const error &err) const noexcept -> const auto &;
+    [[nodiscard]] auto show_error(const error &err) const -> const auto &;
 };
 
 } // namespace sneze

@@ -26,12 +26,19 @@ SOFTWARE.
 
 #include "sneze/sneze.hpp"
 
-using namespace sneze;
-
-class example_game : public application {
+class example_game : public sneze::application {
 public:
     example_game();
+
     ~example_game() override = default;
-    [[nodiscard]] config init() override;
+
+    example_game(const example_game &) = delete;
+    example_game(const example_game &&) = delete;
+
+    auto operator=(const example_game &) -> example_game & = delete;
+    auto operator=(const example_game &&) -> example_game & = delete;
+
+    [[nodiscard]] auto init() -> sneze::config override;
+
     void end() override;
 };

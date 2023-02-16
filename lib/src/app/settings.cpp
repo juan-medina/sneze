@@ -24,7 +24,6 @@ SOFTWARE.
 
 #include "sneze/app/settings.hpp"
 
-#include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
 
 #include <filesystem>
@@ -60,7 +59,7 @@ auto settings::read() -> result<> {
     return true;
 }
 
-auto settings::calculate_settings_file_path() noexcept -> result<std::filesystem::path> {
+auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
     auto home = sago::getConfigHome();
 
     // home path
@@ -97,7 +96,7 @@ auto settings::calculate_settings_file_path() noexcept -> result<std::filesystem
     return settings_file_full_path;
 }
 
-auto settings::exist_or_create_directory(const std::filesystem::path &path) noexcept -> result<> {
+auto settings::exist_or_create_directory(const std::filesystem::path &path) -> result<> {
     if(fs::exists(path)) {
         logger::warning("directory already exist: {}", path.string());
     } else {
@@ -117,7 +116,7 @@ auto settings::exist_or_create_directory(const std::filesystem::path &path) noex
     return true;
 }
 
-auto settings::exist_or_create_file(const std::filesystem::path &path) noexcept -> result<> {
+auto settings::exist_or_create_file(const std::filesystem::path &path) -> result<> {
     if(fs::exists(path)) {
         logger::warning("file already exist: {}", path.string());
     } else {
@@ -141,7 +140,7 @@ auto settings::exist_or_create_file(const std::filesystem::path &path) noexcept 
     return true;
 }
 
-auto settings::read_toml() noexcept -> result<> {
+auto settings::read_toml() -> result<> {
     logger::info("reading : {}", settings_file_path_.string());
 
     try {
@@ -171,7 +170,7 @@ auto settings::read_toml() noexcept -> result<> {
     return true;
 }
 
-auto settings::add_toml_value(const std::string &section, const std::string &name, const toml::value &value) noexcept
+auto settings::add_toml_value(const std::string &section, const std::string &name, const toml::value &value)
     -> result<> {
     switch(value.type()) {
     case toml::value_t::boolean:

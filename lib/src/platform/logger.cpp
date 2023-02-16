@@ -37,7 +37,7 @@ SOFTWARE.
 
 namespace sneze::logger {
 
-void setup_spdlog() noexcept {
+void setup_spdlog() {
     auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
     auto dist_sink = std::make_shared<spdlog::sinks::dist_sink_st>();
     dist_sink->add_sink(color_sink);
@@ -91,7 +91,7 @@ void hook_raylib_log() noexcept {
     SetTraceLogCallback(raylib_log_callback);
 }
 
-void setup_log() noexcept {
+void setup_log() {
 #ifdef NDEBUG
 #    if defined(_WIN32)
 #        pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -105,7 +105,7 @@ void setup_log() noexcept {
 #endif
 }
 
-void set_log_level(level::log_level level) noexcept {
+void set_log_level(level::log_level level) {
     spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
     int raylib_level;                       // NOLINT(cppcoreguidelines-init-variables)
 

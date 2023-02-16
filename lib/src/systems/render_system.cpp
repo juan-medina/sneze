@@ -31,6 +31,9 @@ SOFTWARE.
 
 namespace sneze {
 void render_system::update(world &world) {
+
+    world.sort<components::renderable>(render_system::sort_by_depth);
+
     render_->begin_frame();
 
     for(auto const &&[id, renderable, position, color]:

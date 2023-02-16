@@ -50,11 +50,11 @@ public:
 
     virtual ~error() noexcept = default;
 
-    [[nodiscard]] inline auto message() const noexcept {
+    [[nodiscard]] inline auto message() const {
         return message_;
     }
 
-    [[nodiscard]] inline auto causes() const noexcept {
+    [[nodiscard]] inline auto causes() const {
         return causes_;
     }
 

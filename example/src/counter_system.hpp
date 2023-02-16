@@ -26,14 +26,12 @@ SOFTWARE.
 
 #include "sneze/sneze.hpp"
 
-using namespace sneze;
-
 struct counter {
     int value; // cppcheck-suppress unusedStructMember
 };
 
-class counter_system : public system {
-    void init( world& world ) override;
-    void update( world& world ) override;
-    void end( world& world ) override;
+class counter_system : public sneze::system {
+    void init( sneze::world& world ) override;
+    void update( sneze::world& world ) override;
+    void end( sneze::world& world ) override;
 };

@@ -26,12 +26,16 @@ SOFTWARE.
 
 #include "fmt/format.h"
 
-void counter_system::init( world& world ) { logger::debug( "counter_system::init" ); }
-void counter_system::end( world& world ) { logger::debug( "counter_system::end" ); }
+void counter_system::init(world &) {
+    logger::debug("counter_system::init");
+}
+void counter_system::end(world &) {
+    logger::debug("counter_system::end");
+}
 
-void counter_system::update( world& world ) {
-    for ( auto&& [_, ct, lbl] : world.view<counter, components::label>() ) {
+void counter_system::update(world &world) {
+    for(auto &&[_, ct, lbl]: world.view<counter, components::label>()) {
         ct.value++;
-        lbl.text = fmt::format( "Counter: {}", ct.value );
+        lbl.text = fmt::format("Counter: {}", ct.value);
     }
 }

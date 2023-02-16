@@ -26,40 +26,32 @@ SOFTWARE.
 
 #include "counter_system.hpp"
 
-example_game::example_game(): application( "sneze", "Example Game" ) {}
+example_game::example_game(): application("sneze", "Example Game") {}
 
-config example_game::init() {
-    logger::debug( "init" );
-    get_set_app_setting<std::int64_t>( "visits", 0LL, []( auto visits ) { return visits + 1LL; } );
+auto example_game::init() -> sneze::config {
+    sneze::logger::debug("init");
+    get_set_app_setting<std::int64_t>("visits", 0LL, [](auto visits) { return visits + 1LL; });
 
-    world().create( components::renderable{},
-                    components::label{ "Hello", 40.f },
-                    components::position{ 190.f, 200.f },
-                    color::White );
+    // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
+    world().create(sneze::components::renderable{}, sneze::components::label{"Hello", 40.f},
+                   sneze::components::position{190.f, 200.f}, sneze::color::White);
 
-    world().create( components::renderable{},
-                    components::label{ "World!", 40.f },
-                    components::position{ 190.f, 250.f },
-                    color::Yellow );
+    world().create(sneze::components::renderable{}, sneze::components::label{"World!", 40.f},
+                   sneze::components::position{190.f, 250.f}, sneze::color::Yellow);
 
-    world().create( components::renderable{},
-                    counter{},
-                    components::label{ "Counter:", 40.f },
-                    components::position{ 190.f, 300.f },
-                    color::Red );
+    world().create(sneze::components::renderable{}, counter{}, sneze::components::label{"Counter:", 40.f},
+                   sneze::components::position{190.f, 300.f}, sneze::color::Red);
 
-    world().create( components::renderable{},
-                    counter{ 10000 },
-                    components::label{ "Counter:", 40.f },
-                    components::position{ 190.f, 350.f },
-                    color::Blue );
+    world().create(sneze::components::renderable{}, counter{10000}, sneze::components::label{"Counter:", 40.f},
+                   sneze::components::position{190.f, 350.f}, sneze::color::Blue);
+    // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
 
     world().add_system<counter_system>();
 
-    return config().clear_color( color::Black );
+    return sneze::config().clear_color(sneze::color::Black);
 }
 
 void example_game::end() {
-    logger::debug( "end" );
+    sneze::logger::debug("end");
     world().remove_system<counter_system>();
 }

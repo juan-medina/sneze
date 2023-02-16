@@ -84,13 +84,13 @@ private:
 
     constexpr static const auto Settings_file_name = "settings.toml";
 
-    static auto exist_or_create_directory(const std::filesystem::path &path) noexcept -> result<>;
+    static auto exist_or_create_directory(const std::filesystem::path &path) -> result<>;
 
-    static auto exist_or_create_file(const std::filesystem::path &path) noexcept -> result<>;
+    static auto exist_or_create_file(const std::filesystem::path &path) -> result<>;
 
-    auto calculate_settings_file_path() noexcept -> result<std::filesystem::path>;
+    auto calculate_settings_file_path() -> result<std::filesystem::path>;
 
-    auto read_toml() noexcept -> result<>;
+    auto read_toml() -> result<>;
 
     using section = std::unordered_map<std::string, settings_value>;
     using sections = std::unordered_map<std::string, section>;
@@ -98,8 +98,7 @@ private:
     sections data_;
     std::filesystem::path settings_file_path_;
 
-    auto add_toml_value(const std::string &section, const std::string &name, const toml::value &value) noexcept
-        -> result<>;
+    auto add_toml_value(const std::string &section, const std::string &name, const toml::value &value) -> result<>;
 };
 
 } // namespace sneze

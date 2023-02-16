@@ -34,7 +34,7 @@ SOFTWARE.
 
 namespace sneze {
 
-auto application::show_error(const error &err) const noexcept -> const auto & {
+auto application::show_error(const error &err) const -> const auto & {
     std::string message = err.message();
     auto causes = err.causes();
     if(!causes.empty()) {
@@ -63,7 +63,7 @@ auto application::run() -> result<bool, error> {
     return true;
 }
 
-auto application::launch() noexcept -> result<> {
+auto application::launch() -> result<> {
     auto width = settings_.get("window", "width", default_width);
     auto height = settings_.get("window", "height", default_height);
 

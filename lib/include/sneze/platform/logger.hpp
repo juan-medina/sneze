@@ -97,8 +97,8 @@ struct warning {
 template<typename... Args>
 warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
 
-void setup_log() noexcept;
+void setup_log();
 
-void set_log_level(level::log_level level) noexcept;
+void set_log_level(level::log_level level);
 
 } // namespace sneze::logger

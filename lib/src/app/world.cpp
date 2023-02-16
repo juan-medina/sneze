@@ -46,7 +46,7 @@ void world::update_systems() {
     }
 }
 
-void world::add_pending_systems() noexcept {
+void world::add_pending_systems() {
     logger::debug("adding systems");
     for(auto &system: systems_to_add_) {
         systems_.push_back(std::move(system));

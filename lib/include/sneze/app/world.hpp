@@ -191,7 +191,7 @@ private:
     entt::registry registry_;
     entt::dispatcher event_dispatcher_;
 
-    void add_pending_systems() noexcept;
+    void add_pending_systems();
 
     auto remove_system_from_vector(entt::id_type type_to_remove, systems_vector &systems) noexcept -> bool;
 
@@ -203,7 +203,7 @@ private:
     }
 
     template<typename Type, typename... Args>
-    void helper_create_shift(entt::entity id, Type value, Args &&...args) {
+    [[maybe_unused]] void helper_create_shift(entt::entity id, Type value, Args &&...args) {
         set<Type>(id, value);
         recurse_create(id, args...);
     }
