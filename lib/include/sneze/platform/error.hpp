@@ -60,7 +60,7 @@ public:
 
 private:
     std::string message_;
-    std::vector<std::string> causes_;
+    std::vector<std::string> causes_{};
 };
 
 } // namespace sneze

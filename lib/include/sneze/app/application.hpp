@@ -105,8 +105,8 @@ public:
     void app_want_closing(events::application_want_closing event) noexcept;
 
 private:
-    static const auto default_width{1920LL};
-    static const auto default_height{1080LL};
+    static const std::int64_t default_width;
+    static const std::int64_t default_height;
 
     std::string team_;
     std::string name_;

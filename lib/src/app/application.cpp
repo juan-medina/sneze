@@ -122,4 +122,7 @@ void application::app_want_closing(events::application_want_closing) noexcept {
     want_to_close_ = true;
 }
 
+const std::int64_t application::default_width = {1920LL};
+const std::int64_t application::default_height = {1080LL};
+
 } // namespace sneze

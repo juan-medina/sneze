@@ -27,8 +27,9 @@ SOFTWARE.
 
 #include "spdlog/spdlog.h"
 
-namespace sneze {
+namespace sneze::logger {
 
+namespace level {
 enum log_level : int {
     trace = spdlog::level::trace,
     debug = spdlog::level::debug,
@@ -38,75 +39,66 @@ enum log_level : int {
     critical = spdlog::level::critical,
     off = spdlog::level::off
 };
+} // namespace level
 
-class logger {
-public:
-    template<typename... Args>
-    struct info {
-        explicit info(fmt::format_string<Args...> fmt, Args &&...args,
-                      const std::source_location &location = std::source_location::current()) {
-            log(log_level::info, location, fmt, std::forward<Args>(args)...);
-        }
-    };
-
-    template<typename... Args>
-    info(fmt::format_string<Args...> fmt, Args &&...) -> info<Args...>;
-
-    template<typename... Args>
-    struct debug {
-        explicit debug(fmt::format_string<Args...> fmt, Args &&...args,
-                       const std::source_location &location = std::source_location::current()) {
-            log(log_level::debug, location, fmt, std::forward<Args>(args)...);
-        }
-    };
-
-    template<typename... Args>
-    debug(fmt::format_string<Args...> fmt, Args &&...) -> debug<Args...>;
-
-    template<typename... Args>
-    struct error {
-        explicit error(fmt::format_string<Args...> fmt, Args &&...args,
-                       const std::source_location &location = std::source_location::current()) {
-            log(log_level::err, location, fmt, std::forward<Args>(args)...);
-        }
-    };
-
-    template<typename... Args>
-    error(fmt::format_string<Args...> fmt, Args &&...) -> error<Args...>;
-
-    template<typename... Args>
-    struct warning {
-        explicit warning(fmt::format_string<Args...> fmt, Args &&...args,
-                         const std::source_location &location = std::source_location::current()) {
-            log(log_level::warn, location, fmt, std::forward<Args>(args)...);
-        }
-    };
-
-    template<typename... Args>
-    warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
-
-    static void setup_log() noexcept;
-    static void set_log_level(log_level level) noexcept;
-
-private:
-    static const logger logger_;
 #if defined(NDEBUG)
-    template<typename... Args>
-    static void log(Args &&...) {}
+template<typename... Args>
+static void log(Args &&...) {}
 #else
-    template<typename... Args>
-    static void log(const log_level level, std::source_location source, fmt::format_string<Args...> fmt,
-                    Args &&...args) {
-        auto location = spdlog::source_loc{source.file_name(), static_cast<int>(source.line()), source.function_name()};
-        spdlog::log(location, static_cast<spdlog::level::level_enum>(level), fmt, std::forward<Args>(args)...);
-    }
+template<typename... Args>
+static void log(const level::log_level level, std::source_location source, fmt::format_string<Args...> fmt,
+                Args &&...args) {
+    auto location = spdlog::source_loc{source.file_name(), static_cast<int>(source.line()), source.function_name()};
+    spdlog::log(location, static_cast<spdlog::level::level_enum>(level), fmt, std::forward<Args>(args)...);
+}
 #endif
 
-    static void raylib_log_callback(int level, const char *text, va_list args);
-
-    static void hook_raylib_log() noexcept;
-
-    static void setup_spdlog() noexcept;
+template<typename... Args>
+struct info {
+    explicit info(fmt::format_string<Args...> fmt, Args &&...args,
+                  const std::source_location &location = std::source_location::current()) {
+        log(level::info, location, fmt, std::forward<Args>(args)...);
+    }
 };
 
-} // namespace sneze
+template<typename... Args>
+info(fmt::format_string<Args...> fmt, Args &&...) -> info<Args...>;
+
+template<typename... Args>
+struct debug {
+    explicit debug(fmt::format_string<Args...> fmt, Args &&...args,
+                   const std::source_location &location = std::source_location::current()) {
+        log(level::debug, location, fmt, std::forward<Args>(args)...);
+    }
+};
+
+template<typename... Args>
+debug(fmt::format_string<Args...> fmt, Args &&...) -> debug<Args...>;
+
+template<typename... Args>
+struct error {
+    explicit error(fmt::format_string<Args...> fmt, Args &&...args,
+                   const std::source_location &location = std::source_location::current()) {
+        log(level::err, location, fmt, std::forward<Args>(args)...);
+    }
+};
+
+template<typename... Args>
+error(fmt::format_string<Args...> fmt, Args &&...) -> error<Args...>;
+
+template<typename... Args>
+struct warning {
+    explicit warning(fmt::format_string<Args...> fmt, Args &&...args,
+                     const std::source_location &location = std::source_location::current()) {
+        log(level::warn, location, fmt, std::forward<Args>(args)...);
+    }
+};
+
+template<typename... Args>
+warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
+
+void setup_log() noexcept;
+
+void set_log_level(level::log_level level) noexcept;
+
+} // namespace sneze::logger
