@@ -22,6 +22,8 @@
 
 # CMake build : library
 
+cmake_minimum_required (VERSION 3.0)
+
 #configure variables
 set(LIB_NAME "${PROJECT_NAME}")
 
