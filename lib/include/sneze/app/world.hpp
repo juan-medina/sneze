@@ -24,14 +24,15 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/systems/system.hpp"
-
+#include <any>
 #include <cstdint>
 #include <optional>
 #include <utility>
 #include <vector>
 
 #include <entt/entt.hpp>
+
+#include "../systems/system.hpp"
 
 namespace sneze {
 
@@ -131,6 +132,22 @@ public:
         systems_to_remove_.push_back(type_to_remove);
     }
 
+    template<typename Type>
+    [[maybe_unused]] [[nodiscard]] auto resource() -> const auto {
+        auto type_hash = entt::type_hash<Type>::value();
+        if(auto search = resources_.find(type_hash); search != resources_.end()) {
+            return std::any_cast<Type>(search->second);
+        } else {
+            return Type{};
+        }
+    }
+
+    template<typename Type>
+    [[maybe_unused]] void resource(const Type &value) {
+        auto type_hash = entt::type_hash<Type>::value();
+        resources_[type_hash] = value;
+    }
+
 protected:
     void update();
 
@@ -165,6 +182,7 @@ private:
         [[nodiscard]] inline auto priority() const -> auto & {
             return priority_;
         }
+
         [[nodiscard]] inline auto type() const -> auto & {
             return type_;
         }
@@ -210,6 +228,9 @@ private:
     void helper_create_shift(entt::entity) {}
 
     static auto sort_by_priority(const system_ptr &lhs, const system_ptr &rhs) noexcept -> bool;
+
+    using resources_map = std::unordered_map<entt::id_type, std::any>;
+    resources_map resources_;
 };
 
 } // namespace sneze

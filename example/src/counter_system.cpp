@@ -26,16 +26,22 @@ SOFTWARE.
 
 #include <format>
 
+namespace logger = sneze::logger;
+namespace components = sneze::components;
+
 void counter_system::init(sneze::world &) {
-    sneze::logger::debug("counter_system::init");
+    logger::debug("counter_system::init");
 }
+
 void counter_system::end(sneze::world &) {
-    sneze::logger::debug("counter_system::end");
+    logger::debug("counter_system::end");
 }
 
 void counter_system::update(sneze::world &world) {
-    for(auto &&[_, ct, lbl]: world.view<counter, sneze::components::label>()) {
-        ct.value++;
+    const auto acc = world.resource<acceleration>();
+
+    for(auto &&[_, ct, lbl]: world.view<counter, components::label>()) {
+        ct.value += acc.value;
         lbl.text = std::format("Counter: {}", ct.value);
     }
 }

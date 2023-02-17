@@ -30,6 +30,10 @@ struct counter {
     int value; // cppcheck-suppress unusedStructMember
 };
 
+struct acceleration {
+    int value; // cppcheck-suppress unusedStructMember
+};
+
 class counter_system: public sneze::system {
     void init(sneze::world &world) override;
     void update(sneze::world &world) override;

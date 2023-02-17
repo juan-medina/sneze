@@ -6,5 +6,6 @@ google-*,
 bugprone-*,
 misc-*,
 -bugprone-easily-swappable-parameters,
+-cppcoreguidelines-avoid-magic-numbers,
 '
 ## maybe will add latter: readability-*

@@ -62,6 +62,8 @@ auto example_game::init() -> config {
                    components::position{pos_x, current_y += gap_y},
                    color::Blue);
 
+    world().resource(acceleration{15});
+
     world().add_system<counter_system>();
 
     return config().clear_color(color::Black);
