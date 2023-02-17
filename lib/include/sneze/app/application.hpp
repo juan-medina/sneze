@@ -24,15 +24,16 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/app/config.hpp"
-#include "sneze/app/settings.hpp"
-#include "sneze/app/world.hpp"
-#include "sneze/events/events.hpp"
-#include "sneze/platform/error.hpp"
-#include "sneze/render/render.hpp"
-
 #include <memory>
 #include <string>
+
+#include "../events/events.hpp"
+#include "../platform/error.hpp"
+#include "../render/render.hpp"
+
+#include "config.hpp"
+#include "settings.hpp"
+#include "world.hpp"
 
 namespace sneze {
 

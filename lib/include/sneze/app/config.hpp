@@ -24,7 +24,7 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/base/color.hpp"
+#include "../base/color.hpp"
 
 namespace sneze {
 

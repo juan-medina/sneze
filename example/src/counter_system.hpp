@@ -24,14 +24,14 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/sneze.hpp"
+#include <sneze/sneze.hpp>
 
 struct counter {
     int value; // cppcheck-suppress unusedStructMember
 };
 
-class counter_system : public sneze::system {
-    void init( sneze::world& world ) override;
-    void update( sneze::world& world ) override;
-    void end( sneze::world& world ) override;
+class counter_system: public sneze::system {
+    void init(sneze::world &world) override;
+    void update(sneze::world &world) override;
+    void end(sneze::world &world) override;
 };

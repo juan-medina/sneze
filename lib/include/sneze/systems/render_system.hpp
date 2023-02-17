@@ -24,12 +24,12 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/components/components.hpp"
-#include "sneze/render/render.hpp"
-#include "sneze/systems/system.hpp"
-
 #include <memory>
 #include <utility>
+
+#include "../components/components.hpp"
+#include "../render/render.hpp"
+#include "../systems/system.hpp"
 
 namespace sneze {
 

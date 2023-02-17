@@ -29,8 +29,8 @@ SOFTWARE.
 #include "sneze/platform/version.hpp"
 #include "sneze/systems/render_system.hpp"
 
-#include "boxer/boxer.h"
-#include "fmt/format.h"
+#include <boxer/boxer.h>
+#include <fmt/format.h>
 
 namespace sneze {
 

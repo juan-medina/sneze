@@ -24,10 +24,10 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/app/world.hpp"
-#include "sneze/base/color.hpp"
-#include "sneze/components/components.hpp"
-#include "sneze/platform/result.hpp"
+#include "../app/world.hpp"
+#include "../base/color.hpp"
+#include "../components/components.hpp"
+#include "../platform/result.hpp"
 
 namespace sneze {
 class render {
@@ -45,8 +45,9 @@ public:
         clear_color_ = color;
     }
 
-    [[nodiscard]] auto init(const std::int64_t &width, const std::int64_t &height, const std::string &title,
-                                const color &color) -> result<>;
+    [[nodiscard]] auto
+    init(const std::int64_t &width, const std::int64_t &height, const std::string &title, const color &color)
+        -> result<>;
 
     void end();
 

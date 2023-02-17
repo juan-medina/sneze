@@ -30,7 +30,7 @@ SOFTWARE.
 #include <fstream>
 #include <utility>
 
-#include "platform_folders.h"
+#include <platform_folders.h>
 
 namespace sneze {
 
@@ -158,8 +158,11 @@ auto settings::read_toml() -> result<> {
     } catch(toml::exception &toml_exception) {
         const auto msg = toml_exception.what();
         const auto &location = toml_exception.location();
-        logger::error("toml exception: {}, reading settings file {} ({},{})", msg, location.file_name(),
-                      location.line(), location.column());
+        logger::error("toml exception: {}, reading settings file {} ({},{})",
+                      msg,
+                      location.file_name(),
+                      location.line(),
+                      location.column());
         return error("Invalid settings file.");
     } catch(std::runtime_error &runtime_error) {
         const auto msg = runtime_error.what();

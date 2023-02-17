@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "counter_system.hpp"
 
-#include "fmt/format.h"
+#include <format>
 
 void counter_system::init(sneze::world &) {
     sneze::logger::debug("counter_system::init");
@@ -36,6 +36,6 @@ void counter_system::end(sneze::world &) {
 void counter_system::update(sneze::world &world) {
     for(auto &&[_, ct, lbl]: world.view<counter, sneze::components::label>()) {
         ct.value++;
-        lbl.text = fmt::format("Counter: {}", ct.value);
+        lbl.text = std::format("Counter: {}", ct.value);
     }
 }

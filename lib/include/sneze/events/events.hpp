@@ -25,5 +25,7 @@ SOFTWARE.
 #pragma once
 
 namespace sneze::events {
-    struct application_want_closing {};
+
+struct application_want_closing {};
+
 } // namespace sneze::events

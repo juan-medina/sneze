@@ -27,19 +27,21 @@ SOFTWARE.
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 
-#include "raylib.h"
+#include <raylib.h>
 
 namespace sneze {
 void render_system::update(world &world) {
-
     world.sort<components::renderable>(render_system::sort_by_depth);
 
     render_->begin_frame();
 
-    for(auto const &&[id, renderable, position, color]:
-        world.view<const components::renderable, const components::position, const color>()) {
+    using renderable = components::renderable;
+    using position = components::position;
+    using label = components::label;
+
+    for(auto const &&[id, renderable, position, color]: world.view<const renderable, const position, const color>()) {
         if(renderable.visible) {
-            if(auto lbl = world.has<components::label>(id)) {
+            if(auto lbl = world.has<label>(id)) {
                 render_->draw_label(*lbl, position, color);
             }
         }

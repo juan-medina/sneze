@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include "sneze/platform/logger.hpp"
 
-#include "raylib.h"
+#include <raylib.h>
 
 namespace sneze {
 
@@ -54,8 +54,11 @@ void render::end_frame() {
 }
 
 void render::draw_label(const components::label &label, const components::position &position, const color &color) {
-    DrawText(label.text.c_str(), static_cast<int>(position.x), static_cast<int>(position.y),
-             static_cast<int>(label.size), color);
+    DrawText(label.text.c_str(),
+             static_cast<int>(position.x),
+             static_cast<int>(position.y),
+             static_cast<int>(label.size),
+             color);
 }
 
 } // namespace sneze
