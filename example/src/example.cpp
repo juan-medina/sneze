@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include "example_game.hpp"
 
-int main() {
+auto main() -> int {
     if ( auto err = example_game().run().ko(); err ) { return EXIT_FAILURE; }
     return EXIT_SUCCESS;
 }
