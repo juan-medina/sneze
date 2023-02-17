@@ -76,6 +76,9 @@ auto application::launch() -> result<> {
         return error("Can't init the render system.", *err);
     }
 
+    logger::debug("init world");
+    world_.init();
+
     logger::debug("adding render system to the world");
     world_.add_system_with_priority<render_system>(world::priority::lowest, render_);
 
@@ -90,8 +93,8 @@ auto application::launch() -> result<> {
     logger::debug("remove any listener by sneze::application");
     world_.remove_listeners(this);
 
-    logger::debug("clear world");
-    world_.clear();
+    logger::debug("ending world");
+    world_.end();
 
     logger::debug("ending render");
     render_->end();

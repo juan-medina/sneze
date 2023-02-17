@@ -49,6 +49,12 @@ public:
     auto operator=(const world &) -> world & = delete;
     auto operator=(const world &&) -> world & = delete;
 
+    void init();
+
+    void end();
+
+    auto since_epoch() const;
+
     template<typename Type, typename... Args>
     void set(entt::entity entity, Args &&...args) {
         registry_.emplace<Type>(entity, std::forward<Args>(args)...);
@@ -148,6 +154,14 @@ public:
         resources_[type_hash] = value;
     }
 
+    [[nodiscard]] inline auto elapsed() const -> auto & {
+        return elapsed_;
+    }
+
+    [[nodiscard]] inline auto delta() const -> auto & {
+        return delta_;
+    }
+
 protected:
     void update();
 
@@ -163,6 +177,8 @@ private:
     void sent_events();
 
     void update_systems();
+
+    void update_time();
 
     class system_with_priority {
     public:
@@ -200,6 +216,10 @@ private:
     static auto match_type(entt::id_type type_to_remove) noexcept {
         return [type_to_remove](const system_ptr &system) noexcept -> bool { return system->type() == type_to_remove; };
     }
+
+    double elapsed_ = 0;
+    double delta_ = 0;
+    double last_elapsed_ = 0;
 
     systems_vector systems_;
     systems_vector systems_to_add_;

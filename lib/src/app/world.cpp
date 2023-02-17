@@ -25,9 +25,13 @@ SOFTWARE.
 
 #include "sneze/platform/logger.hpp"
 
+#include <chrono>
+
+
 namespace sneze {
 
 void world::update() {
+    update_time();
     update_systems();
     sent_events();
 }
@@ -117,7 +121,35 @@ void world::clear() noexcept {
     logger::debug("resetting dispatcher");
     event_dispatcher_ = entt::dispatcher{};
 
+    logger::debug("clearing resources");
+    resources_.clear();
+
     logger::debug("clear registry");
     registry_.clear();
 }
+
+auto world::since_epoch() const {
+    namespace chrono = std::chrono;
+    auto milliseconds = duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
+    return static_cast<double>(milliseconds);
+}
+
+void world::init() {
+    logger::info("world init");
+    elapsed_ = since_epoch();
+    last_elapsed_ = elapsed_;
+    delta_ = 0.0;
+}
+
+void world::end() {
+    logger::info("world end");
+    clear();
+}
+
+void world::update_time() {
+    elapsed_ = since_epoch();
+    delta_ = (elapsed_ - last_elapsed_);
+    last_elapsed_ = elapsed_;
+}
+
 } // namespace sneze
