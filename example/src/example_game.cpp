@@ -28,27 +28,43 @@ SOFTWARE.
 
 example_game::example_game(): application("sneze", "Example Game") {}
 
-auto example_game::init() -> sneze::config {
+namespace components = sneze::components;
+using color = sneze::color;
+using config = sneze::config;
+
+auto example_game::init() -> config {
     sneze::logger::debug("init");
     get_set_app_setting<std::int64_t>("visits", 0LL, [](auto visits) { return visits + 1LL; });
 
-    // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
-    world().create(sneze::components::renderable{}, sneze::components::label{"Hello", 40.f},
-                   sneze::components::position{190.f, 200.f}, sneze::color::White);
+    const auto font_size = 40.f;
+    const auto pos_x = 190.f;
+    const auto pos_y = 200.f;
+    const auto gap_y = font_size + 10.f;
+    auto current_y = pos_y;
 
-    world().create(sneze::components::renderable{}, sneze::components::label{"World!", 40.f},
-                   sneze::components::position{190.f, 250.f}, sneze::color::Yellow);
+    const auto counter_1 = 0;
+    const auto counter_2 = 10000;
 
-    world().create(sneze::components::renderable{}, counter{}, sneze::components::label{"Counter:", 40.f},
-                   sneze::components::position{190.f, 300.f}, sneze::color::Red);
+    world().create(components::renderable{},
+                   components::label{"Hello World", font_size},
+                   components::position{pos_x, current_y += gap_y},
+                   color::White);
 
-    world().create(sneze::components::renderable{}, counter{10000}, sneze::components::label{"Counter:", 40.f},
-                   sneze::components::position{190.f, 350.f}, sneze::color::Blue);
-    // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
+    world().create(components::renderable{},
+                   counter{counter_1},
+                   components::label{"Counter:", font_size},
+                   components::position{pos_x, current_y += gap_y},
+                   color::Red);
+
+    world().create(components::renderable{},
+                   counter{counter_2},
+                   components::label{"Counter:", font_size},
+                   components::position{pos_x, current_y += gap_y},
+                   color::Blue);
 
     world().add_system<counter_system>();
 
-    return sneze::config().clear_color(sneze::color::Black);
+    return config().clear_color(color::Black);
 }
 
 void example_game::end() {

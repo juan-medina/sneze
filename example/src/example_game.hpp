@@ -26,7 +26,9 @@ SOFTWARE.
 
 #include "sneze/sneze.hpp"
 
-class example_game : public sneze::application {
+using config = sneze::config;
+
+class example_game: public sneze::application {
 public:
     example_game();
 
@@ -38,7 +40,7 @@ public:
     auto operator=(const example_game &) -> example_game & = delete;
     auto operator=(const example_game &&) -> example_game & = delete;
 
-    [[nodiscard]] auto init() -> sneze::config override;
+    [[nodiscard]] auto init() -> config override;
 
     void end() override;
 };
