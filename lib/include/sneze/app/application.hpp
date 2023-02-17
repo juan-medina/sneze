@@ -64,21 +64,21 @@ public:
     }
 
     template<is_value Type>
-    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     [[maybe_unused]] inline void set_setting(const std::string &section, const std::string &name, const Type &value) {
         settings_.set<Type>(section, name, value);
     }
 
     template<is_value Type>
-    [[maybe_unused]] [[nodiscard]] inline auto get_setting(const std::string &section, const std::string &name,
-                                                           const Type &default_value) {
+    [[maybe_unused]] [[nodiscard]] inline auto
+    get_setting(const std::string &section, const std::string &name, const Type &default_value) {
         return settings_.get<Type>(section, name, default_value);
     }
 
     template<is_value Type>
-    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-    [[maybe_unused]] inline void get_set_setting(const std::string &section, const std::string &name,
-                                                 const Type &default_value, Type (*func)(Type)) {
+    [[maybe_unused]] inline void get_set_setting(const std::string &section,
+                                                 const std::string &name,
+                                                 const Type &default_value,
+                                                 Type (*func)(Type)) {
         Type value = settings_.get(section, name, default_value);
         value = func(value);
         settings_.set<Type>(section, name, value);
@@ -95,8 +95,8 @@ public:
     }
 
     template<is_value Type>
-    [[maybe_unused]] inline void get_set_app_setting(const std::string &name, const Type &default_value,
-                                                     Type (*func)(Type)) {
+    [[maybe_unused]] inline void
+    get_set_app_setting(const std::string &name, const Type &default_value, Type (*func)(Type)) {
         get_set_setting<Type>(name_, name, default_value, func);
     }
 

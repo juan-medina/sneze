@@ -51,7 +51,6 @@ public:
     using settings_value = std::variant<std::int64_t, double, bool, std::string>;
 
     template<is_value Type>
-    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     inline void set(const std::string &section, const std::string &name, const Type &value) {
         if(auto it_section = data_.find(section); it_section != data_.end()) {
             it_section->second[name] = value;

@@ -40,9 +40,7 @@ public:
 
     color(color &&) = default;
 
-    // cppcheck-suppress noExplicitConstructor
-    // NOLINTNEXTLINE (google-explicit-constructor)
-    color(const Color &color): Color() {
+    explicit color(const Color &color): Color() {
         Color::r = color.r;
         Color::g = color.g;
         Color::b = color.b;
@@ -50,16 +48,14 @@ public:
     }
 
     auto operator=(const color &) -> color & = default;
-
     auto operator=(color &&) -> color & = default;
 
-    [[nodiscard]] static inline auto rgba(const component &red, const component &green, const component &blue,
-                                          const component &alpha) -> const color {
+    [[nodiscard]] static inline auto
+    rgba(const component &red, const component &green, const component &blue, const component &alpha) -> const color {
         return {red, green, blue, alpha};
     }
 
-    [[nodiscard]] static inline auto rgb(const component &red, const component &green, const component &blue)
-        -> const color {
+    [[nodiscard]] static inline auto rgb(const component &red, const component &green, const component &blue) {
         return rgba(red, green, blue, opacity::opaque);
     }
 
@@ -90,7 +86,6 @@ public:
     static const color RayWhite;
 
 private:
-    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     color(const component &red, const component &green, const component &blue, const component &alpha): Color() {
         Color::r = red;
         Color::g = green;

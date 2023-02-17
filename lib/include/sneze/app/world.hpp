@@ -121,8 +121,8 @@ public:
 
     template<typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority(int32_t priority, Args... args) noexcept {
-        systems_to_add_.push_back(std::make_unique<system_with_priority>(entt::type_hash<SystemType>::value(), priority,
-                                                                         std::make_unique<SystemType>(args...)));
+        systems_to_add_.push_back(std::make_unique<system_with_priority>(
+            entt::type_hash<SystemType>::value(), priority, std::make_unique<SystemType>(args...)));
     }
 
     template<typename SystemType>
@@ -149,7 +149,6 @@ private:
 
     class system_with_priority {
     public:
-        // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
         system_with_priority(entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
             : type_{type}, system_(std::move(system)), priority_(priority) {}
 
