@@ -32,9 +32,7 @@ namespace sneze {
 
 class error {
 public:
-    // cppcheck-suppress noExplicitConstructor
-    // NOLINTNEXTLINE(google-explicit-constructor)
-    error(std::string message): message_{std::move(message)} {}
+    explicit error(std::string message): message_{std::move(message)} {}
 
     error(const error &other) = default;
 
