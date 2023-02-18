@@ -105,7 +105,7 @@ void world::discard_pending_events() noexcept {
     event_dispatcher_.clear();
 }
 
-void world::clear() noexcept {
+void world::clear() {
     logger::info("world clean up");
 
     logger::debug("discarding pending events");

@@ -24,53 +24,14 @@ SOFTWARE.
 
 #pragma once
 
+#include <type_traits>
+
 namespace sneze {
 
-class world;
+template<typename Type>
+concept has_trivial_constructor = std::is_trivially_constructible<Type>::value;
 
-class system {
-public:
-    virtual void init(world &world) = 0;
-    virtual void update(world &world) = 0;
-    virtual void end(world &world) = 0;
-
-    system() = default;
-    virtual ~system() = default;
-
-    system(const system &) = delete;
-    system(const system &&) = delete;
-
-    auto operator=(const system &) -> system & = delete;
-    auto operator=(const system &&) -> system & = delete;
-};
-
-class system_with_priority {
-public:
-    system_with_priority(const entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
-        : type_{type}, system_{std::move(system)}, priority_{priority} {}
-
-    void init(world &world) {
-        system_->init(world);
-    }
-    void update(world &world) {
-        system_->update(world);
-    }
-    void end(world &world) {
-        system_->end(world);
-    }
-
-    [[nodiscard]] inline auto priority() const -> auto & {
-        return priority_;
-    }
-
-    [[nodiscard]] inline auto type() const -> auto & {
-        return type_;
-    }
-
-private:
-    entt::id_type type_{};
-    std::int32_t priority_{};
-    std::unique_ptr<system> system_{};
-};
+template<typename Type, typename Interface>
+concept implements_interface = std::is_base_of<Interface, Type>::value;
 
 } // namespace sneze

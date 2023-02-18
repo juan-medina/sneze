@@ -27,19 +27,13 @@ SOFTWARE.
 #include <any>
 #include <cstdint>
 #include <optional>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include <entt/entt.hpp>
 
+#include "../platform/traits.hpp"
 #include "../systems/system.hpp"
-
-template<typename Type>
-concept has_trivial_constructor = std::is_trivially_constructible<Type>::value;
-
-template<typename Type, typename Interface>
-concept implements_interface = std::is_base_of<Interface, Type>::value;
 
 namespace sneze {
 
@@ -173,7 +167,7 @@ public:
 protected:
     void update();
 
-    void clear() noexcept;
+    void clear();
 
 private:
     using system_ptr = std::unique_ptr<system_with_priority>;
