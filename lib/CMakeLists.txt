@@ -22,7 +22,7 @@
 
 # CMake build : library
 
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required(VERSION 3.0)
 
 #configure variables
 set(LIB_NAME "${PROJECT_NAME}")
@@ -36,29 +36,71 @@ set(LIBRARY_INCLUDE_PATH "${LIBRARY_MODULE_PATH}/include")
 file(GLOB_RECURSE LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.hpp")
 file(GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
+# enable FetchContent
+include(FetchContent)
+
 ## add fmt
-add_subdirectory(external/fmt)
+FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt
+        GIT_TAG 9.1.0
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(fmt)
 
 ## add raylib
-add_subdirectory(external/raylib)
+FetchContent_Declare(
+        raylib
+        GIT_REPOSITORY https://github.com/raysan5/raylib
+        GIT_TAG 4.2.0
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(raylib)
 
 ## add spdlog
 set(SPDLOG_USE_STD_FORMAT OFF CACHE BOOL "do not use std format, because libc++" FORCE)
 set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "do use lib fmt" FORCE)
-add_subdirectory(external/spdlog)
+FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG v1.11.0
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(spdlog)
 
 ## add PlatformFolders
-add_subdirectory(external/PlatformFolders)
-find_package(platform_folders QUIET)
+FetchContent_Declare(
+        platform_folders
+        GIT_REPOSITORY https://github.com/sago007/PlatformFolders
+        GIT_TAG 4.2.0
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(platform_folders)
 
 ## add Boxer
-add_subdirectory("external/Boxer")
+FetchContent_Declare(
+        Boxer
+        GIT_REPOSITORY https://github.com/aaronmjacobs/Boxer
+        GIT_TAG aed3fdcab88da5dd925ed5211c21e39bc6c0c147
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(Boxer)
 
 ## add toml11
-add_subdirectory("external/toml11")
+FetchContent_Declare(
+        toml11
+        GIT_REPOSITORY https://github.com/ToruNiina/toml11
+        GIT_TAG v3.7.1
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(toml11)
 
-## add entt
-add_subdirectory("external/entt")
+FetchContent_Declare(
+        EnTT
+        GIT_REPOSITORY https://github.com/skypjack/entt
+        GIT_TAG v3.11.1
+)
+FetchContent_MakeAvailable(EnTT)
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
