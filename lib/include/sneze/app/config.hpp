@@ -24,7 +24,7 @@ SOFTWARE.
 
 #pragma once
 
-#include "../base/color.hpp"
+#include "../components/color.hpp"
 
 namespace sneze {
 
@@ -39,17 +39,17 @@ public:
     auto operator=(const config &) -> config & = default;
     auto operator=(config &&) -> config & = default;
 
-    [[maybe_unused]] [[nodiscard]] auto clear_color(const color &clear_color) -> config {
+    [[maybe_unused]] [[nodiscard]] auto clear_color(const components::color &clear_color) -> config {
         clear_color_ = clear_color;
         return *this;
     }
 
-    [[nodiscard]] inline auto clear_color() const -> const color & {
+    [[nodiscard]] inline auto clear_color() const -> const components::color & {
         return clear_color_;
     }
 
 private:
-    color clear_color_ = color::Black;
+    components::color clear_color_ = components::color::Black;
 };
 
 } // namespace sneze

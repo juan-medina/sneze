@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include <raylib.h>
 
-namespace sneze {
+namespace sneze::components {
 
 class color: public Color {
 public:
@@ -94,4 +94,4 @@ private:
     }
 };
 
-} // namespace sneze
+} // namespace sneze::components

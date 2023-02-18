@@ -30,8 +30,10 @@ SOFTWARE.
 
 namespace sneze {
 
-auto render::init(const std::int64_t &width, const std::int64_t &height, const std::string &title, const color &color)
-    -> result<> {
+auto render::init(const std::int64_t &width,
+                  const std::int64_t &height,
+                  const std::string &title,
+                  const components::color &color) -> result<> {
     logger::debug("Creating window");
     InitWindow(static_cast<int>(width), static_cast<int>(height), title.c_str());
     clear_color(color);
@@ -53,7 +55,9 @@ void render::end_frame() {
     EndDrawing();
 }
 
-void render::draw_label(const components::label &label, const components::position &position, const color &color) {
+void render::draw_label(const components::label &label,
+                        const components::position &position,
+                        const components::color &color) {
     DrawText(label.text.c_str(),
              static_cast<int>(position.x),
              static_cast<int>(position.y),

@@ -33,11 +33,6 @@ struct renderable {
     float depth{0.0f};  // cppcheck-suppress unusedStructMember
 };
 
-struct label {
-    std::string text; // cppcheck-suppress unusedStructMember
-    float size;       // cppcheck-suppress unusedStructMember
-};
-
 struct position {
     float x; // cppcheck-suppress unusedStructMember
     float y; // cppcheck-suppress unusedStructMember

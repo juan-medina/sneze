@@ -35,6 +35,7 @@ void render_system::update(world &world) {
 
     render_->begin_frame();
 
+    using color = components::color;
     using renderable = components::renderable;
     using position = components::position;
     using label = components::label;

@@ -25,11 +25,13 @@ SOFTWARE.
 #pragma once
 
 #include "../app/world.hpp"
-#include "../base/color.hpp"
+#include "../components/color.hpp"
 #include "../components/components.hpp"
+#include "../components/ui.hpp"
 #include "../platform/result.hpp"
 
 namespace sneze {
+
 class render {
 public:
     render() = default;
@@ -41,13 +43,14 @@ public:
     auto operator=(const render &) -> render & = delete;
     auto operator=(render &&) -> render & = delete;
 
-    [[maybe_unused]] void clear_color(const color &color) {
+    [[maybe_unused]] void clear_color(const components::color &color) {
         clear_color_ = color;
     }
 
-    [[nodiscard]] auto
-    init(const std::int64_t &width, const std::int64_t &height, const std::string &title, const color &color)
-        -> result<>;
+    [[nodiscard]] auto init(const std::int64_t &width,
+                            const std::int64_t &height,
+                            const std::string &title,
+                            const components::color &color) -> result<>;
 
     void end();
 
@@ -55,10 +58,11 @@ public:
 
     void end_frame();
 
-    void draw_label(const components::label &label, const components::position &position, const color &color);
+    void
+    draw_label(const components::label &label, const components::position &position, const components::color &color);
 
 private:
-    color clear_color_ = color::Black;
+    components::color clear_color_ = components::color::Black;
 };
 
 } // namespace sneze

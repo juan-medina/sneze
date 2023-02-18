@@ -29,7 +29,7 @@ SOFTWARE.
 example_game::example_game(): application("sneze", "Example Game") {}
 
 namespace components = sneze::components;
-using color = sneze::color;
+using color = sneze::components::color;
 using config = sneze::config;
 
 auto example_game::init() -> config {

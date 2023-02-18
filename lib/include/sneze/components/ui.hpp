@@ -24,15 +24,13 @@ SOFTWARE.
 
 #pragma once
 
-#include "app/application.hpp"
-#include "app/config.hpp"
-#include "app/settings.hpp"
-#include "components/color.hpp"
-#include "components/components.hpp"
-#include "components/ui.hpp"
-#include "platform/error.hpp"
-#include "platform/logger.hpp"
-#include "platform/result.hpp"
-#include "platform/version.hpp"
-#include "render/render.hpp"
-#include "systems/system.hpp"
+#include <string>
+
+namespace sneze::components {
+
+struct label {
+    std::string text; // cppcheck-suppress unusedStructMember
+    float size;       // cppcheck-suppress unusedStructMember
+};
+
+} // namespace sneze::components

@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/base/color.hpp"
+#include "sneze/components/color.hpp"
 
-namespace sneze {
+namespace sneze::components {
 [[maybe_unused]] const color color::White = color{WHITE};
 [[maybe_unused]] const color color::Black = color{BLACK};
 [[maybe_unused]] const color color::Gray = color{GRAY};
@@ -51,4 +51,4 @@ namespace sneze {
 [[maybe_unused]] const color color::Magenta = color{MAGENTA};
 [[maybe_unused]] const color color::RayWhite = color{RAYWHITE};
 
-} // namespace sneze
+} // namespace sneze::components
