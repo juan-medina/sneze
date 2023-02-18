@@ -135,20 +135,21 @@ public:
 
     template<implements_interface<system> SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority(int32_t priority, Args... args) noexcept {
-        systems_to_add_.push_back(std::make_unique<system_with_priority>(
-            entt::type_hash<SystemType>::value(), priority, std::make_unique<SystemType>(args...)));
+        auto constexpr type_hash = entt::type_hash<SystemType>::value();
+        systems_to_add_.push_back(
+            std::make_unique<system_with_priority>(type_hash, priority, std::make_unique<SystemType>(args...)));
     }
 
     template<implements_interface<system> SystemType>
     [[maybe_unused]] void remove_system() noexcept {
-        const entt::id_type type_to_remove = entt::type_hash<SystemType>::value();
+        auto constexpr type_to_remove = entt::type_hash<SystemType>::value();
         systems_to_remove_.push_back(type_to_remove);
     }
 
     template<has_trivial_constructor Type>
     [[maybe_unused]] [[nodiscard]] auto global() -> const auto {
-        auto type_hash = entt::type_hash<Type>::value();
-        if(auto search = globals_.find(type_hash); search != globals_.end()) {
+        auto constexpr type_hash = entt::type_hash<Type>::value();
+        if(const auto search = globals_.find(type_hash); search != globals_.end()) {
             return std::any_cast<Type>(search->second);
         } else {
             return Type{};
@@ -157,7 +158,7 @@ public:
 
     template<has_trivial_constructor Type>
     [[maybe_unused]] void global(const Type &value) {
-        auto type_hash = entt::type_hash<Type>::value();
+        auto constexpr type_hash = entt::type_hash<Type>::value();
         globals_[type_hash] = value;
     }
 

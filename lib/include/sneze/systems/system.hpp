@@ -46,7 +46,7 @@ public:
 
 class system_with_priority {
 public:
-    system_with_priority(entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
+    system_with_priority(const entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
         : type_{type}, system_(std::move(system)), priority_(priority) {}
 
     void init(world &world) {
