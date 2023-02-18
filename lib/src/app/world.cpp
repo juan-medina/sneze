@@ -27,7 +27,6 @@ SOFTWARE.
 
 #include <chrono>
 
-
 namespace sneze {
 
 void world::update() {
@@ -121,8 +120,8 @@ void world::clear() noexcept {
     logger::debug("resetting dispatcher");
     event_dispatcher_ = entt::dispatcher{};
 
-    logger::debug("clearing resources");
-    resources_.clear();
+    logger::debug("clearing globals");
+    globals_.clear();
 
     logger::debug("clear registry");
     registry_.clear();

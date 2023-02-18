@@ -148,7 +148,7 @@ public:
     template<has_trivial_constructor Type>
     [[maybe_unused]] [[nodiscard]] auto global() -> const auto {
         auto type_hash = entt::type_hash<Type>::value();
-        if(auto search = resources_.find(type_hash); search != resources_.end()) {
+        if(auto search = globals_.find(type_hash); search != globals_.end()) {
             return std::any_cast<Type>(search->second);
         } else {
             return Type{};
@@ -158,7 +158,7 @@ public:
     template<has_trivial_constructor Type>
     [[maybe_unused]] void global(const Type &value) {
         auto type_hash = entt::type_hash<Type>::value();
-        resources_[type_hash] = value;
+        globals_[type_hash] = value;
     }
 
     [[nodiscard]] inline auto elapsed() const -> auto & {
@@ -256,8 +256,8 @@ private:
 
     static auto sort_by_priority(const system_ptr &lhs, const system_ptr &rhs) noexcept -> bool;
 
-    using resources_map = std::unordered_map<entt::id_type, std::any>;
-    resources_map resources_;
+    using globals_map = entt::dense_map<entt::id_type, std::any>;
+    globals_map globals_;
 };
 
 } // namespace sneze
