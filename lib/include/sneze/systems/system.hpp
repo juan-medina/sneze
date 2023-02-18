@@ -44,4 +44,33 @@ public:
     auto operator=(const system &&) -> system & = delete;
 };
 
+class system_with_priority {
+public:
+    system_with_priority(entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
+        : type_{type}, system_(std::move(system)), priority_(priority) {}
+
+    void init(world &world) {
+        system_->init(world);
+    }
+    void update(world &world) {
+        system_->update(world);
+    }
+    void end(world &world) {
+        system_->end(world);
+    }
+
+    [[nodiscard]] inline auto priority() const -> auto & {
+        return priority_;
+    }
+
+    [[nodiscard]] inline auto type() const -> auto & {
+        return type_;
+    }
+
+private:
+    entt::id_type type_;
+    std::int32_t priority_;
+    std::unique_ptr<system> system_;
+};
+
 } // namespace sneze

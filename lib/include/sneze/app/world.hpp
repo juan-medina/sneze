@@ -175,6 +175,24 @@ protected:
     void clear() noexcept;
 
 private:
+    using system_ptr = std::unique_ptr<system_with_priority>;
+    using systems_vector = std::vector<system_ptr>;
+    using systems_id_vector = std::vector<entt::id_type>;
+    using globals_map = entt::dense_map<entt::id_type, std::any>;
+
+    double elapsed_ = 0;
+    double delta_ = 0;
+
+    double last_elapsed_ = 0;
+    systems_vector systems_;
+    systems_vector systems_to_add_;
+
+    systems_id_vector systems_to_remove_;
+    entt::registry registry_;
+
+    entt::dispatcher event_dispatcher_;
+    globals_map globals_;
+
     void remove_all_systems() noexcept;
 
     void discard_pending_events() noexcept;
@@ -187,53 +205,9 @@ private:
 
     void update_time();
 
-    class system_with_priority {
-    public:
-        system_with_priority(entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
-            : type_{type}, system_(std::move(system)), priority_(priority) {}
-
-        void init(world &world) {
-            system_->init(world);
-        }
-        void update(world &world) {
-            system_->update(world);
-        }
-        void end(world &world) {
-            system_->end(world);
-        }
-
-        [[nodiscard]] inline auto priority() const -> auto & {
-            return priority_;
-        }
-
-        [[nodiscard]] inline auto type() const -> auto & {
-            return type_;
-        }
-
-    private:
-        entt::id_type type_;
-        std::int32_t priority_;
-        std::unique_ptr<system> system_;
-    };
-
-    using system_ptr = std::unique_ptr<system_with_priority>;
-    using systems_vector = std::vector<system_ptr>;
-    using systems_id_vector = std::vector<entt::id_type>;
-
     static auto match_type(entt::id_type type_to_remove) noexcept {
         return [type_to_remove](const system_ptr &system) noexcept -> bool { return system->type() == type_to_remove; };
     }
-
-    double elapsed_ = 0;
-    double delta_ = 0;
-    double last_elapsed_ = 0;
-
-    systems_vector systems_;
-    systems_vector systems_to_add_;
-    systems_id_vector systems_to_remove_;
-
-    entt::registry registry_;
-    entt::dispatcher event_dispatcher_;
 
     void add_pending_systems();
 
@@ -255,9 +229,6 @@ private:
     void helper_create_shift(entt::entity) {}
 
     static auto sort_by_priority(const system_ptr &lhs, const system_ptr &rhs) noexcept -> bool;
-
-    using globals_map = entt::dense_map<entt::id_type, std::any>;
-    globals_map globals_;
 };
 
 } // namespace sneze
