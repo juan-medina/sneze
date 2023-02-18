@@ -200,9 +200,9 @@ auto settings::save() -> result<> {
 
     auto toml_data = toml::basic_value<toml::preserve_comments>();
 
-    for(auto [section_name, table]: data_) {
+    for(auto &[section_name, table]: data_) {
         auto section = toml::value();
-        for(auto [value_name, value]: table) {
+        for(auto &[value_name, value]: table) {
             if(std::holds_alternative<bool>(value)) {
                 section[value_name] = std::get<bool>(value);
             } else if(std::holds_alternative<double>(value)) {
