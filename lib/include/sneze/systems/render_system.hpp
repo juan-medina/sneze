@@ -27,7 +27,7 @@ SOFTWARE.
 #include <memory>
 #include <utility>
 
-#include "../components/components.hpp"
+#include "../components/geometry.hpp"
 #include "../render/render.hpp"
 #include "../systems/system.hpp"
 

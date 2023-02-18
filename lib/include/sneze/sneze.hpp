@@ -27,7 +27,7 @@ SOFTWARE.
 #include "app/application.hpp"
 #include "app/config.hpp"
 #include "app/settings.hpp"
-#include "components/components.hpp"
+#include "components/geometry.hpp"
 #include "components/renderable.hpp"
 #include "components/ui.hpp"
 #include "platform/error.hpp"
