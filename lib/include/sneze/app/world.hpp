@@ -53,7 +53,7 @@ public:
 
     void end();
 
-    auto since_epoch() const;
+    [[nodiscard]] auto since_epoch() const;
 
     template<typename Type, typename... Args>
     void set(entt::entity entity, Args &&...args) {
