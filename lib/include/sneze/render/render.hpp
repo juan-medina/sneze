@@ -25,8 +25,8 @@ SOFTWARE.
 #pragma once
 
 #include "../app/world.hpp"
-#include "../components/color.hpp"
 #include "../components/components.hpp"
+#include "../components/renderable.hpp"
 #include "../components/ui.hpp"
 #include "../platform/result.hpp"
 

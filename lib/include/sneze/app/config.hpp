@@ -24,7 +24,7 @@ SOFTWARE.
 
 #pragma once
 
-#include "../components/color.hpp"
+#include "../components/renderable.hpp"
 
 namespace sneze {
 

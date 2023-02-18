@@ -28,11 +28,6 @@ SOFTWARE.
 
 namespace sneze::components {
 
-struct renderable {
-    bool visible{true}; // cppcheck-suppress unusedStructMember
-    float depth{0.0f};  // cppcheck-suppress unusedStructMember
-};
-
 struct position {
     float x; // cppcheck-suppress unusedStructMember
     float y; // cppcheck-suppress unusedStructMember

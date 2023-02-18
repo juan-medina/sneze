@@ -28,6 +28,11 @@ SOFTWARE.
 
 namespace sneze::components {
 
+struct renderable {
+    bool visible{true}; // cppcheck-suppress unusedStructMember
+    float depth{0.0f};  // cppcheck-suppress unusedStructMember
+};
+
 class color: public Color {
 public:
     using component = unsigned char;
