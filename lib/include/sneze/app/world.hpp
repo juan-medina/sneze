@@ -27,12 +27,19 @@ SOFTWARE.
 #include <any>
 #include <cstdint>
 #include <optional>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include <entt/entt.hpp>
 
 #include "../systems/system.hpp"
+
+template<typename Type>
+concept has_trivial_constructor = std::is_trivially_constructible<Type>::value;
+
+template<typename Type, typename Interface>
+concept implements_interface = std::is_base_of<Interface, Type>::value;
 
 namespace sneze {
 
@@ -121,24 +128,24 @@ public:
         normal = 0,
     };
 
-    template<Implements_System SystemType, typename... Args>
+    template<implements_interface<system> SystemType, typename... Args>
     [[maybe_unused]] void add_system(Args... args) noexcept {
         add_system_with_priority<SystemType>(priority::normal, args...);
     }
 
-    template<Implements_System SystemType, typename... Args>
+    template<implements_interface<system> SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority(int32_t priority, Args... args) noexcept {
         systems_to_add_.push_back(std::make_unique<system_with_priority>(
             entt::type_hash<SystemType>::value(), priority, std::make_unique<SystemType>(args...)));
     }
 
-    template<Implements_System SystemType>
+    template<implements_interface<system> SystemType>
     [[maybe_unused]] void remove_system() noexcept {
         const entt::id_type type_to_remove = entt::type_hash<SystemType>::value();
         systems_to_remove_.push_back(type_to_remove);
     }
 
-    template<typename Type>
+    template<has_trivial_constructor Type>
     [[maybe_unused]] [[nodiscard]] auto global() -> const auto {
         auto type_hash = entt::type_hash<Type>::value();
         if(auto search = resources_.find(type_hash); search != resources_.end()) {
@@ -148,7 +155,7 @@ public:
         }
     }
 
-    template<typename Type>
+    template<has_trivial_constructor Type>
     [[maybe_unused]] void global(const Type &value) {
         auto type_hash = entt::type_hash<Type>::value();
         resources_[type_hash] = value;

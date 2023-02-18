@@ -24,8 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include <type_traits>
-
 namespace sneze {
 
 class world;
@@ -45,8 +43,5 @@ public:
     auto operator=(const system &) -> system & = delete;
     auto operator=(const system &&) -> system & = delete;
 };
-
-template<typename Type>
-concept Implements_System = std::is_base_of<system, Type>::value;
 
 } // namespace sneze
