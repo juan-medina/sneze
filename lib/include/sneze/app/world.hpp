@@ -121,18 +121,18 @@ public:
         normal = 0,
     };
 
-    template<typename SystemType, typename... Args>
+    template<Implements_System SystemType, typename... Args>
     [[maybe_unused]] void add_system(Args... args) noexcept {
         add_system_with_priority<SystemType>(priority::normal, args...);
     }
 
-    template<typename SystemType, typename... Args>
+    template<Implements_System SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority(int32_t priority, Args... args) noexcept {
         systems_to_add_.push_back(std::make_unique<system_with_priority>(
             entt::type_hash<SystemType>::value(), priority, std::make_unique<SystemType>(args...)));
     }
 
-    template<typename SystemType>
+    template<Implements_System SystemType>
     [[maybe_unused]] void remove_system() noexcept {
         const entt::id_type type_to_remove = entt::type_hash<SystemType>::value();
         systems_to_remove_.push_back(type_to_remove);
