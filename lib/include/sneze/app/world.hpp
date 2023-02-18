@@ -139,7 +139,7 @@ public:
     }
 
     template<typename Type>
-    [[maybe_unused]] [[nodiscard]] auto resource() -> const auto {
+    [[maybe_unused]] [[nodiscard]] auto global() -> const auto {
         auto type_hash = entt::type_hash<Type>::value();
         if(auto search = resources_.find(type_hash); search != resources_.end()) {
             return std::any_cast<Type>(search->second);
@@ -149,7 +149,7 @@ public:
     }
 
     template<typename Type>
-    [[maybe_unused]] void resource(const Type &value) {
+    [[maybe_unused]] void global(const Type &value) {
         auto type_hash = entt::type_hash<Type>::value();
         resources_[type_hash] = value;
     }

@@ -38,7 +38,7 @@ void counter_system::end(sneze::world &) {
 }
 
 void counter_system::update(sneze::world &world) {
-    const auto acc = world.resource<acceleration>();
+    const auto acc = world.global<acceleration>();
 
     for(auto &&[_, ct, lbl]: world.view<counter, components::label>()) {
         ct.value += static_cast<int>(acc.value * world.delta());

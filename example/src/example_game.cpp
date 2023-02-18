@@ -62,7 +62,7 @@ auto example_game::init() -> config {
                    components::position{pos_x, current_y += gap_y},
                    color::Blue);
 
-    world().resource(acceleration{1});
+    world().global(acceleration{1});
 
     world().add_system<counter_system>();
 
