@@ -67,14 +67,17 @@ auto application::launch() -> result<> {
     auto width = settings_.get("window", "width", default_width);
     auto height = settings_.get("window", "height", default_height);
 
-    logger::debug("init application");
-    auto setup = init();
+    logger::debug("configure application");
+    auto config = configure();
 
     logger::debug("init render");
-    if(auto err = render_->init(width, height, name(), setup.clear_color()).ko()) {
+    if(auto err = render_->init(width, height, name(), config.clear_color()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
+
+    logger::debug("init application");
+    init();
 
     logger::debug("init world");
     world_.init();

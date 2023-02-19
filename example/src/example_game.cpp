@@ -32,7 +32,12 @@ namespace components = sneze::components;
 using color = sneze::components::color;
 using config = sneze::config;
 
-auto example_game::init() -> config {
+auto example_game::configure() -> config {
+    sneze::logger::debug("configure");
+    return config().clear_color(color::Black);
+}
+
+void example_game::init() {
     sneze::logger::debug("init");
     get_set_app_setting<std::int64_t>("visits", 0LL, [](auto visits) { return visits + 1LL; });
 
@@ -65,8 +70,6 @@ auto example_game::init() -> config {
     world().global(acceleration{1});
 
     world().add_system<counter_system>();
-
-    return config().clear_color(color::Black);
 }
 
 void example_game::end() {

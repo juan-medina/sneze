@@ -52,7 +52,9 @@ public:
 
     auto run() -> result<bool, error>;
 
-    [[nodiscard]] virtual auto init() -> config = 0;
+    [[nodiscard]] virtual auto configure() -> config = 0;
+
+    virtual void init() = 0;
 
     virtual void end() = 0;
 

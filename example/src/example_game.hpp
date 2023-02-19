@@ -40,7 +40,9 @@ public:
     auto operator=(const example_game &) -> example_game & = delete;
     auto operator=(const example_game &&) -> example_game & = delete;
 
-    [[nodiscard]] auto init() -> config override;
+    [[nodiscard]] auto configure() -> config override;
+
+    void init() override;
 
     void end() override;
 };
