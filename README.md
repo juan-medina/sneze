@@ -41,9 +41,14 @@ SNEZE is powered by these incredible projects:
 - [{fmt}](https://github.com/fmtlib/fmt) : A modern formatting library
 - [toml11](https://github.com/ToruNiina/toml11) : TOML for Modern C++
 
-*They are already included as submodules.*
+## Resources
+
+SNEZE examples use these beautiful resources:
+
+- **Font**: [Pathway Gothic One](https://fonts.google.com/specimen/Pathway+Gothic+One) by [Eduardo Tunni](http://www.tipo.net.ar).
 
 ## Contributions
+
 SNEZE is an open source project and contributions are welcome. If you'd like to contribute, please follow the guidelines in the [Contributing](CONTRIBUTING.md) file and make a pull request.
 
 ## License
