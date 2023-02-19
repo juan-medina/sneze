@@ -28,8 +28,36 @@ SOFTWARE.
 
 #include <raylib.h>
 
-namespace sneze::components {
+#include "../components/geometry.hpp"
+#include "../components/renderable.hpp"
 
-struct position: Vector2 {};
+namespace sneze {
 
-} // namespace sneze::components
+class font {
+public:
+    explicit font(const std::string &file);
+
+    font(const font &) = delete;
+    font(font &&) = delete;
+    auto operator=(const font &) -> font & = delete;
+    auto operator=(font &&) -> font & = delete;
+
+    [[nodiscard]] inline auto valid() const -> auto const {
+        return font_.texture.id != 0;
+    }
+
+    ~font() {
+        if(valid()) UnloadFont(font_);
+        font_ = {0};
+    }
+
+    void draw_text(const std::string &text,
+                   const components::position &position,
+                   const float size,
+                   const components::color &color) const;
+
+private:
+    Font font_ = {0};
+};
+
+} // namespace sneze

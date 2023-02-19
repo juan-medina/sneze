@@ -77,7 +77,10 @@ auto application::launch() -> result<> {
     }
 
     logger::debug("init application");
-    init();
+    if(auto err = init().ko()) {
+        logger::error("error initializing application");
+        return error("Can't init the application.", *err);
+    }
 
     logger::debug("init world");
     world_.init();
@@ -130,5 +133,18 @@ void application::app_want_closing(events::application_want_closing) noexcept {
 
 const std::int64_t application::default_width = {1920LL};
 const std::int64_t application::default_height = {1080LL};
+
+auto application::load_font(const std::string &font_path) -> result<> {
+    if(auto err = render_->load_font(font_path).ko(); err) {
+        logger::error("error loading font: {}", font_path);
+        return error("Can't load font.", *err);
+    }
+
+    return true;
+}
+
+void application::unload_font(const std::string &font_path) {
+    render_->unload_font(font_path);
+}
 
 } // namespace sneze

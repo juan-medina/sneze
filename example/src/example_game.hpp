@@ -42,7 +42,7 @@ public:
 
     [[nodiscard]] auto configure() -> config override;
 
-    void init() override;
+    auto init() -> sneze::result<> override;
 
     void end() override;
 };

@@ -22,14 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
+#include "sneze/render/font.hpp"
 
-#include <string>
+#include "sneze/platform/logger.hpp"
 
-#include <raylib.h>
+#include <filesystem>
 
-namespace sneze::components {
+namespace fs = std::filesystem;
 
-struct position: Vector2 {};
+namespace sneze {
+font::font(const std::string &file): font_{0} {
+    if(const auto file_path = fs::path{file}; !fs::exists(file_path)) {
+        logger::error("error font does not exist: {}", file);
+        return;
+    }
 
-} // namespace sneze::components
+    font_ = LoadFont(file.c_str());
+}
+void font::draw_text(const std::string &text,
+                     const components::position &position,
+                     const float size,
+                     const components::color &color) const {
+    DrawTextEx(font_, text.c_str(), position, size, 0, color);
+}
+
+} // namespace sneze

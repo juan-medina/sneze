@@ -54,7 +54,7 @@ public:
 
     [[nodiscard]] virtual auto configure() -> config = 0;
 
-    virtual void init() = 0;
+    [[nodiscard]] virtual auto init() -> result<> = 0;
 
     virtual void end() = 0;
 
@@ -108,6 +108,10 @@ public:
     }
 
     void app_want_closing(events::application_want_closing event) noexcept;
+
+    [[maybe_unused]] [[nodiscard]] auto load_font(const std::string &font_path) -> result<>;
+
+    [[maybe_unused]] void unload_font(const std::string &font_path);
 
 private:
     static const std::int64_t default_width;

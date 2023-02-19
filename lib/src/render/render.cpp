@@ -41,6 +41,7 @@ auto render::init(const std::int64_t &width,
 }
 
 void render::end() {
+    fonts_.clear();
     logger::debug("Closing window");
     CloseWindow();
 }
@@ -55,14 +56,49 @@ void render::end_frame() {
     EndDrawing();
 }
 
+[[nodiscard]] auto render::get_font(const std::string &font_path) -> const auto {
+    if(auto it = fonts_.find(font_path); it == fonts_.end()) {
+        logger::error("trying to get a font not loaded: ({})", font_path);
+        return std::shared_ptr<font>{nullptr};
+    } else {
+        return it->second;
+    }
+}
+
 void render::draw_label(const components::label &label,
                         const components::position &position,
                         const components::color &color) {
-    DrawText(label.text.c_str(),
-             static_cast<int>(position.x),
-             static_cast<int>(position.y),
-             static_cast<int>(label.size),
-             color);
+    if(auto font = get_font(label.font); font != nullptr && font->valid()) [[likely]] {
+        font->draw_text(label.text, position, label.size, color);
+    } else {
+        logger::error("trying to draw a label with a not loaded font: ({})", label.font);
+    }
+}
+
+auto render::load_font(const std::string &font_path) -> result<> {
+    logger::debug("loading font: ({})", font_path);
+    if(auto it = fonts_.find(font_path); it == fonts_.end()) {
+        auto font_ptr = std::make_shared<font>(font_path);
+        if(!font_ptr->valid()) {
+            logger::error("failed to load font: {}", font_path);
+            font_ptr.reset();
+            return error("Font not valid.");
+        }
+        fonts_.insert({font_path, font_ptr});
+    } else {
+        logger::warning("font already loaded: {}", font_path);
+    }
+
+    return true;
+}
+
+void render::unload_font(const std::string &font_path) {
+    logger::debug("unloading font: ({})", font_path);
+    if(auto it = fonts_.find(font_path); it == fonts_.end()) {
+        logger::warning("unloading font not loaded: {}", font_path);
+    } else {
+        fonts_.erase(it);
+    }
 }
 
 } // namespace sneze

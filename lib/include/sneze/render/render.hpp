@@ -24,11 +24,15 @@ SOFTWARE.
 
 #pragma once
 
+#include <entt/entt.hpp>
+
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
 #include "../components/ui.hpp"
 #include "../platform/result.hpp"
+
+#include "font.hpp"
 
 namespace sneze {
 
@@ -58,11 +62,19 @@ public:
 
     void end_frame();
 
+    [[maybe_unused]] [[nodiscard]] auto load_font(const std::string &font_path) -> result<>;
+
+    [[maybe_unused]] void unload_font(const std::string &font_path);
+
+    [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
+
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
 private:
     components::color clear_color_ = components::color::Black;
+
+    std::unordered_map<std::string, std::shared_ptr<font>> fonts_;
 };
 
 } // namespace sneze

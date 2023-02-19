@@ -30,6 +30,7 @@ namespace sneze::components {
 
 struct label {
     std::string text; // cppcheck-suppress unusedStructMember
+    std::string font; // cppcheck-suppress unusedStructMember
     float size;       // cppcheck-suppress unusedStructMember
 };
 

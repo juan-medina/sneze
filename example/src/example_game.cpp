@@ -24,6 +24,8 @@ SOFTWARE.
 
 #include "example_game.hpp"
 
+#include <string>
+
 #include "counter_system.hpp"
 
 example_game::example_game(): application("sneze", "Example Game") {}
@@ -32,13 +34,22 @@ namespace components = sneze::components;
 using color = sneze::components::color;
 using config = sneze::config;
 
+using namespace std::string_literals;
+const auto font_name = "resources/fonts/pathway_gothic_one.fnt"s;
+
 auto example_game::configure() -> config {
     sneze::logger::debug("configure");
     return config().clear_color(color::Black);
 }
 
-void example_game::init() {
+auto example_game::init() -> sneze::result<> {
     sneze::logger::debug("init");
+
+    if(auto err = load_font(font_name).ko()) {
+        sneze::logger::error("game can't load game font: {}", font_name);
+        return sneze::error("Can't load game font.", *err);
+    }
+
     get_set_app_setting<std::int64_t>("visits", 0LL, [](auto visits) { return visits + 1LL; });
 
     const auto font_size = 40.f;
@@ -51,28 +62,31 @@ void example_game::init() {
     const auto counter_2 = 10000;
 
     world().create(components::renderable{},
-                   components::label{"Hello World", font_size},
+                   components::label{"Hello World", font_name, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::White);
 
     world().create(components::renderable{},
                    counter{counter_1},
-                   components::label{"Counter:", font_size},
+                   components::label{"Counter:", font_name, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::Red);
 
     world().create(components::renderable{},
                    counter{counter_2},
-                   components::label{"Counter:", font_size},
+                   components::label{"Counter:", font_name, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::Blue);
 
     world().global(acceleration{1});
 
     world().add_system<counter_system>();
+
+    return true;
 }
 
 void example_game::end() {
     sneze::logger::debug("end");
     world().remove_system<counter_system>();
+    unload_font(font_name);
 }
