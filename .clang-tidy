@@ -5,6 +5,7 @@ modernize-*,
 google-*,
 bugprone-*,
 misc-*,
+performance-*,
 -bugprone-easily-swappable-parameters,
 -cppcoreguidelines-avoid-magic-numbers,
 '
