@@ -44,15 +44,15 @@ auto settings::read() -> result<> {
 
     if(auto [val, err] = calculate_settings_file_path().ok(); err) {
         logger::error("error calculate settings file path");
-        return error("Can't calculate settings file path.", *err);
+        return error("Can't calculate settings file path.", *err); // NOLINT(bugprone-unchecked-optional-access)
     } else {
-        logger::debug("Settings file: {}", val->string());
-        settings_file_path_ = *val;
+        logger::debug("Settings file: {}", val->string()); // NOLINT(bugprone-unchecked-optional-access)
+        settings_file_path_ = *val;                        // NOLINT(bugprone-unchecked-optional-access)
     }
 
     if(auto err = read_toml().ko()) {
         logger::error("error reading toml file: {}", settings_file_path_.string());
-        return error("Can't read settings file.", *err);
+        return error("Can't read settings file.", *err); // NOLINT(bugprone-unchecked-optional-access)
     }
 
     logger::info("settings file read");

@@ -101,8 +101,8 @@ void setup_log();
 
 void set_level(level::log_level level);
 
-level::log_level level_from_string(const std::string &level);
+auto level_from_string(const std::string &level) -> level::log_level;
 
-std::string string_from_level(level::log_level level);
+auto string_from_level(level::log_level level) -> std::string;
 
 } // namespace sneze::logger

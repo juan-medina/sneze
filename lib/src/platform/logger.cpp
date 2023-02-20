@@ -149,7 +149,7 @@ void set_level(level::log_level level) {
     SetTraceLogLevel(raylib_level);
 }
 
-level::log_level level_from_string(const std::string &log_level) {
+auto level_from_string(const std::string &log_level) -> level::log_level {
     using namespace entt::literals; // NOLINT(google-build-using-namespace)
 
     switch(entt::hashed_string{log_level.c_str()}) {
@@ -180,7 +180,7 @@ level::log_level level_from_string(const std::string &log_level) {
     }
 }
 
-std::string string_from_level(level::log_level level) {
+auto string_from_level(level::log_level level) -> std::string {
     using namespace std::string_literals; // NOLINT(google-build-using-namespace)
 
     switch(level) {

@@ -73,18 +73,19 @@ auto application::run() -> result<bool, error> {
 
 void application::log_level() {
     using namespace std::literals;
+    auto const section = "log"s;
 #ifdef NDEBUG
-    auto initial_level = "error"s;
-    auto setting = "level";
+    auto const initial_level = "error"s;
+    auto const setting = "level"s;
 #else
-    auto initial_level = "debug"s;
-    auto setting = "level_debug";
+    auto const initial_level = "debug"s;
+    auto const setting = "level_debug"s;
 #endif
-    auto log_level = settings_.get("log", setting, initial_level);
+    auto log_level = settings_.get(section, setting, initial_level);
 
     auto level = logger::level_from_string(log_level);
     auto level_str = logger::string_from_level(level);
-    settings_.set("log", setting, level_str);
+    settings_.set(section, setting, level_str);
 
     logger::info("switching log level to: {}", level_str);
 
@@ -92,8 +93,9 @@ void application::log_level() {
 }
 
 auto application::launch() -> result<> {
-    auto width = settings_.get("window", "width", default_width);
-    auto height = settings_.get("window", "height", default_height);
+    using namespace std::literals;
+    auto width = settings_.get("window"s, "width"s, default_width);
+    auto height = settings_.get("window"s, "height"s, default_height);
 
     logger::debug("configure application");
     auto config = configure();
@@ -139,18 +141,18 @@ auto application::launch() -> result<> {
 auto application::read_settings() noexcept -> result<> {
     if(auto [val, err] = settings_.read().ok(); err) {
         logger::error("error reading settings");
-        return error("Can't read settings.", *err);
+        return error("Can't read settings.", *err); // NOLINT(bugprone-unchecked-optional-access)
     } else {
-        return *val;
+        return *val; // NOLINT(bugprone-unchecked-optional-access)
     }
 }
 
 auto application::save_settings() noexcept -> result<> {
     if(auto [val, err] = settings_.save().ok(); err) {
         logger::error("error saving settings");
-        return error("Can't save settings.", *err);
+        return error("Can't save settings.", *err); // NOLINT(bugprone-unchecked-optional-access)
     } else {
-        return *val;
+        return *val; // NOLINT(bugprone-unchecked-optional-access)
     }
 }
 
