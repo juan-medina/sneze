@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "counter_system.hpp"
 
-#include <format>
+#include <fmt/format.h>
 
 namespace logger = sneze::logger;
 namespace components = sneze::components;
@@ -42,6 +42,6 @@ void counter_system::update(sneze::world &world) {
 
     for(auto &&[_, ct, lbl]: world.view<counter, components::label>()) {
         ct.value += static_cast<int>(acc.value * world.delta());
-        lbl.text = std::format("Counter: {}", ct.value);
+        lbl.text = fmt::format("Counter: {}", ct.value);
     }
 }
