@@ -49,6 +49,9 @@ auto application::show_error(const error &err) const -> const auto & {
 }
 
 auto application::run() -> result<bool, error> {
+#if defined(NDEBUG) && defined(_WIN32)
+#    pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#endif
     logger::setup_log();
 
     logger::info("{}", version::string);

@@ -28,19 +28,24 @@ SOFTWARE.
 
 #include <config.h>
 #include <raylib.h>
+#include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/dist_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 #if defined(_MSC_VER) && defined(_DEBUG)
-#    include "spdlog/sinks/msvc_sink.h"
+#    include <spdlog/sinks/msvc_sink.h>
 #endif
 
 namespace sneze::logger {
 
 void setup_spdlog() {
-    auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
     auto dist_sink = std::make_shared<spdlog::sinks::dist_sink_st>();
+
+    auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
     dist_sink->add_sink(color_sink);
+
+    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_st>("sneze.log");
+    dist_sink->add_sink(file_sink);
 
 #if defined(_MSC_VER) && defined(_DEBUG)
     auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
@@ -71,13 +76,13 @@ void raylib_log_callback(int level, const char *text, va_list args) {
     case LOG_WARNING:
         spdlog_level = warn;
         break;
-    case LOG_ERROR:
+    [[likely]] case LOG_ERROR:
         spdlog_level = err;
         break;
     case LOG_FATAL:
         spdlog_level = critical;
         break;
-    [[likely]] case LOG_NONE:
+    case LOG_NONE:
         spdlog_level = off;
         break;
     [[unlikely]] default:
@@ -92,15 +97,11 @@ void hook_raylib_log() noexcept {
 }
 
 void setup_log() {
-#ifdef NDEBUG
-#    if defined(_WIN32)
-#        pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#    endif
-    set_log_level(logger::level::off);
-#else
     setup_spdlog();
     hook_raylib_log();
-
+#ifdef NDEBUG
+    set_log_level(logger::level::error);
+#else
     set_log_level(logger::level::debug);
 #endif
 }
