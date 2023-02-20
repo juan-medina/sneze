@@ -98,7 +98,7 @@ auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
 
 auto settings::exist_or_create_directory(const std::filesystem::path &path) -> result<> {
     if(fs::exists(path)) {
-        logger::warning("directory already exist: {}", path.string());
+        logger::debug("directory already exist: {}", path.string());
     } else {
         logger::debug("Creating directory: {}", path.string());
         std::error_code ec;
@@ -118,7 +118,7 @@ auto settings::exist_or_create_directory(const std::filesystem::path &path) -> r
 
 auto settings::exist_or_create_file(const std::filesystem::path &path) -> result<> {
     if(fs::exists(path)) {
-        logger::warning("file already exist: {}", path.string());
+        logger::debug("file already exist: {}", path.string());
     } else {
         logger::debug("Creating empty file: {}", path.string());
         std::fstream file;

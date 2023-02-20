@@ -27,6 +27,7 @@ SOFTWARE.
 #include <memory>
 
 #include <config.h>
+#include <entt/entt.hpp>
 #include <raylib.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/dist_sink.h>
@@ -44,7 +45,7 @@ void setup_spdlog() {
     auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
     dist_sink->add_sink(color_sink);
 
-    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_st>("sneze.log");
+    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_st>("sneze.log", true);
     dist_sink->add_sink(file_sink);
 
 #if defined(_MSC_VER) && defined(_DEBUG)
@@ -100,13 +101,13 @@ void setup_log() {
     setup_spdlog();
     hook_raylib_log();
 #ifdef NDEBUG
-    set_log_level(logger::level::error);
+    set_level(logger::level::info);
 #else
-    set_log_level(logger::level::debug);
+    set_level(logger::level::debug);
 #endif
 }
 
-void set_log_level(level::log_level level) {
+void set_level(level::log_level level) {
     spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
     int raylib_level;                       // NOLINT(cppcoreguidelines-init-variables)
 
@@ -123,11 +124,11 @@ void set_log_level(level::log_level level) {
         spdlog_level = spdlog::level::info;
         raylib_level = LOG_INFO;
         break;
-    case level::warn:
+    case level::warning:
         spdlog_level = spdlog::level::warn;
         raylib_level = LOG_WARNING;
         break;
-    case level::err:
+    case level::error:
         spdlog_level = spdlog::level::err;
         raylib_level = LOG_ERROR;
         break;
@@ -146,6 +147,68 @@ void set_log_level(level::log_level level) {
     }
     spdlog::set_level(spdlog_level);
     SetTraceLogLevel(raylib_level);
+}
+
+level::log_level level_from_string(const std::string &log_level) {
+    using namespace entt::literals; // NOLINT(google-build-using-namespace)
+
+    switch(entt::hashed_string{log_level.c_str()}) {
+    case "trace"_hs:
+        return logger::level::trace;
+        break;
+    case "debug"_hs:
+        return logger::level::debug;
+        break;
+    case "info"_hs:
+        return logger::level::info;
+        break;
+    case "warning"_hs:
+        return logger::level::warning;
+        break;
+    [[likely]] case "error"_hs:
+        return logger::level::error;
+        break;
+    case "critical"_hs:
+        return logger::level::critical;
+        break;
+    case "off"_hs:
+        return logger::level::off;
+        break;
+    [[unlikely]] default:
+        return logger::level::error;
+        break;
+    }
+}
+
+std::string string_from_level(level::log_level level) {
+    using namespace std::string_literals; // NOLINT(google-build-using-namespace)
+
+    switch(level) {
+    case level::trace:
+        return "trace"s;
+        break;
+    case level::debug:
+        return "debug"s;
+        break;
+    case level::info:
+        return "info"s;
+        break;
+    case level::warning:
+        return "warning"s;
+        break;
+    case level::error:
+        return "error"s;
+        break;
+    case level::critical:
+        return "critical"s;
+        break;
+    [[likely]] case level::off:
+        return "off"s;
+        break;
+    [[unlikely]] default:
+        return "info"s;
+        break;
+    }
 }
 
 } // namespace sneze::logger

@@ -29,6 +29,8 @@ SOFTWARE.
 #include "sneze/platform/version.hpp"
 #include "sneze/systems/render_system.hpp"
 
+#include <string>
+
 #include <boxer/boxer.h>
 #include <fmt/format.h>
 
@@ -58,12 +60,35 @@ auto application::run() -> result<bool, error> {
     logger::debug("running application: {} (Team: {})", name(), team());
 
     if(auto err = read_settings().ko()) return show_error(*err);
+
+    log_level();
+
     if(auto err = launch().ko()) return show_error(*err);
     if(auto err = save_settings().ko()) return show_error(*err);
 
     logger::debug("stopping application: {}", name());
 
     return true;
+}
+
+void application::log_level() {
+    using namespace std::literals;
+#ifdef NDEBUG
+    auto initial_level = "error"s;
+    auto setting = "level";
+#else
+    auto initial_level = "debug"s;
+    auto setting = "level_debug";
+#endif
+    auto log_level = settings_.get("log", setting, initial_level);
+
+    auto level = logger::level_from_string(log_level);
+    auto level_str = logger::string_from_level(level);
+    settings_.set("log", setting, level_str);
+
+    logger::info("switching log level to: {}", level_str);
+
+    logger::set_level(level);
 }
 
 auto application::launch() -> result<> {

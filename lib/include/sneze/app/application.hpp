@@ -130,6 +130,8 @@ private:
 
     auto save_settings() noexcept -> result<>;
 
+    void log_level();
+
     [[nodiscard]] auto show_error(const error &err) const -> const auto &;
 };
 

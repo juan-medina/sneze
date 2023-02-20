@@ -24,6 +24,7 @@ SOFTWARE.
 #pragma once
 
 #include <source_location>
+#include <string>
 
 #include <spdlog/spdlog.h>
 
@@ -34,24 +35,19 @@ enum log_level : int {
     trace = spdlog::level::trace,
     debug = spdlog::level::debug,
     info = spdlog::level::info,
-    warn = spdlog::level::warn,
-    err = spdlog::level::err,
+    warning = spdlog::level::warn,
+    error = spdlog::level::err,
     critical = spdlog::level::critical,
     off = spdlog::level::off
 };
 } // namespace level
 
-#if defined(NDEBUG)
-template<typename... Args>
-static void log(Args &&...) {}
-#else
 template<typename... Args>
 static void
 log(const level::log_level level, std::source_location source, fmt::format_string<Args...> fmt, Args &&...args) {
     auto location = spdlog::source_loc{source.file_name(), static_cast<int>(source.line()), source.function_name()};
     spdlog::log(location, static_cast<spdlog::level::level_enum>(level), fmt, std::forward<Args>(args)...);
 }
-#endif
 
 template<typename... Args>
 struct info {
@@ -82,7 +78,7 @@ struct error {
     explicit error(fmt::format_string<Args...> fmt,
                    Args &&...args,
                    const std::source_location &location = std::source_location::current()) {
-        log(level::err, location, fmt, std::forward<Args>(args)...);
+        log(level::error, location, fmt, std::forward<Args>(args)...);
     }
 };
 
@@ -94,7 +90,7 @@ struct warning {
     explicit warning(fmt::format_string<Args...> fmt,
                      Args &&...args,
                      const std::source_location &location = std::source_location::current()) {
-        log(level::warn, location, fmt, std::forward<Args>(args)...);
+        log(level::warning, location, fmt, std::forward<Args>(args)...);
     }
 };
 
@@ -103,6 +99,10 @@ warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
 
 void setup_log();
 
-void set_log_level(level::log_level level);
+void set_level(level::log_level level);
+
+level::log_level level_from_string(const std::string &level);
+
+std::string string_from_level(level::log_level level);
 
 } // namespace sneze::logger
