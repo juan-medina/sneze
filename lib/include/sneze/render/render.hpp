@@ -53,6 +53,7 @@ public:
 
     [[nodiscard]] auto init(const std::int64_t &width,
                             const std::int64_t &height,
+                            const bool &fullscreen,
                             const std::string &title,
                             const components::color &color) -> result<>;
 

@@ -32,10 +32,19 @@ namespace sneze {
 
 auto render::init(const std::int64_t &width,
                   const std::int64_t &height,
+                  const bool &fullscreen,
                   const std::string &title,
                   const components::color &color) -> result<> {
     logger::debug("Creating window");
-    InitWindow(static_cast<int>(width), static_cast<int>(height), title.c_str());
+
+    if(fullscreen) {
+        SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_MAXIMIZED | FLAG_WINDOW_UNDECORATED);
+        InitWindow(0, 0, title.c_str());
+    } else {
+        SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+        InitWindow(static_cast<int>(width), static_cast<int>(height), title.c_str());
+    }
+
     clear_color(color);
     return true;
 }

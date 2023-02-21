@@ -96,12 +96,13 @@ auto application::launch() -> result<> {
     using namespace std::literals;
     auto width = settings_.get("window"s, "width"s, default_width);
     auto height = settings_.get("window"s, "height"s, default_height);
+    auto fullscreen = settings_.get("window"s, "fullscreen"s, false);
 
     logger::debug("configure application");
     auto config = configure();
 
     logger::debug("init render");
-    if(auto err = render_->init(width, height, name(), config.clear_color()).ko()) {
+    if(auto err = render_->init(width, height, fullscreen, name(), config.clear_color()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
