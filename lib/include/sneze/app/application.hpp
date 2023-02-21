@@ -133,6 +133,9 @@ private:
     void log_level();
 
     [[nodiscard]] auto show_error(const error &err) const -> const auto &;
+
+    void save_placement();
+    void restore_placement();
 };
 
 } // namespace sneze

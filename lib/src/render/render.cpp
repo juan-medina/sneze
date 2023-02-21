@@ -37,7 +37,9 @@ auto render::init(const std::int64_t &width,
                   const components::color &color) -> result<> {
     logger::debug("Creating window");
 
-    if(fullscreen) {
+    fullscreen_ = fullscreen;
+
+    if(fullscreen_) {
         SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_MAXIMIZED | FLAG_WINDOW_UNDECORATED);
         InitWindow(0, 0, title.c_str());
     } else {
@@ -107,6 +109,32 @@ void render::unload_font(const std::string &font_path) {
         logger::warning("unloading font not loaded: {}", font_path);
     } else {
         fonts_.erase(it);
+    }
+}
+auto render::placement() const -> components::position {
+    return components::position{GetWindowPosition()};
+}
+
+void render::placement(const components::position &position) const {
+    if(position.x != 0 && position.y != 0) {
+        SetWindowPosition(static_cast<int>(position.x), static_cast<int>(position.y));
+    }
+}
+auto render::size() const -> components::size const {
+    return components::size{static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())};
+}
+
+auto render::monitor() const -> int const {
+    return GetCurrentMonitor();
+}
+
+void render::monitor(const int &monitor) {
+    if(monitor >= 0) {
+        auto width = GetMonitorWidth(monitor);
+        auto height = GetMonitorHeight(monitor);
+        auto position = GetMonitorPosition(monitor);
+
+        SetWindowPosition(static_cast<int>(position.x), static_cast<int>(position.y));
     }
 }
 

@@ -30,6 +30,14 @@ SOFTWARE.
 
 namespace sneze::components {
 
-struct position: Vector2 {};
+struct position: Vector2 {
+    explicit position(const Vector2 &vector): Vector2{vector} {}
+    position(const float &x, const float &y): Vector2{x, y} {}
+};
+
+struct size {
+    float width;  // cppcheck-suppress unusedStructMember
+    float height; // cppcheck-suppress unusedStructMember
+};
 
 } // namespace sneze::components

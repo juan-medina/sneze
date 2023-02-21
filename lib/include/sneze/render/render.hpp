@@ -67,15 +67,31 @@ public:
 
     [[maybe_unused]] void unload_font(const std::string &font_path);
 
-    [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
-
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
+    [[nodiscard]] auto placement() const -> components::position;
+
+    void placement(const components::position &position) const;
+
+    [[nodiscard]] auto size() const -> components::size const;
+
+    [[nodiscard]] auto monitor() const -> int const;
+
+    void monitor(const int &monitor);
+
+    [[nodiscard]] auto fullscreen() const -> bool const {
+        return fullscreen_;
+    }
+
 private:
+    [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
+
     components::color clear_color_ = components::color::Black;
 
     std::unordered_map<std::string, std::shared_ptr<font>> fonts_;
+
+    bool fullscreen_ = false;
 };
 
 } // namespace sneze
