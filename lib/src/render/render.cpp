@@ -30,24 +30,51 @@ SOFTWARE.
 
 namespace sneze {
 
-auto render::init(const std::int64_t &width,
-                  const std::int64_t &height,
+auto render::init(const components::size &size,
+                  const components::position &placement,
+                  const int &monitor,
                   const bool &fullscreen,
                   const std::string &title,
                   const components::color &color) -> result<> {
-    logger::debug("Creating window");
+    logger::debug("init render");
 
     fullscreen_ = fullscreen;
 
     if(fullscreen_) {
         SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_MAXIMIZED | FLAG_WINDOW_UNDECORATED);
         InitWindow(0, 0, title.c_str());
+
+        auto width = GetMonitorWidth(monitor);
+        auto height = GetMonitorHeight(monitor);
+
+        SetWindowSize(width, height);
+
+        logger::debug("init fullscreen render: width={}, height={}, monitor={}", width, height, monitor);
+
+        auto position = GetMonitorPosition(monitor);
+        SetWindowPosition(static_cast<int>(position.x), static_cast<int>(position.y));
     } else {
         SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-        InitWindow(static_cast<int>(width), static_cast<int>(height), title.c_str());
+        InitWindow(static_cast<int>(size.width), static_cast<int>(size.height), title.c_str());
+        auto window_placement = placement;
+        if(window_placement.x == 0 && window_placement.y == 0) {
+            auto monitor_width = static_cast<float>(GetMonitorWidth(monitor));
+            auto monitor_height = static_cast<float>(GetMonitorHeight(monitor));
+            auto position = GetMonitorPosition(monitor);
+            window_placement.x = position.x + ((monitor_width - size.width) / 2);
+            window_placement.y = position.y + ((monitor_height - size.height) / 2);
+        }
+
+        logger::debug("init windowed render: width={}, height={}, at placement=({}, {})",
+                      size.width,
+                      size.height,
+                      window_placement.x,
+                      window_placement.y);
+        SetWindowPosition(static_cast<int>(window_placement.x), static_cast<int>(window_placement.y));
     }
 
     clear_color(color);
+
     return true;
 }
 
@@ -115,27 +142,12 @@ auto render::placement() const -> components::position {
     return components::position{GetWindowPosition()};
 }
 
-void render::placement(const components::position &position) const {
-    if(position.x != 0 && position.y != 0) {
-        SetWindowPosition(static_cast<int>(position.x), static_cast<int>(position.y));
-    }
-}
 auto render::size() const -> components::size const {
     return components::size{static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())};
 }
 
 auto render::monitor() const -> int const {
     return GetCurrentMonitor();
-}
-
-void render::monitor(const int &monitor) {
-    if(monitor >= 0) {
-        auto width = GetMonitorWidth(monitor);
-        auto height = GetMonitorHeight(monitor);
-        auto position = GetMonitorPosition(monitor);
-
-        SetWindowPosition(static_cast<int>(position.x), static_cast<int>(position.y));
-    }
 }
 
 } // namespace sneze

@@ -51,8 +51,9 @@ public:
         clear_color_ = color;
     }
 
-    [[nodiscard]] auto init(const std::int64_t &width,
-                            const std::int64_t &height,
+    [[nodiscard]] auto init(const components::size &size,
+                            const components::position &placement,
+                            const int &monitor,
                             const bool &fullscreen,
                             const std::string &title,
                             const components::color &color) -> result<>;
@@ -72,13 +73,10 @@ public:
 
     [[nodiscard]] auto placement() const -> components::position;
 
-    void placement(const components::position &position) const;
-
     [[nodiscard]] auto size() const -> components::size const;
 
     [[nodiscard]] auto monitor() const -> int const;
 
-    void monitor(const int &monitor);
 
     [[nodiscard]] auto fullscreen() const -> bool const {
         return fullscreen_;

@@ -94,21 +94,28 @@ void application::log_level() {
 
 auto application::launch() -> result<> {
     using namespace std::literals;
+
     auto width = settings_.get("window"s, "width"s, default_width);
     auto height = settings_.get("window"s, "height"s, default_height);
+    auto size = components::size{static_cast<float>(width), static_cast<float>(height)};
+
+    auto position_x = settings_.get("window"s, "position_x"s, std::int64_t{0LL});
+    auto position_y = settings_.get("window"s, "position_y"s, std::int64_t{0LL});
+    auto placement = components::position{static_cast<float>(position_x), static_cast<float>(position_y)};
+
     auto fullscreen = settings_.get("window"s, "fullscreen"s, false);
+    auto monitor = static_cast<int>(settings_.get("window"s, "monitor"s, std::int64_t{0LL}));
 
     logger::debug("configure application");
     auto config = configure();
 
     logger::debug("init render");
-    if(auto err = render_->init(width, height, fullscreen, name(), config.clear_color()).ko()) {
+    if(auto err = render_->init(size, placement, monitor, fullscreen, name(), config.clear_color()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
 
     logger::debug("restoring placement");
-    restore_placement();
 
     logger::debug("init application");
     if(auto err = init().ko()) {
@@ -182,20 +189,6 @@ auto application::load_font(const std::string &font_path) -> result<> {
 
 void application::unload_font(const std::string &font_path) {
     render_->unload_font(font_path);
-}
-
-void application::restore_placement() {
-    using namespace std::literals;
-    if(!render_->fullscreen()) {
-        auto x = settings_.get("window"s, "position_x"s, std::int64_t{0LL});
-        auto y = settings_.get("window"s, "position_y"s, std::int64_t{0LL});
-
-        auto position = components::position{static_cast<float>(x), static_cast<float>(y)};
-        render_->placement(position);
-    } else {
-        auto monitor = settings_.get("window"s, "monitor"s, std::int64_t{0LL});
-        render_->monitor(static_cast<int>(monitor));
-    }
 }
 
 void application::save_placement() {
