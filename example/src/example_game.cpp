@@ -26,6 +26,8 @@ SOFTWARE.
 
 #include <string>
 
+#include <fmt/format.h>
+
 #include "counter_system.hpp"
 
 example_game::example_game(): application("sneze", "Example Game") {}
@@ -50,8 +52,6 @@ auto example_game::init() -> sneze::result<> {
         return sneze::error("Can't load game font.", *err);
     }
 
-    get_set_app_setting<std::int64_t>("visits", 0LL, [](auto visits) { return visits + 1LL; });
-
     const auto font_size = 40.f;
     const auto pos_x = 190.f;
     const auto pos_y = 200.f;
@@ -61,8 +61,12 @@ auto example_game::init() -> sneze::result<> {
     const auto counter_1 = 0;
     const auto counter_2 = 10000;
 
+    auto visits = get_app_setting("visits", std::int64_t{0});
+    visits++;
+    set_app_setting("visits", visits);
+
     world().create(components::renderable{},
-                   components::label{"Hello World", font_name, font_size},
+                   components::label{fmt::format("Hello World for the {} time!", visits), font_name, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::White);
 
