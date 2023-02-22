@@ -97,12 +97,6 @@ public:
         return settings_.get<Type>(name_, name, default_value);
     }
 
-    template<is_value Type>
-    [[maybe_unused]] inline void
-    get_set_app_setting(const std::string &name, const Type &default_value, Type (*func)(Type)) {
-        get_set_setting<Type>(name_, name, default_value, func);
-    }
-
     [[nodiscard]] inline auto world() noexcept -> auto & {
         return world_;
     }

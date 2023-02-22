@@ -187,13 +187,13 @@ void application::unload_font(const std::string &font_path) {
 void application::restore_placement() {
     using namespace std::literals;
     if(!render_->fullscreen()) {
-        auto x = settings_.get("window"s, "position_x"s, 0ll);
-        auto y = settings_.get("window"s, "position_y"s, 0ll);
+        auto x = settings_.get("window"s, "position_x"s, std::int64_t{0LL});
+        auto y = settings_.get("window"s, "position_y"s, std::int64_t{0LL});
 
         auto position = components::position{static_cast<float>(x), static_cast<float>(y)};
         render_->placement(position);
     } else {
-        auto monitor = settings_.get("window"s, "monitor"s, 0ll);
+        auto monitor = settings_.get("window"s, "monitor"s, std::int64_t{0LL});
         render_->monitor(static_cast<int>(monitor));
     }
 }
