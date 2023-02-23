@@ -24,8 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include <raylib.h>
-
 namespace sneze::components {
 
 struct renderable {
@@ -33,27 +31,11 @@ struct renderable {
     float depth{0.0f};  // cppcheck-suppress unusedStructMember
 };
 
-class color: public Color {
+class color {
 public:
     using component = unsigned char;
 
     enum opacity : component { translucent [[maybe_unused]] = 0, opaque = 255 };
-
-    ~color() = default;
-
-    color(const color &) = default;
-
-    color(color &&) = default;
-
-    explicit color(const Color &color): Color() {
-        Color::r = color.r;
-        Color::g = color.g;
-        Color::b = color.b;
-        Color::a = color.a;
-    }
-
-    auto operator=(const color &) -> color & = default;
-    auto operator=(color &&) -> color & = default;
 
     [[nodiscard]] static inline auto
     rgba(const component &red, const component &green, const component &blue, const component &alpha) -> const color {
@@ -63,6 +45,11 @@ public:
     [[nodiscard]] static inline auto rgb(const component &red, const component &green, const component &blue) {
         return rgba(red, green, blue, opacity::opaque);
     }
+
+    component r;
+    component g;
+    component b;
+    component a;
 
     static const color White;
     static const color Black;
@@ -88,15 +75,6 @@ public:
     static const color Brown;
     static const color DarkBrown;
     static const color Magenta;
-    static const color RayWhite;
-
-private:
-    color(const component &red, const component &green, const component &blue, const component &alpha): Color() {
-        Color::r = red;
-        Color::g = green;
-        Color::b = blue;
-        Color::a = alpha;
-    }
 };
 
 } // namespace sneze::components

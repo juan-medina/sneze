@@ -25,6 +25,7 @@ SOFTWARE.
 #pragma once
 
 #include <entt/entt.hpp>
+#include <SDL.h>
 
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
@@ -51,12 +52,9 @@ public:
         clear_color_ = color;
     }
 
-    [[nodiscard]] auto init(const components::size &size,
-                            const components::position &placement,
-                            const int &monitor,
-                            const bool &fullscreen,
-                            const std::string &title,
-                            const components::color &color) -> result<>;
+    [[nodiscard]] auto
+    init(const components::size &size, const bool &fullscreen, const std::string &title, const components::color &color)
+        -> result<>;
 
     void end();
 
@@ -71,16 +69,14 @@ public:
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
-    [[nodiscard]] auto placement() const -> components::position;
-
     [[nodiscard]] auto size() const -> components::size const;
-
-    [[nodiscard]] auto monitor() const -> int const;
-
 
     [[nodiscard]] auto fullscreen() const -> bool const {
         return fullscreen_;
     }
+
+    void toggle_fullscreen();
+
 
 private:
     [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
@@ -90,6 +86,8 @@ private:
     std::unordered_map<std::string, std::shared_ptr<font>> fonts_;
 
     bool fullscreen_ = false;
+    SDL_Window *window_ = {nullptr};
+    SDL_Renderer *renderer_ = {nullptr};
 };
 
 } // namespace sneze

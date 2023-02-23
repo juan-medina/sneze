@@ -26,13 +26,11 @@ SOFTWARE.
 
 #include <string>
 
-#include <raylib.h>
-
 namespace sneze::components {
 
-struct position: Vector2 {
-    explicit position(const Vector2 &vector): Vector2{vector} {}
-    position(const float &x, const float &y): Vector2{x, y} {}
+struct position {
+    float x; // cppcheck-suppress unusedStructMember
+    float y; // cppcheck-suppress unusedStructMember
 };
 
 struct size {

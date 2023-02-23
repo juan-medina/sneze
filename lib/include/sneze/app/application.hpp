@@ -27,9 +27,9 @@ SOFTWARE.
 #include <memory>
 #include <string>
 
+#include "../components/geometry.hpp"
 #include "../events/events.hpp"
 #include "../platform/error.hpp"
-#include "../render/render.hpp"
 
 #include "config.hpp"
 #include "settings.hpp"
@@ -37,10 +37,10 @@ SOFTWARE.
 
 namespace sneze {
 
+class render;
 class application {
 public:
-    inline application(const std::string &team, const std::string &name)
-        : team_{team}, name_{name}, settings_{team, name}, render_{std::make_shared<render>()} {}
+    application(const std::string &team, const std::string &name);
 
     virtual ~application() = default;
 
@@ -128,7 +128,9 @@ private:
 
     [[nodiscard]] auto show_error(const error &err) const -> const auto &;
 
-    void save_placement();
+    void save_window_settings();
+
+    [[nodiscard]] auto get_window_settings() -> const std::pair<components::size, bool>;
 };
 
 } // namespace sneze

@@ -31,19 +31,19 @@ SOFTWARE.
 namespace fs = std::filesystem;
 
 namespace sneze {
-font::font(const std::string &file): font_{0} {
+font::font(const std::string &file) {
     if(const auto file_path = fs::path{file}; !fs::exists(file_path)) {
         logger::error("error font does not exist: {}", file);
         return;
     }
 
-    font_ = LoadFont(file.c_str());
+    // font_ = LoadFont(file.c_str());
 }
 void font::draw_text(const std::string &text,
                      const components::position &position,
                      const float size,
                      const components::color &color) const {
-    DrawTextEx(font_, text.c_str(), position, size, 0, color);
+    // DrawTextEx(font_, text.c_str(), position, size, 0, color);
 }
 
 } // namespace sneze

@@ -34,7 +34,6 @@ To get started, simply follow the instructions in the [Getting Started](GETTING_
 SNEZE is powered by these incredible projects:
 
 - [EnTT](https://github.com/skypjack/entt) : A fast and reliable entity component system.
-- [raylib](https://www.raylib.com/) : A simple and easy-to-use library to enjoy videogames programming.
 - [spdlog](https://github.com/gabime/spdlog) : Fast C++ logging library.
 - [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories.
 - [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes.

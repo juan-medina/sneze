@@ -26,9 +26,7 @@ SOFTWARE.
 
 #include <memory>
 
-#include <config.h>
 #include <entt/entt.hpp>
-#include <raylib.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/dist_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -56,50 +54,8 @@ void setup_spdlog() {
     spdlog::set_default_logger(logger);
 }
 
-void raylib_log_callback(int level, const char *text, va_list args) {
-    // NOLINTNEXTLINE(*-avoid-c-arrays)
-    static char buffer[MAX_TRACELOG_MSG_LENGTH] = {0};
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-    vsnprintf(buffer, MAX_TRACELOG_MSG_LENGTH, text, args);
-
-    spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
-    switch(level) {
-        using enum spdlog::level::level_enum;
-    case LOG_TRACE:
-        spdlog_level = trace;
-        break;
-    case LOG_DEBUG:
-        spdlog_level = debug;
-        break;
-    case LOG_INFO:
-        spdlog_level = info;
-        break;
-    case LOG_WARNING:
-        spdlog_level = warn;
-        break;
-    [[likely]] case LOG_ERROR:
-        spdlog_level = err;
-        break;
-    case LOG_FATAL:
-        spdlog_level = critical;
-        break;
-    case LOG_NONE:
-        spdlog_level = off;
-        break;
-    [[unlikely]] default:
-        spdlog_level = spdlog::level::info;
-        break;
-    }
-    spdlog::log(spdlog_level, "[raylib] {}", buffer);
-}
-
-void hook_raylib_log() noexcept {
-    SetTraceLogCallback(raylib_log_callback);
-}
-
 void setup_log() {
     setup_spdlog();
-    hook_raylib_log();
 #ifdef NDEBUG
     set_level(logger::level::info);
 #else
@@ -109,44 +65,34 @@ void setup_log() {
 
 void set_level(level::log_level level) {
     spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
-    int raylib_level;                       // NOLINT(cppcoreguidelines-init-variables)
 
     switch(level) {
     case level::trace:
         spdlog_level = spdlog::level::trace;
-        raylib_level = LOG_TRACE;
         break;
     case level::debug:
         spdlog_level = spdlog::level::debug;
-        raylib_level = LOG_DEBUG;
         break;
     case level::info:
         spdlog_level = spdlog::level::info;
-        raylib_level = LOG_INFO;
         break;
     case level::warning:
         spdlog_level = spdlog::level::warn;
-        raylib_level = LOG_WARNING;
         break;
     case level::error:
         spdlog_level = spdlog::level::err;
-        raylib_level = LOG_ERROR;
         break;
     case level::critical:
         spdlog_level = spdlog::level::critical;
-        raylib_level = LOG_FATAL;
         break;
     [[likely]] case level::off:
         spdlog_level = spdlog::level::off;
-        raylib_level = LOG_NONE;
         break;
     [[unlikely]] default:
         spdlog_level = spdlog::level::info;
-        raylib_level = LOG_INFO;
         break;
     }
     spdlog::set_level(spdlog_level);
-    SetTraceLogLevel(raylib_level);
 }
 
 auto level_from_string(const std::string &log_level) -> level::log_level {

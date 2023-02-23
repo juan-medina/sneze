@@ -26,8 +26,6 @@ SOFTWARE.
 
 #include <string>
 
-#include <raylib.h>
-
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
 
@@ -36,6 +34,7 @@ namespace sneze {
 class font {
 public:
     explicit font(const std::string &file);
+    ~font() = default;
 
     font(const font &) = delete;
     font(font &&) = delete;
@@ -43,21 +42,13 @@ public:
     auto operator=(font &&) -> font & = delete;
 
     [[nodiscard]] inline auto valid() const -> auto const {
-        return font_.texture.id != 0;
-    }
-
-    ~font() {
-        if(valid()) UnloadFont(font_);
-        font_ = {0};
+        return true;
     }
 
     void draw_text(const std::string &text,
                    const components::position &position,
                    const float size,
                    const components::color &color) const;
-
-private:
-    Font font_ = {0};
 };
 
 } // namespace sneze

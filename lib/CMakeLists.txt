@@ -38,6 +38,7 @@ file(GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
 # enable FetchContent
 include(FetchContent)
+Set(FETCHCONTENT_QUIET FALSE)
 
 ## add fmt
 FetchContent_Declare(
@@ -45,17 +46,9 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/fmtlib/fmt
         GIT_TAG 9.1.0
         GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(fmt)
-
-## add raylib
-FetchContent_Declare(
-        raylib
-        GIT_REPOSITORY https://github.com/raysan5/raylib
-        GIT_TAG 4.2.0
-        GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(raylib)
 
 ## add spdlog
 set(SPDLOG_USE_STD_FORMAT OFF CACHE BOOL "do not use std format, because libc++" FORCE)
@@ -65,6 +58,7 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/gabime/spdlog
         GIT_TAG v1.11.0
         GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(spdlog)
 
@@ -74,6 +68,7 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/sago007/PlatformFolders
         GIT_TAG 4.2.0
         GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(platform_folders)
 
@@ -83,6 +78,7 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/aaronmjacobs/Boxer
         GIT_TAG aed3fdcab88da5dd925ed5211c21e39bc6c0c147
         GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(Boxer)
 
@@ -92,6 +88,7 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/ToruNiina/toml11
         GIT_TAG v3.7.1
         GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(toml11)
 
@@ -99,8 +96,19 @@ FetchContent_Declare(
         EnTT
         GIT_REPOSITORY https://github.com/skypjack/entt
         GIT_TAG v3.11.1
+        GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(EnTT)
+
+FetchContent_Declare(
+        SDL2
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+        GIT_TAG release-2.26.3
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(SDL2)
+include_directories(${SDL2_SOURCE_DIR}/include})
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
@@ -110,7 +118,15 @@ endif ()
 add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
-target_link_libraries(${LIB_NAME} PUBLIC fmt PUBLIC raylib PUBLIC spdlog PUBLIC sago::platform_folders PUBLIC Boxer PUBLIC toml11 PUBLIC EnTT::EnTT)
+target_link_libraries(${LIB_NAME}
+        PUBLIC fmt
+        PUBLIC spdlog
+        PUBLIC sago::platform_folders
+        PUBLIC Boxer
+        PUBLIC toml11
+        PUBLIC EnTT::EnTT
+        PUBLIC SDL2::SDL2main PUBLIC SDL2::SDL2-static
+        )
 
 #set includes
 target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})

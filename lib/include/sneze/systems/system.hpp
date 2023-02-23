@@ -24,6 +24,8 @@ SOFTWARE.
 
 #pragma once
 
+#include <entt/entt.hpp>
+
 namespace sneze {
 
 class world;

@@ -28,14 +28,16 @@ SOFTWARE.
 #include <utility>
 
 #include "../components/geometry.hpp"
-#include "../render/render.hpp"
+#include "../components/renderable.hpp"
 #include "../systems/system.hpp"
 
 namespace sneze {
 
+class render;
+
 class render_system final: public sneze::system {
 public:
-    explicit render_system(std::shared_ptr<sneze::render> render): render_(std::move(render)) {}
+    explicit render_system(std::shared_ptr<sneze::render> render);
 
     void update(sneze::world &world) override;
 
