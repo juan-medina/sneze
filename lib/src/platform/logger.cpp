@@ -27,6 +27,7 @@ SOFTWARE.
 #include <memory>
 
 #include <entt/entt.hpp>
+#include <SDL_log.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/dist_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -54,8 +55,38 @@ void setup_spdlog() {
     spdlog::set_default_logger(logger);
 }
 
+void sdl_log_callback(void *, int, SDL_LogPriority priority, const char *message) {
+    spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
+
+    switch(priority) {
+    case SDL_LOG_PRIORITY_VERBOSE:
+        spdlog_level = spdlog::level::trace;
+        break;
+    case SDL_LOG_PRIORITY_DEBUG:
+        spdlog_level = spdlog::level::debug;
+        break;
+    case SDL_LOG_PRIORITY_INFO:
+        spdlog_level = spdlog::level::info;
+        break;
+    case SDL_LOG_PRIORITY_WARN:
+        spdlog_level = spdlog::level::warn;
+        break;
+    case SDL_LOG_PRIORITY_ERROR:
+        spdlog_level = spdlog::level::err;
+        break;
+    case SDL_LOG_PRIORITY_CRITICAL:
+        spdlog_level = spdlog::level::critical;
+        break;
+    default:
+        spdlog_level = spdlog::level::off;
+        break;
+    }
+    spdlog::log(spdlog_level, "[SDL] {}", message);
+}
+
 void setup_log() {
     setup_spdlog();
+    SDL_LogSetOutputFunction(sdl_log_callback, nullptr);
 #ifdef NDEBUG
     set_level(logger::level::info);
 #else
@@ -65,34 +96,44 @@ void setup_log() {
 
 void set_level(level::log_level level) {
     spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
+    SDL_LogPriority sdl_log_level;          // NOLINT(cppcoreguidelines-init-variables)
 
     switch(level) {
     case level::trace:
         spdlog_level = spdlog::level::trace;
+        sdl_log_level = SDL_LOG_PRIORITY_VERBOSE;
         break;
     case level::debug:
         spdlog_level = spdlog::level::debug;
+        sdl_log_level = SDL_LOG_PRIORITY_DEBUG;
         break;
     case level::info:
         spdlog_level = spdlog::level::info;
+        sdl_log_level = SDL_LOG_PRIORITY_INFO;
         break;
     case level::warning:
         spdlog_level = spdlog::level::warn;
+        sdl_log_level = SDL_LOG_PRIORITY_WARN;
         break;
-    case level::error:
+    [[likely]] case level::error:
         spdlog_level = spdlog::level::err;
+        sdl_log_level = SDL_LOG_PRIORITY_ERROR;
         break;
     case level::critical:
         spdlog_level = spdlog::level::critical;
+        sdl_log_level = SDL_LOG_PRIORITY_CRITICAL;
         break;
-    [[likely]] case level::off:
+    case level::off:
         spdlog_level = spdlog::level::off;
+        sdl_log_level = SDL_LOG_PRIORITY_CRITICAL;
         break;
     [[unlikely]] default:
         spdlog_level = spdlog::level::info;
+        sdl_log_level = SDL_LOG_PRIORITY_CRITICAL;
         break;
     }
     spdlog::set_level(spdlog_level);
+    SDL_LogSetAllPriority(sdl_log_level);
 }
 
 auto level_from_string(const std::string &log_level) -> level::log_level {
