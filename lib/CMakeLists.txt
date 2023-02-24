@@ -108,7 +108,13 @@ FetchContent_Declare(
         GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(SDL2)
-include_directories(${SDL2_SOURCE_DIR}/include})
+
+FetchContent_Declare(STB
+        GIT_REPOSITORY https://github.com/nothings/stb.git
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        )
+FetchContent_Populate(STB)
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
@@ -116,6 +122,8 @@ endif ()
 
 #set library
 add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
+
+target_include_directories(${LIB_NAME} PUBLIC "${stb_SOURCE_DIR}")
 
 #add dependencies
 target_link_libraries(${LIB_NAME}
