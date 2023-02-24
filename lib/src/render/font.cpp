@@ -30,7 +30,6 @@ SOFTWARE.
 #include <fstream>
 #include <string>
 
-#include <SDL.h>
 #include <SDL_render.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
