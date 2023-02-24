@@ -121,9 +121,7 @@ if (WIN32)
 endif ()
 
 #set library
-add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
-
-target_include_directories(${LIB_NAME} PUBLIC "${stb_SOURCE_DIR}")
+add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES} ${STB_HEADER_FILES})
 
 #add dependencies
 target_link_libraries(${LIB_NAME}
@@ -137,4 +135,4 @@ target_link_libraries(${LIB_NAME}
         )
 
 #set includes
-target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})
+target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH} PUBLIC "${stb_SOURCE_DIR}")
