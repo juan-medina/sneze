@@ -123,7 +123,7 @@ void render::draw_label(const components::label &label,
 auto render::load_font(const std::string &font_path) -> result<> {
     logger::debug("loading font: ({})", font_path);
     if(auto it = fonts_.find(font_path); it == fonts_.end()) {
-        auto font_ptr = std::make_shared<font>(font_path);
+        auto font_ptr = std::make_shared<font>(renderer_, font_path);
         if(!font_ptr->valid()) {
             logger::error("failed to load font: {}", font_path);
             font_ptr.reset();
@@ -167,9 +167,9 @@ void render::toggle_fullscreen() {
 
     auto real_size = render::size();
     logger::debug("toggle full screen / windowed. size: {}x{}, mode: {}",
-                 real_size.width,
-                 real_size.height,
-                 fullscreen_ ? "full screen" : "windowed");
+                  real_size.width,
+                  real_size.height,
+                  fullscreen_ ? "full screen" : "windowed");
 }
 
 } // namespace sneze
