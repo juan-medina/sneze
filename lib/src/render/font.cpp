@@ -27,23 +27,260 @@ SOFTWARE.
 #include "sneze/platform/logger.hpp"
 
 #include <filesystem>
+#include <fstream>
+#include <string>
+
+#include <SDL.h>
+#include <SDL_render.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 namespace fs = std::filesystem;
 
 namespace sneze {
-font::font(const std::string &file) {
-    if(const auto file_path = fs::path{file}; !fs::exists(file_path)) {
-        logger::error("error font does not exist: {}", file);
-        return;
-    }
 
-    // font_ = LoadFont(file.c_str());
+font::font(SDL_Renderer *renderer, const std::string &file)
+    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, pages_{}, font_directory_{""} {
+    if(parse(file)) {
+        valid_ = true;
+    }
 }
+
+font::~font() {
+    for(auto &page: pages_) {
+        if(page) {
+            SDL_DestroyTexture(page);
+        }
+    }
+}
+
+auto font::parse(const std::string &file) -> bool {
+    if(const auto file_path = fs::path{file}; fs::exists(file_path)) {
+        font_directory_ = file_path.parent_path();
+
+        auto stream = std::ifstream{file_path};
+        if(!stream.is_open()) {
+            logger::error("error opening font file: {}", file);
+            return false;
+        } else {
+            auto line = std::string{};
+            auto type = std::string{};
+            auto param = std::string{};
+            auto key = std::string{};
+            auto value = std::string{};
+            auto current_params = params{};
+
+            std::size_t i; // NOLINT(cppcoreguidelines-init-variables)
+
+            while(!stream.eof()) {
+                auto line_stream = std::stringstream{};
+                std::getline(stream, line);
+                line_stream << line;
+                line_stream >> type;
+                current_params.clear();
+                while(line_stream >> param) {
+                    i = param.find('=');
+                    if(i == std::string::npos) continue;
+                    key = param.substr(0, i);
+                    value = param.substr(i + 1);
+                    current_params[key] = value;
+                }
+                if(!parse_line(type, current_params)) {
+                    logger::error("error parsing line in font line: {}", line);
+                    stream.close();
+                    return false;
+                }
+            }
+        }
+        if(!validate_parsing()) {
+            logger::error("error parsing font file");
+            return false;
+        }
+        logger::debug("font parsed correctly");
+        return true;
+    } else {
+        logger::error("error font does not exist: {}", file);
+        return false;
+    }
+}
+
 void font::draw_text(const std::string &text,
                      const components::position &position,
                      const float size,
                      const components::color &color) const {
     // DrawTextEx(font_, text.c_str(), position, size, 0, color);
+}
+
+auto font::parse_line(const std::string &type, const params &params) -> bool {
+    if(type == "common") {
+        return parse_common(params);
+    } else if(type == "page") {
+        return parse_page(params);
+    } else if(type == "chars") {
+        return parse_chars(params);
+    } else if(type == "char") {
+        return parse_char(params);
+    }
+    return true;
+}
+
+auto font::parse_common(const params &params) -> bool {
+    line_height_ = get_int(params, "lineHeight");
+
+    if(line_height_ == 0) {
+        logger::error("error parsing font file: invalid line height");
+        return false;
+    }
+
+    return true;
+}
+
+auto font::parse_page(const params &params) -> bool {
+    const auto id = get_int(params, "id");
+    const auto file = get_string(params, "file");
+    if(file.empty()) {
+        logger::error("error parsing font file: invalid page file");
+        return false;
+    }
+
+    bool result = true;
+    void *data = nullptr;
+    SDL_Surface *surface = nullptr;
+    SDL_Texture *texture = nullptr;
+
+    auto file_path = font_directory_ / file;
+
+    std::int32_t width{0}, height{0}, bytes_per_pixel{0};
+    data = stbi_load(file_path.string().c_str(), &width, &height, &bytes_per_pixel, 0);
+    if(!data) {
+        logger::error("error loading font texture page: {}, on file: {}", stbi_failure_reason(), file_path.string());
+        return false;
+    }
+
+    int pitch = width * bytes_per_pixel;
+    pitch = (pitch + 3) & ~3;
+
+    std::uint32_t red_mask{0}, green_mask{0}, blue_mask{0}, alpha_mask{0};
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+    red_mask = 0x000000FF;
+    green_mask = 0x0000FF00;
+    blue_mask = 0x00FF0000;
+    alpha_mask = (bytes_per_pixel == 4) ? 0xFF000000 : 0;
+#else
+    int shift = (bytes_per_pixel == 4) ? 0 : 8;
+    red_mask = 0xFF000000 >> shift;
+    green_mask = 0x00FF0000 >> shift;
+    blue_mask = 0x0000FF00 >> shift;
+    alpha_mask = 0x000000FF >> shift;
+#endif
+    surface = SDL_CreateRGBSurfaceFrom(
+        data, width, height, bytes_per_pixel * 8, pitch, red_mask, green_mask, blue_mask, alpha_mask);
+    if(!surface) {
+        logger::error("error parsing font file: can't create surface");
+        result = false;
+    }
+
+    texture = SDL_CreateTextureFromSurface(renderer_, surface);
+    if(!texture) {
+        logger::error("error parsing font file: can't create texture");
+        result = false;
+    } else {
+        pages_.push_back(texture);
+    }
+
+    if(surface) SDL_FreeSurface(surface);
+    if(data) stbi_image_free(data);
+
+    if(result) {
+        logger::info("font texture page: {} loaded. file: {}, size: {}x{} {} bytes per pixel",
+                     id,
+                     file_path.string(),
+                     width,
+                     height,
+                     bytes_per_pixel);
+    }
+
+    return result;
+}
+
+auto font::parse_chars(const params &params) const -> bool {
+    auto char_count = get_int(params, "count");
+    if((char_count == 0) || (char_count > 256)) {
+        logger::error("error parsing font file: invalid char count: {}", char_count);
+        return false;
+    }
+    return true;
+}
+
+auto font::parse_char(const params &params) -> bool {
+    auto new_glyph = glyph{};
+
+    const auto id = get_int(params, "id");
+    if((id < 0) || (id > 255)) {
+        logger::error("error parsing font file: invalid glyph id: {}", id);
+        return false;
+    }
+
+    const auto x = static_cast<float>(get_int(params, "x"));
+    const auto y = static_cast<float>(get_int(params, "y"));
+    new_glyph.position = {x, y};
+
+    const auto width = static_cast<float>(get_int(params, "width"));
+    const auto height = static_cast<float>(get_int(params, "height"));
+    new_glyph.size = {width, height};
+
+    const auto x_offset = static_cast<float>(get_int(params, "xoffset"));
+    const auto y_offset = static_cast<float>(get_int(params, "yoffset"));
+    new_glyph.offset = {x_offset, y_offset};
+
+    new_glyph.advance = static_cast<float>(get_int(params, "xadvance"));
+
+    new_glyph.page = get_int(params, "page");
+    if((new_glyph.page < 0) || (new_glyph.page >= static_cast<int>(pages_.size()))) {
+        logger::error("error parsing font file: invalid glyph page: {}", new_glyph.page);
+        return false;
+    }
+
+    glyphs_[id] = new_glyph;
+
+    return true;
+}
+
+auto font::get_value(const params &params, const std::string &key) const -> const std::string {
+    if(const auto it = params.find(key); it != params.end()) {
+        return it->second;
+    }
+    return "";
+}
+
+auto font::get_string(const params &params, const std::string &key) const -> const std::string {
+    auto value = get_value(params, key);
+    value.replace(value.find('"'), 1, "");
+    value.replace(value.find('"'), 1, "");
+    return value;
+}
+
+auto font::get_int(const params &params, const std::string &key) const -> const int {
+    auto value = get_value(params, key);
+    if(value.empty()) {
+        return 0;
+    } else {
+        return std::stoi(value);
+    }
+}
+
+auto font::validate_parsing() -> bool {
+    if(pages_.empty()) {
+        logger::error("error parsing font file: no pages found");
+        return false;
+    }
+
+    if(!std::any_of(glyphs_.begin(), glyphs_.end(), glyph::valid)) {
+        logger::error("error parsing font file: no valid glyphs");
+        return false;
+    }
+
+    return true;
 }
 
 } // namespace sneze
