@@ -26,8 +26,7 @@ SOFTWARE.
 
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
-
-#include <raylib.h>
+#include "sneze/render/render.hpp"
 
 namespace sneze {
 void render_system::update(world &world) {
@@ -50,7 +49,21 @@ void render_system::update(world &world) {
 
     render_->end_frame();
 
-    if(WindowShouldClose()) world.emmit(events::application_want_closing{});
+    SDL_Event eventData;
+    while(SDL_PollEvent(&eventData)) {
+        switch(eventData.type) {
+        case SDL_QUIT:
+            world.emmit(events::application_want_closing{});
+            break;
+        case SDL_KEYUP:
+            if(eventData.key.keysym.sym == SDLK_ESCAPE) {
+                world.emmit(events::application_want_closing{});
+            } else if(eventData.key.keysym.sym == SDLK_RETURN && eventData.key.keysym.mod & KMOD_ALT) {
+                render_->toggle_fullscreen();
+            }
+            break;
+        }
+    }
 }
 
 void render_system::init(world &) {
@@ -60,5 +73,6 @@ void render_system::init(world &) {
 void render_system::end(world &) {
     logger::debug("render_system::end");
 }
+render_system::render_system(std::shared_ptr<sneze::render> render): render_(std::move(render)) {}
 
 } // namespace sneze

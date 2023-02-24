@@ -27,6 +27,7 @@ SOFTWARE.
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
+#include "sneze/render/render.hpp"
 #include "sneze/systems/render_system.hpp"
 
 #include <string>
@@ -35,6 +36,9 @@ SOFTWARE.
 #include <fmt/format.h>
 
 namespace sneze {
+
+application::application(const std::string &team, const std::string &name)
+    : team_{team}, name_{name}, settings_{team, name}, render_{std::make_shared<render>()} {}
 
 auto application::show_error(const error &err) const -> const auto & {
     std::string message = err.message();
@@ -93,33 +97,21 @@ void application::log_level() {
 }
 
 auto application::launch() -> result<> {
-    using namespace std::literals;
-
-    auto width = settings_.get("window"s, "width"s, default_width);
-    auto height = settings_.get("window"s, "height"s, default_height);
-    auto size = components::size{static_cast<float>(width), static_cast<float>(height)};
-
-    auto position_x = settings_.get("window"s, "position_x"s, std::int64_t{0LL});
-    auto position_y = settings_.get("window"s, "position_y"s, std::int64_t{0LL});
-    auto placement = components::position{static_cast<float>(position_x), static_cast<float>(position_y)};
-
-    auto fullscreen = settings_.get("window"s, "fullscreen"s, false);
-    auto monitor = static_cast<int>(settings_.get("window"s, "monitor"s, std::int64_t{0LL}));
+    auto [size, fullscreen] = get_window_settings();
 
     logger::debug("configure application");
     auto config = configure();
 
     logger::debug("init render");
-    if(auto err = render_->init(size, placement, monitor, fullscreen, name(), config.clear_color()).ko()) {
+    if(auto err = render_->init(size, fullscreen, name(), config.clear_color()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
 
-    logger::debug("restoring placement");
-
     logger::debug("init application");
     if(auto err = init().ko()) {
         logger::error("error initializing application");
+        render_->end();
         return error("Can't init the application.", *err);
     }
 
@@ -143,8 +135,8 @@ auto application::launch() -> result<> {
     logger::debug("ending world");
     world_.end();
 
-    logger::debug("save placement");
-    save_placement();
+    logger::debug("save window");
+    save_window_settings();
 
     logger::debug("ending render");
     render_->end();
@@ -191,18 +183,25 @@ void application::unload_font(const std::string &font_path) {
     render_->unload_font(font_path);
 }
 
-void application::save_placement() {
+auto application::get_window_settings() -> const std::pair<components::size, bool> {
+    using namespace std::literals;
+    auto width = settings_.get("window"s, "width"s, default_width);
+    auto height = settings_.get("window"s, "height"s, default_height);
+    auto size = components::size{static_cast<float>(width), static_cast<float>(height)};
+
+    auto fullscreen = settings_.get("window"s, "fullscreen"s, false);
+
+    return {size, fullscreen};
+}
+
+void application::save_window_settings() {
     using namespace std::literals;
     if(!render_->fullscreen()) {
-        auto placement = render_->placement();
         auto size = render_->size();
         settings_.set("window"s, "width"s, static_cast<std::int64_t>(size.width));
         settings_.set("window"s, "height"s, static_cast<std::int64_t>(size.height));
-        settings_.set("window"s, "position_x"s, static_cast<std::int64_t>(placement.x));
-        settings_.set("window"s, "position_y"s, static_cast<std::int64_t>(placement.y));
     }
-
-    settings_.set("window"s, "monitor"s, static_cast<std::int64_t>(render_->monitor()));
+    settings_.set("window"s, "fullscreen"s, render_->fullscreen());
 }
 
 } // namespace sneze

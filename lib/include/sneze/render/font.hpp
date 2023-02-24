@@ -24,18 +24,36 @@ SOFTWARE.
 
 #pragma once
 
+#include <array>
 #include <string>
-
-#include <raylib.h>
+#include <unordered_map>
+#include <vector>
+#include <filesystem>
 
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
 
+struct SDL_Texture;
+struct SDL_Renderer;
+
 namespace sneze {
+
+struct glyph {
+    components::position position; // cppcheck-suppress unusedStructMember
+    components::size size;         // cppcheck-suppress unusedStructMember
+    components::position offset;   // cppcheck-suppress unusedStructMember
+    float advance;                 // cppcheck-suppress unusedStructMember
+    int page;                      // cppcheck-suppress unusedStructMember
+
+    [[nodiscard]] static inline constexpr auto valid(const glyph& glyph) -> bool {
+        return glyph.size.width > 0 && glyph.size.height > 0;
+    }
+};
 
 class font {
 public:
-    explicit font(const std::string &file);
+    explicit font(SDL_Renderer* renderer, const std::string &file);
+    ~font();
 
     font(const font &) = delete;
     font(font &&) = delete;
@@ -43,12 +61,7 @@ public:
     auto operator=(font &&) -> font & = delete;
 
     [[nodiscard]] inline auto valid() const -> auto const {
-        return font_.texture.id != 0;
-    }
-
-    ~font() {
-        if(valid()) UnloadFont(font_);
-        font_ = {0};
+        return valid_;
     }
 
     void draw_text(const std::string &text,
@@ -57,7 +70,37 @@ public:
                    const components::color &color) const;
 
 private:
-    Font font_ = {0};
+    using params = std::unordered_map<std::string, std::string>;
+    using glyphs = std::array<glyph, 256>;
+    using pages = std::vector<SDL_Texture*>;
+
+    std::filesystem::path font_directory_;
+    bool valid_;
+    glyphs glyphs_;
+    int line_height_;
+    pages pages_;
+    SDL_Renderer *renderer_;
+
+
+    auto parse(const std::string &file) -> bool;
+
+    [[nodiscard]] auto parse_line(const std::string &type, const params &params) -> bool;
+
+    [[nodiscard]] auto parse_common(const params &params) -> bool;
+
+    [[nodiscard]] auto parse_page(const params &params) -> bool;
+
+    [[nodiscard]] auto parse_chars(const params &params) const -> bool;
+
+    [[nodiscard]] auto parse_char(const params &params) -> bool;
+
+    [[nodiscard]] inline auto get_value(const params &params, const std::string &key) const -> const std::string;
+
+    [[nodiscard]] inline auto get_string(const params &params, const std::string &key) const -> const std::string;
+
+    [[nodiscard]] inline auto get_int(const params &params, const std::string &key) const -> const int;
+
+    [[nodiscard]] auto validate_parsing() -> bool;
 };
 
 } // namespace sneze

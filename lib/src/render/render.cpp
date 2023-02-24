@@ -26,53 +26,51 @@ SOFTWARE.
 
 #include "sneze/platform/logger.hpp"
 
-#include <raylib.h>
-
 namespace sneze {
 
 auto render::init(const components::size &size,
-                  const components::position &placement,
-                  const int &monitor,
                   const bool &fullscreen,
                   const std::string &title,
                   const components::color &color) -> result<> {
-    logger::debug("init render");
-
     fullscreen_ = fullscreen;
 
-    if(fullscreen_) {
-        SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_MAXIMIZED | FLAG_WINDOW_UNDECORATED);
-        InitWindow(0, 0, title.c_str());
-
-        auto width = GetMonitorWidth(monitor);
-        auto height = GetMonitorHeight(monitor);
-
-        SetWindowSize(width, height);
-
-        logger::debug("init fullscreen render: width={}, height={}, monitor={}", width, height, monitor);
-
-        auto position = GetMonitorPosition(monitor);
-        SetWindowPosition(static_cast<int>(position.x), static_cast<int>(position.y));
-    } else {
-        SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
-        InitWindow(static_cast<int>(size.width), static_cast<int>(size.height), title.c_str());
-        auto window_placement = placement;
-        if(window_placement.x == 0 && window_placement.y == 0) {
-            auto monitor_width = static_cast<float>(GetMonitorWidth(monitor));
-            auto monitor_height = static_cast<float>(GetMonitorHeight(monitor));
-            auto position = GetMonitorPosition(monitor);
-            window_placement.x = position.x + ((monitor_width - size.width) / 2);
-            window_placement.y = position.y + ((monitor_height - size.height) / 2);
-        }
-
-        logger::debug("init windowed render: width={}, height={}, at placement=({}, {})",
-                      size.width,
-                      size.height,
-                      window_placement.x,
-                      window_placement.y);
-        SetWindowPosition(static_cast<int>(window_placement.x), static_cast<int>(window_placement.y));
+    logger::debug("init SDL");
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        logger::error("SDL_Init Error: {}", SDL_GetError());
+        return error("error initializing rendering engine.");
     }
 
+    auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI;
+    if(fullscreen_) {
+        flags = static_cast<SDL_WindowFlags>(flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
+    }
+
+    logger::debug("creating SDL window");
+    window_ = SDL_CreateWindow(title.c_str(),
+                               SDL_WINDOWPOS_CENTERED,
+                               SDL_WINDOWPOS_CENTERED,
+                               static_cast<int>(size.width),
+                               static_cast<int>(size.height),
+                               flags);
+    if(window_ == nullptr) {
+        logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
+        return error("error initializing rendering engine.");
+    }
+
+    logger::debug("creating SDL renderer");
+    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
+    if(renderer_ == nullptr) {
+        logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
+        return error("error initializing rendering engine.");
+    }
+
+    auto real_size = render::size();
+    logger::info("rendering engine initialized. size: {}x{}, mode: {}",
+                 real_size.width,
+                 real_size.height,
+                 fullscreen_ ? "full screen" : "windowed");
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
     clear_color(color);
 
     return true;
@@ -80,18 +78,28 @@ auto render::init(const components::size &size,
 
 void render::end() {
     fonts_.clear();
-    logger::debug("Closing window");
-    CloseWindow();
+
+    logger::debug("ending SDL renderer");
+    if(renderer_ != nullptr) {
+        SDL_DestroyRenderer(renderer_);
+        renderer_ = nullptr;
+    }
+
+    logger::debug("destroying SDL window");
+    if(window_ != nullptr) {
+        SDL_DestroyWindow(window_);
+        window_ = nullptr;
+    }
+    SDL_Quit();
 }
 
 void render::begin_frame() {
-    BeginDrawing();
-
-    ClearBackground(clear_color_);
+    SDL_SetRenderDrawColor(renderer_, clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
+    SDL_RenderClear(renderer_);
 }
 
 void render::end_frame() {
-    EndDrawing();
+    SDL_RenderPresent(renderer_);
 }
 
 [[nodiscard]] auto render::get_font(const std::string &font_path) -> const auto {
@@ -116,7 +124,7 @@ void render::draw_label(const components::label &label,
 auto render::load_font(const std::string &font_path) -> result<> {
     logger::debug("loading font: ({})", font_path);
     if(auto it = fonts_.find(font_path); it == fonts_.end()) {
-        auto font_ptr = std::make_shared<font>(font_path);
+        auto font_ptr = std::make_shared<font>(renderer_, font_path);
         if(!font_ptr->valid()) {
             logger::error("failed to load font: {}", font_path);
             font_ptr.reset();
@@ -138,16 +146,31 @@ void render::unload_font(const std::string &font_path) {
         fonts_.erase(it);
     }
 }
-auto render::placement() const -> components::position {
-    return components::position{GetWindowPosition()};
-}
 
 auto render::size() const -> components::size const {
-    return components::size{static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())};
+    if(window_ != nullptr) {
+        int width = 0;
+        int height = 0;
+        SDL_GetWindowSize(window_, &width, &height);
+        return components::size{static_cast<float>(width), static_cast<float>(height)};
+    }
+    return components::size{0, 0};
 }
 
-auto render::monitor() const -> int const {
-    return GetCurrentMonitor();
+void render::toggle_fullscreen() {
+    fullscreen_ = !fullscreen_;
+
+    if(fullscreen_) {
+        SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    } else {
+        SDL_SetWindowFullscreen(window_, 0);
+    }
+
+    auto real_size = render::size();
+    logger::debug("toggle full screen / windowed. size: {}x{}, mode: {}",
+                  real_size.width,
+                  real_size.height,
+                  fullscreen_ ? "full screen" : "windowed");
 }
 
 } // namespace sneze
