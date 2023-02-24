@@ -41,7 +41,7 @@ const auto font_name = "resources/fonts/pathway_gothic_one.fnt"s;
 
 auto example_game::configure() -> config {
     sneze::logger::debug("configure");
-    return config().clear_color(color::Black);
+    return config().clear_color(color::LightGray);
 }
 
 auto example_game::init() -> sneze::result<> {

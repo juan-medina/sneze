@@ -70,6 +70,7 @@ auto render::init(const components::size &size,
                  real_size.height,
                  fullscreen_ ? "full screen" : "windowed");
 
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
     clear_color(color);
 
     return true;

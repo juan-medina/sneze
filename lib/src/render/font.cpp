@@ -104,13 +104,6 @@ auto font::parse(const std::string &file) -> bool {
     }
 }
 
-void font::draw_text(const std::string &text,
-                     const components::position &position,
-                     const float size,
-                     const components::color &color) const {
-    // DrawTextEx(font_, text.c_str(), position, size, 0, color);
-}
-
 auto font::parse_line(const std::string &type, const params &params) -> bool {
     if(type == "common") {
         return parse_common(params);
@@ -178,6 +171,8 @@ auto font::parse_page(const params &params) -> bool {
     if(!surface) {
         logger::error("error parsing font file: can't create surface");
         result = false;
+    } else {
+        SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
     }
 
     texture = SDL_CreateTextureFromSurface(renderer_, surface);
@@ -281,6 +276,42 @@ auto font::validate_parsing() -> bool {
     }
 
     return true;
+}
+
+void font::draw_text(const std::string &text,
+                     const components::position &position,
+                     const float size,
+                     const components::color &color) const {
+    auto scale_size = size / static_cast<float>(line_height_);
+
+    components::position current_position = position;
+
+    for(const auto &c: text) {
+        const auto &glyph = glyphs_[c];
+        if(!glyph::valid(glyph)) {
+            continue;
+        }
+        const auto &page = pages_[glyph.page];
+
+        const auto x = current_position.x + (glyph.offset.x * scale_size);
+        const auto y = current_position.y + (glyph.offset.y * scale_size);
+        const auto w = glyph.size.width * scale_size;
+        const auto h = glyph.size.height * scale_size;
+
+        const auto src_rect = SDL_Rect{static_cast<int>(glyph.position.x),
+                                       static_cast<int>(glyph.position.y),
+                                       static_cast<int>(glyph.size.width),
+                                       static_cast<int>(glyph.size.height)};
+
+        const auto dst_rect =
+            SDL_Rect{static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h)};
+
+        SDL_SetTextureColorMod(page, color.r, color.g, color.b);
+        SDL_SetTextureAlphaMod(page, color.a);
+        SDL_RenderCopy(renderer_, page, &src_rect, &dst_rect);
+
+        current_position.x += (glyph.advance * scale_size);
+    }
 }
 
 } // namespace sneze
