@@ -111,6 +111,7 @@ auto application::launch() -> result<> {
     logger::debug("init application");
     if(auto err = init().ko()) {
         logger::error("error initializing application");
+        render_->end();
         return error("Can't init the application.", *err);
     }
 
