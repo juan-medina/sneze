@@ -33,9 +33,9 @@ SOFTWARE.
 #include "../components/ui.hpp"
 #include "../platform/result.hpp"
 
-#include "font.hpp"
-
 namespace sneze {
+
+class font;
 
 class render {
 public:
@@ -75,15 +75,20 @@ public:
         return fullscreen_;
     }
 
+    [[nodiscard]] auto sdl_renderer() -> SDL_Renderer * {
+        return renderer_;
+    }
+
     void toggle_fullscreen();
 
-
 private:
+    using font_cache = std::unordered_map<std::string, std::shared_ptr<font>>;
+
     [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
 
     components::color clear_color_ = components::color::Black;
 
-    std::unordered_map<std::string, std::shared_ptr<font>> fonts_;
+    font_cache fonts_;
 
     bool fullscreen_ = false;
     SDL_Window *window_ = {nullptr};

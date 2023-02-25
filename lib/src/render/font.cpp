@@ -25,6 +25,7 @@ SOFTWARE.
 #include "sneze/render/font.hpp"
 
 #include "sneze/platform/logger.hpp"
+#include "sneze/render/render.hpp"
 
 #include <filesystem>
 #include <fstream>
@@ -38,70 +39,125 @@ namespace fs = std::filesystem;
 
 namespace sneze {
 
-font::font(SDL_Renderer *renderer, const std::string &file)
-    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, spacing_{0, 0}, pages_{},
-      font_directory_{""}, kernings_{} {
-    if(parse(file)) {
-        valid_ = true;
-    }
-}
-
 font::~font() {
-    for(auto &page: pages_) {
-        if(page) {
-            SDL_DestroyTexture(page);
-        }
-    }
+    end();
 }
 
-auto font::parse(const std::string &file) -> bool {
+auto font::init(const std::string &file) -> result<> {
     if(const auto file_path = fs::path{file}; fs::exists(file_path)) {
         font_directory_ = file_path.parent_path();
 
         auto stream = std::ifstream{file_path};
         if(!stream.is_open()) {
             logger::error("error opening font file: {}", file);
-            return false;
+            return error{"error opening font file"};
         } else {
             auto line = std::string{};
-            auto type = std::string{};
-            auto param = std::string{};
-            auto key = std::string{};
-            auto value = std::string{};
-            auto current_params = params{};
-
-            std::size_t i; // NOLINT(cppcoreguidelines-init-variables)
-
             while(!stream.eof()) {
-                auto line_stream = std::stringstream{};
                 std::getline(stream, line);
-                line_stream << line;
-                line_stream >> type;
-                current_params.clear();
-                while(line_stream >> param) {
-                    i = param.find('=');
-                    if(i == std::string::npos) continue;
-                    key = param.substr(0, i);
-                    value = param.substr(i + 1);
-                    current_params[key] = value;
-                }
-                if(!parse_line(type, current_params)) {
+                auto [type, params] = font::tokens(line);
+                if(!parse_line(type, params)) {
                     logger::error("error parsing line in font line: {}", line);
                     stream.close();
-                    return false;
+                    return error{"Error in font format"};
                 }
             }
         }
         if(!validate_parsing()) {
             logger::error("error parsing font file");
-            return false;
+            return error{"Error in font format"};
         }
-        logger::debug("font parsed correctly");
+        logger::info("font: \"{}\" loaded correctly", face_);
         return true;
     } else {
         logger::error("error font does not exist: {}", file);
-        return false;
+        return error("Error font does not exist");
     }
+}
+
+void font::end() noexcept {
+    logger::info("unload font: {}", face_);
+    for(auto &page: pages_) {
+        if(page) {
+            try {
+                SDL_DestroyTexture(page);
+            } catch(...) {
+                logger::error("error destroying font page");
+            }
+        }
+    }
+    pages_.clear();
+    glyphs_ = {};
+    kernings_ = {};
+    line_height_ = {0};
+    glyphs_ = {};
+    spacing_ = {0, 0};
+    pages_ = {};
+    font_directory_ = {""};
+    kernings_ = {};
+}
+
+auto font::tokens(const std::string &line) -> std::pair<std::string, params> {
+    auto type = std::string{};
+    auto result = params{};
+
+    enum status {
+        in_key,
+        in_value,
+        in_value_quoted,
+    } current_status = in_key;
+
+    std::string current_key = "";
+    std::string current_value = "";
+
+    for(const auto &c: line) {
+        switch(current_status) {
+        case in_key:
+            if(c == '=') {
+                current_status = in_value;
+            } else if(c == ' ') {
+                current_status = in_key;
+                if(!current_key.empty()) {
+                    if(type.empty()) {
+                        type = current_key;
+                    } else {
+                        result.clear();
+                        break;
+                    }
+                    current_key.clear();
+                }
+            } else {
+                current_key += c;
+            }
+            break;
+        case in_value:
+            if(c == '"') {
+                current_status = in_value_quoted;
+            } else if(c == ' ') {
+                result.insert({current_key, current_value});
+                current_key.clear();
+                current_value.clear();
+                current_status = in_key;
+            } else {
+                current_value += c;
+            }
+            break;
+        case in_value_quoted:
+            if(c == '"') {
+                result.insert({current_key, current_value});
+                current_key.clear();
+                current_value.clear();
+                current_status = in_key;
+            } else {
+                current_value += c;
+            }
+            break;
+        }
+    }
+    if(current_status == in_value) {
+        result.insert({current_key, current_value});
+    }
+    return std::make_pair(type, result);
 }
 
 auto font::parse_line(const std::string &type, const params &params) -> bool {
@@ -119,6 +175,8 @@ auto font::parse_line(const std::string &type, const params &params) -> bool {
         return parse_kernings(params);
     } else if(type == "kerning") {
         return parse_kerning(params);
+    } else if(type == "") {
+        return true;
     } else {
         logger::error("error parsing font file: invalid line type: {}", type);
         return false;
@@ -127,6 +185,7 @@ auto font::parse_line(const std::string &type, const params &params) -> bool {
 }
 
 auto font::parse_info(const font::params &params) -> bool {
+    face_ = get_value(params, "face");
     auto [spacing_x, spacing_y] = get_pair(params, "spacing");
     if((spacing_x < 0) || (spacing_y < 0)) {
         logger::error("error parsing font file: invalid spacing: {} {}", spacing_x, spacing_y);
@@ -150,7 +209,7 @@ auto font::parse_common(const params &params) -> bool {
 
 auto font::parse_page(const params &params) -> bool {
     const auto id = get_int(params, "id");
-    const auto file = get_string(params, "file");
+    const auto file = get_value(params, "file");
     if(file.empty()) {
         logger::error("error parsing font file: invalid page file");
         return false;
@@ -195,7 +254,7 @@ auto font::parse_page(const params &params) -> bool {
         SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
     }
 
-    texture = SDL_CreateTextureFromSurface(renderer_, surface);
+    texture = SDL_CreateTextureFromSurface(renderer_->sdl_renderer(), surface);
     if(!texture) {
         logger::error("error parsing font file: can't create texture");
         result = false;
@@ -287,13 +346,6 @@ auto font::get_value(const params &params, const std::string &key) const -> cons
     return "";
 }
 
-auto font::get_string(const params &params, const std::string &key) const -> const std::string {
-    auto value = get_value(params, key);
-    value.replace(value.find('"'), 1, "");
-    value.replace(value.find('"'), 1, "");
-    return value;
-}
-
 auto font::get_int(const params &params, const std::string &key) const -> const int {
     auto value = get_value(params, key);
     if(value.empty()) {
@@ -332,7 +384,7 @@ auto font::validate_parsing() -> bool {
 void font::draw_text(const std::string &text,
                      const components::position &position,
                      const float size,
-                     const components::color &color) const {
+                     const components::color &color) {
     auto scale_size = size / static_cast<float>(line_height_);
 
     components::position current_position = position;
@@ -364,7 +416,7 @@ void font::draw_text(const std::string &text,
 
         SDL_SetTextureColorMod(page, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(page, color.a);
-        SDL_RenderCopy(renderer_, page, &src_rect, &dst_rect);
+        SDL_RenderCopy(renderer_->sdl_renderer(), page, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);

@@ -28,15 +28,18 @@ SOFTWARE.
 #include <filesystem>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
+#include "../platform/result.hpp"
 
 struct SDL_Texture;
-struct SDL_Renderer;
 
 namespace sneze {
+
+class render;
 
 struct glyph {
     components::position position; // cppcheck-suppress unusedStructMember
@@ -52,7 +55,8 @@ struct glyph {
 
 class font {
 public:
-    explicit font(SDL_Renderer *renderer, const std::string &file);
+    explicit font(render *renderer): renderer_{renderer} {};
+
     ~font();
 
     font(const font &) = delete;
@@ -60,14 +64,14 @@ public:
     auto operator=(const font &) -> font & = delete;
     auto operator=(font &&) -> font & = delete;
 
-    [[nodiscard]] inline auto valid() const -> auto const {
-        return valid_;
-    }
+    [[nodiscard]] auto init(const std::string &file) -> result<>;
+
+    void end() noexcept;
 
     void draw_text(const std::string &text,
                    const components::position &position,
                    const float size,
-                   const components::color &color) const;
+                   const components::color &color);
 
 private:
     using params = std::unordered_map<std::string, std::string>;
@@ -75,16 +79,16 @@ private:
     using pages = std::vector<SDL_Texture *>;
     using kernings = std::array<std::array<int, 256>, 256>;
 
-    std::filesystem::path font_directory_;
-    bool valid_;
-    glyphs glyphs_;
-    kernings kernings_;
-    int line_height_;
-    components::position spacing_;
-    pages pages_;
-    SDL_Renderer *renderer_;
+    std::string face_{};
+    std::filesystem::path font_directory_{};
+    glyphs glyphs_{};
+    kernings kernings_{};
+    int line_height_{0};
+    components::position spacing_{0, 0};
+    pages pages_{};
+    render *renderer_{nullptr};
 
-    auto parse(const std::string &file) -> bool;
+    [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;
 
     [[nodiscard]] auto parse_line(const std::string &type, const params &params) -> bool;
 
@@ -103,8 +107,6 @@ private:
     [[nodiscard]] auto parse_kerning(const params &params) -> bool;
 
     [[nodiscard]] inline auto get_value(const params &params, const std::string &key) const -> const std::string;
-
-    [[nodiscard]] inline auto get_string(const params &params, const std::string &key) const -> const std::string;
 
     [[nodiscard]] inline auto get_int(const params &params, const std::string &key) const -> const int;
 

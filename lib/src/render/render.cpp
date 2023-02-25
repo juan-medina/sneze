@@ -25,6 +25,7 @@ SOFTWARE.
 #include "sneze/render/render.hpp"
 
 #include "sneze/platform/logger.hpp"
+#include "sneze/render/font.hpp"
 
 namespace sneze {
 
@@ -114,7 +115,7 @@ void render::end_frame() {
 void render::draw_label(const components::label &label,
                         const components::position &position,
                         const components::color &color) {
-    if(auto font = get_font(label.font); font != nullptr && font->valid()) [[likely]] {
+    if(auto font = get_font(label.font); font != nullptr) [[likely]] {
         font->draw_text(label.text, position, label.size, color);
     } else {
         logger::error("trying to draw a label with a not loaded font: ({})", label.font);
@@ -122,13 +123,13 @@ void render::draw_label(const components::label &label,
 }
 
 auto render::load_font(const std::string &font_path) -> result<> {
-    logger::debug("loading font: ({})", font_path);
+    logger::info("loading font: ({})", font_path);
     if(auto it = fonts_.find(font_path); it == fonts_.end()) {
-        auto font_ptr = std::make_shared<font>(renderer_, font_path);
-        if(!font_ptr->valid()) {
+        auto font_ptr = std::make_shared<font>(this);
+        if(auto err = font_ptr->init(font_path).ko()) {
             logger::error("failed to load font: {}", font_path);
             font_ptr.reset();
-            return error("Font not valid.");
+            return error("Font not valid.", *err);
         }
         fonts_.insert({font_path, font_ptr});
     } else {
