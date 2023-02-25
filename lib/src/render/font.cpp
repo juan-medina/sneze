@@ -39,7 +39,7 @@ namespace fs = std::filesystem;
 namespace sneze {
 
 font::font(SDL_Renderer *renderer, const std::string &file)
-    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, base_{0}, pages_{},
+    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, base_{0}, spacing_{0, 0}, pages_{},
       font_directory_{""}, kernings_{} {
     if(parse(file)) {
         valid_ = true;
@@ -106,7 +106,7 @@ auto font::parse(const std::string &file) -> bool {
 
 auto font::parse_line(const std::string &type, const params &params) -> bool {
     if(type == "info") {
-        return true;
+        return parse_info(params);
     } else if(type == "common") {
         return parse_common(params);
     } else if(type == "page") {
@@ -123,6 +123,17 @@ auto font::parse_line(const std::string &type, const params &params) -> bool {
         logger::error("error parsing font file: invalid line type: {}", type);
         return false;
     }
+    return true;
+}
+
+auto font::parse_info(const font::params &params) -> bool {
+    auto [spacing_x, spacing_y] = get_pair(params, "spacing");
+    if((spacing_x < 0) || (spacing_y < 0)) {
+        logger::error("error parsing font file: invalid spacing: {} {}", spacing_x, spacing_y);
+        return false;
+    }
+    spacing_ = {static_cast<float>(spacing_x), static_cast<float>(spacing_y)};
+
     return true;
 }
 
@@ -298,6 +309,18 @@ auto font::get_int(const params &params, const std::string &key) const -> const 
     }
 }
 
+auto font::get_pair(const font::params &params, const std::string &key) const -> const std::pair<int, int> {
+    auto value = get_value(params, key);
+
+    if(auto at = value.find(','); at != std::string::npos) {
+        auto first = value.substr(0, at);
+        auto second = value.substr(at + 1);
+        return {std::stoi(first), std::stoi(second)};
+    }
+
+    return {0, 0};
+}
+
 auto font::validate_parsing() -> bool {
     if(pages_.empty()) {
         logger::error("error parsing font file: no pages found");
@@ -350,6 +373,7 @@ void font::draw_text(const std::string &text,
         SDL_RenderCopy(renderer_, page, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
+        current_position.x += (spacing_.x * scale_size);
 
         previous_char = c;
     }

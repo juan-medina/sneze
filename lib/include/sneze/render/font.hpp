@@ -81,12 +81,15 @@ private:
     kernings kernings_;
     int line_height_;
     int base_;
+    components::position spacing_;
     pages pages_;
     SDL_Renderer *renderer_;
 
     auto parse(const std::string &file) -> bool;
 
     [[nodiscard]] auto parse_line(const std::string &type, const params &params) -> bool;
+
+    [[nodiscard]] auto parse_info(const params &params) -> bool;
 
     [[nodiscard]] auto parse_common(const params &params) -> bool;
 
@@ -105,6 +108,8 @@ private:
     [[nodiscard]] inline auto get_string(const params &params, const std::string &key) const -> const std::string;
 
     [[nodiscard]] inline auto get_int(const params &params, const std::string &key) const -> const int;
+
+    [[nodiscard]] inline auto get_pair(const params &params, const std::string &key) const -> const std::pair<int, int>;
 
     [[nodiscard]] auto validate_parsing() -> bool;
 };
