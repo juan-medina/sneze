@@ -22,48 +22,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/systems/render_system.hpp"
+#include "sneze/systems/event_system.hpp"
 
+#include "sneze/app/world.hpp"
+#include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
-#include "sneze/render/render.hpp"
+
+#include <SDL.h>
 
 namespace sneze {
-
-render_system::render_system(std::shared_ptr<sneze::render> render): render_{std::move(render)} {}
-
-void render_system::init(world &world) {
-    logger::debug("init render system");
-    world.add_listener<events::toggle_fullscreen, &render_system::toggle_fullscreen>(this);
+void sneze::event_system::init(sneze::world &world) {
+    logger::debug("init event system");
 }
 
-void render_system::end(world &world) {
-    logger::debug("end render system");
-    world.remove_listeners(this);
+void sneze::event_system::end(sneze::world &world) {
+    logger::debug("end event system");
 }
 
-void render_system::update(world &world) {
-    world.sort<components::renderable>(render_system::sort_by_depth);
-
-    render_->begin_frame();
-
-    using color = components::color;
-    using renderable = components::renderable;
-    using position = components::position;
-    using label = components::label;
-
-    for(auto const &&[id, renderable, position, color]: world.view<const renderable, const position, const color>()) {
-        if(renderable.visible) {
-            if(auto lbl = world.has<label>(id)) {
-                render_->draw_label(*lbl, position, color);
+void sneze::event_system::update(sneze::world &world) {
+    SDL_Event eventData;
+    while(SDL_PollEvent(&eventData)) {
+        switch(eventData.type) {
+        case SDL_QUIT:
+            world.emmit(events::application_want_closing{});
+            break;
+        case SDL_KEYUP:
+            if(eventData.key.keysym.sym == SDLK_ESCAPE) {
+                world.emmit(events::application_want_closing{});
+            } else if(eventData.key.keysym.sym == SDLK_RETURN && eventData.key.keysym.mod & KMOD_ALT) {
+                world.emmit(events::toggle_fullscreen{});
             }
+            break;
         }
     }
-
-    render_->end_frame();
-}
-
-void render_system::toggle_fullscreen(const events::toggle_fullscreen &) noexcept {
-    render_->toggle_fullscreen();
 }
 
 } // namespace sneze

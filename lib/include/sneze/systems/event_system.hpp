@@ -24,36 +24,17 @@ SOFTWARE.
 
 #pragma once
 
-#include <memory>
-#include <utility>
-
-#include "../components/geometry.hpp"
-#include "../components/renderable.hpp"
-#include "../events/events.hpp"
-#include "../systems/system.hpp"
+#include "sneze/systems/system.hpp"
 
 namespace sneze {
 
-class render;
-
-class render_system final: public sneze::system {
+class event_system: public system {
 public:
-    explicit render_system(std::shared_ptr<sneze::render> render);
-
     void update(sneze::world &world) override;
 
     void init(sneze::world &world) override;
 
     void end(sneze::world &world) override;
-
-private:
-    std::shared_ptr<sneze::render> render_;
-
-    static inline auto sort_by_depth(const components::renderable &lhs, const components::renderable &rhs) {
-        return lhs.depth < rhs.depth;
-    }
-
-    void toggle_fullscreen(events::toggle_fullscreen const &event) noexcept;
 };
 
 } // namespace sneze

@@ -29,6 +29,7 @@ SOFTWARE.
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
 #include "sneze/render/render.hpp"
+#include "sneze/systems/event_system.hpp"
 #include "sneze/systems/render_system.hpp"
 
 #include <string>
@@ -122,6 +123,9 @@ auto application::launch() -> result<> {
 
     logger::debug("adding render system to the world");
     world_->add_system_with_priority<render_system>(world::priority::lowest, render_);
+
+    logger::debug("adding event system to the world");
+    world_->add_system_with_priority<event_system>(world::priority::highest);
 
     logger::debug("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);

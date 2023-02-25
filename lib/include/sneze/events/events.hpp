@@ -28,4 +28,6 @@ namespace sneze::events {
 
 struct application_want_closing {};
 
+struct toggle_fullscreen {};
+
 } // namespace sneze::events
