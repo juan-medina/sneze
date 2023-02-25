@@ -39,7 +39,7 @@ namespace fs = std::filesystem;
 namespace sneze {
 
 font::font(SDL_Renderer *renderer, const std::string &file)
-    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, base_{0}, spacing_{0, 0}, pages_{},
+    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, spacing_{0, 0}, pages_{},
       font_directory_{""}, kernings_{} {
     if(parse(file)) {
         valid_ = true;
@@ -142,12 +142,6 @@ auto font::parse_common(const params &params) -> bool {
 
     if(line_height_ == 0) {
         logger::error("error parsing font file: invalid line height");
-        return false;
-    }
-
-    base_ = get_int(params, "base");
-    if(base_ == 0) {
-        logger::error("error parsing font file: invalid base");
         return false;
     }
 
@@ -339,7 +333,7 @@ void font::draw_text(const std::string &text,
                      const components::position &position,
                      const float size,
                      const components::color &color) const {
-    auto scale_size = size / static_cast<float>(base_);
+    auto scale_size = size / static_cast<float>(line_height_);
 
     components::position current_position = position;
     unsigned char previous_char = 0;

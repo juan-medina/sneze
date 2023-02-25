@@ -80,7 +80,6 @@ private:
     glyphs glyphs_;
     kernings kernings_;
     int line_height_;
-    int base_;
     components::position spacing_;
     pages pages_;
     SDL_Renderer *renderer_;
