@@ -31,18 +31,18 @@ namespace sneze {
 
 render_system::render_system(std::shared_ptr<sneze::render> render): render_{std::move(render)} {}
 
-void render_system::init(world &world) {
+void render_system::init(world *world) {
     logger::debug("init render system");
-    world.add_listener<events::toggle_fullscreen, &render_system::toggle_fullscreen>(this);
+    world->add_listener<events::toggle_fullscreen, &render_system::toggle_fullscreen>(this);
 }
 
-void render_system::end(world &world) {
+void render_system::end(world *world) {
     logger::debug("end render system");
-    world.remove_listeners(this);
+    world->remove_listeners(this);
 }
 
-void render_system::update(world &world) {
-    world.sort<components::renderable>(render_system::sort_by_depth);
+void render_system::update(world *world) {
+    world->sort<components::renderable>(render_system::sort_by_depth);
 
     render_->begin_frame();
 
@@ -51,9 +51,9 @@ void render_system::update(world &world) {
     using position = components::position;
     using label = components::label;
 
-    for(auto const &&[id, renderable, position, color]: world.view<const renderable, const position, const color>()) {
+    for(auto const &&[id, renderable, position, color]: world->view<const renderable, const position, const color>()) {
         if(renderable.visible) {
-            if(auto lbl = world.has<label>(id)) {
+            if(auto lbl = world->has<label>(id)) {
                 render_->draw_label(*lbl, position, color);
             }
         }

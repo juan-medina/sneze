@@ -45,7 +45,7 @@ void world::update_systems() {
     }
 
     for(auto &system: systems_) {
-        system->update(*this);
+        system->update(this);
     }
 }
 
@@ -53,7 +53,7 @@ void world::add_pending_systems() {
     logger::debug("adding systems");
     for(auto &system: systems_to_add_) {
         systems_.push_back(std::move(system));
-        systems_.back()->init(*this);
+        systems_.back()->init(this);
     }
     systems_to_add_.clear();
     logger::debug("sorting systems");
@@ -75,7 +75,7 @@ auto world::remove_system_from_vector(entt::id_type type_to_remove, systems_vect
     auto end = systems.end();
     auto matcher = world::match_type(type_to_remove);
     if(auto it_system = std::find_if(begin, end, matcher); it_system != end) [[likely]] {
-        it_system->get()->end(*this);
+        it_system->get()->end(this);
         systems.erase(it_system);
         return true;
     }
@@ -89,7 +89,7 @@ void world::remove_all_systems() noexcept {
 }
 
 void world::remove_all_systems_from_vector(systems_vector &systems) noexcept {
-    for(auto &system: systems) system->end(*this);
+    for(auto &system: systems) system->end(this);
     systems.clear();
 }
 

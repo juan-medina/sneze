@@ -31,37 +31,30 @@ SOFTWARE.
 #include <SDL.h>
 
 namespace sneze {
-void sneze::sdl_events_system::init(sneze::world &) {
+void sneze::sdl_events_system::init(sneze::world *) {
     logger::debug("init event system");
 }
 
-void sneze::sdl_events_system::end(sneze::world &) {
+void sneze::sdl_events_system::end(sneze::world *) {
     logger::debug("end event system");
 }
 
-void sneze::sdl_events_system::update(sneze::world &world) {
+void sneze::sdl_events_system::update(sneze::world *world) {
     SDL_Event eventData;
-    auto key_down = events::keyboard::key_down{};
-    auto key_up = events::keyboard::key_up{};
+    namespace keyboard = events::keyboard;
 
     while(SDL_PollEvent(&eventData)) {
         switch(eventData.type) {
         case SDL_QUIT:
-            world.emmit(events::application_want_closing{});
+            world->emmit<events::application_want_closing>();
             break;
         case SDL_KEYDOWN:
-            key_down.key = sdl_key_to_key(eventData.key.keysym.sym);
-            key_down.modifier = sdl_mod_to_mod(eventData.key.keysym.mod);
-            if(key_down.key != events::keyboard::key::unknown) {
-                world.emmit(key_down);
-            }
+            world->emmit<keyboard::key_down>(sdl_key_to_key(eventData.key.keysym.sym),
+                                             sdl_mod_to_mod(eventData.key.keysym.mod));
             break;
         case SDL_KEYUP:
-            key_up.key = sdl_key_to_key(eventData.key.keysym.sym);
-            key_up.modifier = sdl_mod_to_mod(eventData.key.keysym.mod);
-            if(key_up.key != events::keyboard::key::unknown) {
-                world.emmit(key_up);
-            }
+            world->emmit<keyboard::key_up>(sdl_key_to_key(eventData.key.keysym.sym),
+                                           sdl_mod_to_mod(eventData.key.keysym.mod));
             break;
         }
     }

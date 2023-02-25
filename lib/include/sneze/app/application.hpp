@@ -98,7 +98,7 @@ public:
         return settings_.get<Type>(name_, name, default_value);
     }
 
-    [[nodiscard]] inline auto world() noexcept -> auto & {
+    [[nodiscard]] inline auto world() noexcept -> auto {
         return world_;
     }
 

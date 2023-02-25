@@ -26,11 +26,18 @@ SOFTWARE.
 
 #include <cinttypes>
 
-namespace sneze::events {
+namespace sneze {
+class world;
 
-struct application_want_closing {};
+namespace events {
 
-struct toggle_fullscreen {};
+struct event {
+    sneze::world *world; // cppcheck-suppress unusedStructMember
+};
+
+struct application_want_closing: public event {};
+
+struct toggle_fullscreen: public event {};
 
 namespace keyboard {
 
@@ -126,7 +133,7 @@ enum key {
     plus,
 };
 
-struct key_event {
+struct key_event: public event {
     key key;           // cppcheck-suppress unusedStructMember
     modifier modifier; // cppcheck-suppress unusedStructMember
 };
@@ -137,4 +144,6 @@ struct key_up: key_event {};
 
 } // namespace keyboard
 
-} // namespace sneze::events
+} // namespace events
+
+} // namespace sneze

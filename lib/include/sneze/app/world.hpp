@@ -107,9 +107,9 @@ public:
         event_dispatcher_.disconnect(instance);
     }
 
-    template<typename EventType>
-    void emmit(EventType event) {
-        event_dispatcher_.enqueue(event);
+    template<typename EventType, typename... Args>
+    void emmit(Args &&...args) {
+        event_dispatcher_.enqueue<EventType>(this, std::forward<Args>(args)...);
     }
 
     enum priority : int32_t {

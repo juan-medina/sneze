@@ -29,19 +29,19 @@ SOFTWARE.
 namespace logger = sneze::logger;
 namespace components = sneze::components;
 
-void counter_system::init(sneze::world &) {
+void counter_system::init(sneze::world *) {
     logger::debug("counter_system::init");
 }
 
-void counter_system::end(sneze::world &) {
+void counter_system::end(sneze::world *) {
     logger::debug("counter_system::end");
 }
 
-void counter_system::update(sneze::world &world) {
-    const auto acc = world.global<acceleration>();
+void counter_system::update(sneze::world *world) {
+    const auto acc = world->global<acceleration>();
 
-    for(auto &&[_, ct, lbl]: world.view<counter, components::label>()) {
-        ct.value += static_cast<int>(acc.value * world.delta());
+    for(auto &&[_, ct, lbl]: world->view<counter, components::label>()) {
+        ct.value += static_cast<int>(acc.value * world->delta());
         lbl.text = fmt::format("Counter: {}", ct.value);
     }
 }

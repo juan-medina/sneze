@@ -40,11 +40,11 @@ class render_system final: public sneze::system {
 public:
     explicit render_system(std::shared_ptr<sneze::render> render);
 
-    void update(sneze::world &world) override;
+    void update(sneze::world *world) override;
 
-    void init(sneze::world &world) override;
+    void init(sneze::world *world) override;
 
-    void end(sneze::world &world) override;
+    void end(sneze::world *world) override;
 
 private:
     std::shared_ptr<sneze::render> render_;

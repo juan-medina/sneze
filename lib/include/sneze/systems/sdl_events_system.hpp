@@ -34,11 +34,11 @@ namespace sneze {
 
 class sdl_events_system: public system {
 public:
-    void update(sneze::world &world) override;
+    void update(sneze::world *world) override;
 
-    void init(sneze::world &world) override;
+    void init(sneze::world *world) override;
 
-    void end(sneze::world &world) override;
+    void end(sneze::world *world) override;
 
 private:
     [[nodiscard]] auto sdl_key_to_key(const int32_t &key) const -> const events::keyboard::key;

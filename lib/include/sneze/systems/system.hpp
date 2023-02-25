@@ -30,11 +30,10 @@ namespace sneze {
 
 class world;
 
-class system {
-public:
-    virtual void init(world &world) = 0;
-    virtual void update(world &world) = 0;
-    virtual void end(world &world) = 0;
+struct system {
+    virtual void init(world *world) = 0;
+    virtual void update(world *world) = 0;
+    virtual void end(world *world) = 0;
 
     system() = default;
     virtual ~system() = default;
@@ -51,13 +50,13 @@ public:
     system_with_priority(const entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
         : type_{type}, system_{std::move(system)}, priority_{priority} {}
 
-    void init(world &world) {
+    void init(world *world) {
         system_->init(world);
     }
-    void update(world &world) {
+    void update(world *world) {
         system_->update(world);
     }
-    void end(world &world) {
+    void end(world *world) {
         system_->end(world);
     }
 

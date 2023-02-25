@@ -29,26 +29,25 @@ SOFTWARE.
 
 namespace sneze {
 
-void keys_system::init(world &world) {
+void keys_system::init(world *world) {
     logger::debug("init key system");
-    world_ = &world;
-    world.add_listener<events::keyboard::key_up, &keys_system::on_key_up>(this);
+    world->add_listener<events::keyboard::key_up, &keys_system::on_key_up>(this);
 }
 
-void keys_system::end(world &world) {
+void keys_system::end(world *world) {
     logger::debug("end key system");
-    world.remove_listeners(this);
+    world->remove_listeners(this);
 }
 
 void keys_system::on_key_up(const events::keyboard::key_up &event) {
     namespace keyboard = events::keyboard;
     if(event.key == keyboard::key::escape) {
-        world_->emmit(events::application_want_closing{});
+        event.world->emmit<events::application_want_closing>();
     } else if((event.key == keyboard::key::enter) && (event.modifier | keyboard::alt)) {
-        world_->emmit(events::toggle_fullscreen{});
+        event.world->emmit<events::toggle_fullscreen>();
     }
 }
 
-void keys_system::update(world &) {}
+void keys_system::update(world *) {}
 
 } // namespace sneze

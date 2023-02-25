@@ -35,7 +35,7 @@ struct acceleration {
 };
 
 class counter_system: public sneze::system {
-    void init(sneze::world &world) override;
-    void update(sneze::world &world) override;
-    void end(sneze::world &world) override;
+    void init(sneze::world *world) override;
+    void update(sneze::world *world) override;
+    void end(sneze::world *world) override;
 };

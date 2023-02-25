@@ -32,16 +32,14 @@ namespace sneze {
 
 class keys_system: public system {
 public:
-    void init(sneze::world &world) override;
+    void init(sneze::world *world) override;
 
-    void end(sneze::world &world) override;
+    void end(sneze::world *world) override;
 
-    void update(sneze::world &world) override;
+    void update(sneze::world *world) override;
 
 private:
     void on_key_up(const events::keyboard::key_up &event);
-
-    world *world_{nullptr};
 };
 
 } // namespace sneze
