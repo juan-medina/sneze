@@ -24,10 +24,117 @@ SOFTWARE.
 
 #pragma once
 
+#include <cinttypes>
+
 namespace sneze::events {
 
 struct application_want_closing {};
 
 struct toggle_fullscreen {};
+
+namespace keyboard {
+
+enum modifier : uint16_t {
+    none = 0,
+    left_shift = 1,
+    right_shift = 2,
+    left_control = 4,
+    right_control = 8,
+    left_alt = 16,
+    right_alt = 32,
+    shift = left_shift | right_shift,
+    control = left_control | right_control,
+    alt = left_alt | right_alt,
+};
+
+enum key {
+    unknown = -1,
+    a,
+    b,
+    c,
+    d,
+    e,
+    f,
+    g,
+    h,
+    i,
+    j,
+    k,
+    l,
+    m,
+    n,
+    o,
+    p,
+    q,
+    r,
+    s,
+    t,
+    u,
+    v,
+    w,
+    x,
+    y,
+    z,
+    _1,
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _0,
+    enter,
+    escape,
+    backspace,
+    tab,
+    space,
+    minus,
+    equals,
+    left_bracket,
+    right_bracket,
+    back_slash,
+    forward_slash,
+    hash,
+    semicolon,
+    back_quote,
+    comma,
+    period,
+    caps_lock,
+    f1,
+    f2,
+    f3,
+    f4,
+    f5,
+    f6,
+    f7,
+    f8,
+    f9,
+    f10,
+    f11,
+    f12,
+    pause,
+    exclamation_mark,
+    double_quote,
+    dollar,
+    ampersand,
+    single_quote,
+    left_parenthesis,
+    right_parenthesis,
+    asterisk,
+    plus,
+};
+
+struct key_event {
+    key key;           // cppcheck-suppress unusedStructMember
+    modifier modifier; // cppcheck-suppress unusedStructMember
+};
+
+struct key_down: key_event {};
+
+struct key_up: key_event {};
+
+} // namespace keyboard
 
 } // namespace sneze::events

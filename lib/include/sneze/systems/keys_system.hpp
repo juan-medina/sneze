@@ -24,17 +24,24 @@ SOFTWARE.
 
 #pragma once
 
-#include "sneze/systems/system.hpp"
+#include "../events/events.hpp"
+
+#include "system.hpp"
 
 namespace sneze {
 
-class event_system: public system {
+class keys_system: public system {
 public:
-    void update(sneze::world &world) override;
-
     void init(sneze::world &world) override;
 
     void end(sneze::world &world) override;
+
+    void update(sneze::world &world) override;
+
+private:
+    void on_key_up(const events::keyboard::key_up &event);
+
+    world *world_{nullptr};
 };
 
 } // namespace sneze

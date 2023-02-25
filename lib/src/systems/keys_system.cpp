@@ -22,39 +22,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sneze/systems/event_system.hpp"
+#include "sneze/systems/keys_system.hpp"
 
 #include "sneze/app/world.hpp"
-#include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 
-#include <SDL.h>
-
 namespace sneze {
-void sneze::event_system::init(sneze::world &world) {
-    logger::debug("init event system");
+
+void keys_system::init(world &world) {
+    logger::debug("init key system");
+    world_ = &world;
+    world.add_listener<events::keyboard::key_up, &keys_system::on_key_up>(this);
 }
 
-void sneze::event_system::end(sneze::world &world) {
-    logger::debug("end event system");
+void keys_system::end(world &world) {
+    logger::debug("end key system");
+    world.remove_listeners(this);
 }
 
-void sneze::event_system::update(sneze::world &world) {
-    SDL_Event eventData;
-    while(SDL_PollEvent(&eventData)) {
-        switch(eventData.type) {
-        case SDL_QUIT:
-            world.emmit(events::application_want_closing{});
-            break;
-        case SDL_KEYUP:
-            if(eventData.key.keysym.sym == SDLK_ESCAPE) {
-                world.emmit(events::application_want_closing{});
-            } else if(eventData.key.keysym.sym == SDLK_RETURN && eventData.key.keysym.mod & KMOD_ALT) {
-                world.emmit(events::toggle_fullscreen{});
-            }
-            break;
-        }
+void keys_system::on_key_up(const events::keyboard::key_up &event) {
+    namespace keyboard = events::keyboard;
+    if(event.key == keyboard::key::escape) {
+        world_->emmit(events::application_want_closing{});
+    } else if((event.key == keyboard::key::enter) && (event.modifier | keyboard::alt)) {
+        world_->emmit(events::toggle_fullscreen{});
     }
 }
+
+void keys_system::update(world &) {}
 
 } // namespace sneze

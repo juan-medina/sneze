@@ -102,8 +102,6 @@ public:
         return world_;
     }
 
-    void app_want_closing(events::application_want_closing event) noexcept;
-
     [[maybe_unused]] [[nodiscard]] auto load_font(const std::string &font_path) -> result<>;
 
     [[maybe_unused]] void unload_font(const std::string &font_path);
@@ -118,6 +116,8 @@ private:
     std::shared_ptr<sneze::world> world_;
     std::shared_ptr<render> render_;
     bool want_to_close_{false};
+
+    void app_want_closing(events::application_want_closing event) noexcept;
 
     auto launch() -> result<>;
 

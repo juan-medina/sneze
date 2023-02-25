@@ -24,24 +24,26 @@ SOFTWARE.
 
 #pragma once
 
+#include <cinttypes>
 
+#include "../events/events.hpp"
 
-#include "app/application.hpp"
-#include "app/config.hpp"
-#include "app/settings.hpp"
-#include "app/world.hpp"
-#include "components/geometry.hpp"
-#include "components/renderable.hpp"
-#include "components/ui.hpp"
-#include "events/events.hpp"
-#include "platform/error.hpp"
-#include "platform/logger.hpp"
-#include "platform/result.hpp"
-#include "platform/traits.hpp"
-#include "platform/version.hpp"
-#include "render/font.hpp"
-#include "render/render.hpp"
-#include "systems/keys_system.hpp"
-#include "systems/render_system.hpp"
-#include "systems/sdl_events_system.hpp"
-#include "systems/system.hpp"
+#include "system.hpp"
+
+namespace sneze {
+
+class sdl_events_system: public system {
+public:
+    void update(sneze::world &world) override;
+
+    void init(sneze::world &world) override;
+
+    void end(sneze::world &world) override;
+
+private:
+    [[nodiscard]] auto sdl_key_to_key(const int32_t &key) const -> const events::keyboard::key;
+
+    [[nodiscard]] auto sdl_mod_to_mod(const uint16_t &mod) const -> const events::keyboard::modifier;
+};
+
+} // namespace sneze
