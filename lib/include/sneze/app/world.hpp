@@ -32,6 +32,7 @@ SOFTWARE.
 
 #include <entt/entt.hpp>
 
+#include "../events/events.hpp"
 #include "../platform/traits.hpp"
 #include "../systems/system.hpp"
 
@@ -92,12 +93,12 @@ public:
         registry_.sort<Type>(compare);
     }
 
-    template<typename EventType, auto Candidate, typename InstanceType>
+    template<descend_from<events::event> EventType, auto Candidate, typename InstanceType>
     void add_listener(InstanceType &&instance) {
         event_dispatcher_.sink<EventType>().template connect<Candidate>(instance);
     }
 
-    template<typename EventType, auto Candidate, typename InstanceType>
+    template<descend_from<events::event> EventType, auto Candidate, typename InstanceType>
     [[maybe_unused]] void remove_listener(InstanceType &&instance) {
         event_dispatcher_.sink<EventType>().template disconnect<Candidate>(instance);
     }
@@ -107,7 +108,7 @@ public:
         event_dispatcher_.disconnect(instance);
     }
 
-    template<typename EventType, typename... Args>
+    template<descend_from<events::event> EventType, typename... Args>
     void emmit(Args &&...args) {
         event_dispatcher_.enqueue<EventType>(this, std::forward<Args>(args)...);
     }

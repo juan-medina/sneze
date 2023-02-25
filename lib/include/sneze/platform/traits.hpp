@@ -34,4 +34,7 @@ concept has_trivial_constructor = std::is_trivially_constructible<Type>::value;
 template<typename Type, typename Interface>
 concept implements_interface = std::is_base_of<Interface, Type>::value;
 
+template<typename Type, typename Base>
+concept descend_from = std::is_base_of<Base, Type>::value;
+
 } // namespace sneze
