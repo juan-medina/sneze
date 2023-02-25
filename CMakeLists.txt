@@ -39,9 +39,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_subdirectory (lib)
 
 if (${BUILD_SNEZE_EXAMPLES})
-    MESSAGE(STATUS "Building examples is enabled")
+    MESSAGE(STATUS "Building sneze examples is enabled")
     add_subdirectory(example)
 else()
-    MESSAGE(STATUS "Building examples is not enabled")
+    MESSAGE(STATUS "Building sneze examples is not enabled")
 endif()
 

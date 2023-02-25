@@ -1,1 +1,1 @@
-option(BUILD_SNEZE_EXAMPLES "Build the examples." ON)
+option(BUILD_SNEZE_EXAMPLES "Build sneze examples." ON)
