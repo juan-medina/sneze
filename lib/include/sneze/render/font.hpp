@@ -74,9 +74,10 @@ public:
                    const components::color &color);
 
 private:
+    static constexpr auto max_pages = 16;
     using params = std::unordered_map<std::string, std::string>;
     using glyphs = std::array<glyph, 256>;
-    using pages = std::vector<SDL_Texture *>;
+    using pages = std::array<SDL_Texture *, max_pages>;
     using kernings = std::array<std::array<int, 256>, 256>;
 
     std::string face_{};
@@ -85,7 +86,7 @@ private:
     kernings kernings_{};
     int line_height_{0};
     components::position spacing_{0, 0};
-    pages pages_{};
+    pages pages_{nullptr};
     render *renderer_{nullptr};
 
     [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;

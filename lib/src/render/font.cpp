@@ -86,7 +86,7 @@ void font::end() noexcept {
             }
         }
     }
-    pages_.clear();
+    pages_ = {};
     glyphs_ = {};
     kernings_ = {};
     line_height_ = {0};
@@ -209,6 +209,10 @@ auto font::parse_common(const params &params) -> bool {
 
 auto font::parse_page(const params &params) -> bool {
     const auto id = get_int(params, "id");
+    if(id < 0 || id >= max_pages) {
+        logger::error("error parsing font file: invalid page id: {}, constrains: 0-{}", id, max_pages);
+        return false;
+    }
     const auto file = get_value(params, "file");
     if(file.empty()) {
         logger::error("error parsing font file: invalid page file");
@@ -259,7 +263,7 @@ auto font::parse_page(const params &params) -> bool {
         logger::error("error parsing font file: can't create texture");
         result = false;
     } else {
-        pages_.push_back(texture);
+        pages_.at(id) = texture;
     }
 
     if(surface) SDL_FreeSurface(surface);
@@ -335,7 +339,7 @@ auto font::parse_kerning(const params &params) -> bool {
         logger::error("error parsing font file: invalid kerning pair: {} {}", first, second);
         return false;
     }
-    kernings_[first][second] = get_int(params, "amount"); // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index)
+    kernings_.at(first).at(second) = get_int(params, "amount");
     return true;
 }
 
@@ -395,7 +399,7 @@ void font::draw_text(const std::string &text,
         if(!glyph::valid(glyph)) {
             continue;
         }
-        const auto &page = pages_[glyph.page];
+        const auto &texture = pages_.at(glyph.page);
 
         if(previous_char) {
             current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
@@ -414,9 +418,9 @@ void font::draw_text(const std::string &text,
         const auto dst_rect =
             SDL_Rect{static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h)};
 
-        SDL_SetTextureColorMod(page, color.r, color.g, color.b);
-        SDL_SetTextureAlphaMod(page, color.a);
-        SDL_RenderCopy(renderer_->sdl_renderer(), page, &src_rect, &dst_rect);
+        SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+        SDL_SetTextureAlphaMod(texture, color.a);
+        SDL_RenderCopy(renderer_->sdl_renderer(), texture, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);
