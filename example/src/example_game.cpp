@@ -37,7 +37,8 @@ using color = sneze::components::color;
 using config = sneze::config;
 
 using namespace std::string_literals;
-const auto font_name = "resources/fonts/pathway_gothic_one.fnt"s;
+const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
+const auto mono_font = "resources/fonts/fira_mono.fnt"s;
 
 auto example_game::configure() -> config {
     sneze::logger::debug("configure");
@@ -47,9 +48,14 @@ auto example_game::configure() -> config {
 auto example_game::init() -> sneze::result<> {
     sneze::logger::debug("init");
 
-    if(auto err = load_font(font_name).ko()) {
-        sneze::logger::error("game can't load game font: {}", font_name);
-        return sneze::error("Can't load game font.", *err);
+    if(auto err = load_font(regular_font).ko()) {
+        sneze::logger::error("game can't load regular font: {}", regular_font);
+        return sneze::error("Can't load regular font.", *err);
+    }
+
+    if(auto err = load_font(mono_font).ko()) {
+        sneze::logger::error("game can't load mono font: {}", mono_font);
+        return sneze::error("Can't load mono font.", *err);
     }
 
     const auto font_size = 40.f;
@@ -66,19 +72,19 @@ auto example_game::init() -> sneze::result<> {
     set_app_setting("visits", visits);
 
     world().create(components::renderable{},
-                   components::label{fmt::format("Hello World for the {} time!", visits), font_name, font_size},
+                   components::label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::White);
 
     world().create(components::renderable{},
                    counter{counter_1},
-                   components::label{"Counter:", font_name, font_size},
+                   components::label{"Counter:", mono_font, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::Red);
 
     world().create(components::renderable{},
                    counter{counter_2},
-                   components::label{"Counter:", font_name, font_size},
+                   components::label{"Counter:", mono_font, font_size},
                    components::position{pos_x, current_y += gap_y},
                    color::Blue);
 
@@ -92,5 +98,6 @@ auto example_game::init() -> sneze::result<> {
 void example_game::end() {
     sneze::logger::debug("end");
     world().remove_system<counter_system>();
-    unload_font(font_name);
+    unload_font(regular_font);
+    unload_font(mono_font);
 }

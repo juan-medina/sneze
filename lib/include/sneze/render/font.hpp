@@ -25,10 +25,10 @@ SOFTWARE.
 #pragma once
 
 #include <array>
+#include <filesystem>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <filesystem>
 
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
@@ -45,14 +45,14 @@ struct glyph {
     float advance;                 // cppcheck-suppress unusedStructMember
     int page;                      // cppcheck-suppress unusedStructMember
 
-    [[nodiscard]] static inline constexpr auto valid(const glyph& glyph) -> bool {
+    [[nodiscard]] static inline constexpr auto valid(const glyph &glyph) -> bool {
         return glyph.size.width > 0 && glyph.size.height > 0;
     }
 };
 
 class font {
 public:
-    explicit font(SDL_Renderer* renderer, const std::string &file);
+    explicit font(SDL_Renderer *renderer, const std::string &file);
     ~font();
 
     font(const font &) = delete;
@@ -72,15 +72,17 @@ public:
 private:
     using params = std::unordered_map<std::string, std::string>;
     using glyphs = std::array<glyph, 256>;
-    using pages = std::vector<SDL_Texture*>;
+    using pages = std::vector<SDL_Texture *>;
+    using kernings = std::array<std::array<int, 256>, 256>;
 
     std::filesystem::path font_directory_;
     bool valid_;
     glyphs glyphs_;
+    kernings kernings_;
     int line_height_;
+    int base_;
     pages pages_;
     SDL_Renderer *renderer_;
-
 
     auto parse(const std::string &file) -> bool;
 
@@ -93,6 +95,10 @@ private:
     [[nodiscard]] auto parse_chars(const params &params) const -> bool;
 
     [[nodiscard]] auto parse_char(const params &params) -> bool;
+
+    [[nodiscard]] auto parse_kernings(const params &params) -> bool;
+
+    [[nodiscard]] auto parse_kerning(const params &params) -> bool;
 
     [[nodiscard]] inline auto get_value(const params &params, const std::string &key) const -> const std::string;
 

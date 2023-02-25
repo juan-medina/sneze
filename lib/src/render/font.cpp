@@ -39,7 +39,8 @@ namespace fs = std::filesystem;
 namespace sneze {
 
 font::font(SDL_Renderer *renderer, const std::string &file)
-    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, pages_{}, font_directory_{""} {
+    : renderer_{renderer}, valid_{false}, glyphs_{}, line_height_{0}, base_{0}, pages_{},
+      font_directory_{""}, kernings_{} {
     if(parse(file)) {
         valid_ = true;
     }
@@ -104,7 +105,9 @@ auto font::parse(const std::string &file) -> bool {
 }
 
 auto font::parse_line(const std::string &type, const params &params) -> bool {
-    if(type == "common") {
+    if(type == "info") {
+        return true;
+    } else if(type == "common") {
         return parse_common(params);
     } else if(type == "page") {
         return parse_page(params);
@@ -112,6 +115,13 @@ auto font::parse_line(const std::string &type, const params &params) -> bool {
         return parse_chars(params);
     } else if(type == "char") {
         return parse_char(params);
+    } else if(type == "kernings") {
+        return parse_kernings(params);
+    } else if(type == "kerning") {
+        return parse_kerning(params);
+    } else {
+        logger::error("error parsing font file: invalid line type: {}", type);
+        return false;
     }
     return true;
 }
@@ -121,6 +131,12 @@ auto font::parse_common(const params &params) -> bool {
 
     if(line_height_ == 0) {
         logger::error("error parsing font file: invalid line height");
+        return false;
+    }
+
+    base_ = get_int(params, "base");
+    if(base_ == 0) {
+        logger::error("error parsing font file: invalid base");
         return false;
     }
 
@@ -240,6 +256,25 @@ auto font::parse_char(const params &params) -> bool {
     return true;
 }
 
+auto font::parse_kernings(const params &params) -> bool {
+    if(!get_int(params, "count")) {
+        logger::error("error parsing font file: invalid kerning count");
+        return false;
+    }
+    return true;
+}
+
+auto font::parse_kerning(const params &params) -> bool {
+    auto first = get_int(params, "first");
+    auto second = get_int(params, "second");
+    if((first < 0) || (first > 255) || (second < 0) || (second > 255)) {
+        logger::error("error parsing font file: invalid kerning pair: {} {}", first, second);
+        return false;
+    }
+    kernings_[first][second] = get_int(params, "amount"); // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index)
+    return true;
+}
+
 auto font::get_value(const params &params, const std::string &key) const -> const std::string {
     if(const auto it = params.find(key); it != params.end()) {
         return it->second;
@@ -281,9 +316,10 @@ void font::draw_text(const std::string &text,
                      const components::position &position,
                      const float size,
                      const components::color &color) const {
-    auto scale_size = size / static_cast<float>(line_height_);
+    auto scale_size = size / static_cast<float>(base_);
 
     components::position current_position = position;
+    unsigned char previous_char = 0;
 
     for(const auto &c: text) {
         const auto &glyph = glyphs_[c];
@@ -291,6 +327,10 @@ void font::draw_text(const std::string &text,
             continue;
         }
         const auto &page = pages_[glyph.page];
+
+        if(previous_char) {
+            current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
+        }
 
         const auto x = current_position.x + (glyph.offset.x * scale_size);
         const auto y = current_position.y + (glyph.offset.y * scale_size);
@@ -310,6 +350,8 @@ void font::draw_text(const std::string &text,
         SDL_RenderCopy(renderer_, page, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
+
+        previous_char = c;
     }
 }
 

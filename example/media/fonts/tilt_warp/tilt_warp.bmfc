@@ -2,8 +2,8 @@
 fileVersion=1
 
 # font settings
-fontName=Pathway Gothic One
-fontFile=pathway_gothic_one.ttf
+fontName=Tilt Warp
+fontFile=TiltWarp-Regular-VariableFont_XROT,YROT.ttf
 charSet=0
 fontSize=100
 aa=2

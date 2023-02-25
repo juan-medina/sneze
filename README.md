@@ -46,8 +46,8 @@ SNEZE is powered by these incredible projects:
 
 SNEZE examples use these beautiful resources:
 
-- **Font**: [Pathway Gothic One](https://fonts.google.com/specimen/Pathway+Gothic+One) by [Eduardo Tunni](http://www.tipo.net.ar).
-
+- **Font**: [Tilt Warp](https://fonts.google.com/specimen/Tilt+Warp) by [Andy Clymer](https://github.com/andyclymer).
+- **Font**: [Fira Mono](https://fonts.google.com/specimen/Fira+Mono) by [Carrois Apostrophe](https://carrois.com/).
 ## Contributions
 
 SNEZE is an open source project and contributions are welcome. If you'd like to contribute, please follow the guidelines in the [Contributing](CONTRIBUTING.md) file and make a pull request.
