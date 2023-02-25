@@ -33,11 +33,12 @@ SOFTWARE.
 
 #include "config.hpp"
 #include "settings.hpp"
-#include "world.hpp"
 
 namespace sneze {
 
 class render;
+class world;
+
 class application {
 public:
     application(const std::string &team, const std::string &name);
@@ -114,7 +115,7 @@ private:
     std::string team_;
     std::string name_;
     settings settings_;
-    sneze::world world_;
+    std::shared_ptr<sneze::world> world_;
     std::shared_ptr<render> render_;
     bool want_to_close_{false};
 

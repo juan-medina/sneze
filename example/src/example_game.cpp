@@ -71,33 +71,33 @@ auto example_game::init() -> sneze::result<> {
     visits++;
     set_app_setting("visits", visits);
 
-    world().create(components::renderable{},
-                   components::label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
-                   components::position{pos_x, current_y += gap_y},
-                   color::White);
+    world()->create(components::renderable{},
+                    components::label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
+                    components::position{pos_x, current_y += gap_y},
+                    color::White);
 
-    world().create(components::renderable{},
-                   counter{counter_1},
-                   components::label{"Counter:", mono_font, font_size},
-                   components::position{pos_x, current_y += gap_y},
-                   color::Red);
+    world()->create(components::renderable{},
+                    counter{counter_1},
+                    components::label{"Counter:", mono_font, font_size},
+                    components::position{pos_x, current_y += gap_y},
+                    color::Red);
 
-    world().create(components::renderable{},
-                   counter{counter_2},
-                   components::label{"Counter:", mono_font, font_size},
-                   components::position{pos_x, current_y += gap_y},
-                   color::Blue);
+    world()->create(components::renderable{},
+                    counter{counter_2},
+                    components::label{"Counter:", mono_font, font_size},
+                    components::position{pos_x, current_y += gap_y},
+                    color::Blue);
 
-    world().global(acceleration{1});
+    world()->global(acceleration{1});
 
-    world().add_system<counter_system>();
+    world()->add_system<counter_system>();
 
     return true;
 }
 
 void example_game::end() {
     sneze::logger::debug("end");
-    world().remove_system<counter_system>();
+    world()->remove_system<counter_system>();
     unload_font(regular_font);
     unload_font(mono_font);
 }

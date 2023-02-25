@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "sneze/app/application.hpp"
 
+#include "sneze/app/world.hpp"
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
@@ -38,7 +39,8 @@ SOFTWARE.
 namespace sneze {
 
 application::application(const std::string &team, const std::string &name)
-    : team_{team}, name_{name}, settings_{team, name}, render_{std::make_shared<render>()} {}
+    : team_{team}, name_{name}, settings_{team, name}, render_{std::make_shared<render>()},
+      world_{std::make_shared<sneze::world>()} {}
 
 auto application::show_error(const error &err) const -> const auto & {
     std::string message = err.message();
@@ -116,24 +118,24 @@ auto application::launch() -> result<> {
     }
 
     logger::debug("init world");
-    world_.init();
+    world_->init();
 
     logger::debug("adding render system to the world");
-    world_.add_system_with_priority<render_system>(world::priority::lowest, render_);
+    world_->add_system_with_priority<render_system>(world::priority::lowest, render_);
 
     logger::debug("listening for application_want_closing events");
-    world_.add_listener<events::application_want_closing, &application::app_want_closing>(this);
+    world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);
 
-    while(!want_to_close_) world_.update();
+    while(!want_to_close_) world_->update();
 
     logger::debug("ending application");
     end();
 
     logger::debug("remove any listener by sneze::application");
-    world_.remove_listeners(this);
+    world_->remove_listeners(this);
 
     logger::debug("ending world");
-    world_.end();
+    world_->end();
 
     logger::debug("save window");
     save_window_settings();
