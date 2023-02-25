@@ -6,7 +6,11 @@
 SNEZE is a high-level, entity component system based 2D game engine that provides solutions for common game problems. The goal is to make game development fast and easy, while also being zestful.
 
 ## Features (ready)
-- None (just starting the project!)
+- Entity Component System.
+- Application Management.
+- Window creation.
+- Switching between full screen (borderless) and windowed mode.
+- Bitmap fonts rendering, including kerning, Using [angelcode](https://www.angelcode.com/products/bmfont/) format.
 
 ## Features (under development)
 - Simple to use however is not easy to master.
