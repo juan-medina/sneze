@@ -31,6 +31,17 @@ namespace sneze {
 
 void keys_system::init(world *world) {
     logger::debug("init key system");
+    if(exit_key_.key_code != keyboard::key::unknown) {
+        logger::debug("exit key: {}, mod: {}", exit_key_.key_code, exit_key_.key_mod);
+    } else {
+        logger::debug("no exit key");
+    }
+    if(toggle_full_screen_key_.key_code != keyboard::key::unknown) {
+        logger::debug(
+            "toggle full screen key: {}, mod: {}", toggle_full_screen_key_.key_code, toggle_full_screen_key_.key_mod);
+    } else {
+        logger::debug("no toggle full screen key");
+    }
     world->add_listener<events::key_up, &keys_system::key_up>(this);
 }
 
@@ -42,9 +53,9 @@ void keys_system::end(world *world) {
 void keys_system::key_up(const events::key_up &event) {
     using key = keyboard::key;
     using modifier = keyboard::modifier;
-    if(event.key == key::escape) {
+    if(check_key(event, exit_key_)) {
         event.world->emmit<events::application_want_closing>();
-    } else if((event.key == key::enter) && (event.modifier & modifier::alt)) {
+    } else if(check_key(event, toggle_full_screen_key_)) {
         event.world->emmit<events::toggle_fullscreen>();
     }
 }

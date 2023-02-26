@@ -42,7 +42,9 @@ const auto mono_font = "resources/fonts/fira_mono.fnt"s;
 
 auto example_game::configure() -> config {
     sneze::logger::debug("configure");
-    return config().clear_color(color::LightGray);
+    using key = sneze::keyboard::key;
+    using modifier = sneze::keyboard::modifier;
+    return config().clear_color(color::LightGray).exit(key::escape).toggle_full_screen(modifier::alt, key::enter);
 }
 
 auto example_game::init() -> sneze::result<> {

@@ -135,4 +135,9 @@ public:
     [[maybe_unused]] static const mod alt;
 };
 
+struct key_mod {
+    keyboard::code key_code; // cppcheck-suppress unusedStructMember
+    keyboard::mod key_mod;   // cppcheck-suppress unusedStructMember
+};
+
 } // namespace sneze::keyboard

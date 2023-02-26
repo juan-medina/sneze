@@ -129,7 +129,7 @@ auto application::launch() -> result<> {
     world_->add_system_with_priority<sdl_events_system>(world::priority::highest);
 
     logger::debug("adding key system to the world");
-    world_->add_system_with_priority<keys_system>(world::priority::high);
+    world_->add_system_with_priority<keys_system>(world::priority::high, config.exit(), config.toggle_full_screen());
 
     logger::debug("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);

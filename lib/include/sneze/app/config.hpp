@@ -25,6 +25,7 @@ SOFTWARE.
 #pragma once
 
 #include "../components/renderable.hpp"
+#include "../device/keyboard.hpp"
 
 namespace sneze {
 
@@ -44,12 +45,43 @@ public:
         return *this;
     }
 
-    [[nodiscard]] inline auto clear_color() const -> const components::color & {
+    [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::code &key) -> config {
+        exit_key_ = {key, keyboard::modifier::none};
+        return *this;
+    }
+
+    [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::mod &modifier, const keyboard::code &key) -> config {
+        exit_key_ = keyboard::key_mod{key, modifier};
+        return *this;
+    }
+
+    [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::code &key) -> config {
+        toggle_full_screen_key_ = {key, keyboard::modifier::none};
+        return *this;
+    }
+
+    [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::mod &modifier, const keyboard::code &key)
+        -> config {
+        toggle_full_screen_key_ = keyboard::key_mod{key, modifier};
+        return *this;
+    }
+
+    [[nodiscard]] inline auto clear_color() const -> const auto & {
         return clear_color_;
+    }
+
+    [[nodiscard]] inline auto exit() const -> const auto & {
+        return exit_key_;
+    }
+
+    [[nodiscard]] inline auto toggle_full_screen() const -> const auto & {
+        return toggle_full_screen_key_;
     }
 
 private:
     components::color clear_color_ = components::color::Black;
+    keyboard::key_mod exit_key_ = {keyboard::key::unknown, keyboard::modifier::none};
+    keyboard::key_mod toggle_full_screen_key_ = {keyboard::key::unknown, keyboard::modifier::none};
 };
 
 } // namespace sneze
