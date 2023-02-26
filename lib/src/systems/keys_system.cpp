@@ -31,7 +31,7 @@ namespace sneze {
 
 void keys_system::init(world *world) {
     logger::debug("init key system");
-    world->add_listener<events::keyboard::key_up, &keys_system::on_key_up>(this);
+    world->add_listener<events::key_up, &keys_system::key_up>(this);
 }
 
 void keys_system::end(world *world) {
@@ -39,11 +39,12 @@ void keys_system::end(world *world) {
     world->remove_listeners(this);
 }
 
-void keys_system::on_key_up(const events::keyboard::key_up &event) {
-    namespace keyboard = events::keyboard;
-    if(event.key == keyboard::key::escape) {
+void keys_system::key_up(const events::key_up &event) {
+    using key = keyboard::key;
+    using modifier = keyboard::modifier;
+    if(event.key == key::escape) {
         event.world->emmit<events::application_want_closing>();
-    } else if((event.key == keyboard::key::enter) && (event.modifier | keyboard::alt)) {
+    } else if((event.key == key::enter) && (event.modifier & modifier::alt)) {
         event.world->emmit<events::toggle_fullscreen>();
     }
 }

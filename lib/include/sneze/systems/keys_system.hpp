@@ -39,7 +39,7 @@ public:
     void update(sneze::world *world) override;
 
 private:
-    void on_key_up(const events::keyboard::key_up &event);
+    void key_up(const events::key_up &event);
 };
 
 } // namespace sneze

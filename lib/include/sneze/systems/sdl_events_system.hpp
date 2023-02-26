@@ -39,11 +39,6 @@ public:
     void init(sneze::world *world) override;
 
     void end(sneze::world *world) override;
-
-private:
-    [[nodiscard]] auto sdl_key_to_key(const int32_t &key) const -> const events::keyboard::key;
-
-    [[nodiscard]] auto sdl_mod_to_mod(const uint16_t &mod) const -> const events::keyboard::modifier;
 };
 
 } // namespace sneze
