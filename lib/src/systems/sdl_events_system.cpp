@@ -42,7 +42,7 @@ void sneze::sdl_events_system::end(sneze::world *) {
 
 void sneze::sdl_events_system::update(sneze::world *world) {
     using modifier = keyboard::modifier;
-    static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::super;
+    static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::gui;
     SDL_Event eventData;
     while(SDL_PollEvent(&eventData)) {
         switch(eventData.type) {

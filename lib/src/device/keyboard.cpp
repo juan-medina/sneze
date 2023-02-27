@@ -24,6 +24,9 @@ SOFTWARE.
 
 #include "sneze/device/keyboard.hpp"
 
+#include <algorithm>
+#include <cctype>
+
 #include <SDL.h>
 
 namespace sneze::keyboard {
@@ -65,7 +68,7 @@ namespace sneze::keyboard {
 [[maybe_unused]] const code key::_8 = SDLK_8;
 [[maybe_unused]] const code key::_9 = SDLK_9;
 [[maybe_unused]] const code key::_0 = SDLK_0;
-[[maybe_unused]] const code key::enter = SDLK_RETURN;
+[[maybe_unused]] const code key::_return = SDLK_RETURN;
 [[maybe_unused]] const code key::escape = SDLK_ESCAPE;
 [[maybe_unused]] const code key::backspace = SDLK_BACKSPACE;
 [[maybe_unused]] const code key::tab = SDLK_TAB;
@@ -113,6 +116,13 @@ namespace sneze::keyboard {
 [[maybe_unused]] const code key::page_down = SDLK_PAGEDOWN;
 [[maybe_unused]] const code key::right = SDLK_RIGHT;
 [[maybe_unused]] const code key::left = SDLK_LEFT;
+
+auto key::string(const code &key) -> const std::string {
+    auto text = std::string{SDL_GetKeyName(key)};
+    std::transform(text.begin(), text.end(), text.begin(), std::toupper);
+    return text;
+}
+
 [[maybe_unused]] const mod modifier::none = KMOD_NONE;
 [[maybe_unused]] const mod modifier::left_shift = KMOD_LSHIFT;
 [[maybe_unused]] const mod modifier::right_shift = KMOD_RSHIFT;
@@ -120,10 +130,60 @@ namespace sneze::keyboard {
 [[maybe_unused]] const mod modifier::right_control = KMOD_RCTRL;
 [[maybe_unused]] const mod modifier::left_alt = KMOD_LALT;
 [[maybe_unused]] const mod modifier::right_alt = KMOD_RALT;
-[[maybe_unused]] const mod modifier::left_super = KMOD_LGUI;
-[[maybe_unused]] const mod modifier::right_super = KMOD_RGUI;
+[[maybe_unused]] const mod modifier::left_gui = KMOD_LGUI;
+[[maybe_unused]] const mod modifier::right_gui = KMOD_RGUI;
 [[maybe_unused]] const mod modifier::shift = KMOD_SHIFT;
 [[maybe_unused]] const mod modifier::control = KMOD_CTRL;
 [[maybe_unused]] const mod modifier::alt = KMOD_ALT;
-[[maybe_unused]] const mod modifier::super = KMOD_GUI;
+[[maybe_unused]] const mod modifier::gui = KMOD_GUI;
+
+auto modifier::string(const mod &modifier) -> const std::string {
+    auto text = std::string{};
+
+    switch(modifier) {
+    case modifier::none:
+        text = "";
+        break;
+    case modifier::left_shift:
+        text = "Left Shift";
+        break;
+    case modifier::right_shift:
+        text = "Right Shift";
+        break;
+    case modifier::left_control:
+        text = "Left Control";
+        break;
+    case modifier::right_control:
+        text = "Right Control";
+        break;
+    case modifier::left_alt:
+        text = "Left Alt";
+        break;
+    case modifier::right_alt:
+        text = "Right Alt";
+        break;
+    case modifier::left_gui:
+        text = "Left GUI";
+        break;
+    case modifier::right_gui:
+        text = "Right GUI";
+        break;
+    case modifier::shift:
+        text = "Shift";
+        break;
+    case modifier::control:
+        text = "Control";
+        break;
+    case modifier::alt:
+        text = "Alt";
+        break;
+    case modifier::gui:
+        text = "GUI";
+        break;
+    }
+
+    std::transform(text.begin(), text.end(), text.begin(), std::toupper);
+    return text;
+}
+
 } // namespace sneze::keyboard

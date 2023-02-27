@@ -46,23 +46,23 @@ public:
     }
 
     [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::code &key) -> config {
-        exit_key_modifier_ = {key, keyboard::modifier::none};
+        exit_key_modifier_ = {key};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::mod &modifier, const keyboard::code &key) -> config {
-        exit_key_modifier_ = keyboard::key_modifier{key, modifier};
+        exit_key_modifier_ = {key, modifier};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::code &key) -> config {
-        toggle_full_screen_key_modifier_ = {key, keyboard::modifier::none};
+        toggle_full_screen_key_modifier_ = {key};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::mod &modifier, const keyboard::code &key)
         -> config {
-        toggle_full_screen_key_modifier_ = keyboard::key_modifier{key, modifier};
+        toggle_full_screen_key_modifier_ = {key, modifier};
         return *this;
     }
 

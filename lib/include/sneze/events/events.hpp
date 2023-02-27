@@ -41,6 +41,7 @@ struct application_want_closing: public event {};
 
 struct toggle_fullscreen: public event {};
 
+// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
 struct key_event: public event, public keyboard::key_modifier {};
 
 struct key_down: key_event {};

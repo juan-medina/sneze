@@ -25,6 +25,7 @@ SOFTWARE.
 #pragma once
 
 #include <cinttypes>
+#include <string>
 
 namespace sneze::keyboard {
 
@@ -69,7 +70,7 @@ public:
     [[maybe_unused]] static const code _8;
     [[maybe_unused]] static const code _9;
     [[maybe_unused]] static const code _0;
-    [[maybe_unused]] static const code enter;
+    [[maybe_unused]] static const code _return;
     [[maybe_unused]] static const code escape;
     [[maybe_unused]] static const code backspace;
     [[maybe_unused]] static const code tab;
@@ -117,6 +118,8 @@ public:
     [[maybe_unused]] static const code page_down;
     [[maybe_unused]] static const code right;
     [[maybe_unused]] static const code left;
+
+    static auto string(const code &key) -> const std::string;
 };
 
 using mod = uint16_t;
@@ -130,17 +133,19 @@ public:
     [[maybe_unused]] static const mod right_control;
     [[maybe_unused]] static const mod left_alt;
     [[maybe_unused]] static const mod right_alt;
-    [[maybe_unused]] static const mod left_super;
-    [[maybe_unused]] static const mod right_super;
+    [[maybe_unused]] static const mod left_gui;
+    [[maybe_unused]] static const mod right_gui;
     [[maybe_unused]] static const mod shift;
     [[maybe_unused]] static const mod control;
     [[maybe_unused]] static const mod alt;
-    [[maybe_unused]] static const mod super;
+    [[maybe_unused]] static const mod gui;
+
+    static auto string(const mod &modifier) -> const std::string;
 };
 
 struct key_modifier {
-    keyboard::code key;     // NOLINT(misc-non-private-member-variables-in-classes)
-    keyboard::mod modifier; // NOLINT(misc-non-private-member-variables-in-classes)
+    code key = key::unknown;       // NOLINT(misc-non-private-member-variables-in-classes)
+    mod modifier = modifier::none; // NOLINT(misc-non-private-member-variables-in-classes)
 
     constexpr auto operator==(const key_modifier &other) {
         if(other.modifier == keyboard::modifier::none) {
@@ -149,6 +154,17 @@ struct key_modifier {
             return (key == other.key) && (modifier & other.modifier);
         }
     }
-};
 
+    constexpr auto operator==(const code &other) {
+        return key == other && modifier == keyboard::modifier::none;
+    }
+
+    [[nodiscard]] auto string() const {
+        auto key_str = key::string(key);
+        if(auto mod_str = modifier ::string(modifier); !mod_str.empty()) {
+            return mod_str + "+" + key_str;
+        }
+        return key_str;
+    }
+};
 } // namespace sneze::keyboard
