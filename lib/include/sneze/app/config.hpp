@@ -46,23 +46,23 @@ public:
     }
 
     [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::code &key) -> config {
-        exit_key_ = {key, keyboard::modifier::none};
+        exit_key_modifier_ = {key, keyboard::modifier::none};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::mod &modifier, const keyboard::code &key) -> config {
-        exit_key_ = keyboard::key_mod{key, modifier};
+        exit_key_modifier_ = keyboard::key_modifier{key, modifier};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::code &key) -> config {
-        toggle_full_screen_key_ = {key, keyboard::modifier::none};
+        toggle_full_screen_key_modifier_ = {key, keyboard::modifier::none};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::mod &modifier, const keyboard::code &key)
         -> config {
-        toggle_full_screen_key_ = keyboard::key_mod{key, modifier};
+        toggle_full_screen_key_modifier_ = keyboard::key_modifier{key, modifier};
         return *this;
     }
 
@@ -71,17 +71,17 @@ public:
     }
 
     [[nodiscard]] inline auto exit() const -> const auto & {
-        return exit_key_;
+        return exit_key_modifier_;
     }
 
     [[nodiscard]] inline auto toggle_full_screen() const -> const auto & {
-        return toggle_full_screen_key_;
+        return toggle_full_screen_key_modifier_;
     }
 
 private:
     components::color clear_color_ = components::color::Black;
-    keyboard::key_mod exit_key_ = {keyboard::key::unknown, keyboard::modifier::none};
-    keyboard::key_mod toggle_full_screen_key_ = {keyboard::key::unknown, keyboard::modifier::none};
+    keyboard::key_modifier exit_key_modifier_ = {keyboard::key::unknown, keyboard::modifier::none};
+    keyboard::key_modifier toggle_full_screen_key_modifier_ = {keyboard::key::unknown, keyboard::modifier::none};
 };
 
 } // namespace sneze

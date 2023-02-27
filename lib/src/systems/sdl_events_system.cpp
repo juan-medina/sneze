@@ -31,6 +31,7 @@ SOFTWARE.
 #include <SDL.h>
 
 namespace sneze {
+
 void sneze::sdl_events_system::init(sneze::world *) {
     logger::debug("init event system");
 }
@@ -40,6 +41,8 @@ void sneze::sdl_events_system::end(sneze::world *) {
 }
 
 void sneze::sdl_events_system::update(sneze::world *world) {
+    using modifier = keyboard::modifier;
+    static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::super;
     SDL_Event eventData;
     while(SDL_PollEvent(&eventData)) {
         switch(eventData.type) {
@@ -47,10 +50,12 @@ void sneze::sdl_events_system::update(sneze::world *world) {
             world->emmit<events::application_want_closing>();
             break;
         case SDL_KEYDOWN:
-            world->emmit<events::key_down>(eventData.key.keysym.sym, eventData.key.keysym.mod);
+            world->emmit<events::key_down>(eventData.key.keysym.sym,
+                                           static_cast<keyboard::mod>(eventData.key.keysym.mod & valid_modifiers));
             break;
         case SDL_KEYUP:
-            world->emmit<events::key_up>(eventData.key.keysym.sym, eventData.key.keysym.mod);
+            world->emmit<events::key_up>(eventData.key.keysym.sym,
+                                         static_cast<keyboard::mod>(eventData.key.keysym.mod & valid_modifiers));
             break;
         }
     }

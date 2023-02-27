@@ -130,14 +130,25 @@ public:
     [[maybe_unused]] static const mod right_control;
     [[maybe_unused]] static const mod left_alt;
     [[maybe_unused]] static const mod right_alt;
+    [[maybe_unused]] static const mod left_super;
+    [[maybe_unused]] static const mod right_super;
     [[maybe_unused]] static const mod shift;
     [[maybe_unused]] static const mod control;
     [[maybe_unused]] static const mod alt;
+    [[maybe_unused]] static const mod super;
 };
 
-struct key_mod {
-    keyboard::code key_code; // cppcheck-suppress unusedStructMember
-    keyboard::mod key_mod;   // cppcheck-suppress unusedStructMember
+struct key_modifier {
+    keyboard::code key;     // NOLINT(misc-non-private-member-variables-in-classes)
+    keyboard::mod modifier; // NOLINT(misc-non-private-member-variables-in-classes)
+
+    constexpr auto operator==(const key_modifier &other) {
+        if(other.modifier == keyboard::modifier::none) {
+            return key == other.key && modifier == keyboard::modifier::none;
+        } else {
+            return (key == other.key) && (modifier & other.modifier);
+        }
+    }
 };
 
 } // namespace sneze::keyboard

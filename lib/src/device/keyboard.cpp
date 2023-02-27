@@ -113,7 +113,6 @@ namespace sneze::keyboard {
 [[maybe_unused]] const code key::page_down = SDLK_PAGEDOWN;
 [[maybe_unused]] const code key::right = SDLK_RIGHT;
 [[maybe_unused]] const code key::left = SDLK_LEFT;
-
 [[maybe_unused]] const mod modifier::none = KMOD_NONE;
 [[maybe_unused]] const mod modifier::left_shift = KMOD_LSHIFT;
 [[maybe_unused]] const mod modifier::right_shift = KMOD_RSHIFT;
@@ -121,8 +120,10 @@ namespace sneze::keyboard {
 [[maybe_unused]] const mod modifier::right_control = KMOD_RCTRL;
 [[maybe_unused]] const mod modifier::left_alt = KMOD_LALT;
 [[maybe_unused]] const mod modifier::right_alt = KMOD_RALT;
+[[maybe_unused]] const mod modifier::left_super = KMOD_LGUI;
+[[maybe_unused]] const mod modifier::right_super = KMOD_RGUI;
 [[maybe_unused]] const mod modifier::shift = KMOD_SHIFT;
 [[maybe_unused]] const mod modifier::control = KMOD_CTRL;
 [[maybe_unused]] const mod modifier::alt = KMOD_ALT;
-
+[[maybe_unused]] const mod modifier::super = KMOD_GUI;
 } // namespace sneze::keyboard

@@ -32,8 +32,9 @@ namespace sneze {
 
 class keys_system: public system {
 public:
-    keys_system(const keyboard::key_mod &exit_key, const keyboard::key_mod &toggle_full_screen_key)
-        : exit_key_(exit_key), toggle_full_screen_key_(toggle_full_screen_key) {}
+    keys_system(const keyboard::key_modifier &exit_key_modifier,
+                const keyboard::key_modifier &toggle_full_screen_key_modifier)
+        : exit_key_modifier_(exit_key_modifier), toggle_full_screen_key_modifier_(toggle_full_screen_key_modifier) {}
 
     void init(sneze::world *world) override;
 
@@ -42,20 +43,11 @@ public:
     void update(sneze::world *world) override;
 
 private:
+
     void key_up(const events::key_up &event);
 
-    static constexpr auto check_key(const events::key_up &event, const keyboard::key_mod &key) -> bool {
-        if(key.key_code == keyboard::key::unknown) {
-            return false;
-        } else if(key.key_mod == keyboard::modifier::none) {
-            return event.key == key.key_code;
-        } else {
-            return (event.key == key.key_code) && (event.modifier & key.key_mod);
-        }
-    }
-
-    keyboard::key_mod exit_key_;
-    keyboard::key_mod toggle_full_screen_key_;
+    keyboard::key_modifier exit_key_modifier_;
+    keyboard::key_modifier toggle_full_screen_key_modifier_;
 };
 
 } // namespace sneze

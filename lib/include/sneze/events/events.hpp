@@ -41,10 +41,7 @@ struct application_want_closing: public event {};
 
 struct toggle_fullscreen: public event {};
 
-struct key_event: public event {
-    keyboard::code key;     // cppcheck-suppress unusedStructMember
-    keyboard::mod modifier; // cppcheck-suppress unusedStructMember
-};
+struct key_event: public event, public keyboard::key_modifier {};
 
 struct key_down: key_event {};
 
