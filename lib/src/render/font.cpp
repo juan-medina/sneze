@@ -50,7 +50,7 @@ auto font::init(const std::string &file) -> result<> {
         auto stream = std::ifstream{file_path};
         if(!stream.is_open()) {
             logger::error("error opening font file: {}", file);
-            return error{"error opening font file"};
+            return error{"Error opening font file"};
         } else {
             auto line = std::string{};
             while(!stream.eof()) {
@@ -59,19 +59,19 @@ auto font::init(const std::string &file) -> result<> {
                 if(!parse_line(type, params)) {
                     logger::error("error parsing line in font line: {}", line);
                     stream.close();
-                    return error{"Error in font format"};
+                    return error{"Error in font format."};
                 }
             }
         }
         if(!validate_parsing()) {
             logger::error("error parsing font file");
-            return error{"Error in font format"};
+            return error{"Error in font format."};
         }
         logger::info("font: \"{}\" loaded correctly", face_);
         return true;
     } else {
         logger::error("error font does not exist: {}", file);
-        return error("Error font does not exist");
+        return error("Error font does not exist.");
     }
 }
 
@@ -220,62 +220,14 @@ auto font::parse_page(const params &params) -> bool {
     }
 
     bool result = true;
-    void *data = nullptr;
-    SDL_Surface *surface = nullptr;
-    SDL_Texture *texture = nullptr;
 
     auto file_path = font_directory_ / file;
 
-    std::int32_t width{0}, height{0}, bytes_per_pixel{0};
-    data = stbi_load(file_path.string().c_str(), &width, &height, &bytes_per_pixel, 0);
-    if(!data) {
-        logger::error("error loading font texture page: {}, on file: {}", stbi_failure_reason(), file_path.string());
-        return false;
-    }
-
-    int pitch = width * bytes_per_pixel;
-    pitch = (pitch + 3) & ~3;
-
-    std::uint32_t red_mask{0}, green_mask{0}, blue_mask{0}, alpha_mask{0};
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-    red_mask = 0x000000FF;
-    green_mask = 0x0000FF00;
-    blue_mask = 0x00FF0000;
-    alpha_mask = (bytes_per_pixel == 4) ? 0xFF000000 : 0;
-#else
-    int shift = (bytes_per_pixel == 4) ? 0 : 8;
-    red_mask = 0xFF000000 >> shift;
-    green_mask = 0x00FF0000 >> shift;
-    blue_mask = 0x0000FF00 >> shift;
-    alpha_mask = 0x000000FF >> shift;
-#endif
-    surface = SDL_CreateRGBSurfaceFrom(
-        data, width, height, bytes_per_pixel * 8, pitch, red_mask, green_mask, blue_mask, alpha_mask);
-    if(!surface) {
-        logger::error("error parsing font file: can't create surface");
+    if(auto [texture, err] = load_texture(file_path.string()).ok(); err) {
+        logger::error("error parsing page: can't load texture");
         result = false;
     } else {
-        SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
-    }
-
-    texture = SDL_CreateTextureFromSurface(renderer_->sdl_renderer(), surface);
-    if(!texture) {
-        logger::error("error parsing font file: can't create texture");
-        result = false;
-    } else {
-        pages_.at(id) = texture;
-    }
-
-    if(surface) SDL_FreeSurface(surface);
-    if(data) stbi_image_free(data);
-
-    if(result) {
-        logger::info("font texture page: {} loaded. file: {}, size: {}x{} {} bytes per pixel",
-                     id,
-                     file_path.string(),
-                     width,
-                     height,
-                     bytes_per_pixel);
+        pages_.at(id) = *texture;
     }
 
     return result;
@@ -401,22 +353,19 @@ void font::draw_text(const std::string &text,
         }
         const auto &texture = pages_.at(glyph.page);
 
-        if(previous_char) {
-            current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
-        }
-
-        const auto x = current_position.x + (glyph.offset.x * scale_size);
-        const auto y = current_position.y + (glyph.offset.y * scale_size);
-        const auto w = glyph.size.width * scale_size;
-        const auto h = glyph.size.height * scale_size;
-
         const auto src_rect = SDL_Rect{static_cast<int>(glyph.position.x),
                                        static_cast<int>(glyph.position.y),
                                        static_cast<int>(glyph.size.width),
                                        static_cast<int>(glyph.size.height)};
 
-        const auto dst_rect =
-            SDL_Rect{static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h)};
+        if(previous_char) {
+            current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
+        }
+
+        const auto dst_rect = SDL_Rect{static_cast<int>(current_position.x + (glyph.offset.x * scale_size)),
+                                       static_cast<int>(current_position.y + (glyph.offset.y * scale_size)),
+                                       static_cast<int>(glyph.size.width * scale_size),
+                                       static_cast<int>(glyph.size.height * scale_size)};
 
         SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(texture, color.a);
@@ -426,6 +375,59 @@ void font::draw_text(const std::string &text,
         current_position.x += (spacing_.x * scale_size);
 
         previous_char = c;
+    }
+}
+
+auto font::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
+    void *data = nullptr;
+    SDL_Surface *surface = nullptr;
+    SDL_Texture *texture = nullptr;
+
+    std::int32_t width{0}, height{0}, bytes_per_pixel{0};
+    data = stbi_load(file_path.c_str(), &width, &height, &bytes_per_pixel, 0);
+    if(!data) {
+        logger::error("error loading texture: {}, on file: {}", stbi_failure_reason(), file_path);
+        return error{"Error loading texture file."};
+    }
+
+    int pitch = width * bytes_per_pixel;
+    pitch = (pitch + 3) & ~3;
+
+    std::uint32_t red_mask{0}, green_mask{0}, blue_mask{0}, alpha_mask{0};
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+    red_mask = 0x000000FF;
+    green_mask = 0x0000FF00;
+    blue_mask = 0x00FF0000;
+    alpha_mask = (bytes_per_pixel == 4) ? 0xFF000000 : 0;
+#else
+    int shift = (bytes_per_pixel == 4) ? 0 : 8;
+    red_mask = 0xFF000000 >> shift;
+    green_mask = 0x00FF0000 >> shift;
+    blue_mask = 0x0000FF00 >> shift;
+    alpha_mask = 0x000000FF >> shift;
+#endif
+    auto depth = bytes_per_pixel * 8;
+    surface = SDL_CreateRGBSurfaceFrom(data, width, height, depth, pitch, red_mask, green_mask, blue_mask, alpha_mask);
+    if(!surface) {
+        logger::error("error loading texture: can't create surface");
+    } else {
+        SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
+        texture = SDL_CreateTextureFromSurface(renderer_->sdl_renderer(), surface);
+
+        if(!texture) {
+            logger::error("error loading texture: can't create texture");
+        } else {
+            logger::info("texture loaded: {}, size: {}x{} {}bpp", file_path, width, height, bytes_per_pixel);
+        }
+    }
+
+    if(surface) SDL_FreeSurface(surface);
+    if(data) stbi_image_free(data);
+
+    if(texture) {
+        return texture;
+    } else {
+        return error{"Error creating texture."};
     }
 }
 

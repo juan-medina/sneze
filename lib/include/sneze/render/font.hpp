@@ -114,6 +114,8 @@ private:
     [[nodiscard]] inline auto get_pair(const params &params, const std::string &key) const -> const std::pair<int, int>;
 
     [[nodiscard]] auto validate_parsing() -> bool;
+
+    [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error>;
 };
 
 } // namespace sneze
