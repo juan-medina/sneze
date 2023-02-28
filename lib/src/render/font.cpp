@@ -26,14 +26,11 @@ SOFTWARE.
 
 #include "sneze/platform/logger.hpp"
 #include "sneze/render/render.hpp"
+#include "sneze/render/texture.hpp"
 
 #include <filesystem>
 #include <fstream>
 #include <string>
-
-#include <SDL_render.h>
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 namespace fs = std::filesystem;
 
@@ -77,15 +74,7 @@ auto font::init(const std::string &file) -> result<> {
 
 void font::end() noexcept {
     logger::info("unload font: {}", face_);
-    for(auto &page: pages_) {
-        if(page) {
-            try {
-                SDL_DestroyTexture(page);
-            } catch(...) {
-                logger::error("error destroying font page");
-            }
-        }
-    }
+
     pages_ = {};
     glyphs_ = {};
     kernings_ = {};
@@ -351,7 +340,7 @@ void font::draw_text(const std::string &text,
         if(!glyph::valid(glyph)) {
             continue;
         }
-        const auto &texture = pages_.at(glyph.page);
+        const auto &texture = pages_.at(glyph.page)->sdl_texture();
 
         const auto src_rect = SDL_Rect{static_cast<int>(glyph.position.x),
                                        static_cast<int>(glyph.position.y),
@@ -378,57 +367,14 @@ void font::draw_text(const std::string &text,
     }
 }
 
-auto font::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
-    void *data = nullptr;
-    SDL_Surface *surface = nullptr;
-    SDL_Texture *texture = nullptr;
+auto font::load_texture(const std::string &file_path) const -> result<std::shared_ptr<texture>, error> {
+    auto new_texture = std::make_shared<texture>(render_);
+    if(auto err = new_texture->init(file_path).ko()) {
+        logger::error("error loading font texture: {}", file_path);
+        return error("error loading font texture.", *err);
+    };
 
-    std::int32_t width{0}, height{0}, bytes_per_pixel{0};
-    data = stbi_load(file_path.c_str(), &width, &height, &bytes_per_pixel, 0);
-    if(!data) {
-        logger::error("error loading texture: {}, on file: {}", stbi_failure_reason(), file_path);
-        return error{"Error loading texture file."};
-    }
-
-    int pitch = width * bytes_per_pixel;
-    pitch = (pitch + 3) & ~3;
-
-    std::uint32_t red_mask{0}, green_mask{0}, blue_mask{0}, alpha_mask{0};
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-    red_mask = 0x000000FF;
-    green_mask = 0x0000FF00;
-    blue_mask = 0x00FF0000;
-    alpha_mask = (bytes_per_pixel == 4) ? 0xFF000000 : 0;
-#else
-    int shift = (bytes_per_pixel == 4) ? 0 : 8;
-    red_mask = 0xFF000000 >> shift;
-    green_mask = 0x00FF0000 >> shift;
-    blue_mask = 0x0000FF00 >> shift;
-    alpha_mask = 0x000000FF >> shift;
-#endif
-    auto depth = bytes_per_pixel * 8;
-    surface = SDL_CreateRGBSurfaceFrom(data, width, height, depth, pitch, red_mask, green_mask, blue_mask, alpha_mask);
-    if(!surface) {
-        logger::error("error loading texture: can't create surface");
-    } else {
-        SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
-        texture = SDL_CreateTextureFromSurface(render_->sdl_renderer(), surface);
-
-        if(!texture) {
-            logger::error("error loading texture: can't create texture");
-        } else {
-            logger::info("texture loaded: {}, size: {}x{} {}bpp", file_path, width, height, bytes_per_pixel);
-        }
-    }
-
-    if(surface) SDL_FreeSurface(surface);
-    if(data) stbi_image_free(data);
-
-    if(texture) {
-        return texture;
-    } else {
-        return error{"Error creating texture."};
-    }
+    return new_texture;
 }
 
 } // namespace sneze

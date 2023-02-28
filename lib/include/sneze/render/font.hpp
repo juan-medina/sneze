@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <array>
 #include <filesystem>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -35,9 +36,9 @@ SOFTWARE.
 #include "../components/renderable.hpp"
 #include "../platform/result.hpp"
 
-struct SDL_Texture;
-
 namespace sneze {
+
+class texture;
 
 class render;
 
@@ -77,7 +78,7 @@ private:
     static constexpr auto max_pages = 16;
     using params = std::unordered_map<std::string, std::string>;
     using glyphs = std::array<glyph, 256>;
-    using pages = std::array<SDL_Texture *, max_pages>;
+    using pages = std::array<std::shared_ptr<texture>, max_pages>;
     using kernings = std::array<std::array<int, 256>, 256>;
 
     std::string face_{};
@@ -115,7 +116,7 @@ private:
 
     [[nodiscard]] auto validate_parsing() -> bool;
 
-    [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error>;
+    [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<std::shared_ptr<texture>, error>;
 };
 
 } // namespace sneze
