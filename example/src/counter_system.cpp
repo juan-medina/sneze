@@ -28,6 +28,7 @@ SOFTWARE.
 
 namespace logger = sneze::logger;
 namespace components = sneze::components;
+using label = components::label;
 
 void counter_system::init(sneze::world *) {
     logger::debug("counter_system::init");
@@ -38,10 +39,14 @@ void counter_system::end(sneze::world *) {
 }
 
 void counter_system::update(sneze::world *world) {
-    const auto acc = world->global<acceleration>();
+    const auto acc = world->get_global<acceleration>();
+    const auto delta = world->delta();
 
-    for(auto &&[_, ct, lbl]: world->view<counter, components::label>()) {
-        ct.value += static_cast<int>(acc.value * world->delta());
+    for(auto &&[entity, ct, lbl]: world->entities<counter, label>()) {
+        ct.value -= static_cast<int>(acc.value * delta);
+        if(ct.value < 0) {
+            world->remove_entity(entity);
+        }
         lbl.text = fmt::format("Counter: {}", ct.value);
     }
 }

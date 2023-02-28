@@ -57,25 +57,34 @@ public:
 
     [[nodiscard]] auto since_epoch() const;
 
-    template<typename Type, typename... Args>
-    void set(entt::entity entity, Args &&...args) {
-        registry_.emplace<Type>(entity, std::forward<Args>(args)...);
-    }
-
     template<typename... Args>
-    auto create(Args... args) {
+    auto add_entity(Args... args) {
         auto id = registry_.create();
         recurse_create(id, args...);
         return id;
     }
 
+    [[maybe_unused]] void remove_entity(entt::entity entity) {
+        registry_.destroy(entity);
+    }
+
     template<typename Type>
-    auto get(entt::entity entity) {
+    [[maybe_unused]] auto get_component(entt::entity entity) {
         registry_.get<Type>(entity);
     }
 
     template<typename Type>
-    auto has(entt::entity entity) {
+    [[maybe_unused]] auto remove_component(entt::entity entity) {
+        registry_.remove<Type>(entity);
+    }
+
+    template<typename Type, typename... Args>
+    void set_component(entt::entity entity, Args &&...args) {
+        registry_.emplace<Type>(entity, std::forward<Args>(args)...);
+    }
+
+    template<typename Type>
+    auto has_component(entt::entity entity) {
         if(auto ptr = registry_.try_get<Type>(entity)) {
             return std::optional<Type>{*ptr};
         } else {
@@ -84,7 +93,7 @@ public:
     }
 
     template<typename... Types>
-    [[nodiscard]] auto view() {
+    [[nodiscard]] auto entities() {
         return registry_.view<Types...>().each();
     }
 
@@ -141,8 +150,14 @@ public:
         systems_to_remove_.push_back(type_to_remove);
     }
 
+    template<has_trivial_constructor Type, typename... Args>
+    [[maybe_unused]] void set_global(Args &&...args) {
+        auto constexpr type_hash = entt::type_hash<Type>::value();
+        globals_.insert({type_hash, Type{std::forward<Args>(args)...}});
+    }
+
     template<has_trivial_constructor Type>
-    [[maybe_unused]] [[nodiscard]] auto global() -> const auto {
+    [[maybe_unused]] [[nodiscard]] auto get_global() const -> const auto {
         auto constexpr type_hash = entt::type_hash<Type>::value();
         if(const auto search = globals_.find(type_hash); search != globals_.end()) {
             return std::any_cast<Type>(search->second);
@@ -152,9 +167,9 @@ public:
     }
 
     template<has_trivial_constructor Type>
-    [[maybe_unused]] void global(const Type &value) {
+    [[maybe_unused]] void remove_global() {
         auto constexpr type_hash = entt::type_hash<Type>::value();
-        globals_[type_hash] = value;
+        globals_.erase(type_hash);
     }
 
     [[nodiscard]] inline auto elapsed() const -> auto & {
@@ -218,7 +233,7 @@ private:
 
     template<typename Type, typename... Args>
     [[maybe_unused]] void helper_create_shift(entt::entity id, Type value, Args &&...args) {
-        set<Type>(id, value);
+        set_component<Type>(id, value);
         recurse_create(id, args...);
     }
 

@@ -32,33 +32,46 @@ SOFTWARE.
 
 example_game::example_game(): application("sneze", "Example Game") {}
 
-namespace components = sneze::components;
-using color = sneze::components::color;
+namespace logger = sneze::logger;
 using config = sneze::config;
+namespace components = sneze::components;
+using color = components::color;
 
 using namespace std::string_literals;
 const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
 const auto mono_font = "resources/fonts/fira_mono.fnt"s;
 
 auto example_game::configure() -> config {
-    sneze::logger::debug("configure");
-    using key = sneze::keyboard::key;
-    using modifier = sneze::keyboard::modifier;
+    logger::debug("configure");
+
+    namespace keyboard = sneze::keyboard;
+    using key = keyboard::key;
+    using modifier = keyboard::modifier;
+
     return config().clear_color(color::LightGray).exit(key::escape).toggle_full_screen(modifier::alt, key::_return);
 }
 
 auto example_game::init() -> sneze::result<> {
-    sneze::logger::debug("init");
+    using error = sneze::error;
+
+    logger::debug("init");
 
     if(auto err = load_font(regular_font).ko()) {
-        sneze::logger::error("game can't load regular font: {}", regular_font);
-        return sneze::error("Can't load regular font.", *err);
+        logger::error("game can't load regular font: {}", regular_font);
+        return error("Can't load regular font.", *err);
     }
 
     if(auto err = load_font(mono_font).ko()) {
-        sneze::logger::error("game can't load mono font: {}", mono_font);
-        return sneze::error("Can't load mono font.", *err);
+        logger::error("game can't load mono font: {}", mono_font);
+        return error("Can't load mono font.", *err);
     }
+
+    auto visits = get_app_setting("visits", std::int64_t{0}) + 1;
+    set_app_setting("visits", visits);
+
+    using renderable = components::renderable;
+    using label = components::label;
+    using position = components::position;
 
     const auto font_size = 40.f;
     const auto pos_x = 190.f;
@@ -66,31 +79,27 @@ auto example_game::init() -> sneze::result<> {
     const auto gap_y = font_size + 10.f;
     auto current_y = pos_y;
 
-    const auto counter_1 = 0;
+    const auto counter_1 = 20000;
     const auto counter_2 = 10000;
 
-    auto visits = get_app_setting("visits", std::int64_t{0});
-    visits++;
-    set_app_setting("visits", visits);
+    world()->add_entity(renderable{},
+                        label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
+                        position{pos_x, current_y += gap_y},
+                        color::White);
 
-    world()->create(components::renderable{},
-                    components::label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
-                    components::position{pos_x, current_y += gap_y},
-                    color::White);
+    world()->add_entity(renderable{},
+                        counter{counter_1},
+                        label{"Counter:", mono_font, font_size},
+                        position{pos_x, current_y += gap_y},
+                        color::Red);
 
-    world()->create(components::renderable{},
-                    counter{counter_1},
-                    components::label{"Counter:", mono_font, font_size},
-                    components::position{pos_x, current_y += gap_y},
-                    color::Red);
+    world()->add_entity(renderable{},
+                        counter{counter_2},
+                        label{"Counter:", mono_font, font_size},
+                        position{pos_x, current_y += gap_y},
+                        color::Blue);
 
-    world()->create(components::renderable{},
-                    counter{counter_2},
-                    components::label{"Counter:", mono_font, font_size},
-                    components::position{pos_x, current_y += gap_y},
-                    color::Blue);
-
-    world()->global(acceleration{1});
+    world()->set_global<acceleration>(5);
 
     world()->add_system<counter_system>();
 
@@ -98,8 +107,10 @@ auto example_game::init() -> sneze::result<> {
 }
 
 void example_game::end() {
-    sneze::logger::debug("end");
+    logger::debug("end");
+
     world()->remove_system<counter_system>();
+
     unload_font(regular_font);
     unload_font(mono_font);
 }
