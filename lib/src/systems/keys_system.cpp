@@ -31,11 +31,11 @@ namespace sneze {
 
 void keys_system::init(world *world) {
     logger::debug("init key system");
-    if(exit_key_modifier_.key != keyboard::key::unknown) {
-        logger::debug("exit full screen key: [{}]", exit_key_modifier_.string());
+    if(exit_.key != keyboard::key::unknown) {
+        logger::debug("exit full screen key: [{}]", exit_.string());
     }
-    if(toggle_full_screen_key_modifier_.key != keyboard::key::unknown) {
-        logger::debug("toggle full screen key: [{}]", toggle_full_screen_key_modifier_.string());
+    if(toggle_full_screen_.key != keyboard::key::unknown) {
+        logger::debug("toggle full screen key: [{}]", toggle_full_screen_.string());
     }
     world->add_listener<events::key_up, &keys_system::key_up>(this);
 }
@@ -46,9 +46,9 @@ void keys_system::end(world *world) {
 }
 
 void keys_system::key_up(const events::key_up &event) {
-    if(event == exit_key_modifier_) {
+    if(event == exit_) {
         event.world->emmit<events::application_want_closing>();
-    } else if(event == toggle_full_screen_key_modifier_) {
+    } else if(event == toggle_full_screen_) {
         event.world->emmit<events::toggle_fullscreen>();
     }
 }

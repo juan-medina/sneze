@@ -107,7 +107,7 @@ auto application::launch() -> result<> {
     auto config = configure();
 
     logger::debug("init render");
-    if(auto err = render_->init(size, fullscreen, name(), config.clear_color()).ko()) {
+    if(auto err = render_->init(size, fullscreen, name(), config.clear()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }

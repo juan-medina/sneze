@@ -48,7 +48,7 @@ auto example_game::configure() -> config {
     using key = keyboard::key;
     using modifier = keyboard::modifier;
 
-    return config().clear_color(color::light_gray).exit(key::escape).toggle_full_screen(modifier::alt, key::_return);
+    return config().clear(color::light_gray).exit(key::escape).toggle_full_screen(modifier::alt, key::_return);
 }
 
 auto example_game::init() -> sneze::result<> {

@@ -40,48 +40,48 @@ public:
     auto operator=(const config &) -> config & = default;
     auto operator=(config &&) -> config & = default;
 
-    [[maybe_unused]] [[nodiscard]] auto clear_color(const components::color &clear_color) -> config {
-        clear_color_ = clear_color;
+    [[maybe_unused]] [[nodiscard]] auto clear(const components::color &clear) -> config {
+        clear_ = clear;
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::code &key) -> config {
-        exit_key_modifier_ = {key};
+        exit_ = {key};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto exit(const keyboard::mod &modifier, const keyboard::code &key) -> config {
-        exit_key_modifier_ = {key, modifier};
+        exit_ = {key, modifier};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::code &key) -> config {
-        toggle_full_screen_key_modifier_ = {key};
+        toggle_full_screen_ = {key};
         return *this;
     }
 
     [[maybe_unused]] [[nodiscard]] auto toggle_full_screen(const keyboard::mod &modifier, const keyboard::code &key)
         -> config {
-        toggle_full_screen_key_modifier_ = {key, modifier};
+        toggle_full_screen_ = {key, modifier};
         return *this;
     }
 
-    [[nodiscard]] inline auto clear_color() const -> const auto & {
-        return clear_color_;
+    [[nodiscard]] inline auto clear() const -> const auto & {
+        return clear_;
     }
 
     [[nodiscard]] inline auto exit() const -> const auto & {
-        return exit_key_modifier_;
+        return exit_;
     }
 
     [[nodiscard]] inline auto toggle_full_screen() const -> const auto & {
-        return toggle_full_screen_key_modifier_;
+        return toggle_full_screen_;
     }
 
 private:
-    components::color clear_color_ = components::color::black;
-    keyboard::key_modifier exit_key_modifier_ = {keyboard::key::unknown, keyboard::modifier::none};
-    keyboard::key_modifier toggle_full_screen_key_modifier_ = {keyboard::key::unknown, keyboard::modifier::none};
+    components::color clear_ = components::color::black;
+    keyboard::key_modifier exit_ = {keyboard::key::unknown, keyboard::modifier::none};
+    keyboard::key_modifier toggle_full_screen_ = {keyboard::key::unknown, keyboard::modifier::none};
 };
 
 } // namespace sneze
