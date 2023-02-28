@@ -86,7 +86,7 @@ private:
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
 
-    components::color clear_color_ = components::color::Black;
+    components::color clear_color_ = components::color::black;
 
     font_cache fonts_;
 

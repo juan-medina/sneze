@@ -79,7 +79,7 @@ public:
     }
 
 private:
-    components::color clear_color_ = components::color::Black;
+    components::color clear_color_ = components::color::black;
     keyboard::key_modifier exit_key_modifier_ = {keyboard::key::unknown, keyboard::modifier::none};
     keyboard::key_modifier toggle_full_screen_key_modifier_ = {keyboard::key::unknown, keyboard::modifier::none};
 };

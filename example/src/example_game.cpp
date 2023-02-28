@@ -48,7 +48,7 @@ auto example_game::configure() -> config {
     using key = keyboard::key;
     using modifier = keyboard::modifier;
 
-    return config().clear_color(color::LightGray).exit(key::escape).toggle_full_screen(modifier::alt, key::_return);
+    return config().clear_color(color::light_gray).exit(key::escape).toggle_full_screen(modifier::alt, key::_return);
 }
 
 auto example_game::init() -> sneze::result<> {
@@ -85,19 +85,19 @@ auto example_game::init() -> sneze::result<> {
     world()->add_entity(renderable{},
                         label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
                         position{pos_x, current_y += gap_y},
-                        color::White);
+                        color::white);
 
     world()->add_entity(renderable{},
                         counter{counter_1},
                         label{"Counter:", mono_font, font_size},
                         position{pos_x, current_y += gap_y},
-                        color::Red);
+                        color::red);
 
     world()->add_entity(renderable{},
                         counter{counter_2},
                         label{"Counter:", mono_font, font_size},
                         position{pos_x, current_y += gap_y},
-                        color::Blue);
+                        color::blue);
 
     world()->set_global<acceleration>(5);
 

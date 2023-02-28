@@ -38,12 +38,12 @@ public:
     enum opacity : component { translucent [[maybe_unused]] = 0, opaque = 255 };
 
     [[nodiscard]] static inline auto
-    rgba(const component &red, const component &green, const component &blue, const component &alpha) -> const color {
-        return {red, green, blue, alpha};
+    rgba(const component &r, const component &g, const component &b, const component &a) -> const color {
+        return {r, g, b, a};
     }
 
-    [[nodiscard]] static inline auto rgb(const component &red, const component &green, const component &blue) {
-        return rgba(red, green, blue, opacity::opaque);
+    [[nodiscard]] static inline auto rgb(const component &r, const component &g, const component &b) {
+        return rgba(r, g, b, opacity::opaque);
     }
 
     component r;
@@ -51,30 +51,30 @@ public:
     component b;
     component a;
 
-    static const color White;
-    static const color Black;
-    static const color Gray;
-    static const color LightGray;
-    static const color DarkGray;
-    static const color Yellow;
-    static const color Gold;
-    static const color Orange;
-    static const color Pink;
-    static const color Red;
-    static const color Maroon;
-    static const color Green;
-    static const color Lime;
-    static const color DarkGreen;
-    static const color SkyBlue;
-    static const color Blue;
-    static const color DarkBlue;
-    static const color Purple;
-    static const color Violet;
-    static const color DarkPurple;
-    static const color Beige;
-    static const color Brown;
-    static const color DarkBrown;
-    static const color Magenta;
+    static const color white;
+    static const color black;
+    static const color gray;
+    static const color light_gray;
+    static const color dark_gray;
+    static const color yellow;
+    static const color gold;
+    static const color orange;
+    static const color pink;
+    static const color red;
+    static const color maroon;
+    static const color green;
+    static const color lime;
+    static const color dark_green;
+    static const color sky_blue;
+    static const color blue;
+    static const color dark_blue;
+    static const color purple;
+    static const color violet;
+    static const color dark_purple;
+    static const color beige;
+    static const color brown;
+    static const color dark_brown;
+    static const color magenta;
 };
 
 } // namespace sneze::components

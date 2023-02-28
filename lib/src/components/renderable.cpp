@@ -25,29 +25,29 @@ SOFTWARE.
 #include "sneze/components/renderable.hpp"
 
 namespace sneze::components {
-[[maybe_unused]] const color color::White = color::rgb(255, 255, 255);
-[[maybe_unused]] const color color::Black = color::rgb(0, 0, 0);
-[[maybe_unused]] const color color::Gray = color::rgb(128, 128, 128);
-[[maybe_unused]] const color color::LightGray = color::rgb(200, 200, 200);
-[[maybe_unused]] const color color::DarkGray = color::rgb(80, 80, 80);
-[[maybe_unused]] const color color::Yellow = color::rgb(253, 249, 0);
-[[maybe_unused]] const color color::Gold = color::rgb(255, 203, 0);
-[[maybe_unused]] const color color::Orange = color::rgb(255, 161, 0);
-[[maybe_unused]] const color color::Pink = color::rgb(255, 109, 194);
-[[maybe_unused]] const color color::Red = color::rgb(230, 41, 55);
-[[maybe_unused]] const color color::Maroon = color::rgb(190, 33, 55);
-[[maybe_unused]] const color color::Green = color::rgb(0, 228, 48);
-[[maybe_unused]] const color color::Lime = color::rgb(0, 158, 47);
-[[maybe_unused]] const color color::DarkGreen = color::rgb(0, 117, 44);
-[[maybe_unused]] const color color::SkyBlue = color::rgb(102, 191, 255);
-[[maybe_unused]] const color color::Blue = color::rgb(0, 121, 241);
-[[maybe_unused]] const color color::DarkBlue = color::rgb(0, 82, 172);
-[[maybe_unused]] const color color::Purple = color::rgb(200, 122, 255);
-[[maybe_unused]] const color color::Violet = color::rgb(135, 60, 190);
-[[maybe_unused]] const color color::DarkPurple = color::rgb(112, 31, 126);
-[[maybe_unused]] const color color::Beige = color::rgb(211, 176, 131);
-[[maybe_unused]] const color color::Brown = color::rgb(127, 106, 79);
-[[maybe_unused]] const color color::DarkBrown = color::rgb(76, 63, 47);
-[[maybe_unused]] const color color::Magenta = color::rgb(231, 72, 86);
+[[maybe_unused]] const color color::white = color::rgb(255, 255, 255);
+[[maybe_unused]] const color color::black = color::rgb(0, 0, 0);
+[[maybe_unused]] const color color::gray = color::rgb(128, 128, 128);
+[[maybe_unused]] const color color::light_gray = color::rgb(200, 200, 200);
+[[maybe_unused]] const color color::dark_gray = color::rgb(80, 80, 80);
+[[maybe_unused]] const color color::yellow = color::rgb(253, 249, 0);
+[[maybe_unused]] const color color::gold = color::rgb(255, 203, 0);
+[[maybe_unused]] const color color::orange = color::rgb(255, 161, 0);
+[[maybe_unused]] const color color::pink = color::rgb(255, 109, 194);
+[[maybe_unused]] const color color::red = color::rgb(230, 41, 55);
+[[maybe_unused]] const color color::maroon = color::rgb(190, 33, 55);
+[[maybe_unused]] const color color::green = color::rgb(0, 228, 48);
+[[maybe_unused]] const color color::lime = color::rgb(0, 158, 47);
+[[maybe_unused]] const color color::dark_green = color::rgb(0, 117, 44);
+[[maybe_unused]] const color color::sky_blue = color::rgb(102, 191, 255);
+[[maybe_unused]] const color color::blue = color::rgb(0, 121, 241);
+[[maybe_unused]] const color color::dark_blue = color::rgb(0, 82, 172);
+[[maybe_unused]] const color color::purple = color::rgb(200, 122, 255);
+[[maybe_unused]] const color color::violet = color::rgb(135, 60, 190);
+[[maybe_unused]] const color color::dark_purple = color::rgb(112, 31, 126);
+[[maybe_unused]] const color color::beige = color::rgb(211, 176, 131);
+[[maybe_unused]] const color color::brown = color::rgb(127, 106, 79);
+[[maybe_unused]] const color color::dark_brown = color::rgb(76, 63, 47);
+[[maybe_unused]] const color color::magenta = color::rgb(231, 72, 86);
 
 } // namespace sneze::components
