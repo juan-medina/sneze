@@ -369,7 +369,7 @@ void font::draw_text(const std::string &text,
 
         SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(texture, color.a);
-        SDL_RenderCopy(renderer_->sdl_renderer(), texture, &src_rect, &dst_rect);
+        SDL_RenderCopy(render_->sdl_renderer(), texture, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);
@@ -412,7 +412,7 @@ auto font::load_texture(const std::string &file_path) const -> result<SDL_Textur
         logger::error("error loading texture: can't create surface");
     } else {
         SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
-        texture = SDL_CreateTextureFromSurface(renderer_->sdl_renderer(), surface);
+        texture = SDL_CreateTextureFromSurface(render_->sdl_renderer(), surface);
 
         if(!texture) {
             logger::error("error loading texture: can't create texture");

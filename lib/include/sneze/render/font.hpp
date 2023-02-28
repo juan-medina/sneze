@@ -55,7 +55,7 @@ struct glyph {
 
 class font {
 public:
-    explicit font(render *renderer): renderer_{renderer} {};
+    explicit font(render *render): render_{render} {};
 
     ~font();
 
@@ -87,7 +87,7 @@ private:
     int line_height_{0};
     components::position spacing_{0, 0};
     pages pages_{nullptr};
-    render *renderer_{nullptr};
+    render *render_{nullptr};
 
     [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;
 
