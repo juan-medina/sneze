@@ -97,6 +97,18 @@ struct warning {
 template<typename... Args>
 warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
 
+template<typename... Args>
+struct trace {
+    explicit trace(fmt::format_string<Args...> fmt,
+                   Args &&...args,
+                   const std::source_location &location = std::source_location::current()) {
+        log(level::trace, location, fmt, std::forward<Args>(args)...);
+    }
+};
+
+template<typename... Args>
+trace(fmt::format_string<Args...> fmt, Args &&...) -> trace<Args...>;
+
 void setup_log();
 
 void set_level(level::log_level level);
