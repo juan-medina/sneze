@@ -66,6 +66,16 @@ public:
         return *this;
     }
 
+    [[maybe_unused]] [[nodiscard]] auto width(int width) -> config {
+        size_.width = static_cast<float>(width);
+        return *this;
+    }
+
+    [[maybe_unused]] [[nodiscard]] auto height(int height) -> config {
+        size_.height = static_cast<float>(height);
+        return *this;
+    }
+
     [[nodiscard]] inline auto clear() const -> const auto & {
         return clear_;
     }
@@ -78,7 +88,12 @@ public:
         return toggle_full_screen_;
     }
 
+    [[nodiscard]] inline auto size() const -> const auto & {
+        return size_;
+    }
+
 private:
+    components::size size_ = {1920, 1080};
     components::color clear_ = components::color::black;
     keyboard::key_modifier exit_ = {keyboard::key::unknown, keyboard::modifier::none};
     keyboard::key_modifier toggle_full_screen_ = {keyboard::key::unknown, keyboard::modifier::none};

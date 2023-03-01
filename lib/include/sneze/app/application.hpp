@@ -107,9 +107,6 @@ public:
     [[maybe_unused]] void unload_font(const std::string &font_path);
 
 private:
-    static const std::int64_t default_width;
-    static const std::int64_t default_height;
-
     std::string team_;
     std::string name_;
     settings settings_;
@@ -131,7 +128,7 @@ private:
 
     void save_window_settings();
 
-    [[nodiscard]] auto get_window_settings() -> const std::pair<components::size, bool>;
+    [[nodiscard]] auto get_window_settings(const config &cfg) -> const std::tuple<components::size, bool, int>;
 };
 
 } // namespace sneze

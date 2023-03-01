@@ -55,9 +55,11 @@ public:
         clear_color_ = color;
     }
 
-    [[nodiscard]] auto
-    init(const components::size &size, const bool &fullscreen, const std::string &title, const components::color &color)
-        -> result<>;
+    [[nodiscard]] auto init(const components::size &size,
+                            const bool &fullscreen,
+                            const int &monitor,
+                            const std::string &title,
+                            const components::color &color) -> result<>;
 
     void end();
 
@@ -77,6 +79,8 @@ public:
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
     [[nodiscard]] auto size() const -> components::size const;
+
+    [[nodiscard]] auto monitor() const -> const int;
 
     [[nodiscard]] auto fullscreen() const -> bool const {
         return fullscreen_;

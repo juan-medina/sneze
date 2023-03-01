@@ -72,6 +72,7 @@ auto application::run() -> result<bool, error> {
     log_level();
 
     if(auto err = launch().ko()) return show_error(*err);
+
     if(auto err = save_settings().ko()) return show_error(*err);
 
     logger::debug("stopping application: {}", name());
@@ -101,13 +102,13 @@ void application::log_level() {
 }
 
 auto application::launch() -> result<> {
-    auto [size, fullscreen] = get_window_settings();
-
     logger::debug("configure application");
     auto config = configure();
 
+    auto [size, fullscreen, monitor] = get_window_settings(config);
+
     logger::debug("init render");
-    if(auto err = render_->init(size, fullscreen, name(), config.clear()).ko()) {
+    if(auto err = render_->init(size, fullscreen, monitor, name(), config.clear()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
@@ -177,9 +178,6 @@ void application::app_want_closing(events::application_want_closing) noexcept {
     want_to_close_ = true;
 }
 
-const std::int64_t application::default_width = {1920LL};
-const std::int64_t application::default_height = {1080LL};
-
 auto application::load_font(const std::string &font_path) -> result<> {
     if(auto err = render_->load_font(font_path).ko(); err) {
         logger::error("error loading font: {}", font_path);
@@ -193,15 +191,16 @@ void application::unload_font(const std::string &font_path) {
     render_->unload_font(font_path);
 }
 
-auto application::get_window_settings() -> const std::pair<components::size, bool> {
+auto application::get_window_settings(const config &cfg) -> const std::tuple<components::size, bool, int> {
     using namespace std::literals;
-    auto width = settings_.get("window"s, "width"s, default_width);
-    auto height = settings_.get("window"s, "height"s, default_height);
+    auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.size().width));
+    auto height = settings_.get("window"s, "height"s, static_cast<std::int64_t>(cfg.size().height));
     auto size = components::size{static_cast<float>(width), static_cast<float>(height)};
+    auto monitor = static_cast<int>(settings_.get("window"s, "monitor"s, static_cast<std::int64_t>(0)));
 
     auto fullscreen = settings_.get("window"s, "fullscreen"s, false);
 
-    return {size, fullscreen};
+    return {size, fullscreen, monitor};
 }
 
 void application::save_window_settings() {
@@ -212,6 +211,7 @@ void application::save_window_settings() {
         settings_.set("window"s, "height"s, static_cast<std::int64_t>(size.height));
     }
     settings_.set("window"s, "fullscreen"s, render_->fullscreen());
+    settings_.set("window"s, "monitor"s, static_cast<std::int64_t>(render_->monitor()));
 }
 
 } // namespace sneze

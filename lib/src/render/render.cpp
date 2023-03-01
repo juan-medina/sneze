@@ -33,6 +33,7 @@ namespace sneze {
 
 auto render::init(const components::size &size,
                   const bool &fullscreen,
+                  const int &monitor,
                   const std::string &title,
                   const components::color &color) -> result<> {
     fullscreen_ = fullscreen;
@@ -43,15 +44,15 @@ auto render::init(const components::size &size,
         return error("error initializing rendering engine.");
     }
 
-    auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI;
+    auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
     if(fullscreen_) {
         flags = static_cast<SDL_WindowFlags>(flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
     }
 
     logger::debug("creating SDL window");
     window_ = SDL_CreateWindow(title.c_str(),
-                               SDL_WINDOWPOS_CENTERED,
-                               SDL_WINDOWPOS_CENTERED,
+                               SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
+                               SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
                                static_cast<int>(size.width),
                                static_cast<int>(size.height),
                                flags);
@@ -200,6 +201,9 @@ auto render::get_texture(const std::string &texture_path) -> const std::shared_p
     } else {
         return *txt;
     }
+}
+auto render::monitor() const -> const int {
+    return SDL_GetWindowDisplayIndex(window_);
 }
 
 } // namespace sneze
