@@ -24,7 +24,6 @@ SOFTWARE.
 
 #include "sneze/render/font.hpp"
 
-#include "sneze/platform/logger.hpp"
 #include "sneze/render/render.hpp"
 #include "sneze/render/texture.hpp"
 
@@ -35,10 +34,6 @@ SOFTWARE.
 namespace fs = std::filesystem;
 
 namespace sneze {
-
-font::~font() {
-    end();
-}
 
 auto font::init(const std::string &file) -> result<> {
     if(const auto file_path = fs::path{file}; fs::exists(file_path)) {
@@ -72,7 +67,7 @@ auto font::init(const std::string &file) -> result<> {
     }
 }
 
-void font::end() noexcept {
+void font::end() {
     logger::info("unload font: {}", face_);
 
     pages_ = {};
@@ -358,7 +353,7 @@ void font::draw_text(const std::string &text,
 
         SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(texture, color.a);
-        SDL_RenderCopy(render_->sdl_renderer(), texture, &src_rect, &dst_rect);
+        SDL_RenderCopy(render()->sdl_renderer(), texture, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);
@@ -368,13 +363,17 @@ void font::draw_text(const std::string &text,
 }
 
 auto font::load_texture(const std::string &file_path) const -> result<std::shared_ptr<texture>, error> {
-    auto new_texture = std::make_shared<texture>(render_);
+    auto new_texture = std::make_shared<texture>(render());
     if(auto err = new_texture->init(file_path).ko()) {
         logger::error("error loading font texture: {}", file_path);
         return error("error loading font texture.", *err);
     };
 
     return new_texture;
+}
+
+font::~font() {
+    end();
 }
 
 } // namespace sneze

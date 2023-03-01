@@ -36,6 +36,8 @@ SOFTWARE.
 #include "../components/renderable.hpp"
 #include "../platform/result.hpp"
 
+#include "resource.hpp"
+
 namespace sneze {
 
 class texture;
@@ -54,20 +56,20 @@ struct glyph {
     }
 };
 
-class font {
+class font: resource {
 public:
-    explicit font(render *render): render_{render} {};
+    explicit font(class render *render): resource(render){};
 
-    ~font();
+    ~font() override;
 
     font(const font &) = delete;
     font(font &&) = delete;
     auto operator=(const font &) -> font & = delete;
     auto operator=(font &&) -> font & = delete;
 
-    [[nodiscard]] auto init(const std::string &file) -> result<>;
+    [[nodiscard]] auto init(const std::string &file) -> result<> override;
 
-    void end() noexcept;
+    void end() override;
 
     void draw_text(const std::string &text,
                    const components::position &position,
@@ -88,7 +90,6 @@ private:
     int line_height_{0};
     components::position spacing_{0, 0};
     pages pages_{nullptr};
-    render *render_{nullptr};
 
     [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;
 

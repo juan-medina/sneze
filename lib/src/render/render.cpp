@@ -78,9 +78,9 @@ auto render::init(const components::size &size,
 }
 
 void render::end() {
+    logger::debug("ending SDL renderer");
     fonts_.clear();
 
-    logger::debug("ending SDL renderer");
     if(renderer_ != nullptr) {
         SDL_DestroyRenderer(renderer_);
         renderer_ = nullptr;
@@ -104,11 +104,11 @@ void render::end_frame() {
 }
 
 [[nodiscard]] auto render::get_font(const std::string &font_path) -> const auto {
-    if(auto it = fonts_.find(font_path); it == fonts_.end()) {
+    if(auto [fnt, err] = fonts_.get(font_path).ok(); err) {
         logger::error("trying to get a font not loaded: ({})", font_path);
         return std::shared_ptr<font>{nullptr};
     } else {
-        return it->second;
+        return *fnt;
     }
 }
 
@@ -124,28 +124,24 @@ void render::draw_label(const components::label &label,
 
 auto render::load_font(const std::string &font_path) -> result<> {
     logger::info("loading font: ({})", font_path);
-    if(auto it = fonts_.find(font_path); it == fonts_.end()) {
-        auto font_ptr = std::make_shared<font>(this);
-        if(auto err = font_ptr->init(font_path).ko()) {
-            logger::error("failed to load font: {}", font_path);
-            font_ptr.reset();
-            return error("Font not valid.", *err);
-        }
-        fonts_.insert({font_path, font_ptr});
-    } else {
-        logger::warning("font already loaded: {}", font_path);
+
+    if(auto err = fonts_.load(font_path).ko(); err) {
+        logger::error("fail to load font");
+        return error("Fail to load Font", *err);
     }
 
     return true;
 }
 
-void render::unload_font(const std::string &font_path) {
-    logger::debug("unloading font: ({})", font_path);
-    if(auto it = fonts_.find(font_path); it == fonts_.end()) {
-        logger::warning("unloading font not loaded: {}", font_path);
-    } else {
-        fonts_.erase(it);
+auto render::unload_font(const std::string &font_path) -> result<> {
+    logger::info("unloading font: ({})", font_path);
+
+    if(auto err = fonts_.unload(font_path).ko(); err) {
+        logger::error("fail to unload font");
+        return error("Fail to unload Font", *err);
     }
+
+    return true;
 }
 
 auto render::size() const -> components::size const {

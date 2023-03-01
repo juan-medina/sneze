@@ -33,13 +33,13 @@ SOFTWARE.
 #include "../components/ui.hpp"
 #include "../platform/result.hpp"
 
-namespace sneze {
+#include "font.hpp"
 
-class font;
+namespace sneze {
 
 class render {
 public:
-    render() = default;
+    render(): fonts_{this} {};
     ~render() = default;
 
     render(const render &) = delete;
@@ -64,7 +64,7 @@ public:
 
     [[maybe_unused]] [[nodiscard]] auto load_font(const std::string &font_path) -> result<>;
 
-    [[maybe_unused]] void unload_font(const std::string &font_path);
+    [[maybe_unused]] auto unload_font(const std::string &font_path) -> result<>;
 
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
@@ -82,13 +82,13 @@ public:
     void toggle_fullscreen();
 
 private:
-    using font_cache = std::unordered_map<std::string, std::shared_ptr<font>>;
+    /*using font_cache = std::unordered_map<std::string, std::shared_ptr<font>>;
+    font_cache fonts_;*/
+    resources_cache<font> fonts_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
 
     components::color clear_color_ = components::color::black;
-
-    font_cache fonts_;
 
     bool fullscreen_ = false;
     SDL_Window *window_ = {nullptr};

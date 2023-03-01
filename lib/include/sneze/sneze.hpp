@@ -24,8 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-
-
 #include "app/application.hpp"
 #include "app/config.hpp"
 #include "app/settings.hpp"
@@ -33,6 +31,7 @@ SOFTWARE.
 #include "components/geometry.hpp"
 #include "components/renderable.hpp"
 #include "components/ui.hpp"
+#include "device/keyboard.hpp"
 #include "events/events.hpp"
 #include "platform/error.hpp"
 #include "platform/logger.hpp"
@@ -41,6 +40,8 @@ SOFTWARE.
 #include "platform/version.hpp"
 #include "render/font.hpp"
 #include "render/render.hpp"
+#include "render/resource.hpp"
+#include "render/texture.hpp"
 #include "systems/keys_system.hpp"
 #include "systems/render_system.hpp"
 #include "systems/sdl_events_system.hpp"
