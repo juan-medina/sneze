@@ -109,20 +109,25 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SDL2)
 
-FetchContent_Declare(STB
-        GIT_REPOSITORY https://github.com/nothings/stb.git
-        GIT_TAG 5736b15f7ea0ffb08dd38af21067c314d6a3aae9
+FetchContent_Declare(
+        SDL2_image
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
+        GIT_TAG release-2.6.3
         GIT_SHALLOW TRUE
         GIT_PROGRESS TRUE
-        )
-FetchContent_Populate(STB)
+)
+
+set(SDL2IMAGE_INSTALL OFF)
+set(BUILD_SHARED_LIBS FALSE)
+
+FetchContent_MakeAvailable(SDL2_image)
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
 endif ()
 
 #set library
-add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES} ${STB_HEADER_FILES})
+add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
 
 #add dependencies
 target_link_libraries(${LIB_NAME}
@@ -133,7 +138,8 @@ target_link_libraries(${LIB_NAME}
         PUBLIC toml11
         PUBLIC EnTT::EnTT
         PUBLIC SDL2::SDL2main PUBLIC SDL2::SDL2-static
+        PUBLIC SDL2_image::SDL2_image-static
         )
 
 #set includes
-target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH} PUBLIC "${stb_SOURCE_DIR}")
+target_include_directories(${LIB_NAME} PUBLIC ${LIBRARY_INCLUDE_PATH})

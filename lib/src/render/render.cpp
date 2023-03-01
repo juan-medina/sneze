@@ -27,6 +27,8 @@ SOFTWARE.
 #include "sneze/platform/logger.hpp"
 #include "sneze/render/font.hpp"
 
+#include <SDL.h>
+
 namespace sneze {
 
 auto render::init(const components::size &size,

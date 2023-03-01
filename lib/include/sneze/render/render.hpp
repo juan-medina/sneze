@@ -25,7 +25,6 @@ SOFTWARE.
 #pragma once
 
 #include <entt/entt.hpp>
-#include <SDL.h>
 
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
@@ -35,6 +34,9 @@ SOFTWARE.
 
 #include "font.hpp"
 #include "texture.hpp"
+
+struct SDL_Renderer;
+struct SDL_Window;
 
 namespace sneze {
 

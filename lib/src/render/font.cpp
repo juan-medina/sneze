@@ -30,6 +30,8 @@ SOFTWARE.
 #include <fstream>
 #include <string>
 
+#include <SDL.h>
+
 namespace fs = std::filesystem;
 
 namespace sneze {
