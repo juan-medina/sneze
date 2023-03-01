@@ -31,8 +31,6 @@ SOFTWARE.
 #include <SDL_image.h>
 #include <SDL_render.h>
 
-namespace fs = std::filesystem;
-
 sneze::texture::~texture() {
     end();
 }
