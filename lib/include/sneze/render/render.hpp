@@ -34,12 +34,13 @@ SOFTWARE.
 #include "../platform/result.hpp"
 
 #include "font.hpp"
+#include "texture.hpp"
 
 namespace sneze {
 
 class render {
 public:
-    render(): fonts_{this} {};
+    render(): fonts_{this}, textures_{this} {};
     ~render() = default;
 
     render(const render &) = delete;
@@ -66,6 +67,10 @@ public:
 
     [[maybe_unused]] auto unload_font(const std::string &font_path) -> result<>;
 
+    [[maybe_unused]] [[nodiscard]] auto load_texture(const std::string &texture_path) -> result<>;
+
+    [[maybe_unused]] auto unload_texture(const std::string &texture_path) -> result<>;
+
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
@@ -80,13 +85,16 @@ public:
     }
 
     void toggle_fullscreen();
+    friend class font;
+
+protected:
+    [[nodiscard]] auto get_texture(const std::string &texture_path) -> const std::shared_ptr<texture>;
 
 private:
-    /*using font_cache = std::unordered_map<std::string, std::shared_ptr<font>>;
-    font_cache fonts_;*/
+    resources_cache<texture> textures_;
     resources_cache<font> fonts_;
 
-    [[nodiscard]] auto get_font(const std::string &font_path) -> const auto;
+    [[nodiscard]] auto get_font(const std::string &font_path) -> const std::shared_ptr<font>;
 
     components::color clear_color_ = components::color::black;
 

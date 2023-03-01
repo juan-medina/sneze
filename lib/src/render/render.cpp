@@ -103,10 +103,10 @@ void render::end_frame() {
     SDL_RenderPresent(renderer_);
 }
 
-[[nodiscard]] auto render::get_font(const std::string &font_path) -> const auto {
+[[nodiscard]] auto render::get_font(const std::string &font_path) -> const std::shared_ptr<font> {
     if(auto [fnt, err] = fonts_.get(font_path).ok(); err) {
         logger::error("trying to get a font not loaded: ({})", font_path);
-        return std::shared_ptr<font>{nullptr};
+        return nullptr;
     } else {
         return *fnt;
     }
@@ -168,6 +168,36 @@ void render::toggle_fullscreen() {
                   real_size.width,
                   real_size.height,
                   fullscreen_ ? "full screen" : "windowed");
+}
+
+auto render::load_texture(const std::string &texture_path) -> result<> {
+    logger::info("loading texture: ({})", texture_path);
+
+    if(auto err = textures_.load(texture_path).ko(); err) {
+        logger::error("fail to load texture");
+        return error("Fail to load Texture", *err);
+    }
+
+    return true;
+}
+
+auto render::unload_texture(const std::string &texture_path) -> result<> {
+    logger::info("unloading texture: ({})", texture_path);
+
+    if(auto err = textures_.unload(texture_path).ko(); err) {
+        logger::error("fail to unload texture");
+        return error("Fail to unload texture", *err);
+    }
+
+    return true;
+}
+auto render::get_texture(const std::string &texture_path) -> const std::shared_ptr<texture> {
+    if(auto [txt, err] = textures_.get(texture_path).ok(); err) {
+        logger::error("trying to get a texture not loaded: ({})", texture_path);
+        return nullptr;
+    } else {
+        return *txt;
+    }
 }
 
 } // namespace sneze

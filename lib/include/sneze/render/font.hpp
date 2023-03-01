@@ -80,7 +80,7 @@ private:
     static constexpr auto max_pages = 16;
     using params = std::unordered_map<std::string, std::string>;
     using glyphs = std::array<glyph, 256>;
-    using pages = std::array<std::shared_ptr<texture>, max_pages>;
+    using pages = std::array<std::string, max_pages>;
     using kernings = std::array<std::array<int, 256>, 256>;
 
     std::string face_{};
@@ -89,7 +89,7 @@ private:
     kernings kernings_{};
     int line_height_{0};
     components::position spacing_{0, 0};
-    pages pages_{nullptr};
+    pages pages_{""};
 
     [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;
 
@@ -116,8 +116,6 @@ private:
     [[nodiscard]] inline auto get_pair(const params &params, const std::string &key) const -> const std::pair<int, int>;
 
     [[nodiscard]] auto validate_parsing() -> bool;
-
-    [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<std::shared_ptr<texture>, error>;
 };
 
 } // namespace sneze

@@ -24,7 +24,6 @@ SOFTWARE.
 
 #include "sneze/render/texture.hpp"
 
-#include "sneze/platform/logger.hpp"
 #include "sneze/render/render.hpp"
 
 #include <filesystem>
@@ -97,7 +96,7 @@ auto sneze::texture::load_texture(const std::string &file_path) const -> sneze::
         logger::error("error loading texture: can't create surface");
     } else {
         SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
-        texture = SDL_CreateTextureFromSurface(render_->sdl_renderer(), surface);
+        texture = SDL_CreateTextureFromSurface(render()->sdl_renderer(), surface);
 
         if(!texture) {
             logger::error("error loading texture: can't create texture");

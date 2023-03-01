@@ -28,26 +28,28 @@ SOFTWARE.
 
 #include "../platform/result.hpp"
 
+#include "resource.hpp"
+
 struct SDL_Texture;
 
 namespace sneze {
 
 class render;
 
-class texture {
+class texture: resource {
 public:
-    explicit texture(render *render): render_{render} {};
+    explicit texture(class render *render): resource(render){};
 
-    ~texture();
+    ~texture() override;
 
     texture(const texture &) = delete;
     texture(texture &&) = delete;
     auto operator=(const texture &) -> texture & = delete;
     auto operator=(texture &&) -> texture & = delete;
 
-    [[nodiscard]] auto init(const std::string &file) -> result<>;
+    [[nodiscard]] auto init(const std::string &file) -> result<> override;
 
-    void end() noexcept;
+    void end() noexcept override;
 
     [[nodiscard]] auto sdl_texture() const noexcept -> SDL_Texture *const {
         return texture_;
@@ -55,7 +57,6 @@ public:
 
 private:
     SDL_Texture *texture_{nullptr};
-    render *render_{nullptr};
 
     [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error>;
 };

@@ -25,7 +25,6 @@ SOFTWARE.
 #include "sneze/render/font.hpp"
 
 #include "sneze/render/render.hpp"
-#include "sneze/render/texture.hpp"
 
 #include <filesystem>
 #include <fstream>
@@ -69,6 +68,12 @@ auto font::init(const std::string &file) -> result<> {
 
 void font::end() {
     logger::info("unload font: {}", face_);
+
+    for(const auto &page: pages_) {
+        if(!page.empty()) {
+            render()->unload_texture(page);
+        }
+    }
 
     pages_ = {};
     glyphs_ = {};
@@ -205,13 +210,13 @@ auto font::parse_page(const params &params) -> bool {
 
     bool result = true;
 
-    auto file_path = font_directory_ / file;
+    auto file_path = (font_directory_ / file).string();
 
-    if(auto [texture, err] = load_texture(file_path.string()).ok(); err) {
+    if(render()->load_texture(file_path).ko()) {
         logger::error("error parsing page: can't load texture");
         result = false;
     } else {
-        pages_.at(id) = *texture;
+        pages_.at(id) = file_path;
     }
 
     return result;
@@ -335,7 +340,14 @@ void font::draw_text(const std::string &text,
         if(!glyph::valid(glyph)) {
             continue;
         }
-        const auto &texture = pages_.at(glyph.page)->sdl_texture();
+        auto texture_name = pages_.at(glyph.page);
+        const auto texture = render()->get_texture(texture_name);
+        const auto sdl_texture = texture->sdl_texture();
+
+        if(texture == nullptr) {
+            logger::error("error drawing text: can't find texture {}", texture_name);
+            return;
+        }
 
         const auto src_rect = SDL_Rect{static_cast<int>(glyph.position.x),
                                        static_cast<int>(glyph.position.y),
@@ -351,9 +363,9 @@ void font::draw_text(const std::string &text,
                                        static_cast<int>(glyph.size.width * scale_size),
                                        static_cast<int>(glyph.size.height * scale_size)};
 
-        SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
-        SDL_SetTextureAlphaMod(texture, color.a);
-        SDL_RenderCopy(render()->sdl_renderer(), texture, &src_rect, &dst_rect);
+        SDL_SetTextureColorMod(sdl_texture, color.r, color.g, color.b);
+        SDL_SetTextureAlphaMod(sdl_texture, color.a);
+        SDL_RenderCopy(render()->sdl_renderer(), sdl_texture, &src_rect, &dst_rect);
 
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);
@@ -361,17 +373,6 @@ void font::draw_text(const std::string &text,
         previous_char = c;
     }
 }
-
-auto font::load_texture(const std::string &file_path) const -> result<std::shared_ptr<texture>, error> {
-    auto new_texture = std::make_shared<texture>(render());
-    if(auto err = new_texture->init(file_path).ko()) {
-        logger::error("error loading font texture: {}", file_path);
-        return error("error loading font texture.", *err);
-    };
-
-    return new_texture;
-}
-
 font::~font() {
     end();
 }
