@@ -34,6 +34,7 @@ SOFTWARE.
 #include <entt/entt.hpp>
 
 #include "../events/events.hpp"
+#include "../globals/globals.hpp"
 #include "../systems/system.hpp"
 
 namespace sneze {
@@ -55,7 +56,7 @@ public:
 
     void end();
 
-    [[nodiscard]] auto since_epoch() const;
+    [[nodiscard]] static auto since_epoch();
 
     template<typename... Args>
     auto add_entity(Args... args) {
@@ -160,16 +161,18 @@ public:
 
     template<typename Type, typename... Args>
     [[maybe_unused]] void set_global(Args &&...args) {
-        static_assert(std::is_trivially_constructible_v<Type>,
-                      "the type must be trivially constructible. (having a constructor with no parameters)");
+        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
         auto constexpr type_hash = entt::type_hash<Type>::value();
-        globals_.insert({type_hash, Type{std::forward<Args>(args)...}});
+        if(const auto search = globals_.find(type_hash); search != globals_.end()) {
+            search->second = Type{std::forward<Args>(args)...};
+        } else {
+            globals_.insert({type_hash, Type{std::forward<Args>(args)...}});
+        }
     }
 
     template<typename Type>
     [[maybe_unused]] [[nodiscard]] auto get_global() const -> const auto {
-        static_assert(std::is_trivially_constructible_v<Type>,
-                      "the type must be trivially constructible. (having a constructor with no parameters)");
+        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
         auto constexpr type_hash = entt::type_hash<Type>::value();
         if(const auto search = globals_.find(type_hash); search != globals_.end()) {
             return std::any_cast<Type>(search->second);
@@ -180,18 +183,10 @@ public:
 
     template<typename Type>
     [[maybe_unused]] void remove_global() {
-        static_assert(std::is_trivially_constructible_v<Type>,
+        static_assert(std::is_trivially_default_constructible_v<Type>,
                       "the type must be trivially constructible. (having a constructor with no parameters)");
         auto constexpr type_hash = entt::type_hash<Type>::value();
         globals_.erase(type_hash);
-    }
-
-    [[nodiscard]] inline auto elapsed() const -> auto & {
-        return elapsed_;
-    }
-
-    [[nodiscard]] inline auto delta() const -> auto & {
-        return delta_;
     }
 
 protected:
@@ -222,10 +217,9 @@ private:
     using systems_id_vector = std::vector<entt::id_type>;
     using globals_map = entt::dense_map<entt::id_type, std::any>;
 
-    double elapsed_ = 0;
-    double delta_ = 0;
+    game_time start_;
+    game_time current_;
 
-    double last_elapsed_ = 0;
     systems_vector systems_;
     systems_vector systems_to_add_;
 

@@ -24,18 +24,11 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/sneze.hpp>
+namespace sneze {
 
-struct counter {
-    int value = 0; // cppcheck-suppress unusedStructMember
+struct game_time {
+    double delta = 0;   // cppcheck-suppress unusedStructMember
+    double elapsed = 0; // cppcheck-suppress unusedStructMember
 };
 
-struct acceleration {
-    int value = 0; // cppcheck-suppress unusedStructMember
-};
-
-class counter_system: public sneze::system {
-    void init(sneze::world *world) override;
-    void update(sneze::world *world) override;
-    void end(sneze::world *world) override;
-};
+} // namespace sneze

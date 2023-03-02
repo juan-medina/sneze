@@ -127,7 +127,7 @@ void world::clear() {
     registry_.clear();
 }
 
-auto world::since_epoch() const {
+auto world::since_epoch() {
     namespace chrono = std::chrono;
     auto milliseconds = duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
     return static_cast<double>(milliseconds);
@@ -135,9 +135,8 @@ auto world::since_epoch() const {
 
 void world::init() {
     logger::info("world init");
-    elapsed_ = since_epoch();
-    last_elapsed_ = elapsed_;
-    delta_ = 0.0;
+    start_.elapsed = since_epoch();
+    start_.delta = 0.0;
 }
 
 void world::end() {
@@ -146,9 +145,11 @@ void world::end() {
 }
 
 void world::update_time() {
-    elapsed_ = since_epoch();
-    delta_ = (elapsed_ - last_elapsed_);
-    last_elapsed_ = elapsed_;
+    auto last = current_;
+    current_.elapsed = since_epoch() - start_.elapsed;
+    current_.delta = current_.elapsed - last.elapsed;
+
+    set_global<game_time>(current_);
 }
 
 } // namespace sneze

@@ -40,13 +40,13 @@ void counter_system::end(sneze::world *) {
 
 void counter_system::update(sneze::world *world) {
     const auto acc = world->get_global<acceleration>();
-    const auto delta = world->delta();
+    const auto time = world->get_global<sneze::game_time>();
 
     for(auto &&[entity, ct, lbl]: world->entities<counter, label>()) {
-        ct.value -= static_cast<int>(acc.value * delta);
+        ct.value -= static_cast<int>(acc.value * time.delta);
         if(ct.value < 0) {
             world->remove_entity(entity);
         }
-        lbl.text = fmt::format("Counter: {}", ct.value);
+        lbl.text = fmt::format("Counter: {}, elapsed: {}", ct.value, time.elapsed);
     }
 }

@@ -33,6 +33,7 @@ SOFTWARE.
 #include "components/ui.hpp"
 #include "device/keyboard.hpp"
 #include "events/events.hpp"
+#include "globals/globals.hpp"
 #include "platform/error.hpp"
 #include "platform/logger.hpp"
 #include "platform/result.hpp"
