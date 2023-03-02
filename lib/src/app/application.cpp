@@ -123,14 +123,18 @@ auto application::launch() -> result<> {
     logger::debug("init world");
     world_->init();
 
+    constexpr auto render_priority = world::priority::after_applications;
+    constexpr auto sdl_events_priority = world::priority::before_applications;
+    constexpr auto keys_priority = sdl_events_priority - 1;
+
     logger::debug("adding render system to the world");
-    world_->add_system_with_priority<render_system>(world::priority::lowest, render_);
+    world_->add_system_with_priority_internal<render_priority, render_system>(render_);
 
     logger::debug("adding event system to the world");
-    world_->add_system_with_priority<sdl_events_system>(world::priority::highest);
+    world_->add_system_with_priority_internal<sdl_events_priority, sdl_events_system>();
 
     logger::debug("adding key system to the world");
-    world_->add_system_with_priority<keys_system>(world::priority::high, config.exit(), config.toggle_full_screen());
+    world_->add_system_with_priority_internal<keys_priority, keys_system>(config.exit(), config.toggle_full_screen());
 
     logger::debug("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);

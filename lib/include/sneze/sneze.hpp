@@ -36,7 +36,6 @@ SOFTWARE.
 #include "platform/error.hpp"
 #include "platform/logger.hpp"
 #include "platform/result.hpp"
-#include "platform/traits.hpp"
 #include "platform/version.hpp"
 #include "render/font.hpp"
 #include "render/render.hpp"

@@ -25,11 +25,11 @@ SOFTWARE.
 #pragma once
 
 #include <memory>
+#include <type_traits>
 #include <unordered_map>
 
 #include "../platform/logger.hpp"
 #include "../platform/result.hpp"
-#include "../platform/traits.hpp"
 
 namespace sneze {
 
@@ -59,14 +59,17 @@ private:
     class render *render_{nullptr};
 };
 
-template<implements_interface<resource> Type>
+template<typename Type>
 struct resource_entry {
+    static_assert(std::is_base_of<resource, Type>::value, "resource entry must be for a descent of sneze::resource");
     std::shared_ptr<Type> resource{nullptr}; // cppcheck-suppress unusedStructMember
     int count{0};                            // cppcheck-suppress unusedStructMember
 };
 
-template<implements_interface<resource> Type>
+template<typename Type>
 class resources_cache {
+    static_assert(std::is_base_of<resource, Type>::value, "resources cache must be for a descent of sneze::resource");
+
 public:
     [[maybe_unused]] explicit resources_cache(render *render): render_{render} {}
     ~resources_cache() = default;

@@ -27,13 +27,13 @@ SOFTWARE.
 #include <any>
 #include <cstdint>
 #include <optional>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include <entt/entt.hpp>
 
 #include "../events/events.hpp"
-#include "../platform/traits.hpp"
 #include "../systems/system.hpp"
 
 namespace sneze {
@@ -102,13 +102,17 @@ public:
         registry_.sort<Type>(compare);
     }
 
-    template<descend_from<events::event> EventType, auto Candidate, typename InstanceType>
+    template<typename EventType, auto Candidate, typename InstanceType>
     void add_listener(InstanceType &&instance) {
+        static_assert(std::is_base_of<events::event, EventType>::value,
+                      "the event must be a descendant of sneze::events::event");
         event_dispatcher_.sink<EventType>().template connect<Candidate>(instance);
     }
 
-    template<descend_from<events::event> EventType, auto Candidate, typename InstanceType>
+    template<typename EventType, auto Candidate, typename InstanceType>
     [[maybe_unused]] void remove_listener(InstanceType &&instance) {
+        static_assert(std::is_base_of<events::event, EventType>::value,
+                      "the event must be a descendant of sneze::events::event");
         event_dispatcher_.sink<EventType>().template disconnect<Candidate>(instance);
     }
 
@@ -117,47 +121,55 @@ public:
         event_dispatcher_.disconnect(instance);
     }
 
-    template<descend_from<events::event> EventType, typename... Args>
+    template<typename EventType, typename... Args>
     void emmit(Args &&...args) {
+        static_assert(std::is_base_of<events::event, EventType>::value,
+                      "the event must be a descendant of sneze::events::event");
         event_dispatcher_.enqueue<EventType>(this, std::forward<Args>(args)...);
     }
 
     enum priority : int32_t {
-        highest = std::numeric_limits<int32_t>::max(),
-        high = highest >> 1,
-
-        lowest = std::numeric_limits<int32_t>::min(),
-        low = lowest >> 1,
-
+        low = -1000,
         normal = 0,
+        high = 1000,
+
+        before_applications = high + 1000,
+        after_applications = low - 1000,
     };
 
-    template<implements_interface<system> SystemType, typename... Args>
+    template<typename SystemType, typename... Args>
     [[maybe_unused]] void add_system(Args... args) noexcept {
-        add_system_with_priority<SystemType>(priority::normal, args...);
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        add_system_with_priority<priority::normal, SystemType>(args...);
     }
 
-    template<implements_interface<system> SystemType, typename... Args>
-    [[maybe_unused]] void add_system_with_priority(int32_t priority, Args... args) noexcept {
-        auto constexpr type_hash = entt::type_hash<SystemType>::value();
-        systems_to_add_.push_back(
-            std::make_unique<system_with_priority>(type_hash, priority, std::make_unique<SystemType>(args...)));
+    template<int32_t priority, typename SystemType, typename... Args>
+    [[maybe_unused]] void add_system_with_priority(Args... args) noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        static_assert(priority >= world::priority::low && priority <= world::priority::high,
+                      "priority must be between priority::low (-1000) and priority::high (1000)");
+        add_system_with_priority_internal<priority, SystemType>(args...);
     }
 
-    template<implements_interface<system> SystemType>
+    template<typename SystemType>
     [[maybe_unused]] void remove_system() noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
         auto constexpr type_to_remove = entt::type_hash<SystemType>::value();
         systems_to_remove_.push_back(type_to_remove);
     }
 
-    template<has_trivial_constructor Type, typename... Args>
+    template<typename Type, typename... Args>
     [[maybe_unused]] void set_global(Args &&...args) {
+        static_assert(std::is_trivially_constructible_v<Type>,
+                      "the type must be trivially constructible. (having a constructor with no parameters)");
         auto constexpr type_hash = entt::type_hash<Type>::value();
         globals_.insert({type_hash, Type{std::forward<Args>(args)...}});
     }
 
-    template<has_trivial_constructor Type>
+    template<typename Type>
     [[maybe_unused]] [[nodiscard]] auto get_global() const -> const auto {
+        static_assert(std::is_trivially_constructible_v<Type>,
+                      "the type must be trivially constructible. (having a constructor with no parameters)");
         auto constexpr type_hash = entt::type_hash<Type>::value();
         if(const auto search = globals_.find(type_hash); search != globals_.end()) {
             return std::any_cast<Type>(search->second);
@@ -166,8 +178,10 @@ public:
         }
     }
 
-    template<has_trivial_constructor Type>
+    template<typename Type>
     [[maybe_unused]] void remove_global() {
+        static_assert(std::is_trivially_constructible_v<Type>,
+                      "the type must be trivially constructible. (having a constructor with no parameters)");
         auto constexpr type_hash = entt::type_hash<Type>::value();
         globals_.erase(type_hash);
     }
@@ -185,7 +199,24 @@ protected:
 
     void clear();
 
+    template<int32_t priority, typename SystemType, typename... Args>
+    [[maybe_unused]] void add_system_with_priority_internal(Args... args) noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        static_assert(priority >= world::priority::after_applications
+                          && priority <= world::priority::before_applications,
+                      "priority must be between priority::after_applications and priority::before_applications");
+        add_system_with_priority_unrestricted<priority, SystemType>(args...);
+    }
+
 private:
+    template<int32_t priority, typename SystemType, typename... Args>
+    [[maybe_unused]] void add_system_with_priority_unrestricted(Args... args) noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        auto constexpr type_hash = entt::type_hash<SystemType>::value();
+        systems_to_add_.push_back(
+            std::make_unique<system_with_priority>(type_hash, priority, std::make_unique<SystemType>(args...)));
+    }
+
     using system_ptr = std::unique_ptr<system_with_priority>;
     using systems_vector = std::vector<system_ptr>;
     using systems_id_vector = std::vector<entt::id_type>;
