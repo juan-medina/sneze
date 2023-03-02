@@ -28,7 +28,7 @@ SOFTWARE.
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 
-#include <SDL.h>
+#include <SDL_events.h>
 
 namespace sneze {
 
@@ -43,7 +43,7 @@ void sneze::sdl_events_system::end(sneze::world *) {
 void sneze::sdl_events_system::update(sneze::world *world) {
     using modifier = keyboard::modifier;
     static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::gui;
-    SDL_Event eventData;
+    auto eventData = SDL_Event{};
     while(SDL_PollEvent(&eventData)) {
         switch(eventData.type) {
         case SDL_QUIT:

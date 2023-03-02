@@ -56,7 +56,7 @@ protected:
     };
 
 private:
-    [[maybe_unused]] class render *render_{nullptr};
+    class render *render_{nullptr};
 };
 
 template<implements_interface<resource> Type>

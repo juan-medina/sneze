@@ -30,7 +30,7 @@ SOFTWARE.
 #include <fstream>
 #include <string>
 
-#include <SDL.h>
+#include <SDL_render.h>
 
 namespace fs = std::filesystem;
 

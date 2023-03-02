@@ -137,7 +137,7 @@ target_link_libraries(${LIB_NAME}
         PUBLIC Boxer
         PUBLIC toml11
         PUBLIC EnTT::EnTT
-        PUBLIC SDL2::SDL2main PUBLIC SDL2::SDL2-static
+        PUBLIC SDL2::SDL2-static
         PUBLIC SDL2_image::SDL2_image-static
         )
 
