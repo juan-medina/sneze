@@ -28,6 +28,8 @@ SOFTWARE.
 
 #include <filesystem>
 #include <fstream>
+#include <iterator>
+#include <regex>
 #include <utility>
 
 #include <platform_folders.h>
@@ -60,6 +62,13 @@ auto settings::read() -> result<> {
 }
 
 auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
+    auto simple_team = simplify_name(team_);
+    auto simple_application = simplify_name(application_);
+    if(simple_team.empty() || simple_application.empty()) {
+        logger::error("error team and application need to have valid alphanumeric characters or whitespace");
+        return error("Error getting the path for settings file.");
+    }
+
     auto home = sago::getConfigHome();
 
     // home path
@@ -70,7 +79,7 @@ auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
     }
 
     // team path
-    fs::path const team_path{team_};
+    fs::path const team_path{simple_team};
     fs::path const team_full_path = home_folder / team_path;
     if(auto err = exist_or_create_directory(team_full_path).ko()) {
         logger::error("error checking team path: {}", team_full_path.string());
@@ -78,7 +87,7 @@ auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
     }
 
     // application path
-    fs::path const application_path{application_};
+    fs::path const application_path{simple_application};
     fs::path const application_full_path = team_full_path / application_path;
     if(auto err = exist_or_create_directory(application_full_path).ko()) {
         logger::error("error checking application path: {}", team_full_path.string());
@@ -86,8 +95,7 @@ auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
     }
 
     // settings file
-    fs::path const settings_file{Settings_file_name};
-    fs::path const settings_file_full_path = application_full_path / settings_file;
+    fs::path const settings_file_full_path = application_full_path / settings_file_name;
     if(auto err = exist_or_create_file(settings_file_full_path).ko()) {
         logger::error("error checking settings file: {}", settings_file_full_path.string());
         return error("Can't find or create settings file.", *err);
@@ -102,9 +110,7 @@ auto settings::exist_or_create_directory(const std::filesystem::path &path) -> r
     } else {
         logger::debug("Creating directory: {}", path.string());
         std::error_code ec;
-        fs::create_directory(path, ec);
-        std::error_condition const ok;
-        if(ec != ok) {
+        if(fs::create_directory(path, ec); ec) {
             logger::error("error creating directory: {}", ec.message());
             return error("Can't get settings directory.");
         }
@@ -236,6 +242,14 @@ auto settings::save() -> result<> {
     }
     logger::info("Settings saved");
     return true;
+}
+
+auto settings::simplify_name(const std::string &name) -> std::string {
+    std::string result = std::regex_replace(name, std::regex{R"([\s])"}, "_");
+    result = std::regex_replace(result, std::regex{R"([^\w])"}, "");
+    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+
+    return result;
 }
 
 } // namespace sneze

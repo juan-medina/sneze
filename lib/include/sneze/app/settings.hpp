@@ -82,7 +82,7 @@ private:
     std::string application_;
     std::string team_;
 
-    constexpr static const auto Settings_file_name = "settings.toml";
+    constexpr static const auto settings_file_name = "settings.toml";
 
     static auto exist_or_create_directory(const std::filesystem::path &path) -> result<>;
 
@@ -99,6 +99,9 @@ private:
     std::filesystem::path settings_file_path_;
 
     auto add_toml_value(const std::string &section, const std::string &name, const toml::value &value) -> result<>;
+
+private:
+    static auto simplify_name(const std::string &name) -> std::string;
 };
 
 } // namespace sneze
