@@ -42,13 +42,13 @@ settings::settings(std::string team, std::string application)
 namespace fs = std::filesystem;
 
 auto settings::read() -> result<> {
-    logger::info("Reading settings for application: {} (Team: {})", application_, team_);
+    logger::info("reading settings for application: {} (Team: {})", application_, team_);
 
     if(auto [val, err] = calculate_settings_file_path().ok(); err) {
         logger::error("error calculate settings file path");
         return error("Can't calculate settings file path.", *err); // NOLINT(bugprone-unchecked-optional-access)
     } else {
-        logger::debug("Settings file: {}", val->string()); // NOLINT(bugprone-unchecked-optional-access)
+        logger::debug("settings file: {}", val->string()); // NOLINT(bugprone-unchecked-optional-access)
         settings_file_path_ = *val;                        // NOLINT(bugprone-unchecked-optional-access)
     }
 

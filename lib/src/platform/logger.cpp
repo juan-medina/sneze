@@ -51,37 +51,42 @@ void setup_spdlog() {
     auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
     dist_sink->add_sink(debug_sink);
 #endif
+#if defined(_DEBUG)
+    dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v -> %@");
+#else
+    dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v");
+#endif
     auto logger = std::make_shared<spdlog::logger>("sneze", dist_sink);
     spdlog::set_default_logger(logger);
 }
 
 void sdl_log_callback(void *, int, SDL_LogPriority priority, const char *message) {
-    spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
+    level::log_level log_level; // NOLINT(cppcoreguidelines-init-variables)
 
     switch(priority) {
     case SDL_LOG_PRIORITY_VERBOSE:
-        spdlog_level = spdlog::level::trace;
+        log_level = level::trace;
         break;
     case SDL_LOG_PRIORITY_DEBUG:
-        spdlog_level = spdlog::level::debug;
+        log_level = level::debug;
         break;
     case SDL_LOG_PRIORITY_INFO:
-        spdlog_level = spdlog::level::info;
+        log_level = level::info;
         break;
     case SDL_LOG_PRIORITY_WARN:
-        spdlog_level = spdlog::level::warn;
+        log_level = level::warning;
         break;
     case SDL_LOG_PRIORITY_ERROR:
-        spdlog_level = spdlog::level::err;
+        log_level = level::error;
         break;
     case SDL_LOG_PRIORITY_CRITICAL:
-        spdlog_level = spdlog::level::critical;
+        log_level = level::critical;
         break;
     default:
-        spdlog_level = spdlog::level::off;
+        log_level = level::off;
         break;
     }
-    spdlog::log(spdlog_level, "[SDL] {}", message);
+    log(log_level, std::source_location::current(), "SDL: {}", message);
 }
 
 void setup_log() {
