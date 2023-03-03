@@ -34,6 +34,7 @@ SOFTWARE.
 
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
+#include "../components/ui.hpp"
 #include "../platform/result.hpp"
 
 #include "resource.hpp"
@@ -73,8 +74,11 @@ public:
 
     void draw_text(const std::string &text,
                    const components::position &position,
+                   const components::alignment &alignment,
                    const float size,
                    const components::color &color);
+
+    [[nodiscard]] auto size(const std::string &text, const float &size) const -> const components::size;
 
 private:
     static constexpr auto max_pages = 16;
@@ -119,3 +123,4 @@ private:
 };
 
 } // namespace sneze
+

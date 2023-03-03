@@ -27,6 +27,8 @@ SOFTWARE.
 #include <string>
 
 #include "../platform/result.hpp"
+#include "../components/geometry.hpp"
+#include "../components/renderable.hpp"
 
 #include "resource.hpp"
 
@@ -54,6 +56,8 @@ public:
     [[nodiscard]] auto sdl_texture() const noexcept -> SDL_Texture *const {
         return texture_;
     };
+
+    void draw(components::rect origin, components::rect destination, components::color color);
 
 private:
     SDL_Texture *texture_{nullptr};

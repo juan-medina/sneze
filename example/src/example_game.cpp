@@ -79,29 +79,36 @@ auto example_game::init() -> sneze::result<> {
     using position = components::position;
 
     const auto font_size = 40.f;
-    const auto pos_x = 190.f;
-    const auto pos_y = 200.f;
-    const auto gap_y = font_size + 10.f;
+    const auto pos_x = 1920 / 2.f;
+    const auto pos_y = 1080 / 2.f;
+    const auto gap_y = font_size * 2;
     auto current_y = pos_y;
 
-    const auto counter_1 = 20000;
-    const auto counter_2 = 10000;
+    const auto counter_1 = 40000;
+    const auto counter_2 = 20000;
+
+    using alignment = sneze::components::alignment;
+    using vertical = sneze::components::vertical;
+    using horizontal = sneze::components::horizontal;
 
     world()->add_entity(renderable{},
-                        label{fmt::format("Hello World for the {} time!", visits), regular_font, font_size},
-                        position{pos_x, current_y += gap_y},
+                        label{fmt::format("Hello World for the {} time!", visits),
+                              regular_font,
+                              font_size,
+                              alignment{horizontal::center, vertical::middle}},
+                        position{pos_x, current_y},
                         color::white);
 
     world()->add_entity(renderable{},
                         counter{counter_1},
-                        label{"Counter:", mono_font, font_size},
-                        position{pos_x, current_y += gap_y},
+                        label{"Counter:", mono_font, font_size, alignment{horizontal::left}},
+                        position{pos_x, current_y + gap_y},
                         color::red);
 
     world()->add_entity(renderable{},
                         counter{counter_2},
-                        label{"Counter:", mono_font, font_size},
-                        position{pos_x, current_y += gap_y},
+                        label{"Counter:", mono_font, font_size, alignment{horizontal::right}},
+                        position{pos_x, current_y + gap_y},
                         color::blue);
 
     world()->set_global<acceleration>(5);

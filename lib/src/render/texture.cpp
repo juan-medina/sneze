@@ -31,11 +31,13 @@ SOFTWARE.
 #include <SDL_image.h>
 #include <SDL_render.h>
 
-sneze::texture::~texture() {
+namespace sneze {
+
+texture::~texture() {
     end();
 }
 
-void sneze::texture::end() noexcept {
+void texture::end() noexcept {
     logger::debug("texture end");
 
     if(texture_ != nullptr) {
@@ -44,7 +46,7 @@ void sneze::texture::end() noexcept {
     }
 }
 
-auto sneze::texture::init(const std::string &file) -> sneze::result<> {
+auto texture::init(const std::string &file) -> result<> {
     if(auto [texture, err] = load_texture(file).ok(); err) {
         logger::error("load texture fail on file: ", file);
         return error{"Can't init texture.", *err};
@@ -55,7 +57,7 @@ auto sneze::texture::init(const std::string &file) -> sneze::result<> {
     return true;
 }
 
-auto sneze::texture::load_texture(const std::string &file_path) const -> sneze::result<SDL_Texture *const, error> {
+auto texture::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
     if(auto texture = IMG_LoadTexture(render()->sdl_renderer(), file_path.c_str())) {
         int width{0};
         int height{0};
@@ -67,3 +69,21 @@ auto sneze::texture::load_texture(const std::string &file_path) const -> sneze::
         return error("Error loading texture.");
     }
 }
+
+void texture::draw(components::rect origin, components::rect destination, components::color color) {
+    if(texture_ != nullptr) [[likely]] {
+        const auto src = SDL_Rect{static_cast<int>(origin.position.x),
+                                  static_cast<int>(origin.position.y),
+                                  static_cast<int>(origin.size.width),
+                                  static_cast<int>(origin.size.height)};
+        const auto dst = SDL_Rect{static_cast<int>(destination.position.x),
+                                  static_cast<int>(destination.position.y),
+                                  static_cast<int>(destination.size.width),
+                                  static_cast<int>(destination.size.height)};
+        SDL_SetTextureColorMod(texture_, color.r, color.g, color.b);
+        SDL_SetTextureAlphaMod(texture_, color.a);
+        SDL_RenderCopy(render()->sdl_renderer(), texture_, &src, &dst);
+    }
+}
+
+} // namespace sneze

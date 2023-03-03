@@ -30,8 +30,6 @@ SOFTWARE.
 #include <fstream>
 #include <string>
 
-#include <SDL_render.h>
-
 namespace fs = std::filesystem;
 
 namespace sneze {
@@ -330,15 +328,41 @@ auto font::validate_parsing() -> bool {
 
 void font::draw_text(const std::string &text,
                      const components::position &position,
+                     const components::alignment &alignment,
                      const float size,
                      const components::color &color) {
     auto scale_size = size / static_cast<float>(line_height_);
 
     components::position current_position = position;
+
+    auto text_size = font::size(text, size);
+
+    switch(alignment.horizontal) {
+    case components::horizontal::center:
+        current_position.x -= text_size.width / 2;
+        break;
+    case components::right:
+        current_position.x -= text_size.width;
+        break;
+    default:
+        break;
+    }
+
+    switch(alignment.vertical) {
+    case components::vertical::middle:
+        current_position.y -= text_size.height / 2;
+        break;
+    case components::vertical::bottom:
+        current_position.y -= text_size.height;
+        break;
+    default:
+        break;
+    }
+
     unsigned char previous_char = 0;
 
     for(const auto &c: text) {
-        const auto &glyph = glyphs_[c];
+        const auto &glyph = glyphs_.at(c);
         if(!glyph::valid(glyph)) {
             continue;
         }
@@ -351,23 +375,19 @@ void font::draw_text(const std::string &text,
             return;
         }
 
-        const auto src_rect = SDL_Rect{static_cast<int>(glyph.position.x),
-                                       static_cast<int>(glyph.position.y),
-                                       static_cast<int>(glyph.size.width),
-                                       static_cast<int>(glyph.size.height)};
+        using rect = components::rect;
+        const auto src = rect{glyph.position.x, glyph.position.y, glyph.size.width, glyph.size.height};
 
         if(previous_char) {
             current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
         }
 
-        const auto dst_rect = SDL_Rect{static_cast<int>(current_position.x + (glyph.offset.x * scale_size)),
-                                       static_cast<int>(current_position.y + (glyph.offset.y * scale_size)),
-                                       static_cast<int>(glyph.size.width * scale_size),
-                                       static_cast<int>(glyph.size.height * scale_size)};
+        const auto dst = rect{current_position.x + (glyph.offset.x * scale_size),
+                              current_position.y + (glyph.offset.y * scale_size),
+                              glyph.size.width * scale_size,
+                              glyph.size.height * scale_size};
 
-        SDL_SetTextureColorMod(sdl_texture, color.r, color.g, color.b);
-        SDL_SetTextureAlphaMod(sdl_texture, color.a);
-        SDL_RenderCopy(render()->sdl_renderer(), sdl_texture, &src_rect, &dst_rect);
+        texture->draw(src, dst, color);
 
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);
@@ -377,6 +397,29 @@ void font::draw_text(const std::string &text,
 }
 font::~font() {
     end();
+}
+auto font::size(const std::string &text, const float &size) const -> const components::size {
+    auto scale_size = size / static_cast<float>(line_height_);
+    unsigned char previous_char = 0;
+
+    float advance = 0;
+
+    for(const auto &c: text) {
+        const auto &glyph = glyphs_.at(c);
+        if(!glyph::valid(glyph)) {
+            continue;
+        }
+
+        if(previous_char) {
+            advance += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
+        }
+
+        advance += (glyph.advance * scale_size);
+        advance += (spacing_.x * scale_size);
+        previous_char = c;
+    }
+
+    return {advance, static_cast<float>(line_height_) * scale_size};
 }
 
 } // namespace sneze

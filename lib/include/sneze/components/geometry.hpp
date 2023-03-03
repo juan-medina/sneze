@@ -38,4 +38,9 @@ struct size {
     float height; // cppcheck-suppress unusedStructMember
 };
 
+struct rect {
+    position position; // cppcheck-suppress unusedStructMember
+    size size;         // cppcheck-suppress unusedStructMember
+};
+
 } // namespace sneze::components

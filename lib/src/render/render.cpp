@@ -119,7 +119,7 @@ void render::draw_label(const components::label &label,
                         const components::position &position,
                         const components::color &color) {
     if(auto font = get_font(label.font); font != nullptr) [[likely]] {
-        font->draw_text(label.text, position, label.size, color);
+        font->draw_text(label.text, position, label.alignment, label.size, color);
     } else {
         logger::error("trying to draw a label with a not loaded font: ({})", label.font);
     }
