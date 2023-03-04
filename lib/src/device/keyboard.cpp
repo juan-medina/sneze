@@ -118,9 +118,7 @@ namespace sneze::keyboard {
 [[maybe_unused]] const code key::left = SDLK_LEFT;
 
 auto key::string(const code &key) -> const std::string {
-    auto text = std::string{SDL_GetKeyName(key)};
-    std::transform(text.begin(), text.end(), text.begin(), ::toupper);
-    return text;
+    return std::string{SDL_GetKeyName(key)};
 }
 
 [[maybe_unused]] const mod modifier::none = KMOD_NONE;
@@ -182,7 +180,6 @@ auto modifier::string(const mod &modifier) -> const std::string {
         break;
     }
 
-    std::transform(text.begin(), text.end(), text.begin(), ::toupper);
     return text;
 }
 

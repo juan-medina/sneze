@@ -246,10 +246,7 @@ auto settings::save() -> result<> {
 
 auto settings::simplify_name(const std::string &name) -> std::string {
     std::string result = std::regex_replace(name, std::regex{R"([\s])"}, "_");
-    result = std::regex_replace(result, std::regex{R"([^\w])"}, "");
-    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
-
-    return result;
+    return std::regex_replace(result, std::regex{R"([^\w])"}, "");
 }
 
 } // namespace sneze
