@@ -51,7 +51,7 @@ public:
     auto operator=(resource &&) -> resource & = delete;
 
 protected:
-    [[maybe_unused]] [[nodiscard]] auto render() const noexcept -> render *const {
+    [[maybe_unused]] [[nodiscard]] auto get_render() const noexcept -> render *const {
         return render_;
     };
 
@@ -62,8 +62,8 @@ private:
 template<typename Type>
 struct resource_entry {
     static_assert(std::is_base_of<resource, Type>::value, "resource entry must be for a descent of sneze::resource");
-    std::shared_ptr<Type> resource{nullptr}; // cppcheck-suppress unusedStructMember
-    int count{0};                            // cppcheck-suppress unusedStructMember
+    std::shared_ptr<Type> data{nullptr}; // cppcheck-suppress unusedStructMember
+    int count{0};                        // cppcheck-suppress unusedStructMember
 };
 
 template<typename Type>
@@ -112,7 +112,7 @@ public:
 
     auto get(const std::string &uri) -> result<std::shared_ptr<Type>, error> {
         if(auto it = resources_.find(uri); it != resources_.end()) {
-            return it->second.resource;
+            return it->second.data;
         }
         logger::error("fail to get a resource not loaded: {}", uri);
         return error("Fail to get resource.");

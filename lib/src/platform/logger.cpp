@@ -51,7 +51,7 @@ void setup_spdlog() {
     auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
     dist_sink->add_sink(debug_sink);
 #endif
-#if defined(_DEBUG)
+#if not defined(NDEBUG)
     dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v -> %@");
 #else
     dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v");
@@ -147,28 +147,20 @@ auto level_from_string(const std::string &log_level) -> level::log_level {
     switch(entt::hashed_string{log_level.c_str()}) {
     case "trace"_hs:
         return logger::level::trace;
-        break;
     case "debug"_hs:
         return logger::level::debug;
-        break;
     case "info"_hs:
         return logger::level::info;
-        break;
     case "warning"_hs:
         return logger::level::warning;
-        break;
     [[likely]] case "error"_hs:
         return logger::level::error;
-        break;
     case "critical"_hs:
         return logger::level::critical;
-        break;
     case "off"_hs:
         return logger::level::off;
-        break;
     [[unlikely]] default:
         return logger::level::error;
-        break;
     }
 }
 
@@ -178,28 +170,20 @@ auto string_from_level(level::log_level level) -> std::string {
     switch(level) {
     case level::trace:
         return "trace"s;
-        break;
     case level::debug:
         return "debug"s;
-        break;
     case level::info:
         return "info"s;
-        break;
     case level::warning:
         return "warning"s;
-        break;
     case level::error:
         return "error"s;
-        break;
     case level::critical:
         return "critical"s;
-        break;
     [[likely]] case level::off:
         return "off"s;
-        break;
     [[unlikely]] default:
         return "info"s;
-        break;
     }
 }
 

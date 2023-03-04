@@ -71,7 +71,7 @@ void font::end() {
 
     for(const auto &page: pages_) {
         if(!page.empty()) {
-            render()->unload_texture(page);
+            get_render()->unload_texture(page);
         }
     }
 
@@ -82,7 +82,7 @@ void font::end() {
     glyphs_ = {};
     spacing_ = {0, 0};
     pages_ = {};
-    font_directory_ = {""};
+    font_directory_ = std::filesystem::path{""};
     kernings_ = {};
 }
 
@@ -170,7 +170,6 @@ auto font::parse_line(const std::string &type, const params &params) -> bool {
         logger::error("error parsing font file: invalid line type: {}", type);
         return false;
     }
-    return true;
 }
 
 auto font::parse_info(const font::params &params) -> bool {
@@ -212,7 +211,7 @@ auto font::parse_page(const params &params) -> bool {
 
     auto file_path = (font_directory_ / file).string();
 
-    if(render()->load_texture(file_path).ko()) {
+    if(get_render()->load_texture(file_path).ko()) {
         logger::error("error parsing page: can't load texture");
         result = false;
     } else {
@@ -367,8 +366,7 @@ void font::draw_text(const std::string &text,
             continue;
         }
         auto texture_name = pages_.at(glyph.page);
-        const auto texture = render()->get_texture(texture_name);
-        const auto sdl_texture = texture->sdl_texture();
+        const auto texture = get_render()->get_texture(texture_name);
 
         if(texture == nullptr) {
             logger::error("error drawing text: can't find texture {}", texture_name);
@@ -395,9 +393,11 @@ void font::draw_text(const std::string &text,
         previous_char = c;
     }
 }
+
 font::~font() {
-    end();
+    font::end();
 }
+
 auto font::size(const std::string &text, const float &size) const -> const components::size {
     auto scale_size = size / static_cast<float>(line_height_);
     unsigned char previous_char = 0;

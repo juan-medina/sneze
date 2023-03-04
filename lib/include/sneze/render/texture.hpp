@@ -26,9 +26,9 @@ SOFTWARE.
 
 #include <string>
 
-#include "../platform/result.hpp"
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
+#include "../platform/result.hpp"
 
 #include "resource.hpp"
 
@@ -65,4 +65,4 @@ private:
     [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error>;
 };
 
-}; // namespace sneze
+} // namespace sneze

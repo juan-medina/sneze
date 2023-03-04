@@ -34,7 +34,7 @@ SOFTWARE.
 namespace sneze {
 
 texture::~texture() {
-    end();
+    texture::end();
 }
 
 void texture::end() noexcept {
@@ -58,7 +58,7 @@ auto texture::init(const std::string &file) -> result<> {
 }
 
 auto texture::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
-    if(auto texture = IMG_LoadTexture(render()->sdl_renderer(), file_path.c_str())) {
+    if(auto texture = IMG_LoadTexture(get_render()->sdl_renderer(), file_path.c_str())) {
         int width{0};
         int height{0};
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
@@ -82,7 +82,7 @@ void texture::draw(components::rect origin, components::rect destination, compon
                                   static_cast<int>(destination.size.height)};
         SDL_SetTextureColorMod(texture_, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(texture_, color.a);
-        SDL_RenderCopy(render()->sdl_renderer(), texture_, &src, &dst);
+        SDL_RenderCopy(get_render()->sdl_renderer(), texture_, &src, &dst);
     }
 }
 

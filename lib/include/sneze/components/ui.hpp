@@ -33,15 +33,15 @@ enum vertical { top, middle, bottom };
 enum horizontal { left, center, right };
 
 struct alignment {
-    horizontal horizontal = left; // cppcheck-suppress unusedStructMember
-    vertical vertical = top;      // cppcheck-suppress unusedStructMember
+    enum horizontal horizontal = left; // cppcheck-suppress unusedStructMember
+    enum vertical vertical = top;      // cppcheck-suppress unusedStructMember
 };
 
 struct label {
     std::string text;                  // cppcheck-suppress unusedStructMember
     std::string font;                  // cppcheck-suppress unusedStructMember
     float size;                        // cppcheck-suppress unusedStructMember
-    alignment alignment = {left, top}; // cppcheck-suppress unusedStructMember
+    struct alignment alignment = {left, top}; // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze::components
