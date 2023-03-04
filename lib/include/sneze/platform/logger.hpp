@@ -23,13 +23,43 @@ SOFTWARE.
 ****************************************************************************/
 #pragma once
 
-#if defined(__clang__)
-#    include <experimental/source_location>
-using source_location = std::experimental::source_location;
-#else
+#include <string>
+
+#if __has_include(<source_location>)
 #    include <source_location>
-using source_location = std::source_location;
+#elif __has_include(<experimental/source_location>)
+#    include <experimental/source_location>
+namespace std {
+using source_location = experimental::source_location;
+}
+#else
+#    define NO_SOURCE_LOCATION
+#    include <cstdint>
+namespace std {
+struct source_location {
+    static constexpr auto current() noexcept -> source_location {
+        return source_location{};
+    }
+
+    [[nodiscard]] constexpr auto line() const noexcept -> uint_least32_t {
+        return 0;
+    }
+
+    [[nodiscard]] constexpr auto column() const noexcept -> uint_least32_t {
+        return 0;
+    }
+
+    [[nodiscard]] constexpr auto file_name() const noexcept -> const char * {
+        return "";
+    }
+
+    [[nodiscard]] constexpr auto function_name() const noexcept -> const char * {
+        return "";
+    }
+};
+} // namespace std
 #endif
+
 #include <string>
 
 #include <spdlog/spdlog.h>
@@ -49,7 +79,8 @@ enum log_level : int {
 } // namespace level
 
 template<typename... Args>
-static void log(const level::log_level level, source_location source, fmt::format_string<Args...> fmt, Args &&...args) {
+static void
+log(const level::log_level level, std::source_location source, fmt::format_string<Args...> fmt, Args &&...args) {
     auto location = spdlog::source_loc{source.file_name(), static_cast<int>(source.line()), source.function_name()};
     spdlog::log(location, static_cast<spdlog::level::level_enum>(level), fmt, std::forward<Args>(args)...);
 }
@@ -58,7 +89,7 @@ template<typename... Args>
 struct info {
     explicit info(fmt::format_string<Args...> fmt,
                   Args &&...args,
-                  const source_location &location = source_location::current()) {
+                  const std::source_location &location = std::source_location::current()) {
         log(level::info, location, fmt, std::forward<Args>(args)...);
     }
 };
@@ -70,7 +101,7 @@ template<typename... Args>
 struct debug {
     explicit debug(fmt::format_string<Args...> fmt,
                    Args &&...args,
-                   const source_location &location = source_location::current()) {
+                   const std::source_location &location = std::source_location::current()) {
         log(level::debug, location, fmt, std::forward<Args>(args)...);
     }
 };
@@ -82,7 +113,7 @@ template<typename... Args>
 struct error {
     explicit error(fmt::format_string<Args...> fmt,
                    Args &&...args,
-                   const source_location &location = source_location::current()) {
+                   const std::source_location &location = std::source_location::current()) {
         log(level::error, location, fmt, std::forward<Args>(args)...);
     }
 };
@@ -94,7 +125,7 @@ template<typename... Args>
 struct warning {
     explicit warning(fmt::format_string<Args...> fmt,
                      Args &&...args,
-                     const source_location &location = source_location::current()) {
+                     const std::source_location &location = std::source_location::current()) {
         log(level::warning, location, fmt, std::forward<Args>(args)...);
     }
 };
@@ -106,7 +137,7 @@ template<typename... Args>
 struct trace {
     explicit trace(fmt::format_string<Args...> fmt,
                    Args &&...args,
-                   const source_location &location = source_location::current()) {
+                   const std::source_location &location = std::source_location::current()) {
         log(level::trace, location, fmt, std::forward<Args>(args)...);
     }
 };

@@ -22,7 +22,7 @@
 
 # CMake build : library
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.4)
 
 #configure variables
 set(LIB_NAME "${PROJECT_NAME}")

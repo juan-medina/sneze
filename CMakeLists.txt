@@ -22,33 +22,34 @@
 
 # CMake build : global project
 
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required(VERSION 3.4)
 
-project (sneze)
+project(sneze)
 
 include(CMakeOptions.txt)
 
-set_property (GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set (CMAKE_CXX_STANDARD 20)
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    string(REGEX REPLACE "/W[3|4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX /permissive-")
     add_compile_options(/permissive-)
-else()
+else ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
-endif()
+endif ()
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_subdirectory (lib)
+add_subdirectory(lib)
 
 if (${BUILD_SNEZE_EXAMPLES})
     MESSAGE(STATUS "Building sneze examples is enabled")
     add_subdirectory(example)
-else()
+else ()
     MESSAGE(STATUS "Building sneze examples is not enabled")
-endif()
+endif ()
 

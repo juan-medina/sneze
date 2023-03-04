@@ -51,7 +51,7 @@ void setup_spdlog() {
     auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
     dist_sink->add_sink(debug_sink);
 #endif
-#if not defined(NDEBUG)
+#if not defined(NDEBUG) && not defined(NO_SOURCE_LOCATION)
     dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v -> %@");
 #else
     dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v");
@@ -76,13 +76,13 @@ void sdl_log_callback(void *, int, SDL_LogPriority priority, const char *message
     case SDL_LOG_PRIORITY_WARN:
         log_level = level::warning;
         break;
-    case SDL_LOG_PRIORITY_ERROR:
+    [[likely]] case SDL_LOG_PRIORITY_ERROR:
         log_level = level::error;
         break;
     case SDL_LOG_PRIORITY_CRITICAL:
         log_level = level::critical;
         break;
-    default:
+    [[unlikely]] default:
         log_level = level::off;
         break;
     }
@@ -164,6 +164,7 @@ auto level_from_string(const std::string &log_level) -> level::log_level {
     }
 }
 
+// NOLINTBEGIN(bugprone-branch-clone)
 auto string_from_level(level::log_level level) -> std::string {
     using namespace std::string_literals; // NOLINT(google-build-using-namespace)
 
@@ -176,15 +177,14 @@ auto string_from_level(level::log_level level) -> std::string {
         return "info"s;
     case level::warning:
         return "warning"s;
-    case level::error:
+    [[likely]] case level::error:
         return "error"s;
     case level::critical:
         return "critical"s;
-    [[likely]] case level::off:
-        return "off"s;
     [[unlikely]] default:
-        return "info"s;
+        return "off"s;
     }
 }
+// NOLINTEND(bugprone-branch-clone)
 
 } // namespace sneze::logger
