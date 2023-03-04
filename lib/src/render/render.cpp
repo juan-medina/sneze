@@ -202,7 +202,7 @@ auto render::get_texture(const std::string &texture_path) -> const std::shared_p
         return *txt;
     }
 }
-auto render::monitor() const -> const int {
+auto render::monitor() const -> int {
     return SDL_GetWindowDisplayIndex(window_);
 }
 

@@ -290,7 +290,7 @@ auto font::get_value(const params &params, const std::string &key) const -> cons
     return "";
 }
 
-auto font::get_int(const params &params, const std::string &key) const -> const int {
+auto font::get_int(const params &params, const std::string &key) const -> int {
     auto value = get_value(params, key);
     if(value.empty()) {
         return 0;

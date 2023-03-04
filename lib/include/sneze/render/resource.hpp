@@ -51,7 +51,7 @@ public:
     auto operator=(resource &&) -> resource & = delete;
 
 protected:
-    [[maybe_unused]] [[nodiscard]] auto get_render() const noexcept -> render *const {
+    [[maybe_unused]] [[nodiscard]] auto get_render() const noexcept -> render * {
         return render_;
     };
 

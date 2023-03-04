@@ -70,8 +70,8 @@ public:
 
 private:
     entt::id_type type_{};
-    std::int32_t priority_{};
     std::unique_ptr<system> system_{};
+    std::int32_t priority_{};
 };
 
 } // namespace sneze

@@ -53,10 +53,6 @@ public:
 
     void end() noexcept override;
 
-    [[nodiscard]] auto sdl_texture() const noexcept -> SDL_Texture *const {
-        return texture_;
-    };
-
     void draw(components::rect origin, components::rect destination, components::color color);
 
 private:

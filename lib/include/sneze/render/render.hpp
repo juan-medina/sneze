@@ -80,9 +80,9 @@ public:
 
     [[nodiscard]] auto size() const -> components::size const;
 
-    [[nodiscard]] auto monitor() const -> const int;
+    [[nodiscard]] auto monitor() const ->  int;
 
-    [[nodiscard]] auto fullscreen() const -> bool const {
+    [[nodiscard]] auto fullscreen() const  {
         return fullscreen_;
     }
 
@@ -97,8 +97,8 @@ protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> const std::shared_ptr<texture>;
 
 private:
-    resources_cache<texture> textures_;
     resources_cache<font> fonts_;
+    resources_cache<texture> textures_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> const std::shared_ptr<font>;
 

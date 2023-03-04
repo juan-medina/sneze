@@ -115,7 +115,7 @@ private:
 
     [[nodiscard]] inline auto get_value(const params &params, const std::string &key) const -> const std::string;
 
-    [[nodiscard]] inline auto get_int(const params &params, const std::string &key) const -> const int;
+    [[nodiscard]] inline auto get_int(const params &params, const std::string &key) const -> int;
 
     [[nodiscard]] inline auto get_pair(const params &params, const std::string &key) const -> const std::pair<int, int>;
 
@@ -123,4 +123,3 @@ private:
 };
 
 } // namespace sneze
-

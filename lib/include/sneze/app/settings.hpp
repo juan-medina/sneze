@@ -79,8 +79,8 @@ public:
     auto save() -> result<>;
 
 private:
-    std::string application_;
     std::string team_;
+    std::string application_;
 
     constexpr static const auto settings_file_name = "settings.toml";
 
