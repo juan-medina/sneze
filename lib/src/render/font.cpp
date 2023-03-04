@@ -374,16 +374,15 @@ void font::draw_text(const std::string &text,
         }
 
         using rect = components::rect;
-        const auto src = rect{glyph.position.x, glyph.position.y, glyph.size.width, glyph.size.height};
+        const auto src = rect{{glyph.position.x, glyph.position.y}, {glyph.size.width, glyph.size.height}};
 
         if(previous_char) {
             current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
         }
 
-        const auto dst = rect{current_position.x + (glyph.offset.x * scale_size),
-                              current_position.y + (glyph.offset.y * scale_size),
-                              glyph.size.width * scale_size,
-                              glyph.size.height * scale_size};
+        const auto dst = rect{
+            {current_position.x + (glyph.offset.x * scale_size), current_position.y + (glyph.offset.y * scale_size)},
+            {glyph.size.width * scale_size, glyph.size.height * scale_size}};
 
         texture->draw(src, dst, color);
 

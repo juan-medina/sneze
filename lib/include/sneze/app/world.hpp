@@ -171,7 +171,7 @@ public:
     }
 
     template<typename Type>
-    [[maybe_unused]] [[nodiscard]] auto get_global() const -> const auto {
+    [[maybe_unused]] [[nodiscard]] auto get_global() const -> auto {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
         auto constexpr type_hash = entt::type_hash<Type>::value();
         if(const auto search = globals_.find(type_hash); search != globals_.end()) {
