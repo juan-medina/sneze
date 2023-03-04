@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <cinttypes>
 
+#include "../components/geometry.hpp"
 #include "../device/keyboard.hpp"
 
 namespace sneze {
@@ -47,6 +48,9 @@ struct key_event: public event, public keyboard::key_modifier {};
 struct key_down: key_event {};
 
 struct key_up: key_event {};
+
+// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
+struct window_resized: public event, public components::size {};
 
 } // namespace events
 

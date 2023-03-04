@@ -245,7 +245,7 @@ auto settings::save() -> result<> {
 }
 
 auto settings::simplify_name(const std::string &name) -> std::string {
-    std::string result = std::regex_replace(name, std::regex{R"([\s])"}, "_");
+    const std::string result = std::regex_replace(name, std::regex{R"([\s])"}, "_");
     return std::regex_replace(result, std::regex{R"([^\w])"}, "");
 }
 

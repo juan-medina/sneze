@@ -25,6 +25,7 @@ SOFTWARE.
 #pragma once
 
 #include <cinttypes>
+#include <utility>
 
 #include "../events/events.hpp"
 
@@ -32,13 +33,20 @@ SOFTWARE.
 
 namespace sneze {
 
+class render;
+
 class sdl_events_system: public system {
 public:
+    explicit sdl_events_system(std::shared_ptr<sneze::render> render): render_{std::move(render)} {};
+
     void update(sneze::world *world) override;
 
     void init(sneze::world *world) override;
 
     void end(sneze::world *world) override;
+
+private:
+    std::shared_ptr<sneze::render> render_;
 };
 
 } // namespace sneze

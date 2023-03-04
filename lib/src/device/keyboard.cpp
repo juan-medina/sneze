@@ -24,9 +24,6 @@ SOFTWARE.
 
 #include "sneze/device/keyboard.hpp"
 
-#include <algorithm>
-#include <cctype>
-
 #include <SDL_keyboard.h>
 
 namespace sneze::keyboard {

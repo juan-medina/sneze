@@ -43,6 +43,7 @@ SOFTWARE.
 #include "render/resource.hpp"
 #include "render/texture.hpp"
 #include "systems/keys_system.hpp"
+#include "systems/layout_system.hpp"
 #include "systems/render_system.hpp"
 #include "systems/sdl_events_system.hpp"
 #include "systems/system.hpp"

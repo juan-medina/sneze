@@ -27,20 +27,22 @@ SOFTWARE.
 #include "sneze/app/world.hpp"
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
+#include "sneze/render/render.hpp"
 
 #include <SDL_events.h>
 
 namespace sneze {
 
-void sneze::sdl_events_system::init(sneze::world *) {
+void sdl_events_system::init(sneze::world *world) {
     logger::debug("init event system");
+    world->emmit<events::window_resized>(render_->size());
 }
 
-void sneze::sdl_events_system::end(sneze::world *) {
+void sdl_events_system::end(sneze::world *) {
     logger::debug("end event system");
 }
 
-void sneze::sdl_events_system::update(sneze::world *world) {
+void sdl_events_system::update(sneze::world *world) {
     using modifier = keyboard::modifier;
     static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::gui;
     auto eventData = SDL_Event{};
@@ -56,6 +58,14 @@ void sneze::sdl_events_system::update(sneze::world *world) {
         case SDL_KEYUP:
             world->emmit<events::key_up>(eventData.key.keysym.sym,
                                          static_cast<keyboard::mod>(eventData.key.keysym.mod & valid_modifiers));
+            break;
+        case SDL_WINDOWEVENT:
+            switch(eventData.window.event) {
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
+                world->emmit<events::window_resized>(static_cast<float>(eventData.window.data1),
+                                                     static_cast<float>(eventData.window.data2));
+                break;
+            }
             break;
         }
     }

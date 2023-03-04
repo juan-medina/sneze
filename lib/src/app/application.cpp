@@ -30,6 +30,7 @@ SOFTWARE.
 #include "sneze/platform/version.hpp"
 #include "sneze/render/render.hpp"
 #include "sneze/systems/keys_system.hpp"
+#include "sneze/systems/layout_system.hpp"
 #include "sneze/systems/render_system.hpp"
 #include "sneze/systems/sdl_events_system.hpp"
 
@@ -75,7 +76,7 @@ auto application::run() -> result<bool, error> {
 
     if(auto err = save_settings().ko()) return show_error(*err);
 
-    logger::debug("stopping application: {}", name());
+    logger::info("stopping application: {}", name());
 
     return true;
 }
@@ -126,15 +127,19 @@ auto application::launch() -> result<> {
     constexpr auto render_priority = world::priority::after_applications;
     constexpr auto sdl_events_priority = world::priority::before_applications;
     constexpr auto keys_priority = sdl_events_priority - 1;
+    constexpr auto layout_priority = render_priority + 1;
 
     logger::debug("adding render system to the world");
     world_->add_system_with_priority_internal<render_priority, render_system>(render_);
 
     logger::debug("adding event system to the world");
-    world_->add_system_with_priority_internal<sdl_events_priority, sdl_events_system>();
+    world_->add_system_with_priority_internal<sdl_events_priority, sdl_events_system>(render_);
 
     logger::debug("adding key system to the world");
     world_->add_system_with_priority_internal<keys_priority, keys_system>(config.exit(), config.toggle_full_screen());
+
+    logger::debug("adding layout system to the world");
+    world_->add_system_with_priority_internal<layout_priority, layout_system>();
 
     logger::debug("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);
