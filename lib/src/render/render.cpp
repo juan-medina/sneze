@@ -46,7 +46,9 @@ auto render::init(const components::size &size,
 
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
     if(fullscreen_) {
+#if not defined(__linux__)
         flags = static_cast<SDL_WindowFlags>(flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
+#endif
     }
 
     logger::debug("creating SDL window");
@@ -60,6 +62,12 @@ auto render::init(const components::size &size,
         logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
         return error("error initializing rendering engine.");
     }
+
+#if defined(__linux__)
+    if(fullscreen_) {
+        SDL_MaximizeWindow(window_);
+    }
+#endif
 
     logger::debug("creating SDL renderer");
 
@@ -169,9 +177,17 @@ void render::toggle_fullscreen() {
     fullscreen_ = !fullscreen_;
 
     if(fullscreen_) {
+#if not defined(__linux__)
         SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN_DESKTOP);
+#else
+        SDL_MaximizeWindow(window_);
+#endif
     } else {
+#if not defined(__linux__)
         SDL_SetWindowFullscreen(window_, 0);
+#else
+        SDL_RestoreWindow(window_);
+#endif
     }
 
     auto real_size = render::size();
@@ -202,6 +218,7 @@ auto render::unload_texture(const std::string &texture_path) -> result<> {
 
     return true;
 }
+
 auto render::get_texture(const std::string &texture_path) -> const std::shared_ptr<texture> {
     if(auto [txt, err] = textures_.get(texture_path).ok(); err) {
         logger::error("trying to get a texture not loaded: ({})", texture_path);
@@ -210,9 +227,11 @@ auto render::get_texture(const std::string &texture_path) -> const std::shared_p
         return *txt; // NOLINT(bugprone-unchecked-optional-access)
     }
 }
+
 auto render::monitor() const -> int {
     return SDL_GetWindowDisplayIndex(window_);
 }
+
 auto render::choose_driver() -> int {
     struct driver_priority {
         std::string name = "";
@@ -220,14 +239,14 @@ auto render::choose_driver() -> int {
         int driver = -1;
     };
 
-    const std::vector<driver_priority> drivers = {
+    std::vector<driver_priority> drivers = {
         {"direct3d12", 6},
         {"direct3d11", 5},
         {"direct3d", 4},
         {"metal", 3},
         {"opengl", 2},
-        {"opengles2"},
-        {"opengles"},
+        {"opengles2", 1},
+        {"opengles", 0},
     };
 
     std::vector<driver_priority> drivers_found = {};
@@ -241,6 +260,7 @@ auto render::choose_driver() -> int {
             });
 
             if(found != drivers.end()) {
+                logger::debug("SDL driver: {}, index: {}, priority {}", info.name, driver, found->priority);
                 drivers_found.push_back({found->name, found->priority, driver});
             }
         }
