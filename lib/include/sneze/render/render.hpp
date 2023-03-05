@@ -100,7 +100,7 @@ private:
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> const std::shared_ptr<font>;
 
-    [[nodiscard]] auto choose_driver() -> int;
+    [[nodiscard]] auto preferred_driver() -> int;
 
     components::color clear_color_ = components::color::black;
 

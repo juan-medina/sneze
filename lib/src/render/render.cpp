@@ -45,11 +45,12 @@ auto render::init(const components::size &size,
     }
 
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
-    if(fullscreen_) {
+
 #if not defined(__linux__)
+    if(fullscreen_) {
         flags = static_cast<SDL_WindowFlags>(flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
-#endif
     }
+#endif
 
     logger::debug("creating SDL window");
     window_ = SDL_CreateWindow(title.c_str(),
@@ -70,10 +71,7 @@ auto render::init(const components::size &size,
 #endif
 
     logger::debug("creating SDL renderer");
-
-    auto chosen_driver = choose_driver();
-
-    renderer_ = SDL_CreateRenderer(window_, chosen_driver, SDL_RENDERER_ACCELERATED);
+    renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
         logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
         return error("error initializing rendering engine.");
@@ -232,47 +230,29 @@ auto render::monitor() const -> int {
     return SDL_GetWindowDisplayIndex(window_);
 }
 
-auto render::choose_driver() -> int {
-    struct driver_priority {
-        std::string name = "";
-        int priority = -1; // cppcheck-suppress unusedStructMember
-        int driver = -1;
+auto render::preferred_driver() -> int {
+    using namespace std::string_literals;
+    const auto preferred_drivers = {
+        "direct3d12"s,
+        "direct3d11"s,
+        "direct3d"s,
+        "metal"s,
+        "opengl"s,
+        "opengles2"s,
+        "opengles"s,
     };
 
-    std::vector<driver_priority> drivers = {
-        {"direct3d12", 6},
-        {"direct3d11", 5},
-        {"direct3d", 4},
-        {"metal", 3},
-        {"opengl", 2},
-        {"opengles2", 1},
-        {"opengles", 0},
-    };
+    auto driver_info = SDL_RendererInfo{};
 
-    std::vector<driver_priority> drivers_found = {};
-
-    auto info = SDL_RendererInfo{};
-
-    for(int driver = 0; driver < SDL_GetNumRenderDrivers(); ++driver) {
-        if(SDL_GetRenderDriverInfo(driver, &info) == 0) {
-            auto found = std::find_if(drivers.begin(), drivers.end(), [&](const auto &possible_driver) {
-                return info.name == possible_driver.name;
-            });
-
-            if(found != drivers.end()) {
-                logger::debug("SDL driver: {}, index: {}, priority {}", info.name, driver, found->priority);
-                drivers_found.push_back({found->name, found->priority, driver});
+    for(const auto &driver_name: preferred_drivers) {
+        for(int driver_id = 0; driver_id < SDL_GetNumRenderDrivers(); ++driver_id) {
+            if(SDL_GetRenderDriverInfo(driver_id, &driver_info) == 0) {
+                if(driver_info.name == driver_name) {
+                    logger::debug("choosing preferred SDL driver: {}", driver_info.name);
+                    return driver_id;
+                }
             }
         }
-    }
-
-    std::sort(drivers_found.begin(), drivers_found.end(), [](const auto &a, const auto &b) {
-        return a.priority > b.priority;
-    });
-
-    if(drivers_found.size() > 0) {
-        logger::debug("choosing preferred SDL driver: {}", drivers_found[0].name);
-        return drivers_found[0].driver;
     }
 
     logger::warning("no preferred SDL driver found, using default");
