@@ -25,6 +25,7 @@ SOFTWARE.
 #include "sneze/systems/layout_system.hpp"
 
 #include "sneze/app/world.hpp"
+#include "sneze/components/ui.hpp"
 #include "sneze/platform/logger.hpp"
 
 namespace sneze {
@@ -32,17 +33,81 @@ namespace sneze {
 void layout_system::init(sneze::world *world) {
     logger::debug("init layout system");
     world->add_listener<events::window_resized, &layout_system::window_resized>(this);
+
+    world->add_listener_to_add_component<components::anchor, &layout_system::add_component_anchor>(this);
 }
 
 void layout_system::end(sneze::world *world) {
     logger::debug("end layout system");
     world->remove_listeners(this);
+
+    world->remove_component_listeners<components::anchor>(this);
 }
 
 void layout_system::update(sneze::world *) {}
 
 void layout_system::window_resized(const events::window_resized &event) {
-    logger::debug("window resized: [{}x{}]", event.width, event.height);
+    window_size_ = {event};
+    logger::debug("window resized: {}x{}", event.width, event.height);
+    using anchor = components::anchor;
+
+    for(auto const &&[entity, anc]: event.world->entities<anchor>()) {
+        calculate_layout(event.world, entity, anc);
+    }
+}
+
+void layout_system::add_component_anchor(events::add_component<components::anchor> const &event) {
+    calculate_layout(event.world, event.entity, event.component);
+}
+
+void layout_system::calculate_layout(world *world, const entt::entity entity, const components::anchor &anc) {
+    using layout = components::layout;
+    using position = components::position;
+    using horizontal = components::horizontal;
+    using vertical = components::vertical;
+
+    auto lay = layout{};
+
+    switch(anc.horizontal) {
+    case horizontal::left:
+        lay.x = 0;
+        break;
+    case horizontal::center:
+        lay.x = window_size_.width / 2;
+        break;
+    case horizontal::right:
+        lay.x = window_size_.width;
+        break;
+    case horizontal::none:
+        break;
+    }
+
+    switch(anc.vertical) {
+    case vertical::top:
+        lay.y = 0;
+        break;
+    case vertical::center:
+        lay.y = window_size_.height / 2;
+        break;
+    case vertical::bottom:
+        lay.y = window_size_.height;
+        break;
+    case vertical::none:
+        break;
+    }
+
+    if(auto pos = world->has_component<position>(entity)) {
+        lay.x += pos->x;
+        lay.y += pos->y;
+    } else {
+        world->set_component<position>(entity, position{0, 0});
+    }
+
+    if(auto current = world->has_component<layout>(entity)) {
+        *current = lay;
+    } else {
+        world->set_component<layout>(entity, lay);
+    }
 }
 
 } // namespace sneze

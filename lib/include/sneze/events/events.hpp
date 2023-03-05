@@ -25,6 +25,9 @@ SOFTWARE.
 #pragma once
 
 #include <cinttypes>
+#include <cstdint>
+
+#include <entt/fwd.hpp>
 
 #include "../components/geometry.hpp"
 #include "../device/keyboard.hpp"
@@ -51,6 +54,12 @@ struct key_up: key_event {};
 
 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
 struct window_resized: public event, public components::size {};
+
+template<typename ComponentType>
+struct add_component: public event {
+    entt::entity entity;
+    ComponentType component;
+};
 
 } // namespace events
 

@@ -340,7 +340,7 @@ void font::draw_text(const std::string &text,
     case components::horizontal::center:
         current_position.x -= text_size.width / 2;
         break;
-    case components::right:
+    case components::horizontal::right:
         current_position.x -= text_size.width;
         break;
     default:
@@ -348,7 +348,7 @@ void font::draw_text(const std::string &text,
     }
 
     switch(alignment.vertical) {
-    case components::vertical::middle:
+    case components::vertical::center:
         current_position.y -= text_size.height / 2;
         break;
     case components::vertical::bottom:

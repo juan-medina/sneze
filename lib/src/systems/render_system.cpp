@@ -50,12 +50,20 @@ void render_system::update(world *world) {
     using renderable = components::renderable;
     using position = components::position;
     using label = components::label;
+    using layout = components::layout;
 
-    for(auto const &&[id, renderable, position, color]:
-        world->entities<const renderable, const position, const color>()) {
+    for(auto const [id, renderable, color, pos]: world->entities<const renderable, const color, const position>()) {
         if(renderable.visible) {
+            // local position
+            auto draw_position = pos;
+
+            // layout position
+            if(auto lay = world->has_component<layout>(id)) {
+                draw_position = *lay;
+            }
+
             if(auto lbl = world->has_component<label>(id)) {
-                render_->draw_label(*lbl, position, color);
+                render_->draw_label(*lbl, draw_position, color);
             }
         }
     }

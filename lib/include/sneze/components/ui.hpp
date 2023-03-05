@@ -26,22 +26,31 @@ SOFTWARE.
 
 #include <string>
 
+#include "geometry.hpp"
+
 namespace sneze::components {
 
-enum vertical { top, middle, bottom };
+enum class vertical { none, top, center, bottom };
 
-enum horizontal { left, center, right };
+enum class horizontal { none, left, center, right };
 
 struct alignment {
-    enum horizontal horizontal = left; // cppcheck-suppress unusedStructMember
-    enum vertical vertical = top;      // cppcheck-suppress unusedStructMember
+    enum horizontal horizontal = horizontal::left; // cppcheck-suppress unusedStructMember
+    enum vertical vertical = vertical::top;        // cppcheck-suppress unusedStructMember
 };
 
 struct label {
-    std::string text;                  // cppcheck-suppress unusedStructMember
-    std::string font;                  // cppcheck-suppress unusedStructMember
-    float size;                        // cppcheck-suppress unusedStructMember
-    struct alignment alignment = {left, top}; // cppcheck-suppress unusedStructMember
+    std::string text;                                               // cppcheck-suppress unusedStructMember
+    std::string font;                                               // cppcheck-suppress unusedStructMember
+    float size;                                                     // cppcheck-suppress unusedStructMember
+    struct alignment alignment = {horizontal::left, vertical::top}; // cppcheck-suppress unusedStructMember
 };
+
+struct anchor {
+    enum horizontal horizontal = horizontal::none; // cppcheck-suppress unusedStructMember
+    enum vertical vertical = vertical::none;       // cppcheck-suppress unusedStructMember
+};
+
+struct layout: public components::position {};
 
 } // namespace sneze::components

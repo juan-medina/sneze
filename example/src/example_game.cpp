@@ -57,6 +57,8 @@ auto example_game::configure() -> config {
 }
 
 auto example_game::init() -> sneze::result<> {
+    logger::debug("init example game");
+
     using error = sneze::error;
 
     logger::debug("init");
@@ -76,13 +78,9 @@ auto example_game::init() -> sneze::result<> {
 
     using renderable = components::renderable;
     using label = components::label;
-    using position = components::position;
 
-    const auto font_size = 40.f;
-    const auto pos_x = 1920 / 2.f;
-    const auto pos_y = 1080 / 2.f;
-    const auto gap_y = font_size * 2;
-    auto current_y = pos_y;
+    const auto font_size_small = 30.f;
+    const auto font_size_large = 60.f;
 
     const auto counter_1 = 40000;
     const auto counter_2 = 20000;
@@ -90,25 +88,26 @@ auto example_game::init() -> sneze::result<> {
     using alignment = sneze::components::alignment;
     using vertical = sneze::components::vertical;
     using horizontal = sneze::components::horizontal;
+    using anchor = sneze::components::anchor;
 
     world()->add_entity(renderable{},
                         label{fmt::format("Hello World for the {} time!", visits),
                               regular_font,
-                              font_size,
-                              alignment{horizontal::center, vertical::middle}},
-                        position{pos_x, current_y},
+                              font_size_large,
+                              alignment{horizontal::center, vertical::center}},
+                        anchor{horizontal::center, vertical::center},
                         color::white);
 
     world()->add_entity(renderable{},
                         counter{counter_1},
-                        label{"Counter:", mono_font, font_size, alignment{horizontal::left}},
-                        position{pos_x, current_y + gap_y},
+                        label{"Counter:", mono_font, font_size_small, alignment{horizontal::left, vertical::bottom}},
+                        anchor{horizontal::left, vertical::bottom},
                         color::red);
 
     world()->add_entity(renderable{},
                         counter{counter_2},
-                        label{"Counter:", mono_font, font_size, alignment{horizontal::right}},
-                        position{pos_x, current_y + gap_y},
+                        label{"Counter:", mono_font, font_size_small, alignment{horizontal::right, vertical::top}},
+                        anchor{horizontal::right, vertical::top},
                         color::blue);
 
     world()->set_global<acceleration>(5);

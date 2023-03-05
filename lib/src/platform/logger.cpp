@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include <memory>
 
-#include <entt/entt.hpp>
+#include <entt/core/hashed_string.hpp>
 #include <SDL_log.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/dist_sink.h>

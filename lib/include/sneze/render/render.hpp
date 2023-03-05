@@ -24,8 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include <entt/entt.hpp>
-
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
@@ -80,9 +78,9 @@ public:
 
     [[nodiscard]] auto size() const -> components::size const;
 
-    [[nodiscard]] auto monitor() const ->  int;
+    [[nodiscard]] auto monitor() const -> int;
 
-    [[nodiscard]] auto fullscreen() const  {
+    [[nodiscard]] auto fullscreen() const {
         return fullscreen_;
     }
 
@@ -101,6 +99,8 @@ private:
     resources_cache<texture> textures_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> const std::shared_ptr<font>;
+
+    [[nodiscard]] auto choose_driver() -> int;
 
     components::color clear_color_ = components::color::black;
 

@@ -70,8 +70,8 @@ public:
     }
 
     template<typename Type>
-    [[maybe_unused]] auto get_component(entt::entity entity) {
-        registry_.get<Type>(entity);
+    [[maybe_unused]] auto get_component(entt::entity entity) -> decltype(auto) {
+        return registry_.get<Type>(entity);
     }
 
     template<typename Type>
@@ -86,11 +86,7 @@ public:
 
     template<typename Type>
     auto has_component(entt::entity entity) {
-        if(auto ptr = registry_.try_get<Type>(entity)) {
-            return std::optional<Type>{*ptr};
-        } else {
-            return std::optional<Type>(std::nullopt);
-        }
+        return registry_.try_get<Type>(entity);
     }
 
     template<typename... Types>
@@ -117,9 +113,21 @@ public:
         event_dispatcher_.sink<EventType>().template disconnect<Candidate>(instance);
     }
 
+    template<typename EventType, typename InstanceType>
+    [[maybe_unused]] void remove_listener(InstanceType &&instance) {
+        static_assert(std::is_base_of<events::event, EventType>::value,
+                      "the event must be a descendant of sneze::events::event");
+        event_dispatcher_.sink<EventType>().disconnect(instance);
+    }
+
     template<typename InstanceType>
     [[maybe_unused]] void remove_listeners(InstanceType &&instance) {
         event_dispatcher_.disconnect(instance);
+    }
+
+    template<typename ComponentType, typename InstanceType>
+    [[maybe_unused]] void remove_component_listeners(InstanceType &&instance) {
+        remove_listener_to_add_component<ComponentType>(instance);
     }
 
     template<typename EventType, typename... Args>
@@ -127,6 +135,20 @@ public:
         static_assert(std::is_base_of<events::event, EventType>::value,
                       "the event must be a descendant of sneze::events::event");
         event_dispatcher_.enqueue<EventType>(this, std::forward<Args>(args)...);
+    }
+
+    template<typename ComponentType, auto Candidate, typename InstanceType>
+    void add_listener_to_add_component(InstanceType &&instance) {
+        registry_.on_construct<ComponentType>()
+            .template connect<&world::add_listener_to_add_component_internal<ComponentType>>(this);
+        add_listener<events::add_component<ComponentType>, Candidate>(instance);
+    }
+
+    template<typename ComponentType, typename InstanceType>
+    void remove_listener_to_add_component(InstanceType &&instance) {
+        registry_.on_construct<ComponentType>()
+            .template disconnect<&world::add_listener_to_add_component_internal<ComponentType>>(this);
+        remove_listener<events::add_component<ComponentType>>(instance);
     }
 
     enum priority : int32_t {
@@ -204,6 +226,12 @@ protected:
     }
 
 private:
+    template<typename ComponentType>
+    void add_listener_to_add_component_internal(entt::registry &, entt::entity entity) {
+        auto &component = registry_.get<ComponentType>(entity);
+        emmit<events::add_component<ComponentType>>(entity, component);
+    }
+
     template<int32_t priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority_unrestricted(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");

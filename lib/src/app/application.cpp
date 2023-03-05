@@ -114,13 +114,6 @@ auto application::launch() -> result<> {
         return error("Can't init the render system.", *err);
     }
 
-    logger::debug("init application");
-    if(auto err = init().ko()) {
-        logger::error("error initializing application");
-        render_->end();
-        return error("Can't init the application.", *err);
-    }
-
     logger::debug("init world");
     world_->init();
 
@@ -143,6 +136,16 @@ auto application::launch() -> result<> {
 
     logger::debug("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);
+
+    logger::debug("update initial world state");
+    world_->update();
+
+    logger::debug("init application");
+    if(auto err = init().ko()) {
+        logger::error("error initializing application");
+        render_->end();
+        return error("Can't init the application.", *err);
+    }
 
     while(!want_to_close_) world_->update();
 

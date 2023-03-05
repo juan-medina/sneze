@@ -62,7 +62,10 @@ auto render::init(const components::size &size,
     }
 
     logger::debug("creating SDL renderer");
-    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
+
+    auto chosen_driver = choose_driver();
+
+    renderer_ = SDL_CreateRenderer(window_, chosen_driver, SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
         logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
         return error("error initializing rendering engine.");
@@ -74,7 +77,12 @@ auto render::init(const components::size &size,
                  real_size.height,
                  fullscreen_ ? "full screen" : "windowed");
 
+#if defined(_WINDOWS)
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+#else
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+#endif
+
     clear_color(color);
 
     return true;
@@ -111,7 +119,7 @@ void render::end_frame() {
         logger::error("trying to get a font not loaded: ({})", font_path);
         return nullptr;
     } else {
-        return *fnt;
+        return *fnt; // NOLINT(bugprone-unchecked-optional-access)
     }
 }
 
@@ -199,11 +207,56 @@ auto render::get_texture(const std::string &texture_path) -> const std::shared_p
         logger::error("trying to get a texture not loaded: ({})", texture_path);
         return nullptr;
     } else {
-        return *txt;
+        return *txt; // NOLINT(bugprone-unchecked-optional-access)
     }
 }
 auto render::monitor() const -> int {
     return SDL_GetWindowDisplayIndex(window_);
+}
+auto render::choose_driver() -> int {
+    struct driver_priority {
+        std::string name = "";
+        int priority = -1; // cppcheck-suppress unusedStructMember
+        int driver = -1;
+    };
+
+    const std::vector<driver_priority> drivers = {
+        {"direct3d12", 6},
+        {"direct3d11", 5},
+        {"direct3d", 4},
+        {"metal", 3},
+        {"opengl", 2},
+        {"opengles2"},
+        {"opengles"},
+    };
+
+    std::vector<driver_priority> drivers_found = {};
+
+    auto info = SDL_RendererInfo{};
+
+    for(int driver = 0; driver < SDL_GetNumRenderDrivers(); ++driver) {
+        if(SDL_GetRenderDriverInfo(driver, &info) == 0) {
+            auto found = std::find_if(drivers.begin(), drivers.end(), [&](const auto &possible_driver) {
+                return info.name == possible_driver.name;
+            });
+
+            if(found != drivers.end()) {
+                drivers_found.push_back({found->name, found->priority, driver});
+            }
+        }
+    }
+
+    std::sort(drivers_found.begin(), drivers_found.end(), [](const auto &a, const auto &b) {
+        return a.priority > b.priority;
+    });
+
+    if(drivers_found.size() > 0) {
+        logger::debug("choosing preferred SDL driver: {}", drivers_found[0].name);
+        return drivers_found[0].driver;
+    }
+
+    logger::warning("no preferred SDL driver found, using default");
+    return -1;
 }
 
 } // namespace sneze
