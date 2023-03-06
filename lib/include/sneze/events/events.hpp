@@ -52,8 +52,10 @@ struct key_down: key_event {};
 
 struct key_up: key_event {};
 
-// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
-struct window_resized: public event, public components::size {};
+struct window_resized: public event {
+    components::size window;  // cppcheck-suppress unusedStructMember
+    components::rect logical; // cppcheck-suppress unusedStructMember
+};
 
 template<typename ComponentType>
 struct add_component: public event {

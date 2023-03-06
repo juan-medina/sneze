@@ -47,8 +47,7 @@ void layout_system::end(sneze::world *world) {
 void layout_system::update(sneze::world *) {}
 
 void layout_system::window_resized(const events::window_resized &event) {
-    window_size_ = {event};
-    logger::debug("window resized: {}x{}", event.width, event.height);
+    logical_ = event.logical;
     using anchor = components::anchor;
 
     for(auto const &&[entity, anc]: event.world->entities<anchor>()) {
@@ -69,30 +68,28 @@ void layout_system::calculate_layout(world *world, const entt::entity entity, co
     auto lay = layout{};
 
     switch(anc.horizontal) {
+    case horizontal::none:
     case horizontal::left:
-        lay.x = 0;
+        lay.x = logical_.position.x;
         break;
     case horizontal::center:
-        lay.x = window_size_.width / 2;
+        lay.x = logical_.position.x + (logical_.size.width / 2);
         break;
     case horizontal::right:
-        lay.x = window_size_.width;
-        break;
-    case horizontal::none:
+        lay.x = logical_.position.x + logical_.size.width;
         break;
     }
 
     switch(anc.vertical) {
+    case vertical::none:
     case vertical::top:
-        lay.y = 0;
+        lay.y = logical_.position.y;
         break;
     case vertical::center:
-        lay.y = window_size_.height / 2;
+        lay.y = logical_.position.y + (logical_.size.height / 2);
         break;
     case vertical::bottom:
-        lay.y = window_size_.height;
-        break;
-    case vertical::none:
+        lay.y = logical_.position.y + logical_.size.height;
         break;
     }
 

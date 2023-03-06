@@ -24,8 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include "../events/events.hpp"
 #include "../components/ui.hpp"
+#include "../events/events.hpp"
 
 #include "system.hpp"
 
@@ -40,13 +40,13 @@ public:
     void update(sneze::world *world) override;
 
 private:
-    components::size window_size_ = {0, 0};
+    components::rect logical_ = {{0, 0}, {0, 0}};
 
     void window_resized(const events::window_resized &event);
 
     void add_component_anchor(events::add_component<components::anchor> const &event);
 
-    void calculate_layout(world* world, const entt::entity entity, const components::anchor &anchor);
+    void calculate_layout(world *world, const entt::entity entity, const components::anchor &anchor);
 };
 
 } // namespace sneze

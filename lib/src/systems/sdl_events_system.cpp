@@ -35,7 +35,18 @@ namespace sneze {
 
 void sdl_events_system::init(sneze::world *world) {
     logger::debug("init event system");
-    world->emmit<events::window_resized>(render_->window());
+    auto window = render_->window();
+    auto logical = render_->logical();
+
+    logger::debug("window resized: {}x{} logical: ({}, {}) ({}, {})",
+                  window.width,
+                  window.height,
+                  logical.position.x,
+                  logical.position.y,
+                  logical.size.width,
+                  logical.size.height);
+
+    world->emmit<events::window_resized>(window, logical);
 }
 
 void sdl_events_system::end(sneze::world *) {
@@ -61,10 +72,21 @@ void sdl_events_system::update(sneze::world *world) {
             break;
         case SDL_WINDOWEVENT:
             switch(eventData.window.event) {
-            case SDL_WINDOWEVENT_SIZE_CHANGED:
-                world->emmit<events::window_resized>(static_cast<float>(eventData.window.data1),
-                                                     static_cast<float>(eventData.window.data2));
-                break;
+            case SDL_WINDOWEVENT_SIZE_CHANGED: {
+                auto window = components::size{static_cast<float>(eventData.window.data1),
+                                               static_cast<float>(eventData.window.data2)};
+                auto logical = render_->window_to_logical(window);
+
+                logger::debug("window resized: {}x{} logical: ({}, {}) ({}, {})",
+                              window.width,
+                              window.height,
+                              logical.position.x,
+                              logical.position.y,
+                              logical.size.width,
+                              logical.size.height);
+
+                world->emmit<events::window_resized>(window, logical);
+            } break;
             }
             break;
         }
