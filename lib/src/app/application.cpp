@@ -205,8 +205,8 @@ void application::unload_font(const std::string &font_path) {
 
 auto application::get_window_settings(const config &cfg) -> const std::tuple<components::size, bool, int> {
     using namespace std::literals;
-    auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.size().width));
-    auto height = settings_.get("window"s, "height"s, static_cast<std::int64_t>(cfg.size().height));
+    auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.window().width));
+    auto height = settings_.get("window"s, "height"s, static_cast<std::int64_t>(cfg.window().height));
     auto size = components::size{static_cast<float>(width), static_cast<float>(height)};
     auto monitor = static_cast<int>(settings_.get("window"s, "monitor"s, static_cast<std::int64_t>(0)));
 

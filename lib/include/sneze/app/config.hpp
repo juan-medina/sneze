@@ -66,14 +66,20 @@ public:
         return *this;
     }
 
-    [[maybe_unused]] [[nodiscard]] auto width(int width) -> config {
-        size_.width = static_cast<float>(width);
+    [[maybe_unused]] [[nodiscard]] auto window(int width, int height) -> config {
+        window_.width = static_cast<float>(width);
+        window_.height = static_cast<float>(height);
         return *this;
     }
 
-    [[maybe_unused]] [[nodiscard]] auto height(int height) -> config {
-        size_.height = static_cast<float>(height);
+    [[maybe_unused]] [[nodiscard]] auto logical(int width, int height) -> config {
+        logical_.width = static_cast<float>(width);
+        logical_.height = static_cast<float>(height);
         return *this;
+    }
+
+    [[maybe_unused]] [[nodiscard]] auto size(int width, int height) -> config {
+        return window(width, height).logical(width, height);
     }
 
     [[nodiscard]] inline auto clear() const -> const auto & {
@@ -88,12 +94,17 @@ public:
         return toggle_full_screen_;
     }
 
-    [[nodiscard]] inline auto size() const -> const auto & {
-        return size_;
+    [[nodiscard]] inline auto window() const -> const auto & {
+        return window_;
+    }
+
+    [[nodiscard]] inline auto logical() const -> const auto & {
+        return logical_;
     }
 
 private:
-    components::size size_ = {1920, 1080};
+    components::size window_ = {1920, 1080};
+    components::size logical_ = {1920, 1080};
     components::color clear_ = components::color::black;
     keyboard::key_modifier exit_ = {keyboard::key::unknown, keyboard::modifier::none};
     keyboard::key_modifier toggle_full_screen_ = {keyboard::key::unknown, keyboard::modifier::none};

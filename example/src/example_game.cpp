@@ -49,8 +49,7 @@ auto example_game::configure() -> config {
     using modifier = keyboard::modifier;
 
     return config()
-        .width(1920)
-        .height(1080)
+        .size(1920, 1080)
         .clear(color::light_gray)
         .exit(key::escape)
         .toggle_full_screen(modifier::alt, key::_return);
