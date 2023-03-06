@@ -81,8 +81,8 @@ auto example_game::init() -> sneze::result<> {
     const auto font_size_small = 30.f;
     const auto font_size_large = 60.f;
 
-    const auto counter_1 = 40000;
-    const auto counter_2 = 20000;
+    const auto counter_1 = 40000000;
+    const auto counter_2 = 20000000;
 
     using alignment = sneze::components::alignment;
     using vertical = sneze::components::vertical;

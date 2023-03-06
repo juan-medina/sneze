@@ -32,7 +32,7 @@ SOFTWARE.
 namespace sneze {
 
 auto render::init(const components::size &window,
-                  const components::size &,
+                  const components::size &logical,
                   const bool &fullscreen,
                   const int &monitor,
                   const std::string &title,
@@ -45,15 +45,11 @@ auto render::init(const components::size &window,
         return error("error initializing rendering engine.");
     }
 
+    // HACK: we omit the FULLSCREEN_DESKTOP flag because we need to resize the window first to have the correct DPI
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
 
-#if not defined(__linux__)
-    if(fullscreen_) {
-        flags = static_cast<SDL_WindowFlags>(flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
-    }
-#endif
-
     logger::debug("creating SDL window");
+
     window_ = SDL_CreateWindow(title.c_str(),
                                SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
                                SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
@@ -65,12 +61,6 @@ auto render::init(const components::size &window,
         return error("error initializing rendering engine.");
     }
 
-#if defined(__linux__)
-    if(fullscreen_) {
-        SDL_MaximizeWindow(window_);
-    }
-#endif
-
     logger::debug("creating SDL renderer");
     renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
@@ -78,14 +68,22 @@ auto render::init(const components::size &window,
         return error("error initializing rendering engine.");
     }
 
+    // HACK: we resize the window to 1x1, then to the right side, to force DPI to be calculated correctly
+    SDL_SetWindowSize(window_, 1, 1);
+    SDL_SetWindowSize(window_, static_cast<int>(window.width), static_cast<int>(window.height));
+
+    // HACK: we need to set full screen flags that was not set before
+    fullscreen_ = !fullscreen;
+    toggle_fullscreen();
+
+    SDL_RenderSetLogicalSize(renderer_, static_cast<int>(logical.width), static_cast<int>(logical.height));
+    SDL_SetHint(SDL_HINT_RENDER_LOGICAL_SIZE_MODE, "overscan");
+
     auto real_size = render::window();
-    auto real_logical = render::logical();
-    logger::info("rendering engine initialized. window: {}x{}, mode: {}, logical: {}x{}",
+    logger::info("rendering engine initialized. window: {}x{}, mode: {}",
                  real_size.width,
                  real_size.height,
-                 fullscreen_ ? "full screen" : "windowed",
-                 real_logical.size.width,
-                 real_logical.size.height);
+                 fullscreen_ ? "full screen" : "windowed");
 
 #if defined(_WINDOWS)
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
@@ -165,7 +163,7 @@ auto render::unload_font(const std::string &font_path) -> result<> {
     return true;
 }
 
-auto render::window() const -> components::size const {
+auto render::window() -> components::size const {
     if(window_ != nullptr) {
         int width = 0;
         int height = 0;
@@ -175,18 +173,18 @@ auto render::window() const -> components::size const {
     return components::size{0, 0};
 }
 
-auto render::logical() const -> components::rect const {
+auto render::logical() -> const components::rect {
     return window_to_logical(render::window());
 }
 
-auto render::window_to_logical(const components::position &position) const -> components::position const {
+auto render::window_to_logical(const components::position &position) -> const components::position {
     float x = 0, y = 0;
     SDL_RenderWindowToLogical(renderer_, static_cast<int>(position.x), static_cast<int>(position.y), &x, &y);
 
     return components::position{x, y};
 }
 
-auto render::window_to_logical(const components::size &size) const -> components::rect {
+auto render::window_to_logical(const components::size &size) -> const components::rect {
     auto top_left = window_to_logical(components::position{0, 0});
     auto bottom_right = window_to_logical(components::position{size.width, size.height});
 

@@ -73,7 +73,7 @@ void layout_system::calculate_layout(world *world, const entt::entity entity, co
         lay.x = logical_.position.x;
         break;
     case horizontal::center:
-        lay.x = logical_.position.x + (logical_.size.width / 2);
+        lay.x = logical_.position.x + logical_.size.width / 2;
         break;
     case horizontal::right:
         lay.x = logical_.position.x + logical_.size.width;
@@ -86,7 +86,7 @@ void layout_system::calculate_layout(world *world, const entt::entity entity, co
         lay.y = logical_.position.y;
         break;
     case vertical::center:
-        lay.y = logical_.position.y + (logical_.size.height / 2);
+        lay.y = logical_.position.y + logical_.size.height / 2;
         break;
     case vertical::bottom:
         lay.y = logical_.position.y + logical_.size.height;
