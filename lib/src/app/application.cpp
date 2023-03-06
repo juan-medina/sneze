@@ -106,10 +106,10 @@ auto application::launch() -> result<> {
     logger::debug("configure application");
     auto config = configure();
 
-    auto [size, fullscreen, monitor] = get_window_settings(config);
+    auto [window, fullscreen, monitor] = get_window_settings(config);
 
     logger::debug("init render");
-    if(auto err = render_->init(size, fullscreen, monitor, name(), config.clear()).ko()) {
+    if(auto err = render_->init(window, config.logical(), fullscreen, monitor, name(), config.clear()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
@@ -218,9 +218,9 @@ auto application::get_window_settings(const config &cfg) -> const std::tuple<com
 void application::save_window_settings() {
     using namespace std::literals;
     if(!render_->fullscreen()) {
-        auto size = render_->size();
-        settings_.set("window"s, "width"s, static_cast<std::int64_t>(size.width));
-        settings_.set("window"s, "height"s, static_cast<std::int64_t>(size.height));
+        auto window = render_->window();
+        settings_.set("window"s, "width"s, static_cast<std::int64_t>(window.width));
+        settings_.set("window"s, "height"s, static_cast<std::int64_t>(window.height));
     }
     settings_.set("window"s, "fullscreen"s, render_->fullscreen());
     settings_.set("window"s, "monitor"s, static_cast<std::int64_t>(render_->monitor()));

@@ -35,7 +35,7 @@ namespace sneze {
 
 void sdl_events_system::init(sneze::world *world) {
     logger::debug("init event system");
-    world->emmit<events::window_resized>(render_->size());
+    world->emmit<events::window_resized>(render_->window());
 }
 
 void sdl_events_system::end(sneze::world *) {

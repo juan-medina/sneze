@@ -54,6 +54,7 @@ public:
     }
 
     [[nodiscard]] auto init(const components::size &size,
+                            const components::size &logical,
                             const bool &fullscreen,
                             const int &monitor,
                             const std::string &title,
@@ -76,7 +77,13 @@ public:
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
-    [[nodiscard]] auto size() const -> components::size const;
+    [[nodiscard]] auto window() const -> components::size const;
+
+    [[nodiscard]] auto logical() const -> components::rect const;
+
+    [[nodiscard]] auto window_to_logical(const components::position &position) const -> components::position const;
+
+    [[nodiscard]] auto window_to_logical(const components::size &size) const -> components::rect;
 
     [[nodiscard]] auto monitor() const -> int;
 

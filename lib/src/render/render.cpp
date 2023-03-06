@@ -31,7 +31,8 @@ SOFTWARE.
 
 namespace sneze {
 
-auto render::init(const components::size &size,
+auto render::init(const components::size &window,
+                  const components::size &,
                   const bool &fullscreen,
                   const int &monitor,
                   const std::string &title,
@@ -56,8 +57,8 @@ auto render::init(const components::size &size,
     window_ = SDL_CreateWindow(title.c_str(),
                                SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
                                SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
-                               static_cast<int>(size.width),
-                               static_cast<int>(size.height),
+                               static_cast<int>(window.width),
+                               static_cast<int>(window.height),
                                flags);
     if(window_ == nullptr) {
         logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
@@ -77,11 +78,14 @@ auto render::init(const components::size &size,
         return error("error initializing rendering engine.");
     }
 
-    auto real_size = render::size();
-    logger::info("rendering engine initialized. size: {}x{}, mode: {}",
+    auto real_size = render::window();
+    auto real_logical = render::logical();
+    logger::info("rendering engine initialized. window: {}x{}, mode: {}, logical: {}x{}",
                  real_size.width,
                  real_size.height,
-                 fullscreen_ ? "full screen" : "windowed");
+                 fullscreen_ ? "full screen" : "windowed",
+                 real_logical.size.width,
+                 real_logical.size.height);
 
 #if defined(_WINDOWS)
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
@@ -161,7 +165,7 @@ auto render::unload_font(const std::string &font_path) -> result<> {
     return true;
 }
 
-auto render::size() const -> components::size const {
+auto render::window() const -> components::size const {
     if(window_ != nullptr) {
         int width = 0;
         int height = 0;
@@ -169,6 +173,24 @@ auto render::size() const -> components::size const {
         return components::size{static_cast<float>(width), static_cast<float>(height)};
     }
     return components::size{0, 0};
+}
+
+auto render::logical() const -> components::rect const {
+    return window_to_logical(render::window());
+}
+
+auto render::window_to_logical(const components::position &position) const -> components::position const {
+    float x = 0, y = 0;
+    SDL_RenderWindowToLogical(renderer_, static_cast<int>(position.x), static_cast<int>(position.y), &x, &y);
+
+    return components::position{x, y};
+}
+
+auto render::window_to_logical(const components::size &size) const -> components::rect {
+    auto top_left = window_to_logical(components::position{0, 0});
+    auto bottom_right = window_to_logical(components::position{size.width, size.height});
+
+    return components::rect{top_left, components::size{bottom_right.x - top_left.x, bottom_right.y - top_left.y}};
 }
 
 void render::toggle_fullscreen() {
@@ -188,11 +210,14 @@ void render::toggle_fullscreen() {
 #endif
     }
 
-    auto real_size = render::size();
-    logger::debug("toggle full screen / windowed. size: {}x{}, mode: {}",
+    auto real_size = render::window();
+    auto real_logical = render::logical();
+    logger::debug("toggle full screen / windowed. size: {}x{}, mode: {}, logical: {}x{}",
                   real_size.width,
                   real_size.height,
-                  fullscreen_ ? "full screen" : "windowed");
+                  fullscreen_ ? "full screen" : "windowed",
+                  real_logical.size.width,
+                  real_logical.size.height);
 }
 
 auto render::load_texture(const std::string &texture_path) -> result<> {
