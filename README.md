@@ -6,22 +6,28 @@
 SNEZE is a high-level, entity component system based 2D game engine that provides solutions for common game problems. The goal is to make game development fast and easy, while also being zestful.
 
 ## Features (ready)
-- Entity Component System.
-- Application Management.
+- Simple to use however is not easy to master.
+- Entity Component System, entities, globals and events.
+- Application Management, configuration, settings and logging.
 - Window creation.
 - Switching between full screen (borderless) and windowed mode.
-- Bitmap fonts rendering, including kerning, Using [angelcode](https://www.angelcode.com/products/bmfont/) format.
+- Bitmap fonts rendering, including kerning, and alignment, Using [angelcode](https://www.angelcode.com/products/bmfont/) format.
+- Layout management, including anchoring.
+- Automatic scaling, no letter-box, no black bars, including resolution changes.
+- Input management, currently only keyboard.
+- Code centric, no editor for game logic, just code.
+- High-level Engine allowing developers to focus more on game logic instead of engine logic.
+- Multi-platform : Windows, Mac, Linux.
+- No required to install dependencies, will be downloaded automatically.
 
 ## Features (under development)
-- Simple to use however is not easy to master.
-- Code centric, no editor for game logic, just code. 
-- Entity Component System to centralize data and provide fast performance.
-- High-level Engine allowing developers to focus more on game logic instead of engine logic.
-- Solutions for Common Game Problems, such as handling state, transitions, and resolution changes.
+- Sprite rendering, including sheets and animations.
+- Shape rendering, including lines, rectangles, circles, and polygons.
+- High level components, such progress bars, floating text, etc.
+- Solutions for Common Game Problems, such as handling state, transitions.
 - Patterns for Basic Game Scenes such as maps, menus, tiled, scrolling, or UI.
 - Already made common effects for any game, blinks, fade in/out, ink.
 - Common game systems such sound or controller support.
-- Multi-platform : Windows, Mac, Linux.
 
 ## Background
 After several years using different game engines I always end create a lot of common code with features that are usually too high-level for those engines to support but are required for most of the games that I do. 
@@ -39,7 +45,7 @@ SNEZE is powered by these incredible projects:
 
 - [EnTT](https://github.com/skypjack/entt) : A fast and reliable entity component system.
 - [SDL](https://www.libsdl.org/) : Simple DirectMedia Layer cross-platform low level access to  audio, keyboard, mouse, joystick, and graphics.
-- [stb](https://github.com/nothings/stb) : Single-file public domain libraries for C/C++.
+- [SDL_image](https://github.com/libsdl-org/SDL_image) : Image decoding for many popular formats for SDL.
 - [spdlog](https://github.com/gabime/spdlog) : Fast C++ logging library.
 - [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories.
 - [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes.
@@ -52,6 +58,7 @@ SNEZE examples use these beautiful resources:
 
 - **Font**: [Tilt Warp](https://fonts.google.com/specimen/Tilt+Warp) by [Andy Clymer](https://github.com/andyclymer).
 - **Font**: [Fira Mono](https://fonts.google.com/specimen/Fira+Mono) by [Carrois Apostrophe](https://carrois.com/).
+
 ## Contributions
 
 SNEZE is an open source project and contributions are welcome. If you'd like to contribute, please follow the guidelines in the [Contributing](CONTRIBUTING.md) file and make a pull request.
