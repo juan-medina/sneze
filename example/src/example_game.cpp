@@ -81,19 +81,28 @@ auto example_game::init() -> sneze::result<> {
     const auto font_size_small = 30.f;
     const auto font_size_large = 60.f;
 
-    const auto counter_1 = 40000000;
-    const auto counter_2 = 20000000;
+    const auto counter_1 = 40000;
+    const auto counter_2 = 20000;
 
     using alignment = sneze::components::alignment;
     using vertical = sneze::components::vertical;
     using horizontal = sneze::components::horizontal;
     using anchor = sneze::components::anchor;
+    using position = sneze::components::position;
+
+    world()->add_entity(
+        renderable{},
+        label{"Hello World!", regular_font, font_size_large, alignment{horizontal::center, vertical::center}},
+        position{0, -font_size_small},
+        anchor{horizontal::center, vertical::center},
+        color::white);
 
     world()->add_entity(renderable{},
-                        label{fmt::format("Hello World for the {} time!", visits),
+                        label{fmt::format("You seen this {} times!", visits),
                               regular_font,
                               font_size_large,
                               alignment{horizontal::center, vertical::center}},
+                        position{0, font_size_small},
                         anchor{horizontal::center, vertical::center},
                         color::white);
 
