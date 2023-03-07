@@ -45,8 +45,13 @@ auto render::init(const components::size &window,
         return error("error initializing rendering engine.");
     }
 
-    // HACK: we omit the FULLSCREEN_DESKTOP flag because we need to resize the window first to have the correct DPI
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
+
+#if not defined(__linux__)
+    if(fullscreen_) {
+        flags = static_cast<SDL_WindowFlags>(flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
+    }
+#endif
 
     logger::debug("creating SDL window");
 
@@ -61,6 +66,12 @@ auto render::init(const components::size &window,
         return error("error initializing rendering engine.");
     }
 
+#if defined(__linux__)
+    if(fullscreen_) {
+        SDL_MaximizeWindow(window_);
+    }
+#endif
+
     logger::debug("creating SDL renderer");
     renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
@@ -68,16 +79,11 @@ auto render::init(const components::size &window,
         return error("error initializing rendering engine.");
     }
 
-    // HACK: we resize the window to 1x1, then to the right side, to force DPI to be calculated correctly
-    SDL_SetWindowSize(window_, 1, 1);
-    SDL_SetWindowSize(window_, static_cast<int>(window.width), static_cast<int>(window.height));
-
-    // HACK: we need to set full screen flags that was not set before
-    fullscreen_ = !fullscreen;
-    toggle_fullscreen();
-
     SDL_RenderSetLogicalSize(renderer_, static_cast<int>(logical.width), static_cast<int>(logical.height));
     SDL_SetHint(SDL_HINT_RENDER_LOGICAL_SIZE_MODE, "overscan");
+
+    SDL_SetHint(SDL_HINT_WINDOWS_DPI_AWARENESS, "permonitorv2");
+    SDL_SetHint(SDL_HINT_WINDOWS_DPI_SCALING, "1");
 
     auto real_size = render::window();
     logger::info("rendering engine initialized. window: {}x{}, mode: {}",
@@ -92,6 +98,15 @@ auto render::init(const components::size &window,
 #endif
 
     clear_color(color);
+
+    // forcing SDL to recalculate the DPI and viewport
+    SDL_Event event;
+    memset(&event, 0, sizeof(event));
+    event.type = SDL_WINDOWEVENT;
+    event.window.event = SDL_WINDOWEVENT_DISPLAY_CHANGED;
+    event.window.windowID = SDL_GetWindowID(window_);
+
+    SDL_PushEvent(&event);
 
     return true;
 }

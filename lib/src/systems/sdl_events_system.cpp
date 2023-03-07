@@ -60,6 +60,11 @@ void sdl_events_system::update(sneze::world *world) {
             break;
         case SDL_WINDOWEVENT:
             switch(eventData.window.event) {
+            case SDL_WINDOWEVENT_DISPLAY_CHANGED: {
+                auto window = render_->window();
+                auto logical = render_->window_to_logical(window);
+                world->emmit<events::window_resized>(window, logical);
+            } break;
             case SDL_WINDOWEVENT_SIZE_CHANGED: {
                 auto window = components::size{static_cast<float>(eventData.window.data1),
                                                static_cast<float>(eventData.window.data2)};
