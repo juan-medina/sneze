@@ -8,5 +8,29 @@ misc-*,
 performance-*,
 -bugprone-easily-swappable-parameters,
 -cppcoreguidelines-avoid-magic-numbers,
+readability-identifier-naming,
 '
 ## maybe will add latter: readability-*
+
+CheckOptions:
+  - { key: readability-identifier-naming.AggressiveDependentMemberLookup, value: 1 }
+  - { key: readability-identifier-naming.ClassCase, value: lower_case }
+  - { key: readability-identifier-naming.ConstantCase, value: lower_case }
+  - { key: readability-identifier-naming.FunctionCase, value: lower_case }
+  - { key: readability-identifier-naming.PublicMemberSuffix, value: "" }
+  - { key: readability-identifier-naming.PrivateMemberSuffix, value: "_" }
+  - { key: readability-identifier-naming.FunctionCase, value: lower_case }
+  - { key: readability-identifier-naming.EnumCase, value: lower_case }
+  - { key: readability-identifier-naming.NamespaceCase, value: lower_case }
+  - { key: readability-identifier-naming.InlineNamespaceCase, value: lower_case }
+  - { key: readability-identifier-naming.MacroDefinitionCase, value: UPPER_CASE }
+  - { key: readability-identifier-naming.MemberCase, value: lower_case }
+  - { key: readability-identifier-naming.MethodCase, value: lower_case }
+  - { key: readability-identifier-naming.ParameterCase, value: lower_case }
+  - { key: readability-identifier-naming.StructCase, value: lower_case }
+  - { key: readability-identifier-naming.TemplateParameterCase, value: Camel_Snake_Case }
+  - { key: readability-identifier-naming.TypeAliasCase, value: lower_case }
+  - { key: readability-identifier-naming.TypedefCase, value: lower_case }
+  - { key: readability-identifier-naming.TypeCase, value: lower_case }
+  - { key: readability-identifier-naming.UnionCase, value: lower_case }
+  - { key: readability-identifier-naming.VariableCase, value: lower_case }

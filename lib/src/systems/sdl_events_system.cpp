@@ -33,6 +33,7 @@ SOFTWARE.
 
 namespace sneze {
 
+
 void sdl_events_system::init(sneze::world *) {
     logger::debug("init event system");
 }
@@ -44,30 +45,30 @@ void sdl_events_system::end(sneze::world *) {
 void sdl_events_system::update(sneze::world *world) {
     using modifier = keyboard::modifier;
     static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::gui;
-    auto eventData = SDL_Event{};
-    while(SDL_PollEvent(&eventData)) {
-        switch(eventData.type) {
+    auto event_data = SDL_Event{};
+    while(SDL_PollEvent(&event_data)) {
+        switch(event_data.type) {
         case SDL_QUIT:
             world->emmit<events::application_want_closing>();
             break;
         case SDL_KEYDOWN:
-            world->emmit<events::key_down>(eventData.key.keysym.sym,
-                                           static_cast<keyboard::mod>(eventData.key.keysym.mod & valid_modifiers));
+            world->emmit<events::key_down>(event_data.key.keysym.sym,
+                                           static_cast<keyboard::mod>(event_data.key.keysym.mod & valid_modifiers));
             break;
         case SDL_KEYUP:
-            world->emmit<events::key_up>(eventData.key.keysym.sym,
-                                         static_cast<keyboard::mod>(eventData.key.keysym.mod & valid_modifiers));
+            world->emmit<events::key_up>(event_data.key.keysym.sym,
+                                         static_cast<keyboard::mod>(event_data.key.keysym.mod & valid_modifiers));
             break;
         case SDL_WINDOWEVENT:
-            switch(eventData.window.event) {
+            switch(event_data.window.event) {
             case SDL_WINDOWEVENT_DISPLAY_CHANGED: {
                 auto window = render_->window();
                 auto logical = render_->window_to_logical(window);
                 world->emmit<events::window_resized>(window, logical);
             } break;
             case SDL_WINDOWEVENT_SIZE_CHANGED: {
-                auto window = components::size{static_cast<float>(eventData.window.data1),
-                                               static_cast<float>(eventData.window.data2)};
+                auto window = components::size{static_cast<float>(event_data.window.data1),
+                                               static_cast<float>(event_data.window.data2)};
                 auto logical = render_->window_to_logical(window);
                 world->emmit<events::window_resized>(window, logical);
             } break;

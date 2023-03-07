@@ -166,12 +166,12 @@ public:
         add_system_with_priority<priority::normal, SystemType>(args...);
     }
 
-    template<int32_t priority, typename SystemType, typename... Args>
+    template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
-        static_assert(priority >= world::priority::low && priority <= world::priority::high,
+        static_assert(Priority >= world::priority::low && Priority <= world::priority::high,
                       "priority must be between priority::low (-1000) and priority::high (1000)");
-        add_system_with_priority_internal<priority, SystemType>(args...);
+        add_system_with_priority_internal<Priority, SystemType>(args...);
     }
 
     template<typename SystemType>
@@ -216,13 +216,13 @@ protected:
 
     void clear();
 
-    template<int32_t priority, typename SystemType, typename... Args>
+    template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority_internal(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
-        static_assert(priority >= world::priority::after_applications
-                          && priority <= world::priority::before_applications,
+        static_assert(Priority >= world::priority::after_applications
+                          && Priority <= world::priority::before_applications,
                       "priority must be between priority::after_applications and priority::before_applications");
-        add_system_with_priority_unrestricted<priority, SystemType>(args...);
+        add_system_with_priority_unrestricted<Priority, SystemType>(args...);
     }
 
 private:
@@ -232,12 +232,12 @@ private:
         emmit<events::add_component<ComponentType>>(entity, component);
     }
 
-    template<int32_t priority, typename SystemType, typename... Args>
+    template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority_unrestricted(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
         auto constexpr type_hash = entt::type_hash<SystemType>::value();
         systems_to_add_.push_back(
-            std::make_unique<system_with_priority>(type_hash, priority, std::make_unique<SystemType>(args...)));
+            std::make_unique<system_with_priority>(type_hash, Priority, std::make_unique<SystemType>(args...)));
     }
 
     using system_ptr = std::unique_ptr<system_with_priority>;

@@ -60,17 +60,17 @@ public:
     [[maybe_unused]] static const code x;
     [[maybe_unused]] static const code y;
     [[maybe_unused]] static const code z;
-    [[maybe_unused]] static const code _1;
-    [[maybe_unused]] static const code _2;
-    [[maybe_unused]] static const code _3;
-    [[maybe_unused]] static const code _4;
-    [[maybe_unused]] static const code _5;
-    [[maybe_unused]] static const code _6;
-    [[maybe_unused]] static const code _7;
-    [[maybe_unused]] static const code _8;
-    [[maybe_unused]] static const code _9;
-    [[maybe_unused]] static const code _0;
-    [[maybe_unused]] static const code _return;
+    [[maybe_unused]] static const code _1; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _2; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _3; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _4; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _5; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _6; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _7; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _8; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _9; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _0; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code _return; // NOLINT(readability-identifier-naming)
     [[maybe_unused]] static const code escape;
     [[maybe_unused]] static const code backspace;
     [[maybe_unused]] static const code tab;
