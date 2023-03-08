@@ -48,6 +48,66 @@ auto draw_game::configure() -> config {
 auto draw_game::init() -> sneze::result<> {
     logger::debug("init draw game");
 
+    using rendereable = components::renderable;
+    using line = components::line;
+    using position = components::position;
+
+    const auto line_thickness = 15.f;
+    const auto line_length = 400;
+    auto start_position = position{line_length, (1080.f / 2) - (line_length / 2.f)};
+
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y},
+                        line{{line_length, 0}, line_thickness},
+                        color::red);
+    world()->add_entity(rendereable{},
+                        position{start_position.x + line_length, start_position.y},
+                        line{{0, line_length}, line_thickness},
+                        color::yellow);
+    world()->add_entity(rendereable{},
+                        position{start_position.x + line_length, start_position.y + line_length},
+                        line{{-line_length, 0}, line_thickness},
+                        color::blue);
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y + line_length},
+                        line{{0, -line_length}, line_thickness},
+                        color::green);
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y},
+                        line{{line_length, line_length}, line_thickness},
+                        color::purple);
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y + line_length},
+                        line{{line_length, -line_length}, line_thickness},
+                        color::orange);
+
+    start_position.x = 1920 - line_length * 2;
+
+    world()->add_entity(rendereable{},
+                        position{start_position.x + line_length, start_position.y},
+                        line{{-line_length, 0}, line_thickness},
+                        color::red);
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y},
+                        line{{0, line_length}, line_thickness},
+                        color::yellow);
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y + line_length},
+                        line{{line_length, 0}, line_thickness},
+                        color::blue);
+    world()->add_entity(rendereable{},
+                        position{start_position.x + line_length, start_position.y + line_length},
+                        line{{0, -line_length}, line_thickness},
+                        color::green);
+    world()->add_entity(rendereable{},
+                        position{start_position.x + line_length, start_position.y},
+                        line{{-line_length, line_length}, line_thickness},
+                        color::purple);
+    world()->add_entity(rendereable{},
+                        position{start_position.x + line_length, start_position.y + line_length},
+                        line{{-line_length, -line_length}, line_thickness},
+                        color::orange);
+
     return true;
 }
 

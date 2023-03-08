@@ -77,6 +77,8 @@ public:
     void
     draw_label(const components::label &label, const components::position &position, const components::color &color);
 
+    void draw_line(const components::line &line, const components::position &position, const components::color &color);
+
     [[nodiscard]] auto window() -> const components::size;
 
     [[nodiscard]] auto logical() -> const components::rect;
@@ -108,6 +110,8 @@ private:
     [[nodiscard]] auto get_font(const std::string &font_path) -> const std::shared_ptr<font>;
 
     [[nodiscard]] auto preferred_driver() -> int;
+
+    void fill_points_with_triangles(const std::vector<components::position> &points, const components::color &color);
 
     components::color clear_color_ = components::color::black;
 
