@@ -50,7 +50,7 @@ private:
     std::shared_ptr<sneze::render> render_;
 
     static inline auto sort_by_depth(const components::renderable &lhs, const components::renderable &rhs) {
-        return lhs.depth < rhs.depth;
+        return lhs.depth > rhs.depth;
     }
 
     void toggle_fullscreen(events::toggle_fullscreen const &event) noexcept;

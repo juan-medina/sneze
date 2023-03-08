@@ -79,6 +79,8 @@ public:
 
     void draw_line(const components::line &line, const components::position &position, const components::color &color);
 
+    void draw_box(const components::box &box, const components::position &position, const components::color &color);
+
     [[nodiscard]] auto window() -> const components::size;
 
     [[nodiscard]] auto logical() -> const components::rect;

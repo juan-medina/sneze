@@ -343,4 +343,16 @@ void render::fill_points_with_triangles(const std::vector<components::position> 
     SDL_RenderGeometry(renderer_, nullptr, vertexes.data(), static_cast<int>(vertexes.size()), nullptr, 0);
 }
 
+void render::draw_box(const components::box &box,
+                      const components::position &position,
+                      const components::color &color) {
+    auto half_thickness = box.thickness / 2.f;
+    draw_line({{box.size.width + box.thickness, 0}, box.thickness}, {position.x - half_thickness, position.y}, color);
+    draw_line({{box.size.width + box.thickness, 0}, box.thickness},
+              {position.x - half_thickness, position.y + box.size.height},
+              color);
+    draw_line({{0, box.size.height}, box.thickness}, {position.x, position.y}, color);
+    draw_line({{0, box.size.height}, box.thickness}, {position.x + box.size.width, position.y}, color);
+}
+
 } // namespace sneze

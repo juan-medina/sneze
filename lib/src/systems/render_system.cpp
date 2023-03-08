@@ -66,6 +66,8 @@ void render_system::update(world *world) {
                 render_->draw_label(*lbl, draw_position, color);
             } else if(auto line = world->has_component<components::line>(id)) {
                 render_->draw_line(*line, draw_position, color);
+            } else if(auto box = world->has_component<components::box>(id)) {
+                render_->draw_box(*box, draw_position, color);
             }
         }
     }
