@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.4)
 
 #configure variables
-set(APP_NAME "example")
+set(APP_NAME "hello")
 
 #configure directories
 set(APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/${APP_NAME}")
@@ -47,5 +47,6 @@ add_custom_command(
         TARGET ${APP_NAME}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/${RESOURCES_PATH} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../${RESOURCES_PATH} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}
 )
+MESSAGE(STATUS "Copying resources to ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}...")

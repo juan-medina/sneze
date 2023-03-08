@@ -20,36 +20,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# CMake build : global project
+# CMake build : example
 
 cmake_minimum_required(VERSION 3.4)
 
-project(sneze)
+#configure variables
+set(APP_NAME "sandbox")
 
-include(CMakeOptions.txt)
+#configure directories
+set(APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/${APP_NAME}")
+set(APP_SRC_PATH "${APP_MODULE_PATH}/src")
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+#set sources
+file(GLOB APP_HEADER_FILES "${APP_SRC_PATH}/*.h")
+file(GLOB APP_SOURCE_FILES "${APP_SRC_PATH}/*.cpp")
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#set target executable
+add_executable(${APP_NAME} ${APP_HEADER_FILES} ${APP_SOURCE_FILES})
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    string(REGEX REPLACE "/W[3|4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX /permissive-")
-    add_compile_options(/permissive-)
-else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
-endif ()
+#link the example with the libraries
+target_link_libraries(${APP_NAME} ${LIB_NAME} sneze)
 
-# Generate compile_commands.json
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-add_subdirectory(lib)
-
-if (${BUILD_SNEZE_EXAMPLES})
-    MESSAGE(STATUS "Building sneze examples is enabled")
-    add_subdirectory(examples)
-else ()
-    MESSAGE(STATUS "Building sneze examples is not enabled")
-endif ()
-
+## copy resources
+set(RESOURCES_PATH "resources")
+add_custom_command(
+        TARGET ${APP_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/../${RESOURCES_PATH} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}
+)
+MESSAGE(STATUS "Copying resources to ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}...")

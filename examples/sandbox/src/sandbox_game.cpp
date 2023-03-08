@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "example_game.hpp"
+#include "sandbox_game.hpp"
 
 #include <string>
 
@@ -30,7 +30,7 @@ SOFTWARE.
 
 #include "counter_system.hpp"
 
-example_game::example_game(): application("sneze", "Example Game") {}
+sandbox_game::sandbox_game(): application("sneze", "Sandbox Game") {}
 
 namespace logger = sneze::logger;
 using config = sneze::config;
@@ -41,8 +41,8 @@ using namespace std::string_literals;
 const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
 const auto mono_font = "resources/fonts/fira_mono.fnt"s;
 
-auto example_game::configure() -> config {
-    logger::debug("configure");
+auto sandbox_game::configure() -> config {
+    logger::debug("configureSS");
 
     namespace keyboard = sneze::keyboard;
     using key = keyboard::key;
@@ -55,8 +55,8 @@ auto example_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto example_game::init() -> sneze::result<> {
-    logger::debug("init example game");
+auto sandbox_game::init() -> sneze::result<> {
+    logger::debug("init sandbox game");
 
     using error = sneze::error;
 
@@ -84,11 +84,11 @@ auto example_game::init() -> sneze::result<> {
     const auto counter_1 = 40000;
     const auto counter_2 = 20000;
 
-    using alignment = sneze::components::alignment;
-    using vertical = sneze::components::vertical;
-    using horizontal = sneze::components::horizontal;
-    using anchor = sneze::components::anchor;
-    using position = sneze::components::position;
+    using alignment = components::alignment;
+    using vertical = components::vertical;
+    using horizontal = components::horizontal;
+    using anchor = components::anchor;
+    using position = components::position;
 
     world()->add_entity(
         renderable{},
@@ -125,8 +125,8 @@ auto example_game::init() -> sneze::result<> {
     return true;
 }
 
-void example_game::end() {
-    logger::debug("end");
+void sandbox_game::end() {
+    logger::debug("end sandbox game");
 
     world()->remove_system<counter_system>();
 
