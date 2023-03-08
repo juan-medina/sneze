@@ -39,6 +39,10 @@ This engine is trying to step up that effort to allow to focus on the game logic
 ## Getting Started
 To get started, simply follow the instructions in the [Getting Started](GETTING_STARTED.MD) guide.
 
+## Examples
+
+SNEZE comes with a few examples to help you get started. You can find them in the [examples](examples) folder.
+
 ## Dependencies
 
 SNEZE is powered by these incredible projects:
