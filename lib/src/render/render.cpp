@@ -296,5 +296,51 @@ auto render::preferred_driver() -> int {
     logger::warning("no preferred SDL driver found, using default");
     return -1;
 }
+void render::draw_line(const components::line &line,
+                       const components::position &position,
+                       const components::color &color) {
+    if(line.thickness == 1) {
+        SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
+        SDL_RenderDrawLineF(
+            renderer_, position.x, position.y, position.x + line.size.width, position.y + line.size.height);
+        SDL_SetRenderDrawColor(renderer_, clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
+    } else {
+        const float length = std::sqrt(line.size.width * line.size.width + line.size.height * line.size.height);
+        const float scale = line.thickness / (2.f * length);
+        auto radius = components::position{-line.size.height * scale, line.size.width * scale};
+
+        const auto end_position = components::position{position.x + line.size.width, position.y + line.size.height};
+
+        const auto points = std::vector<components::position>{{
+            {position.x - radius.x, position.y - radius.y},
+            {position.x + radius.x, position.y + radius.y},
+            {end_position.x - radius.x, end_position.y - radius.y},
+            {end_position.x + radius.x, end_position.y + radius.y},
+        }};
+
+        fill_points_with_triangles(points, color);
+    }
+}
+
+void render::fill_points_with_triangles(const std::vector<components::position> &points,
+                                        const components::color &color) {
+    const auto sdl_color = SDL_Color{color.r, color.g, color.b, color.a};
+
+    std::vector<SDL_Vertex> vertexes;
+    const auto num_points = static_cast<int>(points.size());
+    for(auto i = 2; i < num_points; ++i) {
+        if((i % 2) == 0) {
+            vertexes.push_back({{points[i].x, points[i].y}, sdl_color, {0, 0}});
+            vertexes.push_back({{points[i - 2].x, points[i - 2].y}, sdl_color, {0, 0}});
+            vertexes.push_back({{points[i - 1].x, points[i - 1].y}, sdl_color, {0, 0}});
+        } else {
+            vertexes.push_back({{points[i].x, points[i].y}, sdl_color, {0, 0}});
+            vertexes.push_back({{points[i - 1].x, points[i - 1].y}, sdl_color, {0, 0}});
+            vertexes.push_back({{points[i - 2].x, points[i - 2].y}, sdl_color, {0, 0}});
+        }
+    }
+
+    SDL_RenderGeometry(renderer_, nullptr, vertexes.data(), static_cast<int>(vertexes.size()), nullptr, 0);
+}
 
 } // namespace sneze
