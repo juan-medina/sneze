@@ -60,6 +60,7 @@ void setup_spdlog() {
     spdlog::set_default_logger(logger);
 }
 
+// NOLINTNEXTLINE(readability-named-parameter)
 void sdl_log_callback(void *, int, SDL_LogPriority priority, const char *message) {
     level::log_level log_level; // NOLINT(cppcoreguidelines-init-variables)
 

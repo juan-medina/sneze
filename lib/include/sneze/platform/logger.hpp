@@ -60,8 +60,6 @@ struct source_location {
 } // namespace std
 #endif
 
-#include <string>
-
 #include <spdlog/spdlog.h>
 
 namespace sneze::logger {

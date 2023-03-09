@@ -61,17 +61,15 @@ public:
     inline auto ok() -> std::tuple<std::optional<Value>, std::optional<Error>> {
         if(has_error()) {
             return {std::nullopt, error()};
-        } else {
-            return {value(), std::nullopt};
         }
+        return {value(), std::nullopt};
     };
 
     inline auto ko() -> std::optional<Error> {
         if(has_error()) {
             return error();
-        } else {
-            return std::nullopt;
         }
+        return std::nullopt;
     };
 };
 
