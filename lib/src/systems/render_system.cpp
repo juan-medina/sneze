@@ -79,7 +79,7 @@ void render_system::update(world *world) {
     render_->end_frame();
 }
 
-void render_system::toggle_fullscreen(const events::toggle_fullscreen &) noexcept {
+void render_system::toggle_fullscreen(const events::toggle_fullscreen &/*event*/) noexcept {
     render_->toggle_fullscreen();
 }
 

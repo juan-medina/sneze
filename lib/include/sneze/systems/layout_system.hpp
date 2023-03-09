@@ -46,7 +46,7 @@ private:
 
     void add_component_anchor(events::add_component<components::anchor> const &event);
 
-    void calculate_layout(world *world, entt::entity entity, const components::anchor &anchor);
+    void calculate_layout(world *world, entt::entity entity, const components::anchor &anchor) const;
 };
 
 } // namespace sneze

@@ -44,7 +44,7 @@ void layout_system::end(sneze::world *world) {
     world->remove_component_listeners<components::anchor>(this);
 }
 
-void layout_system::update(sneze::world *) {}
+void layout_system::update(sneze::world * /*world*/) {}
 
 void layout_system::window_resized(const events::window_resized &event) {
     logical_ = event.logical;
@@ -59,7 +59,7 @@ void layout_system::add_component_anchor(events::add_component<components::ancho
     calculate_layout(event.world, event.entity, event.component);
 }
 
-void layout_system::calculate_layout(world *world, entt::entity entity, const components::anchor &anc) {
+void layout_system::calculate_layout(world *world, entt::entity entity, const components::anchor &anc) const {
     using layout = components::layout;
     using position = components::position;
     using horizontal = components::horizontal;
@@ -93,14 +93,14 @@ void layout_system::calculate_layout(world *world, entt::entity entity, const co
         break;
     }
 
-    if(auto pos = world->has_component<position>(entity)) {
+    if(auto *pos = world->has_component<position>(entity)) {
         lay.x += pos->x;
         lay.y += pos->y;
     } else {
         world->set_component<position>(entity, position{0, 0});
     }
 
-    if(auto current = world->has_component<layout>(entity)) {
+    if(auto *current = world->has_component<layout>(entity)) {
         *current = lay;
     } else {
         world->set_component<layout>(entity, lay);
