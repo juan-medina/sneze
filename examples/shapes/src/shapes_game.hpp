@@ -22,13 +22,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <cstdlib>
+#pragma once
 
-#include "draw_game.hpp"
+#include <sneze/sneze.hpp>
 
-auto main(int, char *[]) -> int {
-    if(auto err = draw_game().run().ko(); err) {
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
-}
+using config = sneze::config;
+
+class shapes_game: public sneze::application {
+public:
+    shapes_game();
+
+    ~shapes_game() override = default;
+
+    shapes_game(const shapes_game &) = delete;
+    shapes_game(const shapes_game &&) = delete;
+
+    auto operator=(const shapes_game &) -> shapes_game & = delete;
+    auto operator=(const shapes_game &&) -> shapes_game & = delete;
+
+    [[nodiscard]] auto configure() -> config override;
+
+    auto init() -> sneze::result<> override;
+
+    void end() override;
+};

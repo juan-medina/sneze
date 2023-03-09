@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.4)
 
 #configure variables
-set(APP_NAME "draw")
+set(APP_NAME "shapes")
 
 #configure directories
 set(APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/${APP_NAME}")

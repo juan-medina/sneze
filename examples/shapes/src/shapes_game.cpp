@@ -22,16 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "draw_game.hpp"
+#include "shapes_game.hpp"
 
-draw_game::draw_game(): application("sneze", "Draw Game") {}
+shapes_game::shapes_game(): application("sneze", "Shapes Game") {}
 
 namespace logger = sneze::logger;
 using config = sneze::config;
 namespace components = sneze::components;
 using color = components::color;
 
-auto draw_game::configure() -> config {
+auto shapes_game::configure() -> config {
     logger::debug("configure");
 
     namespace keyboard = sneze::keyboard;
@@ -45,8 +45,8 @@ auto draw_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto draw_game::init() -> sneze::result<> {
-    logger::debug("init draw game");
+auto shapes_game::init() -> sneze::result<> {
+    logger::debug("init shapes game");
 
     using rendereable = components::renderable;
     using line = components::line;
@@ -110,6 +110,6 @@ auto draw_game::init() -> sneze::result<> {
     return true;
 }
 
-void draw_game::end() {
-    logger::debug("ending draw game");
+void shapes_game::end() {
+    logger::debug("ending shapes game");
 }
