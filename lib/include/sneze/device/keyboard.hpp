@@ -34,42 +34,42 @@ using code = int32_t;
 class key {
 public:
     [[maybe_unused]] static const code unknown;
-    [[maybe_unused]] static const code a;
-    [[maybe_unused]] static const code b;
-    [[maybe_unused]] static const code c;
-    [[maybe_unused]] static const code d;
-    [[maybe_unused]] static const code e;
-    [[maybe_unused]] static const code f;
-    [[maybe_unused]] static const code g;
-    [[maybe_unused]] static const code h;
-    [[maybe_unused]] static const code i;
-    [[maybe_unused]] static const code j;
-    [[maybe_unused]] static const code k;
-    [[maybe_unused]] static const code l;
-    [[maybe_unused]] static const code m;
-    [[maybe_unused]] static const code n;
-    [[maybe_unused]] static const code o;
-    [[maybe_unused]] static const code p;
-    [[maybe_unused]] static const code q;
-    [[maybe_unused]] static const code r;
-    [[maybe_unused]] static const code s;
-    [[maybe_unused]] static const code t;
-    [[maybe_unused]] static const code u;
-    [[maybe_unused]] static const code v;
-    [[maybe_unused]] static const code w;
-    [[maybe_unused]] static const code x;
-    [[maybe_unused]] static const code y;
-    [[maybe_unused]] static const code z;
-    [[maybe_unused]] static const code _1; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _2; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _3; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _4; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _5; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _6; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _7; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _8; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _9; // NOLINT(readability-identifier-naming)
-    [[maybe_unused]] static const code _0; // NOLINT(readability-identifier-naming)
+    [[maybe_unused]] static const code a;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code b;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code c;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code d;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code e;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code g;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code h;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code i;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code j;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code k;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code l;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code m;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code n;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code o;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code p;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code q;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code r;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code s;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code t;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code u;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code v;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code w;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code x;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code y;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code z;       // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code _1;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _2;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _3;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _4;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _5;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _6;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _7;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _8;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _9;      // NOLINT(readability-identifier-naming,readability-identifier-length)
+    [[maybe_unused]] static const code _0;      // NOLINT(readability-identifier-naming,readability-identifier-length)
     [[maybe_unused]] static const code _return; // NOLINT(readability-identifier-naming)
     [[maybe_unused]] static const code escape;
     [[maybe_unused]] static const code backspace;
@@ -86,15 +86,15 @@ public:
     [[maybe_unused]] static const code comma;
     [[maybe_unused]] static const code period;
     [[maybe_unused]] static const code caps_lock;
-    [[maybe_unused]] static const code f1;
-    [[maybe_unused]] static const code f2;
-    [[maybe_unused]] static const code f3;
-    [[maybe_unused]] static const code f4;
-    [[maybe_unused]] static const code f5;
-    [[maybe_unused]] static const code f6;
-    [[maybe_unused]] static const code f7;
-    [[maybe_unused]] static const code f8;
-    [[maybe_unused]] static const code f9;
+    [[maybe_unused]] static const code f1; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f2; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f3; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f4; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f5; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f6; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f7; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f8; // NOLINT(readability-identifier-length)
+    [[maybe_unused]] static const code f9; // NOLINT(readability-identifier-length)
     [[maybe_unused]] static const code f10;
     [[maybe_unused]] static const code f11;
     [[maybe_unused]] static const code f12;
@@ -119,7 +119,7 @@ public:
     [[maybe_unused]] static const code right;
     [[maybe_unused]] static const code left;
 
-    static auto string(const code &key) -> const std::string;
+    static auto string(const code &key) -> std::string;
 };
 
 using mod = uint16_t;
@@ -140,22 +140,21 @@ public:
     [[maybe_unused]] static const mod alt;
     [[maybe_unused]] static const mod gui;
 
-    static auto string(const mod &modifier) -> const std::string;
+    static auto string(const mod &modifier) -> std::string;
 };
 
 struct key_modifier {
     code key = key::unknown;       // NOLINT(misc-non-private-member-variables-in-classes)
     mod modifier = modifier::none; // NOLINT(misc-non-private-member-variables-in-classes)
 
-    constexpr auto operator==(const key_modifier &other) {
+    constexpr auto operator==(const key_modifier &other) const {
         if(other.modifier == keyboard::modifier::none) {
             return key == other.key && modifier == keyboard::modifier::none;
-        } else {
-            return (key == other.key) && (modifier & other.modifier);
         }
+        return (key == other.key) && ((modifier & other.modifier) != 0);
     }
 
-    constexpr auto operator==(const code &other) {
+    constexpr auto operator==(const code &other) const {
         return key == other && modifier == keyboard::modifier::none;
     }
 
