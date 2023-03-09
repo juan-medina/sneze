@@ -100,7 +100,6 @@ private:
 
     auto add_toml_value(const std::string &section, const std::string &name, const toml::value &value) -> result<>;
 
-private:
     static auto simplify_name(const std::string &name) -> std::string;
 };
 
