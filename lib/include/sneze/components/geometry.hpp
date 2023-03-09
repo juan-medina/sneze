@@ -44,13 +44,13 @@ struct rect {
 };
 
 struct line {
-    struct size size; // cppcheck-suppress unusedStructMember
-    float thickness;  // cppcheck-suppress unusedStructMember
+    struct position to; // cppcheck-suppress unusedStructMember
+    float thickness;    // cppcheck-suppress unusedStructMember
 };
 
 struct box {
-    struct size size; // cppcheck-suppress unusedStructMember
-    float thickness;  // cppcheck-suppress unusedStructMember
+    struct position to; // cppcheck-suppress unusedStructMember
+    float thickness;    // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze::components

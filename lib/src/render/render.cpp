@@ -147,10 +147,10 @@ void render::end_frame() {
 }
 
 void render::draw_label(const components::label &label,
-                        const components::position &position,
+                        const components::position &at,
                         const components::color &color) {
     if(auto font = get_font(label.font); font != nullptr) [[likely]] {
-        font->draw_text(label.text, position, label.alignment, label.size, color);
+        font->draw_text(label.text, at, label.alignment, label.size, color);
     } else {
         logger::error("trying to draw a label with a not loaded font: ({})", label.font);
     }
@@ -296,26 +296,22 @@ auto render::preferred_driver() -> int {
     logger::warning("no preferred SDL driver found, using default");
     return -1;
 }
-void render::draw_line(const components::line &line,
-                       const components::position &position,
-                       const components::color &color) {
+void render::draw_line(const components::line &line, const components::position &from, const components::color &color) {
+    const components::size size{line.to.x - from.x, line.to.y - from.y};
     if(line.thickness == 1) {
         SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
-        SDL_RenderDrawLineF(
-            renderer_, position.x, position.y, position.x + line.size.width, position.y + line.size.height);
+        SDL_RenderDrawLineF(renderer_, from.x, from.y, from.x + size.width, from.y + size.height);
         SDL_SetRenderDrawColor(renderer_, clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
     } else {
-        const float length = std::sqrt(line.size.width * line.size.width + line.size.height * line.size.height);
+        const float length = std::sqrt(size.width * size.width + size.height * size.height);
         const float scale = line.thickness / (2.f * length);
-        auto radius = components::position{-line.size.height * scale, line.size.width * scale};
-
-        const auto end_position = components::position{position.x + line.size.width, position.y + line.size.height};
+        auto radius = components::position{-size.height * scale, size.width * scale};
 
         const auto points = std::vector<components::position>{{
-            {position.x - radius.x, position.y - radius.y},
-            {position.x + radius.x, position.y + radius.y},
-            {end_position.x - radius.x, end_position.y - radius.y},
-            {end_position.x + radius.x, end_position.y + radius.y},
+            {from.x - radius.x, from.y - radius.y},
+            {from.x + radius.x, from.y + radius.y},
+            {line.to.x - radius.x, line.to.y - radius.y},
+            {line.to.x + radius.x, line.to.y + radius.y},
         }};
 
         fill_points_with_triangles(points, color);
@@ -343,16 +339,17 @@ void render::fill_points_with_triangles(const std::vector<components::position> 
     SDL_RenderGeometry(renderer_, nullptr, vertexes.data(), static_cast<int>(vertexes.size()), nullptr, 0);
 }
 
-void render::draw_box(const components::box &box,
-                      const components::position &position,
-                      const components::color &color) {
+void render::draw_box(const components::box &box, const components::position &from, const components::color &color) {
     auto half_thickness = box.thickness / 2.f;
-    draw_line({{box.size.width + box.thickness, 0}, box.thickness}, {position.x - half_thickness, position.y}, color);
-    draw_line({{box.size.width + box.thickness, 0}, box.thickness},
-              {position.x - half_thickness, position.y + box.size.height},
+    const components::size size{box.to.x - from.x, box.to.y - from.y};
+
+    draw_line(
+        {{from.x + size.width + half_thickness, from.y}, box.thickness}, {from.x - half_thickness, from.y}, color);
+    draw_line({{from.x, from.y + size.height}, box.thickness}, {from.x, from.y}, color);
+    draw_line({{from.x + size.width + half_thickness, from.y + size.height}, box.thickness},
+              {from.x - half_thickness, from.y + size.height},
               color);
-    draw_line({{0, box.size.height}, box.thickness}, {position.x, position.y}, color);
-    draw_line({{0, box.size.height}, box.thickness}, {position.x + box.size.width, position.y}, color);
+    draw_line({{from.x + size.width, from.y + size.height}, box.thickness}, {from.x + size.width, from.y}, color);
 }
 
 } // namespace sneze

@@ -59,34 +59,34 @@ auto draw_game::init() -> sneze::result<> {
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
-                        line{{line_length, 0}, line_thickness},
+                        line{{start_position.x + line_length, start_position.y}, line_thickness},
                         color::red);
     world()->add_entity(rendereable{},
                         position{start_position.x + line_length, start_position.y},
-                        line{{0, line_length}, line_thickness},
+                        line{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
                         color::yellow);
     world()->add_entity(rendereable{},
                         position{start_position.x + line_length, start_position.y + line_length},
-                        line{{-line_length, 0}, line_thickness},
+                        line{{start_position.x, start_position.y + line_length}, line_thickness},
                         color::blue);
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y + line_length},
-                        line{{0, -line_length}, line_thickness},
+                        line{{start_position.x, start_position.y}, line_thickness},
                         color::green);
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
-                        line{{line_length, line_length}, line_thickness},
+                        line{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
                         color::purple);
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y + line_length},
-                        line{{line_length, -line_length}, line_thickness},
+                        line{{start_position.x + line_length, start_position.y}, line_thickness},
                         color::orange);
 
     start_position.x = 1920 - line_length * 2;
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
-                        box{{line_length, line_length}, line_thickness},
+                        box{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
                         color::black);
 
     return true;
