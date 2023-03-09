@@ -68,13 +68,19 @@ auto application::run() -> result<bool, error> {
     logger::info("{}", version::string);
     logger::debug("running application: {} (Team: {})", name(), team());
 
-    if(auto err = read_settings().ko()) return show_error(*err);
+    if(auto err = read_settings().ko()) {
+        return show_error(*err);
+    }
 
     log_level();
 
-    if(auto err = launch().ko()) return show_error(*err);
+    if(auto err = launch().ko()) {
+        return show_error(*err);
+    }
 
-    if(auto err = save_settings().ko()) return show_error(*err);
+    if(auto err = save_settings().ko()) {
+        return show_error(*err);
+    }
 
     logger::info("stopping application: {}", name());
 
@@ -147,7 +153,9 @@ auto application::launch() -> result<> {
         return error("Can't init the application.", *err);
     }
 
-    while(!want_to_close_) world_->update();
+    while(!want_to_close_) {
+        world_->update();
+    }
 
     logger::debug("ending application");
     end();
@@ -171,8 +179,8 @@ auto application::read_settings() noexcept -> result<> {
     if(auto [val, err] = settings_.read().ok(); err) {
         logger::error("error reading settings");
         return error("Can't read settings.", *err); // NOLINT(bugprone-unchecked-optional-access)
-    } else {
-        return *val; // NOLINT(bugprone-unchecked-optional-access)
+    } else {                                        // NOLINT(readability-else-after-return)
+        return *val;                                // NOLINT(bugprone-unchecked-optional-access)
     }
 }
 
@@ -180,12 +188,12 @@ auto application::save_settings() noexcept -> result<> {
     if(auto [val, err] = settings_.save().ok(); err) {
         logger::error("error saving settings");
         return error("Can't save settings.", *err); // NOLINT(bugprone-unchecked-optional-access)
-    } else {
-        return *val; // NOLINT(bugprone-unchecked-optional-access)
+    } else {                                        // NOLINT(readability-else-after-return)
+        return *val;                                // NOLINT(bugprone-unchecked-optional-access)
     }
 }
 
-void application::app_want_closing(events::application_want_closing) noexcept {
+void application::app_want_closing(events::application_want_closing) noexcept { // NOLINT(readability-named-parameter)
     logger::debug("application want to close");
     want_to_close_ = true;
 }
@@ -203,7 +211,7 @@ void application::unload_font(const std::string &font_path) {
     render_->unload_font(font_path);
 }
 
-auto application::get_window_settings(const config &cfg) -> const std::tuple<components::size, bool, int> {
+auto application::get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int> {
     using namespace std::literals;
     auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.window().width));
     auto height = settings_.get("window"s, "height"s, static_cast<std::int64_t>(cfg.window().height));
