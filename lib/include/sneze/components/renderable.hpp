@@ -37,13 +37,16 @@ public:
 
     enum opacity : component { translucent [[maybe_unused]] = 0, opaque = 255 };
 
-    [[nodiscard]] static inline auto
-    rgba(const component &r, const component &g, const component &b, const component &a) -> const color {
-        return {r, g, b, a};
+    [[nodiscard]] static inline auto rgba(const component &red_component,
+                                          const component &green_component,
+                                          const component &blue_component,
+                                          const component &alpha_component) -> color {
+        return {red_component, green_component, blue_component, alpha_component};
     }
 
-    [[nodiscard]] static inline auto rgb(const component &r, const component &g, const component &b) {
-        return rgba(r, g, b, opacity::opaque);
+    [[nodiscard]] static inline auto
+    rgb(const component &red_component, const component &green_component, const component &blue_component) {
+        return rgba(red_component, green_component, blue_component, opacity::opaque);
     }
 
     component r;
