@@ -74,12 +74,18 @@ public:
 
     [[maybe_unused]] auto unload_texture(const std::string &texture_path) -> result<>;
 
-    void
-    draw_label(const components::label &label, const components::position &at, const components::color &color);
+    void draw_label(const components::label &label, const components::position &at, const components::color &color);
 
     void draw_line(const components::line &line, const components::position &from, const components::color &color);
 
     void draw_box(const components::box &box, const components::position &from, const components::color &color);
+
+    void
+    draw_solid_box(const components::solid_box &box, const components::position &from, const components::color &color);
+
+    void draw_border_box(const components::border_box &box,
+                         const components::position &from,
+                         const components::color &color);
 
     [[nodiscard]] auto window() -> const components::size;
 

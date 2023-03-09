@@ -351,5 +351,25 @@ void render::draw_box(const components::box &box, const components::position &fr
               color);
     draw_line({{from.x + size.width, from.y + size.height}, box.thickness}, {from.x + size.width, from.y}, color);
 }
+void render::draw_solid_box(const components::solid_box &box,
+                            const components::position &from,
+                            const components::color &color) {
+    const auto points = std::vector<components::position>{{
+        {from.x, from.y},
+        {from.x, box.to.y},
+        {box.to.x, box.to.y},
+        {box.to.x, from.y},
+        {from.x, from.y},
+    }};
+
+    fill_points_with_triangles(points, color);
+}
+void render::draw_border_box(const components::border_box &box,
+                             const components::position &from,
+                             const components::color &color) {
+    draw_solid_box({box.to}, from, color);
+
+    draw_box({box.to, box.thickness}, from, box.color);
+}
 
 } // namespace sneze

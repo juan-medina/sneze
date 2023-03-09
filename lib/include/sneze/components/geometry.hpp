@@ -26,6 +26,8 @@ SOFTWARE.
 
 #include <string>
 
+#include "renderable.hpp"
+
 namespace sneze::components {
 
 struct position {
@@ -51,6 +53,15 @@ struct line {
 struct box {
     struct position to; // cppcheck-suppress unusedStructMember
     float thickness;    // cppcheck-suppress unusedStructMember
+};
+
+struct solid_box {
+    struct position to; // cppcheck-suppress unusedStructMember
+};
+
+struct border_box: public solid_box {
+    float thickness;         // cppcheck-suppress unusedStructMember
+    components::color color; // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze::components

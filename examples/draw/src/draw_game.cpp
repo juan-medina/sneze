@@ -51,11 +51,13 @@ auto draw_game::init() -> sneze::result<> {
     using rendereable = components::renderable;
     using line = components::line;
     using box = components::box;
+    using solid_box = components::solid_box;
+    using border_box = components::border_box;
     using position = components::position;
 
     const auto line_thickness = 15.f;
-    const auto line_length = 400;
-    auto start_position = position{line_length, (1080.f / 2) - (line_length / 2.f)};
+    const auto line_length = 400.f;
+    auto start_position = position{line_length, (1080.f / 4.f) - (line_length / 2.f)};
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
@@ -82,12 +84,28 @@ auto draw_game::init() -> sneze::result<> {
                         line{{start_position.x + line_length, start_position.y}, line_thickness},
                         color::orange);
 
-    start_position.x = 1920 - line_length * 2;
+    start_position.x = 1920.f - line_length * 2.f;
+
+    world()->add_entity(rendereable{},
+                        position{start_position.x, start_position.y},
+                        solid_box{start_position.x + line_length, start_position.y + line_length},
+                        color::pink);
+
+    start_position.x = line_length;
+    start_position.y = 1080.f - (line_length * 1.25f);
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
                         box{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
-                        color::black);
+                        color::dark_purple);
+
+    start_position.x = 1920.f - line_length * 2.f;
+
+    world()->add_entity(
+        rendereable{},
+        position{start_position.x, start_position.y},
+        border_box{{start_position.x + line_length, start_position.y + line_length}, line_thickness, color::maroon},
+        color::sky_blue);
 
     return true;
 }

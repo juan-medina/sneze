@@ -68,6 +68,10 @@ void render_system::update(world *world) {
                 render_->draw_line(*line, draw_position, color);
             } else if(auto box = world->has_component<components::box>(id)) {
                 render_->draw_box(*box, draw_position, color);
+            } else if(auto solid_box = world->has_component<components::solid_box>(id)) {
+                render_->draw_solid_box(*solid_box, draw_position, color);
+            } else if(auto border_box = world->has_component<components::border_box>(id)) {
+                render_->draw_border_box(*border_box, draw_position, color);
             }
         }
     }
