@@ -89,7 +89,9 @@ void world::remove_all_systems() noexcept {
 }
 
 void world::remove_all_systems_from_vector(systems_vector &systems) noexcept {
-    for(auto &system: systems) system->end(this);
+    for(auto &system: systems) {
+        system->end(this);
+    }
     systems.clear();
 }
 

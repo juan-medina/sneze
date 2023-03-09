@@ -60,9 +60,9 @@ public:
 
     template<typename... Args>
     auto add_entity(Args... args) {
-        auto id = registry_.create();
-        recurse_create(id, args...);
-        return id;
+        auto entity_id = registry_.create();
+        recurse_create(entity_id, args...);
+        return entity_id;
     }
 
     [[maybe_unused]] void remove_entity(entt::entity entity) {
@@ -198,9 +198,8 @@ public:
         auto constexpr type_hash = entt::type_hash<Type>::value();
         if(const auto search = globals_.find(type_hash); search != globals_.end()) {
             return std::any_cast<Type>(search->second);
-        } else {
-            return Type{};
         }
+        return Type{};
     }
 
     template<typename Type>
@@ -227,7 +226,8 @@ protected:
 
 private:
     template<typename ComponentType>
-    void add_listener_to_add_component_internal(entt::registry &, entt::entity entity) {
+    void add_listener_to_add_component_internal(entt::registry &, // NOLINT(readability-named-parameter)
+                                                entt::entity entity) {
         auto &component = registry_.get<ComponentType>(entity);
         emmit<events::add_component<ComponentType>>(entity, component);
     }
@@ -280,17 +280,17 @@ private:
     void remove_all_systems_from_vector(systems_vector &systems) noexcept;
 
     template<typename... Args>
-    void recurse_create(entt::entity id, Args... args) {
-        helper_create_shift(id, args...);
+    void recurse_create(entt::entity entity_id, Args... args) {
+        helper_create_shift(entity_id, args...);
     }
 
     template<typename Type, typename... Args>
-    [[maybe_unused]] void helper_create_shift(entt::entity id, Type value, Args &&...args) {
-        set_component<Type>(id, value);
-        recurse_create(id, args...);
+    [[maybe_unused]] void helper_create_shift(entt::entity entity_id, Type value, Args &&...args) {
+        set_component<Type>(entity_id, value);
+        recurse_create(entity_id, args...);
     }
 
-    void helper_create_shift(entt::entity) {}
+    void helper_create_shift(entt::entity) {} // NOLINT(readability-named-parameter)
 
     static auto sort_by_priority(const system_ptr &lhs, const system_ptr &rhs) noexcept -> bool;
 };
