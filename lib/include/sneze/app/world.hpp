@@ -226,8 +226,7 @@ protected:
 
 private:
     template<typename ComponentType>
-    void add_listener_to_add_component_internal(entt::registry &, // NOLINT(readability-named-parameter)
-                                                entt::entity entity) {
+    void add_listener_to_add_component_internal(entt::registry & /*registry*/, entt::entity entity) {
         auto &component = registry_.get<ComponentType>(entity);
         emmit<events::add_component<ComponentType>>(entity, component);
     }
