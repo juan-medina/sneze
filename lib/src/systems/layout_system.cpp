@@ -59,7 +59,7 @@ void layout_system::add_component_anchor(events::add_component<components::ancho
     calculate_layout(event.world, event.entity, event.component);
 }
 
-void layout_system::calculate_layout(world *world, const entt::entity entity, const components::anchor &anc) {
+void layout_system::calculate_layout(world *world, entt::entity entity, const components::anchor &anc) {
     using layout = components::layout;
     using position = components::position;
     using horizontal = components::horizontal;
