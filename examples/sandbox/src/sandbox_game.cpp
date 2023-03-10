@@ -78,8 +78,8 @@ auto sandbox_game::init() -> sneze::result<> {
     using renderable = components::renderable;
     using label = components::label;
 
-    const auto font_size_small = 30.f;
-    const auto font_size_large = 60.f;
+    const auto font_size_small = 30.F;
+    const auto font_size_large = 60.F;
 
     const auto counter_1 = 40000;
     const auto counter_2 = 20000;

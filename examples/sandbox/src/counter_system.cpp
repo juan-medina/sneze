@@ -30,11 +30,11 @@ namespace logger = sneze::logger;
 namespace components = sneze::components;
 using label = components::label;
 
-void counter_system::init(sneze::world *) {
+void counter_system::init(sneze::world * /*world*/) {
     logger::debug("counter_system::init");
 }
 
-void counter_system::end(sneze::world *) {
+void counter_system::end(sneze::world * /*world*/) {
     logger::debug("counter_system::end");
 }
 
