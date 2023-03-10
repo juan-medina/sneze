@@ -50,7 +50,7 @@ auto texture::init(const std::string &file) -> result<> {
     if(auto [texture, err] = load_texture(file).ok(); err) {
         logger::error("load texture fail on file: ", file);
         return error{"Can't init texture.", *err};
-    } else {
+    } else { // NOLINT(readability-else-after-return)
         texture_ = *texture;
     }
 
@@ -58,16 +58,15 @@ auto texture::init(const std::string &file) -> result<> {
 }
 
 auto texture::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
-    if(auto texture = IMG_LoadTexture(get_render()->sdl_renderer(), file_path.c_str())) {
+    if(auto *texture = IMG_LoadTexture(get_render()->sdl_renderer(), file_path.c_str())) {
         int width{0};
         int height{0};
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
         logger::info("texture loaded: {}, size: {}x{}", file_path, width, height);
         return texture;
-    } else {
-        logger::error("error loading texture: {}", IMG_GetError());
-        return error("Error loading texture.");
     }
+    logger::error("error loading texture: {}", IMG_GetError());
+    return error("Error loading texture.");
 }
 
 void texture::draw(components::rect origin, components::rect destination, components::color color) {
