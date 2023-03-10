@@ -75,10 +75,10 @@ public:
     void draw_text(const std::string &text,
                    const components::position &position,
                    const components::alignment &alignment,
-                   const float size,
+                   float size,
                    const components::color &color);
 
-    [[nodiscard]] auto size(const std::string &text, const float &size) const -> const components::size;
+    [[nodiscard]] auto size(const std::string &text, const float &size) const -> components::size;
 
 private:
     static constexpr auto max_pages = 16;
@@ -95,7 +95,25 @@ private:
     components::position spacing_{0, 0};
     pages pages_{""};
 
+    enum class token_parsing_status {
+        in_key,
+        in_value,
+        in_value_quoted,
+    };
+
+    token_parsing_status token_parsing_current_status_ = token_parsing_status::in_key;
+    std::string token_parsing_current_key_;
+    std::string token_parsing_current_value_;
+    params token_parsing_current_params_;
+    std::string tokens_type_;
+
     [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;
+
+    void tokens_in_key(const char &current_char);
+
+    void tokens_in_value(const char &current_char);
+
+    void tokens_in_value_quoted(const char &current_char);
 
     [[nodiscard]] auto parse_line(const std::string &type, const params &params) -> bool;
 
@@ -105,19 +123,19 @@ private:
 
     [[nodiscard]] auto parse_page(const params &params) -> bool;
 
-    [[nodiscard]] auto parse_chars(const params &params) const -> bool;
+    [[nodiscard]] static auto parse_chars(const params &params) -> bool;
 
     [[nodiscard]] auto parse_char(const params &params) -> bool;
 
-    [[nodiscard]] auto parse_kernings(const params &params) -> bool;
+    [[nodiscard]] static auto parse_kernings(const params &params) -> bool;
 
     [[nodiscard]] auto parse_kerning(const params &params) -> bool;
 
-    [[nodiscard]] inline auto get_value(const params &params, const std::string &key) const -> const std::string;
+    [[nodiscard]] static inline auto get_value(const params &params, const std::string &key) -> std::string;
 
-    [[nodiscard]] inline auto get_int(const params &params, const std::string &key) const -> int;
+    [[nodiscard]] static inline auto get_int(const params &params, const std::string &key) -> int;
 
-    [[nodiscard]] inline auto get_pair(const params &params, const std::string &key) const -> const std::pair<int, int>;
+    [[nodiscard]] static inline auto get_pair(const params &params, const std::string &key) -> std::pair<int, int>;
 
     [[nodiscard]] auto validate_parsing() -> bool;
 };

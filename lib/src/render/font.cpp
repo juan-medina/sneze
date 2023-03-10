@@ -42,28 +42,27 @@ auto font::init(const std::string &file) -> result<> {
         if(!stream.is_open()) {
             logger::error("error opening font file: {}", file);
             return error{"Error opening font file"};
-        } else {
-            auto line = std::string{};
-            while(!stream.eof()) {
-                std::getline(stream, line);
-                auto [type, params] = font::tokens(line);
-                if(!parse_line(type, params)) {
-                    logger::error("error parsing line in font line: {}", line);
-                    stream.close();
-                    return error{"Error in font format."};
-                }
+        }
+        auto line = std::string{};
+        while(!stream.eof()) {
+            std::getline(stream, line);
+            auto [type, params] = font::tokens(line);
+            if(!parse_line(type, params)) {
+                logger::error("error parsing line in font line: {}", line);
+                stream.close();
+                return error{"Error in font format."};
             }
         }
+
         if(!validate_parsing()) {
             logger::error("error parsing font file");
             return error{"Error in font format."};
         }
         logger::info("font: \"{}\" loaded correctly", face_);
         return true;
-    } else {
-        logger::error("error font does not exist: {}", file);
-        return error("Error font does not exist.");
     }
+    logger::error("error font does not exist: {}", file);
+    return error("Error font does not exist.");
 }
 
 void font::end() {
@@ -87,72 +86,79 @@ void font::end() {
 }
 
 auto font::tokens(const std::string &line) -> std::pair<std::string, params> {
-    auto type = std::string{};
-    auto result = params{};
+    token_parsing_current_status_ = token_parsing_status::in_key;
+    tokens_type_ = "";
+    token_parsing_current_key_ = "";
+    token_parsing_current_value_ = "";
+    token_parsing_current_params_ = {};
 
-    enum status {
-        in_key,
-        in_value,
-        in_value_quoted,
-    } current_status = in_key;
-
-    std::string current_key = "";
-    std::string current_value = "";
-
-    for(const auto &c: line) {
-        switch(current_status) {
-        case in_key:
-            if(c == '=') {
-                current_status = in_value;
-            } else if(c == ' ') {
-                current_status = in_key;
-                if(!current_key.empty()) {
-                    if(type.empty()) {
-                        type = current_key;
-                    } else {
-                        result.clear();
-                        break;
-                    }
-                    current_key.clear();
-                }
-            } else {
-                current_key += c;
-            }
+    for(const auto &current_char: line) {
+        switch(token_parsing_current_status_) {
+        case token_parsing_status::in_key:
+            tokens_in_key(current_char);
             break;
-        case in_value:
-            if(c == '"') {
-                current_status = in_value_quoted;
-            } else if(c == ' ') {
-                result.insert({current_key, current_value});
-                current_key.clear();
-                current_value.clear();
-                current_status = in_key;
-            } else {
-                current_value += c;
-            }
+        case token_parsing_status::in_value:
+            tokens_in_value(current_char);
             break;
-        case in_value_quoted:
-            if(c == '"') {
-                result.insert({current_key, current_value});
-                current_key.clear();
-                current_value.clear();
-                current_status = in_key;
-            } else {
-                current_value += c;
-            }
+        case token_parsing_status::in_value_quoted:
+            tokens_in_value_quoted(current_char);
             break;
         }
     }
-    if(current_status == in_value) {
-        result.insert({current_key, current_value});
+
+    if(token_parsing_current_status_ == token_parsing_status::in_value) {
+        token_parsing_current_params_.insert({token_parsing_current_key_, token_parsing_current_value_});
     }
-    return std::make_pair(type, result);
+    return std::make_pair(tokens_type_, token_parsing_current_params_);
+}
+
+void font::tokens_in_key(const char &current_char) {
+    if(current_char == '=') {
+        token_parsing_current_status_ = token_parsing_status::in_value;
+    } else if(current_char == ' ') {
+        token_parsing_current_status_ = token_parsing_status::in_key;
+        if(!token_parsing_current_key_.empty()) {
+            if(tokens_type_.empty()) {
+                tokens_type_ = token_parsing_current_key_;
+            } else {
+                token_parsing_current_params_.clear();
+                return;
+            }
+            token_parsing_current_key_.clear();
+        }
+    } else {
+        token_parsing_current_key_ += current_char;
+    }
+}
+
+void font::tokens_in_value(const char &current_char) {
+    if(current_char == '"') {
+        token_parsing_current_status_ = token_parsing_status::in_value_quoted;
+    } else if(current_char == ' ') {
+        token_parsing_current_params_.insert({token_parsing_current_key_, token_parsing_current_value_});
+        token_parsing_current_key_.clear();
+        token_parsing_current_value_.clear();
+        token_parsing_current_status_ = token_parsing_status::in_key;
+    } else {
+        token_parsing_current_value_ += current_char;
+    }
+}
+
+void font::tokens_in_value_quoted(const char &current_char) {
+    if(current_char == '"') {
+        token_parsing_current_params_.insert({token_parsing_current_key_, token_parsing_current_value_});
+        token_parsing_current_key_.clear();
+        token_parsing_current_value_.clear();
+        token_parsing_current_status_ = token_parsing_status::in_key;
+    } else {
+        token_parsing_current_value_ += current_char;
+    }
 }
 
 auto font::parse_line(const std::string &type, const params &params) -> bool {
     if(type == "info") {
         return parse_info(params);
-    } else if(type == "common") {
+    } else if(type == "common") { // NOLINT(readability-else-after-return)
         return parse_common(params);
     } else if(type == "page") {
         return parse_page(params);
@@ -164,7 +170,7 @@ auto font::parse_line(const std::string &type, const params &params) -> bool {
         return parse_kernings(params);
     } else if(type == "kerning") {
         return parse_kerning(params);
-    } else if(type == "") {
+    } else if(type.empty()) {
         return true;
     } else {
         logger::error("error parsing font file: invalid line type: {}", type);
@@ -196,9 +202,9 @@ auto font::parse_common(const params &params) -> bool {
 }
 
 auto font::parse_page(const params &params) -> bool {
-    const auto id = get_int(params, "id");
-    if(id < 0 || id >= max_pages) {
-        logger::error("error parsing font file: invalid page id: {}, constrains: 0-{}", id, max_pages);
+    const auto page_id = get_int(params, "id");
+    if(page_id < 0 || page_id >= max_pages) {
+        logger::error("error parsing font file: invalid page id: {}, constrains: 0-{}", page_id, max_pages);
         return false;
     }
     const auto file = get_value(params, "file");
@@ -215,13 +221,13 @@ auto font::parse_page(const params &params) -> bool {
         logger::error("error parsing page: can't load texture");
         result = false;
     } else {
-        pages_.at(id) = file_path;
+        pages_.at(page_id) = file_path;
     }
 
     return result;
 }
 
-auto font::parse_chars(const params &params) const -> bool {
+auto font::parse_chars(const params &params) -> bool {
     auto char_count = get_int(params, "count");
     if((char_count == 0) || (char_count > 256)) {
         logger::error("error parsing font file: invalid char count: {}", char_count);
@@ -233,15 +239,15 @@ auto font::parse_chars(const params &params) const -> bool {
 auto font::parse_char(const params &params) -> bool {
     auto new_glyph = glyph{};
 
-    const auto id = get_int(params, "id");
-    if((id < 0) || (id > 255)) {
-        logger::error("error parsing font file: invalid glyph id: {}", id);
+    const auto char_id = get_int(params, "id");
+    if((char_id < 0) || (char_id > 255)) {
+        logger::error("error parsing font file: invalid glyph id: {}", char_id);
         return false;
     }
 
-    const auto x = static_cast<float>(get_int(params, "x"));
-    const auto y = static_cast<float>(get_int(params, "y"));
-    new_glyph.position = {x, y};
+    const auto pos_x = static_cast<float>(get_int(params, "x"));
+    const auto pos_y = static_cast<float>(get_int(params, "y"));
+    new_glyph.position = {pos_x, pos_y};
 
     const auto width = static_cast<float>(get_int(params, "width"));
     const auto height = static_cast<float>(get_int(params, "height"));
@@ -259,13 +265,13 @@ auto font::parse_char(const params &params) -> bool {
         return false;
     }
 
-    glyphs_[id] = new_glyph;
+    glyphs_[char_id] = new_glyph;
 
     return true;
 }
 
 auto font::parse_kernings(const params &params) -> bool {
-    if(!get_int(params, "count")) {
+    if(get_int(params, "count") == 0) {
         logger::error("error parsing font file: invalid kerning count");
         return false;
     }
@@ -283,28 +289,27 @@ auto font::parse_kerning(const params &params) -> bool {
     return true;
 }
 
-auto font::get_value(const params &params, const std::string &key) const -> const std::string {
-    if(const auto it = params.find(key); it != params.end()) {
-        return it->second;
+auto font::get_value(const params &params, const std::string &key) -> std::string {
+    if(const auto it_param = params.find(key); it_param != params.end()) {
+        return it_param->second;
     }
     return "";
 }
 
-auto font::get_int(const params &params, const std::string &key) const -> int {
+auto font::get_int(const params &params, const std::string &key) -> int {
     auto value = get_value(params, key);
     if(value.empty()) {
         return 0;
-    } else {
-        return std::stoi(value);
     }
+    return std::stoi(value);
 }
 
-auto font::get_pair(const font::params &params, const std::string &key) const -> const std::pair<int, int> {
+auto font::get_pair(const font::params &params, const std::string &key) -> std::pair<int, int> {
     auto value = get_value(params, key);
 
-    if(auto at = value.find(','); at != std::string::npos) {
-        auto first = value.substr(0, at);
-        auto second = value.substr(at + 1);
+    if(auto comma_at = value.find(','); comma_at != std::string::npos) {
+        auto first = value.substr(0, comma_at);
+        auto second = value.substr(comma_at + 1);
         return {std::stoi(first), std::stoi(second)};
     }
 
@@ -328,7 +333,7 @@ auto font::validate_parsing() -> bool {
 void font::draw_text(const std::string &text,
                      const components::position &position,
                      const components::alignment &alignment,
-                     const float size,
+                     float size,
                      const components::color &color) {
     auto scale_size = size / static_cast<float>(line_height_);
 
@@ -360,8 +365,8 @@ void font::draw_text(const std::string &text,
 
     unsigned char previous_char = 0;
 
-    for(const auto &c: text) {
-        const auto &glyph = glyphs_.at(c);
+    for(const auto &current_char: text) {
+        const auto &glyph = glyphs_.at(current_char);
         if(!glyph::valid(glyph)) {
             continue;
         }
@@ -376,8 +381,8 @@ void font::draw_text(const std::string &text,
         using rect = components::rect;
         const auto src = rect{{glyph.position.x, glyph.position.y}, {glyph.size.width, glyph.size.height}};
 
-        if(previous_char) {
-            current_position.x += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
+        if(previous_char != 0U) {
+            current_position.x += static_cast<float>(kernings_.at(previous_char).at(current_char)) * scale_size;
         }
 
         const auto dst = rect{
@@ -389,7 +394,7 @@ void font::draw_text(const std::string &text,
         current_position.x += (glyph.advance * scale_size);
         current_position.x += (spacing_.x * scale_size);
 
-        previous_char = c;
+        previous_char = current_char;
     }
 }
 
@@ -397,25 +402,25 @@ font::~font() {
     font::end();
 }
 
-auto font::size(const std::string &text, const float &size) const -> const components::size {
+auto font::size(const std::string &text, const float &size) const -> components::size {
     auto scale_size = size / static_cast<float>(line_height_);
     unsigned char previous_char = 0;
 
     float advance = 0;
 
-    for(const auto &c: text) {
-        const auto &glyph = glyphs_.at(c);
+    for(const auto &current_character: text) {
+        const auto &glyph = glyphs_.at(current_character);
         if(!glyph::valid(glyph)) {
             continue;
         }
 
-        if(previous_char) {
-            advance += static_cast<float>(kernings_.at(previous_char).at(c)) * scale_size;
+        if(previous_char != 0U) {
+            advance += static_cast<float>(kernings_.at(previous_char).at(current_character)) * scale_size;
         }
 
         advance += (glyph.advance * scale_size);
         advance += (spacing_.x * scale_size);
-        previous_char = c;
+        previous_char = current_character;
     }
 
     return {advance, static_cast<float>(line_height_) * scale_size};
