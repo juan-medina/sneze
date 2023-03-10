@@ -25,6 +25,7 @@ SOFTWARE.
 #include "sneze/app/application.hpp"
 
 #include "sneze/app/world.hpp"
+#include "sneze/effects/effects_system.hpp"
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/version.hpp"
@@ -127,6 +128,7 @@ auto application::launch() -> result<> {
     constexpr auto sdl_events_priority = world::priority::before_applications;
     constexpr auto keys_priority = sdl_events_priority - 1;
     constexpr auto layout_priority = render_priority + 1;
+    constexpr auto effects_priority = layout_priority + 1;
 
     logger::debug("adding render system to the world");
     world_->add_system_with_priority_internal<render_priority, render_system>(render_);
@@ -139,6 +141,9 @@ auto application::launch() -> result<> {
 
     logger::debug("adding layout system to the world");
     world_->add_system_with_priority_internal<layout_priority, layout_system>();
+
+    logger::debug("adding effects system to the world");
+    world_->add_system_with_priority_internal<effects_priority, effects_system>();
 
     logger::debug("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);

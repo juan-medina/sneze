@@ -56,7 +56,7 @@ public:
 
     void end();
 
-    [[nodiscard]] static auto since_epoch();
+    [[nodiscard]] static auto since_epoch() -> float;
 
     template<typename... Args>
     auto add_entity(Args... args) {

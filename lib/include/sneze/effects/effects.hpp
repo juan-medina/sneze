@@ -24,27 +24,17 @@ SOFTWARE.
 
 #pragma once
 
-#include "app/application.hpp"
-#include "app/config.hpp"
-#include "app/settings.hpp"
-#include "app/world.hpp"
-#include "components/geometry.hpp"
-#include "components/renderable.hpp"
-#include "components/ui.hpp"
-#include "device/keyboard.hpp"
-#include "effects/effects.hpp"
-#include "events/events.hpp"
-#include "globals/globals.hpp"
-#include "platform/error.hpp"
-#include "platform/logger.hpp"
-#include "platform/result.hpp"
-#include "platform/version.hpp"
-#include "render/font.hpp"
-#include "render/render.hpp"
-#include "render/resource.hpp"
-#include "render/texture.hpp"
-#include "systems/keys_system.hpp"
-#include "systems/layout_system.hpp"
-#include "systems/render_system.hpp"
-#include "systems/sdl_events_system.hpp"
-#include "systems/system.hpp"
+#include "../components/renderable.hpp"
+
+namespace sneze::effects {
+
+struct alternate_color {
+    class components::color from = components::color::white; // cppcheck-suppress unusedStructMember
+    class components::color to = components::color::white;   // cppcheck-suppress unusedStructMember
+    float time = 150.0F;                                     // cppcheck-suppress unusedStructMember
+    float delay = 100.F;                                     // cppcheck-suppress unusedStructMember
+    bool pause = false;                                      // cppcheck-suppress unusedStructMember
+    float current_time = 0.F;                                // cppcheck-suppress unusedStructMember
+};
+
+} // namespace sneze::effects

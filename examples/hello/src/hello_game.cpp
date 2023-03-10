@@ -60,6 +60,7 @@ auto hello_game::init() -> sneze::result<> {
         return error("Can't load regular font.", *err);
     }
 
+    namespace effects = sneze::effects;
     using renderable = components::renderable;
     using label = components::label;
 
@@ -67,11 +68,13 @@ auto hello_game::init() -> sneze::result<> {
     using vertical = components::vertical;
     using horizontal = components::horizontal;
     using anchor = components::anchor;
+    using alternate_color = effects::alternate_color;
 
     world()->add_entity(renderable{},
                         label{"Hello from sneze!", regular_font, 60.F, alignment{horizontal::center, vertical::center}},
                         anchor{horizontal::center, vertical::center},
-                        color::white);
+                        color::white,
+                        alternate_color{color::white, color::red});
 
     return true;
 }

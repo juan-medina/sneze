@@ -129,10 +129,11 @@ void world::clear() {
     registry_.clear();
 }
 
-auto world::since_epoch() {
+auto world::since_epoch() -> float {
     namespace chrono = std::chrono;
-    auto milliseconds = duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
-    return static_cast<double>(milliseconds);
+    auto milliseconds =
+        std::chrono::duration<double, std::milli>(chrono::steady_clock::now().time_since_epoch()).count();
+    return static_cast<float>(milliseconds);
 }
 
 void world::init() {
@@ -150,7 +151,6 @@ void world::update_time() {
     auto last = current_;
     current_.elapsed = since_epoch() - start_.elapsed;
     current_.delta = current_.elapsed - last.elapsed;
-
     set_global<game_time>(current_);
 }
 

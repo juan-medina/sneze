@@ -49,10 +49,29 @@ public:
         return rgba(red_component, green_component, blue_component, opacity::opaque);
     }
 
-    component r;
-    component g;
-    component b;
-    component a;
+    [[nodiscard]] inline auto alpha(component alpha) const -> color {
+        return rgba(r, g, b, alpha);
+    }
+
+    [[nodiscard]] inline auto alpha(float alpha) const -> color {
+        return rgba(r, g, b, static_cast<component>(alpha * static_cast<component>(opacity::opaque)));
+    }
+
+    [[nodiscard]] inline auto alpha(opacity alpha) const -> color {
+        return rgba(r, g, b, static_cast<component>(alpha));
+    }
+
+    void blend(const color &other, float factor) {
+        r = static_cast<component>(static_cast<float>(r) * (1.0F - factor) + static_cast<float>(other.r) * factor);
+        g = static_cast<component>(static_cast<float>(g) * (1.0F - factor) + static_cast<float>(other.g) * factor);
+        b = static_cast<component>(static_cast<float>(b) * (1.0F - factor) + static_cast<float>(other.b) * factor);
+        a = static_cast<component>(static_cast<float>(a) * (1.0F - factor) + static_cast<float>(other.a) * factor);
+    }
+
+    component r; // NOLINT(misc-non-private-member-variables-in-classes)
+    component g; // NOLINT(misc-non-private-member-variables-in-classes)
+    component b; // NOLINT(misc-non-private-member-variables-in-classes)
+    component a; // NOLINT(misc-non-private-member-variables-in-classes)
 
     static const color white;
     static const color black;

@@ -23,28 +23,17 @@ SOFTWARE.
 ****************************************************************************/
 
 #pragma once
+#include "../systems/system.hpp"
 
-#include "app/application.hpp"
-#include "app/config.hpp"
-#include "app/settings.hpp"
-#include "app/world.hpp"
-#include "components/geometry.hpp"
-#include "components/renderable.hpp"
-#include "components/ui.hpp"
-#include "device/keyboard.hpp"
-#include "effects/effects.hpp"
-#include "events/events.hpp"
-#include "globals/globals.hpp"
-#include "platform/error.hpp"
-#include "platform/logger.hpp"
-#include "platform/result.hpp"
-#include "platform/version.hpp"
-#include "render/font.hpp"
-#include "render/render.hpp"
-#include "render/resource.hpp"
-#include "render/texture.hpp"
-#include "systems/keys_system.hpp"
-#include "systems/layout_system.hpp"
-#include "systems/render_system.hpp"
-#include "systems/sdl_events_system.hpp"
-#include "systems/system.hpp"
+namespace sneze {
+
+class effects_system: public system {
+public:
+    void init(sneze::world *world) override;
+
+    void end(sneze::world *world) override;
+
+    void update(sneze::world *world) override;
+};
+
+} // namespace sneze

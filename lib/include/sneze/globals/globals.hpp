@@ -27,8 +27,8 @@ SOFTWARE.
 namespace sneze {
 
 struct game_time {
-    double delta = 0;   // cppcheck-suppress unusedStructMember
-    double elapsed = 0; // cppcheck-suppress unusedStructMember
+    float delta = 0.F;   // cppcheck-suppress unusedStructMember
+    float elapsed = 0.F; // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze
