@@ -74,7 +74,7 @@ public:
 
     [[maybe_unused]] auto unload_texture(const std::string &texture_path) -> result<>;
 
-    void draw_label(const components::label &label, const components::position &at, const components::color &color);
+    void draw_label(const components::label &label, const components::position &from, const components::color &color);
 
     void draw_line(const components::line &line, const components::position &from, const components::color &color);
 
@@ -87,13 +87,13 @@ public:
                          const components::position &from,
                          const components::color &color);
 
-    [[nodiscard]] auto window() -> const components::size;
+    [[nodiscard]] auto window() -> components::size;
 
-    [[nodiscard]] auto logical() -> const components::rect;
+    [[nodiscard]] auto logical() -> components::rect;
 
-    [[nodiscard]] auto window_to_logical(const components::position &position) -> const components::position;
+    [[nodiscard]] auto window_to_logical(const components::position &position) -> components::position;
 
-    [[nodiscard]] auto window_to_logical(const components::size &size) -> const components::rect;
+    [[nodiscard]] auto window_to_logical(const components::size &size) -> components::rect;
 
     [[nodiscard]] auto monitor() const -> int;
 
@@ -109,15 +109,15 @@ public:
     friend class font;
 
 protected:
-    [[nodiscard]] auto get_texture(const std::string &texture_path) -> const std::shared_ptr<texture>;
+    [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;
 
 private:
     resources_cache<font> fonts_;
     resources_cache<texture> textures_;
 
-    [[nodiscard]] auto get_font(const std::string &font_path) -> const std::shared_ptr<font>;
+    [[nodiscard]] auto get_font(const std::string &font_path) -> std::shared_ptr<font>;
 
-    [[nodiscard]] auto preferred_driver() -> int;
+    [[nodiscard]] static auto preferred_driver() -> int;
 
     void fill_points_with_triangles(const std::vector<components::position> &points, const components::color &color);
 
