@@ -69,7 +69,7 @@ auto hello_game::init() -> sneze::result<> {
     using anchor = components::anchor;
 
     world()->add_entity(renderable{},
-                        label{"Hello from sneze!", regular_font, 60.f, alignment{horizontal::center, vertical::center}},
+                        label{"Hello from sneze!", regular_font, 60.F, alignment{horizontal::center, vertical::center}},
                         anchor{horizontal::center, vertical::center},
                         color::white);
 

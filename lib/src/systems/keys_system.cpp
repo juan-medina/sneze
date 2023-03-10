@@ -41,7 +41,8 @@ void keys_system::init(world *world) {
 }
 
 void keys_system::end(world *world) {
-    logger::debug("end key system");
+    logger::debug("end key system"
+                  );
     world->remove_listeners(this);
 }
 
@@ -53,6 +54,6 @@ void keys_system::key_up(const events::key_up &event) {
     }
 }
 
-void keys_system::update(world *) {}
+void keys_system::update(world * /*world*/) {}
 
 } // namespace sneze

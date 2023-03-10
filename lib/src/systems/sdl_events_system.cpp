@@ -33,12 +33,11 @@ SOFTWARE.
 
 namespace sneze {
 
-
-void sdl_events_system::init(sneze::world *) {
+void sdl_events_system::init(sneze::world * /*world*/) {
     logger::debug("init event system");
 }
 
-void sdl_events_system::end(sneze::world *) {
+void sdl_events_system::end(sneze::world * /*world*/) {
     logger::debug("end event system");
 }
 
@@ -46,7 +45,7 @@ void sdl_events_system::update(sneze::world *world) {
     using modifier = keyboard::modifier;
     static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::gui;
     auto event_data = SDL_Event{};
-    while(SDL_PollEvent(&event_data)) {
+    while(SDL_PollEvent(&event_data) != SDL_FALSE) {
         switch(event_data.type) {
         case SDL_QUIT:
             world->emmit<events::application_want_closing>();

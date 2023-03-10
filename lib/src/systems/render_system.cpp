@@ -58,19 +58,19 @@ void render_system::update(world *world) {
             auto draw_position = pos;
 
             // layout position
-            if(auto lay = world->has_component<layout>(id)) {
+            if(auto *lay = world->has_component<layout>(id)) {
                 draw_position = *lay;
             }
 
-            if(auto lbl = world->has_component<label>(id)) {
+            if(auto *lbl = world->has_component<label>(id)) {
                 render_->draw_label(*lbl, draw_position, color);
-            } else if(auto line = world->has_component<components::line>(id)) {
+            } else if(auto *line = world->has_component<components::line>(id)) {
                 render_->draw_line(*line, draw_position, color);
-            } else if(auto box = world->has_component<components::box>(id)) {
+            } else if(auto *box = world->has_component<components::box>(id)) {
                 render_->draw_box(*box, draw_position, color);
-            } else if(auto solid_box = world->has_component<components::solid_box>(id)) {
+            } else if(auto *solid_box = world->has_component<components::solid_box>(id)) {
                 render_->draw_solid_box(*solid_box, draw_position, color);
-            } else if(auto border_box = world->has_component<components::border_box>(id)) {
+            } else if(auto *border_box = world->has_component<components::border_box>(id)) {
                 render_->draw_border_box(*border_box, draw_position, color);
             }
         }
@@ -79,7 +79,7 @@ void render_system::update(world *world) {
     render_->end_frame();
 }
 
-void render_system::toggle_fullscreen(const events::toggle_fullscreen &) noexcept {
+void render_system::toggle_fullscreen(const events::toggle_fullscreen &/*event*/) noexcept {
     render_->toggle_fullscreen();
 }
 

@@ -44,12 +44,12 @@ namespace fs = std::filesystem;
 auto settings::read() -> result<> {
     logger::info("reading settings for application: {} (Team: {})", application_, team_);
 
-    if(auto [val, err] = calculate_settings_file_path().ok(); err) {
-        logger::error("error calculate settings file path");
-        return error("Can't calculate settings file path.", *err); // NOLINT(bugprone-unchecked-optional-access)
-    } else {
+    if(auto [val, err] = calculate_settings_file_path().ok(); !err) {
         logger::debug("settings file: {}", val->string()); // NOLINT(bugprone-unchecked-optional-access)
         settings_file_path_ = *val;                        // NOLINT(bugprone-unchecked-optional-access)
+    } else {
+        logger::error("error calculate settings file path");
+        return error("Can't calculate settings file path.", *err); // NOLINT(bugprone-unchecked-optional-access)
     }
 
     if(auto err = read_toml().ko()) {
@@ -109,9 +109,9 @@ auto settings::exist_or_create_directory(const std::filesystem::path &path) -> r
         logger::debug("directory already exist: {}", path.string());
     } else {
         logger::debug("Creating directory: {}", path.string());
-        std::error_code ec;
-        if(fs::create_directory(path, ec); ec) {
-            logger::error("error creating directory: {}", ec.message());
+        std::error_code error_code;
+        if(fs::create_directory(path, error_code); error_code) {
+            logger::error("error creating directory: {}", error_code.message());
             return error("Can't get settings directory.");
         }
         if(!fs::exists(path)) {
@@ -162,7 +162,7 @@ auto settings::read_toml() -> result<> {
             }
         }
     } catch(toml::exception &toml_exception) {
-        const auto msg = toml_exception.what();
+        const auto *msg = toml_exception.what();
         const auto &location = toml_exception.location();
         logger::error("toml exception: {}, reading settings file {} ({},{})",
                       msg,
@@ -171,7 +171,7 @@ auto settings::read_toml() -> result<> {
                       location.column());
         return error("Invalid settings file.");
     } catch(std::runtime_error &runtime_error) {
-        const auto msg = runtime_error.what();
+        const auto *msg = runtime_error.what();
         logger::error("exception reading settings file: {} ", msg);
         return error("Error reading settings file.");
     }

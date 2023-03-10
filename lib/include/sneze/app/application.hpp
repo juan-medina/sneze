@@ -128,7 +128,7 @@ private:
 
     void save_window_settings();
 
-    [[nodiscard]] auto get_window_settings(const config &cfg) -> const std::tuple<components::size, bool, int>;
+    [[nodiscard]] auto get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int>;
 };
 
 } // namespace sneze

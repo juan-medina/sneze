@@ -80,9 +80,9 @@ public:
     auto operator=(resources_cache &&) -> resources_cache & = delete;
 
     auto load(const std::string &uri) -> result<> {
-        if(auto it = resources_.find(uri); it != resources_.end()) {
-            it->second.count++;
-            logger::debug("request to load resource: {}, increase count to: {}", uri, it->second.count);
+        if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
+            it_resource->second.count++;
+            logger::debug("request to load resource: {}, increase count to: {}", uri, it_resource->second.count);
         } else {
             auto new_resource = std::make_shared<Type>(render_);
             if(auto err = new_resource->init(uri).ko(); err) {
@@ -97,12 +97,12 @@ public:
     }
 
     auto unload(const std::string &uri) -> result<> {
-        if(auto it = resources_.find(uri); it != resources_.end()) {
-            it->second.count--;
-            logger::debug("request to unload resource: {}, decrease count to: {}", uri, it->second.count);
-            if(it->second.count == 0) {
+        if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
+            it_resource->second.count--;
+            logger::debug("request to unload resource: {}, decrease count to: {}", uri, it_resource->second.count);
+            if(it_resource->second.count == 0) {
                 logger::debug("resource unloaded: {} since count is 0", uri);
-                resources_.erase(it);
+                resources_.erase(it_resource);
             }
             return true;
         }
@@ -111,8 +111,8 @@ public:
     }
 
     auto get(const std::string &uri) -> result<std::shared_ptr<Type>, error> {
-        if(auto it = resources_.find(uri); it != resources_.end()) {
-            return it->second.data;
+        if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
+            return it_resource->second.data;
         }
         logger::error("fail to get a resource not loaded: {}", uri);
         return error("Fail to get resource.");

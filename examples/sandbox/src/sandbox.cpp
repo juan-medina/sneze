@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include "sandbox_game.hpp"
 
-auto main(int, char *[]) -> int {
+auto main(int /*argc*/, char * /*argv*/[]) -> int {
     if(auto err = sandbox_game().run().ko(); err) {
         return EXIT_FAILURE;
     }

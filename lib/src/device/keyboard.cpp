@@ -29,42 +29,42 @@ SOFTWARE.
 namespace sneze::keyboard {
 
 [[maybe_unused]] const code key::unknown = SDLK_UNKNOWN;
-[[maybe_unused]] const code key::a = SDLK_a;
-[[maybe_unused]] const code key::b = SDLK_b;
-[[maybe_unused]] const code key::c = SDLK_c;
-[[maybe_unused]] const code key::d = SDLK_d;
-[[maybe_unused]] const code key::e = SDLK_e;
-[[maybe_unused]] const code key::f = SDLK_f;
-[[maybe_unused]] const code key::g = SDLK_g;
-[[maybe_unused]] const code key::h = SDLK_h;
-[[maybe_unused]] const code key::i = SDLK_i;
-[[maybe_unused]] const code key::j = SDLK_j;
-[[maybe_unused]] const code key::k = SDLK_k;
-[[maybe_unused]] const code key::l = SDLK_l;
-[[maybe_unused]] const code key::m = SDLK_m;
-[[maybe_unused]] const code key::n = SDLK_n;
-[[maybe_unused]] const code key::o = SDLK_o;
-[[maybe_unused]] const code key::p = SDLK_p;
-[[maybe_unused]] const code key::q = SDLK_q;
-[[maybe_unused]] const code key::r = SDLK_r;
-[[maybe_unused]] const code key::s = SDLK_s;
-[[maybe_unused]] const code key::t = SDLK_t;
-[[maybe_unused]] const code key::u = SDLK_u;
-[[maybe_unused]] const code key::v = SDLK_v;
-[[maybe_unused]] const code key::w = SDLK_w;
-[[maybe_unused]] const code key::x = SDLK_x;
-[[maybe_unused]] const code key::y = SDLK_y;
-[[maybe_unused]] const code key::z = SDLK_z;
-[[maybe_unused]] const code key::_1 = SDLK_1;
-[[maybe_unused]] const code key::_2 = SDLK_2;
-[[maybe_unused]] const code key::_3 = SDLK_3;
-[[maybe_unused]] const code key::_4 = SDLK_4;
-[[maybe_unused]] const code key::_5 = SDLK_5;
-[[maybe_unused]] const code key::_6 = SDLK_6;
-[[maybe_unused]] const code key::_7 = SDLK_7;
-[[maybe_unused]] const code key::_8 = SDLK_8;
-[[maybe_unused]] const code key::_9 = SDLK_9;
-[[maybe_unused]] const code key::_0 = SDLK_0;
+[[maybe_unused]] const code key::a = SDLK_a;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::b = SDLK_b;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::c = SDLK_c;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::d = SDLK_d;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::e = SDLK_e;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f = SDLK_f;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::g = SDLK_g;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::h = SDLK_h;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::i = SDLK_i;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::j = SDLK_j;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::k = SDLK_k;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::l = SDLK_l;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::m = SDLK_m;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::n = SDLK_n;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::o = SDLK_o;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::p = SDLK_p;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::q = SDLK_q;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::r = SDLK_r;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::s = SDLK_s;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::t = SDLK_t;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::u = SDLK_u;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::v = SDLK_v;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::w = SDLK_w;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::x = SDLK_x;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::y = SDLK_y;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::z = SDLK_z;  // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_1 = SDLK_1; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_2 = SDLK_2; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_3 = SDLK_3; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_4 = SDLK_4; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_5 = SDLK_5; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_6 = SDLK_6; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_7 = SDLK_7; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_8 = SDLK_8; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_9 = SDLK_9; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::_0 = SDLK_0; // NOLINT(readability-identifier-length)
 [[maybe_unused]] const code key::_return = SDLK_RETURN;
 [[maybe_unused]] const code key::escape = SDLK_ESCAPE;
 [[maybe_unused]] const code key::backspace = SDLK_BACKSPACE;
@@ -82,15 +82,15 @@ namespace sneze::keyboard {
 [[maybe_unused]] const code key::comma = SDLK_COMMA;
 [[maybe_unused]] const code key::period = SDLK_PERIOD;
 [[maybe_unused]] const code key::caps_lock = SDLK_CAPSLOCK;
-[[maybe_unused]] const code key::f1 = SDLK_F1;
-[[maybe_unused]] const code key::f2 = SDLK_F2;
-[[maybe_unused]] const code key::f3 = SDLK_F3;
-[[maybe_unused]] const code key::f4 = SDLK_F4;
-[[maybe_unused]] const code key::f5 = SDLK_F5;
-[[maybe_unused]] const code key::f6 = SDLK_F6;
-[[maybe_unused]] const code key::f7 = SDLK_F7;
-[[maybe_unused]] const code key::f8 = SDLK_F8;
-[[maybe_unused]] const code key::f9 = SDLK_F9;
+[[maybe_unused]] const code key::f1 = SDLK_F1; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f2 = SDLK_F2; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f3 = SDLK_F3; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f4 = SDLK_F4; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f5 = SDLK_F5; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f6 = SDLK_F6; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f7 = SDLK_F7; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f8 = SDLK_F8; // NOLINT(readability-identifier-length)
+[[maybe_unused]] const code key::f9 = SDLK_F9; // NOLINT(readability-identifier-length)
 [[maybe_unused]] const code key::f10 = SDLK_F10;
 [[maybe_unused]] const code key::f11 = SDLK_F11;
 [[maybe_unused]] const code key::f12 = SDLK_F12;
@@ -114,7 +114,7 @@ namespace sneze::keyboard {
 [[maybe_unused]] const code key::right = SDLK_RIGHT;
 [[maybe_unused]] const code key::left = SDLK_LEFT;
 
-auto key::string(const code &key) -> const std::string {
+auto key::string(const code &key) -> std::string {
     return std::string{SDL_GetKeyName(key)};
 }
 
@@ -132,7 +132,7 @@ auto key::string(const code &key) -> const std::string {
 [[maybe_unused]] const mod modifier::alt = KMOD_ALT;
 [[maybe_unused]] const mod modifier::gui = KMOD_GUI;
 
-auto modifier::string(const mod &modifier) -> const std::string {
+auto modifier::string(const mod &modifier) -> std::string {
     auto text = std::string{};
 
     switch(modifier) {

@@ -55,9 +55,9 @@ auto shapes_game::init() -> sneze::result<> {
     using border_box = components::border_box;
     using position = components::position;
 
-    const auto line_thickness = 15.f;
-    const auto line_length = 400.f;
-    auto start_position = position{line_length, (1080.f / 4.f) - (line_length / 2.f)};
+    const auto line_thickness = 15.F;
+    const auto line_length = 400.F;
+    auto start_position = position{line_length, (1080.F / 4.F) - (line_length / 2.F)};
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
@@ -84,7 +84,7 @@ auto shapes_game::init() -> sneze::result<> {
                         line{{start_position.x + line_length, start_position.y}, line_thickness},
                         color::orange);
 
-    start_position.x = 1920.f - line_length * 2.f;
+    start_position.x = 1920.F - line_length * 2.F;
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
@@ -92,14 +92,14 @@ auto shapes_game::init() -> sneze::result<> {
                         color::pink);
 
     start_position.x = line_length;
-    start_position.y = 1080.f - (line_length * 1.25f);
+    start_position.y = 1080.F - (line_length * 1.25F);
 
     world()->add_entity(rendereable{},
                         position{start_position.x, start_position.y},
                         box{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
                         color::dark_purple);
 
-    start_position.x = 1920.f - line_length * 2.f;
+    start_position.x = 1920.F - line_length * 2.F;
 
     world()->add_entity(
         rendereable{},

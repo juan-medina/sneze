@@ -60,7 +60,7 @@ void setup_spdlog() {
     spdlog::set_default_logger(logger);
 }
 
-void sdl_log_callback(void *, int, SDL_LogPriority priority, const char *message) {
+void sdl_log_callback(void * /*user_data*/, int /*category*/, SDL_LogPriority priority, const char *message) {
     level::log_level log_level; // NOLINT(cppcoreguidelines-init-variables)
 
     switch(priority) {

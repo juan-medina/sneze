@@ -137,20 +137,19 @@ void render::end_frame() {
     SDL_RenderPresent(renderer_);
 }
 
-[[nodiscard]] auto render::get_font(const std::string &font_path) -> const std::shared_ptr<font> {
-    if(auto [fnt, err] = fonts_.get(font_path).ok(); err) {
-        logger::error("trying to get a font not loaded: ({})", font_path);
-        return nullptr;
-    } else {
+[[nodiscard]] auto render::get_font(const std::string &font_path) -> std::shared_ptr<font> {
+    if(auto [fnt, err] = fonts_.get(font_path).ok(); !err) {
         return *fnt; // NOLINT(bugprone-unchecked-optional-access)
     }
+    logger::error("trying to get a font not loaded: ({})", font_path);
+    return nullptr;
 }
 
 void render::draw_label(const components::label &label,
-                        const components::position &at,
+                        const components::position &from,
                         const components::color &color) {
     if(auto font = get_font(label.font); font != nullptr) [[likely]] {
-        font->draw_text(label.text, at, label.alignment, label.size, color);
+        font->draw_text(label.text, from, label.alignment, label.size, color);
     } else {
         logger::error("trying to draw a label with a not loaded font: ({})", label.font);
     }
@@ -178,7 +177,7 @@ auto render::unload_font(const std::string &font_path) -> result<> {
     return true;
 }
 
-auto render::window() -> components::size const {
+auto render::window() -> components::size {
     if(window_ != nullptr) {
         int width = 0;
         int height = 0;
@@ -188,18 +187,18 @@ auto render::window() -> components::size const {
     return components::size{0, 0};
 }
 
-auto render::logical() -> const components::rect {
+auto render::logical() -> components::rect {
     return window_to_logical(render::window());
 }
 
-auto render::window_to_logical(const components::position &position) -> const components::position {
-    float x = 0, y = 0;
-    SDL_RenderWindowToLogical(renderer_, static_cast<int>(position.x), static_cast<int>(position.y), &x, &y);
-
-    return components::position{x, y};
+auto render::window_to_logical(const components::position &position) -> components::position {
+    float at_x = 0;
+    float at_y = 0;
+    SDL_RenderWindowToLogical(renderer_, static_cast<int>(position.x), static_cast<int>(position.y), &at_x, &at_y);
+    return components::position{at_x, at_y};
 }
 
-auto render::window_to_logical(const components::size &size) -> const components::rect {
+auto render::window_to_logical(const components::size &size) -> components::rect {
     auto top_left = window_to_logical(components::position{0, 0});
     auto bottom_right = window_to_logical(components::position{size.width, size.height});
 
@@ -255,13 +254,12 @@ auto render::unload_texture(const std::string &texture_path) -> result<> {
     return true;
 }
 
-auto render::get_texture(const std::string &texture_path) -> const std::shared_ptr<texture> {
-    if(auto [txt, err] = textures_.get(texture_path).ok(); err) {
-        logger::error("trying to get a texture not loaded: ({})", texture_path);
-        return nullptr;
-    } else {
+auto render::get_texture(const std::string &texture_path) -> std::shared_ptr<texture> {
+    if(auto [txt, err] = textures_.get(texture_path).ok(); !err) {
         return *txt; // NOLINT(bugprone-unchecked-optional-access)
     }
+    logger::error("trying to get a texture not loaded: ({})", texture_path);
+    return nullptr;
 }
 
 auto render::monitor() const -> int {
@@ -304,7 +302,7 @@ void render::draw_line(const components::line &line, const components::position 
         SDL_SetRenderDrawColor(renderer_, clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
     } else {
         const float length = std::sqrt(size.width * size.width + size.height * size.height);
-        const float scale = line.thickness / (2.f * length);
+        const float scale = line.thickness / (2.F * length);
         auto radius = components::position{-size.height * scale, size.width * scale};
 
         const auto points = std::vector<components::position>{{
@@ -340,7 +338,7 @@ void render::fill_points_with_triangles(const std::vector<components::position> 
 }
 
 void render::draw_box(const components::box &box, const components::position &from, const components::color &color) {
-    auto half_thickness = box.thickness / 2.f;
+    auto half_thickness = box.thickness / 2.F;
     const components::size size{box.to.x - from.x, box.to.y - from.y};
 
     draw_line(
