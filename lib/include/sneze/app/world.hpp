@@ -33,6 +33,7 @@ SOFTWARE.
 
 #include <entt/entt.hpp>
 
+#include "../components/generic.hpp"
 #include "../events/events.hpp"
 #include "../globals/globals.hpp"
 #include "../systems/system.hpp"
@@ -92,6 +93,35 @@ public:
     template<typename... Types>
     [[nodiscard]] auto entities() {
         return registry_.view<Types...>().each();
+    }
+
+    template<typename TagType>
+    void tag(entt::entity entity) {
+        set_component<components::tag<TagType>>(entity);
+    }
+
+    template<typename TagType>
+    void untag(entt::entity entity) {
+        remove_component<components::tag<TagType>>(entity);
+    }
+
+    template<typename TagType, typename... Types>
+    [[nodiscard]] auto tagged() {
+        return registry_.view<Types..., components::tag<TagType>>().each();
+    }
+
+    template<typename TagType>
+    void remove_all_tagged() {
+        for(auto &&[entity]: tagged<TagType>()) {
+            remove_entity(entity);
+        }
+    }
+
+    template<typename TagType>
+    void remove_all_tags() {
+        for(auto &&[entity]: tagged<TagType>()) {
+            remove_component<components::tag<TagType>>(entity);
+        }
     }
 
     template<typename Type, typename Compare>

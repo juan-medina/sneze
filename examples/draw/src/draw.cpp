@@ -22,33 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
+#include <cstdlib>
 
+#include "draw_game.hpp"
 
-#include "app/application.hpp"
-#include "app/config.hpp"
-#include "app/settings.hpp"
-#include "app/world.hpp"
-#include "components/generic.hpp"
-#include "components/geometry.hpp"
-#include "components/renderable.hpp"
-#include "components/ui.hpp"
-#include "device/keyboard.hpp"
-#include "device/mouse.hpp"
-#include "effects/effects.hpp"
-#include "effects/effects_system.hpp"
-#include "events/events.hpp"
-#include "globals/globals.hpp"
-#include "platform/error.hpp"
-#include "platform/logger.hpp"
-#include "platform/result.hpp"
-#include "platform/version.hpp"
-#include "render/font.hpp"
-#include "render/render.hpp"
-#include "render/resource.hpp"
-#include "render/texture.hpp"
-#include "systems/keys_system.hpp"
-#include "systems/layout_system.hpp"
-#include "systems/render_system.hpp"
-#include "systems/sdl_events_system.hpp"
-#include "systems/system.hpp"
+auto main(int /*argc*/, char * /*argv*/[]) -> int {
+    if(auto err = draw_game().run().ko(); err) {
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}

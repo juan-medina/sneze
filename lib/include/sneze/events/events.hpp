@@ -31,6 +31,7 @@ SOFTWARE.
 
 #include "../components/geometry.hpp"
 #include "../device/keyboard.hpp"
+#include "../device/mouse.hpp"
 
 namespace sneze {
 class world;
@@ -62,6 +63,19 @@ struct add_component: public event {
     entt::entity entity;
     ComponentType component;
 };
+
+struct mouse_moved: public event {
+    components::position point; // cppcheck-suppress unusedStructMember
+};
+
+struct mouse_button: public event {
+    mouse::button button;       // cppcheck-suppress unusedStructMember
+    components::position point; // cppcheck-suppress unusedStructMember
+};
+
+struct mouse_button_down: public mouse_button {};
+
+struct mouse_button_up: public mouse_button {};
 
 } // namespace events
 

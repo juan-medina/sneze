@@ -24,31 +24,36 @@ SOFTWARE.
 
 #pragma once
 
+#include <sneze/sneze.hpp>
 
-#include "app/application.hpp"
-#include "app/config.hpp"
-#include "app/settings.hpp"
-#include "app/world.hpp"
-#include "components/generic.hpp"
-#include "components/geometry.hpp"
-#include "components/renderable.hpp"
-#include "components/ui.hpp"
-#include "device/keyboard.hpp"
-#include "device/mouse.hpp"
-#include "effects/effects.hpp"
-#include "effects/effects_system.hpp"
-#include "events/events.hpp"
-#include "globals/globals.hpp"
-#include "platform/error.hpp"
-#include "platform/logger.hpp"
-#include "platform/result.hpp"
-#include "platform/version.hpp"
-#include "render/font.hpp"
-#include "render/render.hpp"
-#include "render/resource.hpp"
-#include "render/texture.hpp"
-#include "systems/keys_system.hpp"
-#include "systems/layout_system.hpp"
-#include "systems/render_system.hpp"
-#include "systems/sdl_events_system.hpp"
-#include "systems/system.hpp"
+using config = sneze::config;
+
+namespace events = sneze::events;
+
+class draw_game: public sneze::application {
+public:
+    draw_game();
+
+    ~draw_game() override = default;
+
+    draw_game(const draw_game &) = delete;
+    draw_game(const draw_game &&) = delete;
+
+    auto operator=(const draw_game &) -> draw_game & = delete;
+    auto operator=(const draw_game &&) -> draw_game & = delete;
+
+    [[nodiscard]] auto configure() -> config override;
+
+    auto init() -> sneze::result<> override;
+
+    void end() override;
+
+private:
+    struct drawing {};
+
+    void mouse_button_down(const events::mouse_button_down &event);
+
+    void mouse_button_up(const events::mouse_button_up &event);
+
+    void mouse_moved(const events::mouse_moved &event);
+};

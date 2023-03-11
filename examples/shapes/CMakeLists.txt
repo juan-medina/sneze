@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# CMake build : example
+# CMake build : shapes
 
 cmake_minimum_required(VERSION 3.4)
 

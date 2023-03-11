@@ -39,14 +39,15 @@ class sdl_events_system: public system {
 public:
     explicit sdl_events_system(std::shared_ptr<sneze::render> render): render_{std::move(render)} {};
 
-    void update(sneze::world *world) override;
+    void update(world *world) override;
 
-    void init(sneze::world *world) override;
+    void init(world *world) override;
 
-    void end(sneze::world *world) override;
+    void end(world *world) override;
 
 private:
     std::shared_ptr<sneze::render> render_;
+    static auto sdl_mouse_button_to_sneze(uint8_t button) -> mouse::button;
 };
 
 } // namespace sneze
