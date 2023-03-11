@@ -20,12 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# CMake build : sandbox
+# CMake build : draw
 
 cmake_minimum_required(VERSION 3.4)
 
 #configure variables
-set(APP_NAME "sandbox")
+set(APP_NAME "draw")
 
 #configure directories
 set(APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/${APP_NAME}")
