@@ -60,7 +60,6 @@ auto draw_game::init() -> sneze::result<> {
         return error("Can't load regular font.", *err);
     }
 
-    namespace effects = sneze::effects;
     using renderable = components::renderable;
     using label = components::label;
 
@@ -68,12 +67,15 @@ auto draw_game::init() -> sneze::result<> {
     using vertical = components::vertical;
     using horizontal = components::horizontal;
     using anchor = components::anchor;
-    using alternate_color = effects::alternate_color;
 
     world()->add_entity(renderable{},
                         label{"drawing drawing", regular_font, 60.F, alignment{horizontal::right, vertical::bottom}},
                         anchor{horizontal::right, vertical::bottom},
                         color::white);
+
+    world()->add_listener<events::mouse_button_down, &draw_game::mouse_button_down>(this);
+    world()->add_listener<events::mouse_button_up, &draw_game::mouse_button_up>(this);
+    world()->add_listener<events::mouse_moved, &draw_game::mouse_moved>(this);
 
     return true;
 }
@@ -81,5 +83,22 @@ auto draw_game::init() -> sneze::result<> {
 void draw_game::end() {
     logger::debug("ending draw game");
 
+    world()->remove_listeners(this);
+
     unload_font(regular_font);
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+void draw_game::mouse_button_down(const events::mouse_button_down &event) {
+    logger::debug("mouse button down x: {}, y: {}", event.point.x, event.point.y);
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+void draw_game::mouse_button_up(const events::mouse_button_up &event) {
+    logger::debug("mouse button up x: {}, y: {}", event.point.x, event.point.y);
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+void draw_game::mouse_moved(const events::mouse_moved &event) {
+    logger::debug("mouse moved x: {}, y: {}", event.point.x, event.point.y);
 }

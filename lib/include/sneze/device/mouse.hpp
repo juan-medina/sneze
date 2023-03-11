@@ -24,33 +24,8 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/sneze.hpp>
+namespace sneze::mouse {
 
-using config = sneze::config;
+enum class button { left, middle, right, x1, x2, unknown };
 
-namespace events = sneze::events;
-
-class draw_game: public sneze::application {
-public:
-    draw_game();
-
-    ~draw_game() override = default;
-
-    draw_game(const draw_game &) = delete;
-    draw_game(const draw_game &&) = delete;
-
-    auto operator=(const draw_game &) -> draw_game & = delete;
-    auto operator=(const draw_game &&) -> draw_game & = delete;
-
-    [[nodiscard]] auto configure() -> config override;
-
-    auto init() -> sneze::result<> override;
-
-    void end() override;
-
-    void mouse_button_down(const events::mouse_button_down &event);
-
-    void mouse_button_up(const events::mouse_button_up &event);
-
-    void mouse_moved(const events::mouse_moved &event);
-};
+} // namespace sneze::mouse

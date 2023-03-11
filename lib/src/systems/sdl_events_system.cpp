@@ -33,15 +33,15 @@ SOFTWARE.
 
 namespace sneze {
 
-void sdl_events_system::init(sneze::world * /*world*/) {
+void sdl_events_system::init(world * /*world*/) {
     logger::debug("init event system");
 }
 
-void sdl_events_system::end(sneze::world * /*world*/) {
+void sdl_events_system::end(world * /*world*/) {
     logger::debug("end event system");
 }
 
-void sdl_events_system::update(sneze::world *world) {
+void sdl_events_system::update(world *world) {
     using modifier = keyboard::modifier;
     static const auto valid_modifiers = modifier::shift | modifier::control | modifier::alt | modifier::gui;
     auto event_data = SDL_Event{};
@@ -57,6 +57,20 @@ void sdl_events_system::update(sneze::world *world) {
         case SDL_KEYUP:
             world->emmit<events::key_up>(event_data.key.keysym.sym,
                                          static_cast<keyboard::mod>(event_data.key.keysym.mod & valid_modifiers));
+            break;
+        case SDL_MOUSEMOTION:
+            world->emmit<events::mouse_moved>(static_cast<float>(event_data.motion.x),
+                                              static_cast<float>(event_data.motion.y));
+            break;
+        case SDL_MOUSEBUTTONUP:
+            world->emmit<events::mouse_button_up>(sdl_mouse_button_to_sneze(event_data.button.button),
+                                                  static_cast<float>(event_data.button.x),
+                                                  static_cast<float>(event_data.button.y));
+            break;
+        case SDL_MOUSEBUTTONDOWN:
+            world->emmit<events::mouse_button_down>(sdl_mouse_button_to_sneze(event_data.button.button),
+                                                    static_cast<float>(event_data.button.x),
+                                                    static_cast<float>(event_data.button.y));
             break;
         case SDL_WINDOWEVENT:
             switch(event_data.window.event) {
@@ -75,6 +89,28 @@ void sdl_events_system::update(sneze::world *world) {
             break;
         }
     }
+}
+
+auto sdl_events_system::sdl_mouse_button_to_sneze(uint8_t button) -> mouse::button {
+    auto use_button = mouse::button::unknown;
+    switch(button) {
+    case SDL_BUTTON_LEFT:
+        use_button = mouse::button::left;
+        break;
+    case SDL_BUTTON_MIDDLE:
+        use_button = mouse::button::middle;
+        break;
+    case SDL_BUTTON_RIGHT:
+        use_button = mouse::button::right;
+        break;
+    case SDL_BUTTON_X1:
+        use_button = mouse::button::x1;
+        break;
+    case SDL_BUTTON_X2:
+        use_button = mouse::button::x2;
+        break;
+    }
+    return use_button;
 }
 
 } // namespace sneze
