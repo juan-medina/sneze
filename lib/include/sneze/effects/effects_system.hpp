@@ -29,11 +29,11 @@ namespace sneze {
 
 class effects_system: public system {
 public:
-    void init(sneze::world *world) override;
+    void init(world *world) override;
 
-    void end(sneze::world *world) override;
+    void end(world *world) override;
 
-    void update(sneze::world *world) override;
+    void update(world *world) override;
 };
 
 } // namespace sneze

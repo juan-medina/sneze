@@ -30,15 +30,15 @@ namespace logger = sneze::logger;
 namespace components = sneze::components;
 using label = components::label;
 
-void counter_system::init(sneze::world * /*world*/) {
+void counter_system::init(world * /*world*/) {
     logger::debug("counter_system::init");
 }
 
-void counter_system::end(sneze::world * /*world*/) {
+void counter_system::end(world * /*world*/) {
     logger::debug("counter_system::end");
 }
 
-void counter_system::update(sneze::world *world) {
+void counter_system::update(world *world) {
     const auto acc = world->get_global<acceleration>();
     const auto time = world->get_global<sneze::game_time>();
 

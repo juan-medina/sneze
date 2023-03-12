@@ -31,15 +31,15 @@ SOFTWARE.
 
 namespace sneze {
 
-void effects_system::init(sneze::world * /*world*/) {
+void effects_system::init(world * /*world*/) {
     logger::debug("effects system::init");
 }
 
-void effects_system::end(sneze::world * /*world*/) {
+void effects_system::end(world * /*world*/) {
     logger::debug("effects system::end");
 }
 
-void effects_system::update(sneze::world *world) {
+void effects_system::update(world *world) {
     auto time = world->get_global<game_time>();
     for(auto const &&[entity, alternate_color, color]: world->entities<effects::alternate_color, components::color>()) {
         color = alternate_color.from;

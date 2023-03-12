@@ -35,11 +35,11 @@ public:
     keys_system(const keyboard::key_modifier &exit, const keyboard::key_modifier &toggle_fullscreen)
         : exit_(exit), toggle_full_screen_(toggle_fullscreen) {}
 
-    void init(sneze::world *world) override;
+    void init(world *world) override;
 
-    void end(sneze::world *world) override;
+    void end(world *world) override;
 
-    void update(sneze::world *world) override;
+    void update(world *world) override;
 
 private:
     void key_up(const events::key_up &event);

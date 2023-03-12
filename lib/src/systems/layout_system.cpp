@@ -30,21 +30,21 @@ SOFTWARE.
 
 namespace sneze {
 
-void layout_system::init(sneze::world *world) {
+void layout_system::init(world *world) {
     logger::debug("init layout system");
     world->add_listener<events::window_resized, &layout_system::window_resized>(this);
 
     world->add_listener_to_add_component<components::anchor, &layout_system::add_component_anchor>(this);
 }
 
-void layout_system::end(sneze::world *world) {
+void layout_system::end(world *world) {
     logger::debug("end layout system");
     world->remove_listeners(this);
 
     world->remove_component_listeners<components::anchor>(this);
 }
 
-void layout_system::update(sneze::world * /*world*/) {}
+void layout_system::update(world * /*world*/) {}
 
 void layout_system::window_resized(const events::window_resized &event) {
     logical_ = event.logical;

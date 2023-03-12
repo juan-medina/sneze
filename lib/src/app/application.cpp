@@ -44,7 +44,7 @@ namespace sneze {
 
 application::application(const std::string &team, const std::string &name)
     : team_{team}, name_{name}, settings_{team, name}, render_{std::make_shared<render>()},
-      world_{std::make_shared<sneze::world>()} {}
+      world_{std::make_shared<class world>()} {}
 
 auto application::show_error(const error &err) const -> const auto & {
     std::string message = err.message();

@@ -55,7 +55,7 @@ auto sandbox_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto sandbox_game::init() -> sneze::result<> {
+auto sandbox_game::init() -> result {
     logger::debug("init sandbox game");
 
     using error = sneze::error;

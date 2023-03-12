@@ -39,7 +39,7 @@ class world;
 namespace events {
 
 struct event {
-    sneze::world *world; // cppcheck-suppress unusedStructMember
+    class world *world; // cppcheck-suppress unusedStructMember
 };
 
 struct application_want_closing: public event {};

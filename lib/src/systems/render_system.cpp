@@ -29,7 +29,7 @@ SOFTWARE.
 
 namespace sneze {
 
-render_system::render_system(std::shared_ptr<sneze::render> render): render_{std::move(render)} {}
+render_system::render_system(std::shared_ptr<render> render): render_{std::move(render)} {}
 
 void render_system::init(world *world) {
     logger::debug("init render system");
@@ -79,7 +79,7 @@ void render_system::update(world *world) {
     render_->end_frame();
 }
 
-void render_system::toggle_fullscreen(const events::toggle_fullscreen &/*event*/) noexcept {
+void render_system::toggle_fullscreen(const events::toggle_fullscreen & /*event*/) noexcept {
     render_->toggle_fullscreen();
 }
 

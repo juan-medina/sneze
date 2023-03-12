@@ -50,7 +50,7 @@ auto hello_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto hello_game::init() -> sneze::result<> {
+auto hello_game::init() -> result {
     logger::debug("init hello game");
 
     using error = sneze::error;

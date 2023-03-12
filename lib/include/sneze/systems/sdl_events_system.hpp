@@ -37,7 +37,7 @@ class render;
 
 class sdl_events_system: public system {
 public:
-    explicit sdl_events_system(std::shared_ptr<sneze::render> render): render_{std::move(render)} {};
+    explicit sdl_events_system(std::shared_ptr<render> render): render_{std::move(render)} {};
 
     void update(world *world) override;
 

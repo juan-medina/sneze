@@ -36,18 +36,18 @@ namespace sneze {
 
 class render;
 
-class render_system final: public sneze::system {
+class render_system final: public system {
 public:
-    explicit render_system(std::shared_ptr<sneze::render> render);
+    explicit render_system(std::shared_ptr<render> render);
 
-    void update(sneze::world *world) override;
+    void update(world *world) override;
 
-    void init(sneze::world *world) override;
+    void init(world *world) override;
 
-    void end(sneze::world *world) override;
+    void end(world *world) override;
 
 private:
-    std::shared_ptr<sneze::render> render_;
+    std::shared_ptr<render> render_;
 
     static inline auto sort_by_depth(const components::renderable &lhs, const components::renderable &rhs) {
         return lhs.depth > rhs.depth;

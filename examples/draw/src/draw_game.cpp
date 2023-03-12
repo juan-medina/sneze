@@ -52,7 +52,7 @@ auto draw_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto draw_game::init() -> sneze::result<> {
+auto draw_game::init() -> result {
     logger::debug("init draw game");
 
     using error = sneze::error;

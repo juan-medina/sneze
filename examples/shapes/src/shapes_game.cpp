@@ -45,7 +45,7 @@ auto shapes_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto shapes_game::init() -> sneze::result<> {
+auto shapes_game::init() -> result {
     logger::debug("init shapes game");
 
     using rendereable = components::renderable;

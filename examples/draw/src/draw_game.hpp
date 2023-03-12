@@ -27,10 +27,11 @@ SOFTWARE.
 #include <sneze/sneze.hpp>
 
 using config = sneze::config;
-
+using application = sneze::application;
+using result = sneze::result<>;
 namespace events = sneze::events;
 
-class draw_game: public sneze::application {
+class draw_game: public application {
 public:
     draw_game();
 
@@ -44,7 +45,7 @@ public:
 
     [[nodiscard]] auto configure() -> config override;
 
-    auto init() -> sneze::result<> override;
+    auto init() -> result override;
 
     void end() override;
 

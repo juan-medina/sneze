@@ -111,7 +111,7 @@ private:
     std::string name_;
     settings settings_;
     std::shared_ptr<render> render_;
-    std::shared_ptr<sneze::world> world_;
+    std::shared_ptr<class world> world_;
     bool want_to_close_{false};
 
     void app_want_closing(events::application_want_closing event) noexcept;

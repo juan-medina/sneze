@@ -27,8 +27,10 @@ SOFTWARE.
 #include <sneze/sneze.hpp>
 
 using config = sneze::config;
+using application = sneze::application;
+using result = sneze::result<>;
 
-class hello_game: public sneze::application {
+class hello_game: public application {
 public:
     hello_game();
 
@@ -42,7 +44,7 @@ public:
 
     [[nodiscard]] auto configure() -> config override;
 
-    auto init() -> sneze::result<> override;
+    auto init() -> result override;
 
     void end() override;
 };
