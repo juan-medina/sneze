@@ -43,7 +43,7 @@ void counter_system::update(world *world) {
     const auto time = world->get_global<sneze::game_time>();
 
     for(auto &&[entity, ct, lbl]: world->entities<counter, label>()) {
-        ct.value -= static_cast<int>(acc.value * time.delta);
+        ct.value -= static_cast<int>(static_cast<float>(acc.value) * time.delta);
         if(ct.value < 0) {
             world->remove_entity(entity);
         }
