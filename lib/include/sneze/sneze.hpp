@@ -24,15 +24,19 @@ SOFTWARE.
 
 #pragma once
 
+
 #include "app/application.hpp"
 #include "app/config.hpp"
 #include "app/settings.hpp"
 #include "app/world.hpp"
+#include "components/generic.hpp"
 #include "components/geometry.hpp"
 #include "components/renderable.hpp"
 #include "components/ui.hpp"
 #include "device/keyboard.hpp"
+#include "device/mouse.hpp"
 #include "effects/effects.hpp"
+#include "effects/effects_system.hpp"
 #include "events/events.hpp"
 #include "globals/globals.hpp"
 #include "platform/error.hpp"

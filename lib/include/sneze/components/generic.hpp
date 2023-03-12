@@ -24,36 +24,11 @@ SOFTWARE.
 
 #pragma once
 
-#include <sneze/sneze.hpp>
+#include <string>
 
-using config = sneze::config;
+namespace sneze::components {
 
-namespace events = sneze::events;
+template<typename Type>
+struct tag{};
 
-class draw_game: public sneze::application {
-public:
-    draw_game();
-
-    ~draw_game() override = default;
-
-    draw_game(const draw_game &) = delete;
-    draw_game(const draw_game &&) = delete;
-
-    auto operator=(const draw_game &) -> draw_game & = delete;
-    auto operator=(const draw_game &&) -> draw_game & = delete;
-
-    [[nodiscard]] auto configure() -> config override;
-
-    auto init() -> sneze::result<> override;
-
-    void end() override;
-
-private:
-    struct drawing {};
-
-    void mouse_button_down(const events::mouse_button_down &event);
-
-    void mouse_button_up(const events::mouse_button_up &event);
-
-    void mouse_moved(const events::mouse_moved &event);
-};
+} // namespace sneze::components

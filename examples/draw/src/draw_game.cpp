@@ -32,6 +32,8 @@ namespace logger = sneze::logger;
 using config = sneze::config;
 namespace components = sneze::components;
 using color = components::color;
+using button = sneze::mouse::button;
+using color = components::color;
 
 using namespace std::string_literals;
 const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
@@ -68,8 +70,10 @@ auto draw_game::init() -> sneze::result<> {
     using horizontal = components::horizontal;
     using anchor = components::anchor;
 
+    static constexpr auto text = "Drawing lines, press left mouse button to start and stop drawing.";
+
     world()->add_entity(renderable{},
-                        label{"drawing drawing", regular_font, 60.F, alignment{horizontal::right, vertical::bottom}},
+                        label{text, regular_font, 40.F, alignment{horizontal::right, vertical::bottom}},
                         anchor{horizontal::right, vertical::bottom},
                         color::white);
 
@@ -90,15 +94,32 @@ void draw_game::end() {
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 void draw_game::mouse_button_down(const events::mouse_button_down &event) {
-    logger::debug("mouse button down x: {}, y: {}", event.point.x, event.point.y);
+    if(event.button != button::left) {
+        return;
+    }
+
+    event.world->remove_all_tagged<drawing>();
+
+    using renderable = components::renderable;
+    using line = components::line;
+
+    auto entity = event.world->add_entity(renderable{}, event.point, line{event.point, 5.F}, color::red);
+    event.world->tag<drawing>(entity);
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 void draw_game::mouse_button_up(const events::mouse_button_up &event) {
-    logger::debug("mouse button up x: {}, y: {}", event.point.x, event.point.y);
+    if(event.button != button::left) {
+        return;
+    }
+
+    event.world->remove_all_tags<drawing>();
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 void draw_game::mouse_moved(const events::mouse_moved &event) {
-    logger::debug("mouse moved x: {}, y: {}", event.point.x, event.point.y);
+    using line = components::line;
+    for(auto &&[entity, line]: event.world->tagged<drawing, line>()) {
+        line.to = event.point;
+    }
 }
