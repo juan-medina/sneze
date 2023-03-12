@@ -24,7 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-#include <any>
 #include <cstdint>
 #include <optional>
 #include <type_traits>
@@ -214,30 +213,24 @@ public:
     template<typename Type, typename... Args>
     [[maybe_unused]] void set_global(Args &&...args) {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
-        auto constexpr type_hash = entt::type_hash<Type>::value();
-        if(const auto search = globals_.find(type_hash); search != globals_.end()) {
-            search->second = Type{std::forward<Args>(args)...};
-        } else {
-            globals_.insert({type_hash, Type{std::forward<Args>(args)...}});
-        }
+        auto &&global = get_global<Type>();
+        global = Type{std::forward<Args>(args)...};
     }
 
     template<typename Type>
-    [[maybe_unused]] [[nodiscard]] auto get_global() const -> auto {
+    [[maybe_unused]] [[nodiscard]] auto get_global() -> auto & {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
-        auto constexpr type_hash = entt::type_hash<Type>::value();
-        if(const auto search = globals_.find(type_hash); search != globals_.end()) {
-            return std::any_cast<Type>(search->second);
+        for(auto &&[entity, value]: tagged<global<Type>, Type>()) {
+            return value;
         }
-        return Type{};
+        tag<global<Type>>(add_entity(Type{}));
+        return get_global<Type>();
     }
 
     template<typename Type>
     [[maybe_unused]] void remove_global() {
-        static_assert(std::is_trivially_default_constructible_v<Type>,
-                      "the type must be trivially constructible. (having a constructor with no parameters)");
-        auto constexpr type_hash = entt::type_hash<Type>::value();
-        globals_.erase(type_hash);
+        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
+        remove_all_tagged<global<Type>>();
     }
 
 protected:
@@ -269,10 +262,11 @@ private:
             std::make_unique<system_with_priority>(type_hash, Priority, std::make_unique<SystemType>(args...)));
     }
 
+    template<typename Type> struct global{};
+
     using system_ptr = std::unique_ptr<system_with_priority>;
     using systems_vector = std::vector<system_ptr>;
     using systems_id_vector = std::vector<entt::id_type>;
-    using globals_map = entt::dense_map<entt::id_type, std::any>;
 
     game_time start_;
     game_time current_;
@@ -284,7 +278,6 @@ private:
     entt::registry registry_;
 
     entt::dispatcher event_dispatcher_;
-    globals_map globals_;
 
     void remove_all_systems() noexcept;
 

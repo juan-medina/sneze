@@ -122,8 +122,26 @@ void world::clear() {
     logger::debug("resetting dispatcher");
     event_dispatcher_ = entt::dispatcher{};
 
-    logger::debug("clearing globals");
-    globals_.clear();
+    logger::debug("removing globals");
+    remove_global<game_time>();
+
+    logger::debug("checking for not clear entities & orphans");
+    registry_.each([this](entt::entity entity) {
+        if(registry_.orphan(entity)) {
+            logger::warning("orphan entity found: {}", static_cast<ENTT_ID_TYPE>(entity));
+            registry_.release(entity);
+        } else {
+            logger::debug("entity not cleared found: {}", static_cast<ENTT_ID_TYPE>(entity));
+        }
+
+        for(auto storage: registry_.storage()) {
+            if(storage.second.contains(entity)) {
+                auto storage_type = storage.second.type();
+                auto name = storage_type.name();
+                logger::debug("   contains component: {}", name);
+            }
+        }
+    });
 
     logger::debug("clear registry");
     registry_.clear();

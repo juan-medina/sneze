@@ -129,6 +129,7 @@ void sandbox_game::end() {
     logger::debug("end sandbox game");
 
     world()->remove_system<counter_system>();
+    world()->remove_global<acceleration>();
 
     unload_font(regular_font);
     unload_font(mono_font);
