@@ -32,7 +32,7 @@ namespace components = sneze::components;
 using color = components::color;
 
 auto shapes_game::configure() -> config {
-    logger::debug("configure");
+    logger::debug("configure shape game");
 
     namespace keyboard = sneze::keyboard;
     using key = keyboard::key;

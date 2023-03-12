@@ -32,12 +32,12 @@ namespace sneze {
 render_system::render_system(std::shared_ptr<render> render): render_{std::move(render)} {}
 
 void render_system::init(world *world) {
-    logger::debug("init render system");
+    logger::trace("init render system");
     world->add_listener<events::toggle_fullscreen, &render_system::toggle_fullscreen>(this);
 }
 
 void render_system::end(world *world) {
-    logger::debug("end render system");
+    logger::trace("end render system");
     world->remove_listeners(this);
 }
 

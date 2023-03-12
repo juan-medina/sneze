@@ -71,7 +71,7 @@ public:
                 }
             }
         }
-        logger::debug("setting value not found, section: {}, value: {}, default to {}", section, name, default_value);
+        logger::trace("setting value not found, section: {}, value: {}, default to {}", section, name, default_value);
         set<Type>(section, name, default_value);
         return default_value;
     }

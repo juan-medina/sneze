@@ -58,7 +58,7 @@ auto font::init(const std::string &file) -> result<> {
             logger::error("error parsing font file");
             return error{"Error in font format."};
         }
-        logger::info("font: \"{}\" loaded correctly", face_);
+        logger::trace("font: \"{}\" loaded correctly", face_);
         return true;
     }
     logger::error("error font does not exist: {}", file);
@@ -66,7 +66,7 @@ auto font::init(const std::string &file) -> result<> {
 }
 
 void font::end() {
-    logger::info("unload font: {}", face_);
+    logger::trace("unload font: {}", face_);
 
     for(const auto &page: pages_) {
         if(!page.empty()) {

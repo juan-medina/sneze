@@ -82,7 +82,7 @@ public:
     auto load(const std::string &uri) -> result<> {
         if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
             it_resource->second.count++;
-            logger::debug("request to load resource: {}, increase count to: {}", uri, it_resource->second.count);
+            logger::trace("request to load resource: {}, increase count to: {}", uri, it_resource->second.count);
         } else {
             auto new_resource = std::make_shared<Type>(render_);
             if(auto err = new_resource->init(uri).ko(); err) {
@@ -90,7 +90,7 @@ public:
                 logger::error("fail to load resource: {}", uri);
                 return error("Fail to load resource.", *err);
             }
-            logger::debug("new resource loaded: {}, set count to: 1", uri);
+            logger::trace("new resource loaded: {}, set count to: 1", uri);
             resources_.insert({uri, resource_entry<Type>{new_resource, 1}});
         }
         return true;
@@ -99,9 +99,9 @@ public:
     auto unload(const std::string &uri) -> result<> {
         if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
             it_resource->second.count--;
-            logger::debug("request to unload resource: {}, decrease count to: {}", uri, it_resource->second.count);
+            logger::trace("request to unload resource: {}, decrease count to: {}", uri, it_resource->second.count);
             if(it_resource->second.count == 0) {
-                logger::debug("resource unloaded: {} since count is 0", uri);
+                logger::trace("resource unloaded: {} since count is 0", uri);
                 resources_.erase(it_resource);
             }
             return true;

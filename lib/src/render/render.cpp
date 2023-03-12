@@ -39,7 +39,7 @@ auto render::init(const components::size &window,
                   const components::color &color) -> result<> {
     fullscreen_ = fullscreen;
 
-    logger::debug("init SDL");
+    logger::trace("init SDL");
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logger::error("SDL_Init Error: {}", SDL_GetError());
         return error("error initializing rendering engine.");
@@ -53,7 +53,7 @@ auto render::init(const components::size &window,
     }
 #endif
 
-    logger::debug("creating SDL window");
+    logger::trace("creating SDL window");
 
     window_ = SDL_CreateWindow(title.c_str(),
                                SDL_WINDOWPOS_CENTERED_DISPLAY(monitor),
@@ -72,7 +72,7 @@ auto render::init(const components::size &window,
     }
 #endif
 
-    logger::debug("creating SDL renderer");
+    logger::trace("creating SDL renderer");
     renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
         logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
@@ -112,7 +112,7 @@ auto render::init(const components::size &window,
 }
 
 void render::end() {
-    logger::debug("ending SDL renderer");
+    logger::trace("ending SDL renderer");
     fonts_.clear();
 
     if(renderer_ != nullptr) {
@@ -120,7 +120,7 @@ void render::end() {
         renderer_ = nullptr;
     }
 
-    logger::debug("destroying SDL window");
+    logger::trace("destroying SDL window");
     if(window_ != nullptr) {
         SDL_DestroyWindow(window_);
         window_ = nullptr;
@@ -156,7 +156,7 @@ void render::draw_label(const components::label &label,
 }
 
 auto render::load_font(const std::string &font_path) -> result<> {
-    logger::info("loading font: ({})", font_path);
+    logger::debug("loading font: ({})", font_path);
 
     if(auto err = fonts_.load(font_path).ko(); err) {
         logger::error("fail to load font");
@@ -167,7 +167,7 @@ auto render::load_font(const std::string &font_path) -> result<> {
 }
 
 auto render::unload_font(const std::string &font_path) -> result<> {
-    logger::info("unloading font: ({})", font_path);
+    logger::debug("unloading font: ({})", font_path);
 
     if(auto err = fonts_.unload(font_path).ko(); err) {
         logger::error("fail to unload font");
@@ -224,7 +224,7 @@ void render::toggle_fullscreen() {
 
     auto real_size = render::window();
     auto real_logical = render::logical();
-    logger::debug("toggle full screen / windowed. size: {}x{}, mode: {}, logical: {}x{}",
+    logger::trace("toggle full screen / windowed. size: {}x{}, mode: {}, logical: {}x{}",
                   real_size.width,
                   real_size.height,
                   fullscreen_ ? "full screen" : "windowed",
@@ -233,7 +233,7 @@ void render::toggle_fullscreen() {
 }
 
 auto render::load_texture(const std::string &texture_path) -> result<> {
-    logger::info("loading texture: ({})", texture_path);
+    logger::debug("loading texture: ({})", texture_path);
 
     if(auto err = textures_.load(texture_path).ko(); err) {
         logger::error("fail to load texture");
@@ -244,7 +244,7 @@ auto render::load_texture(const std::string &texture_path) -> result<> {
 }
 
 auto render::unload_texture(const std::string &texture_path) -> result<> {
-    logger::info("unloading texture: ({})", texture_path);
+    logger::debug("unloading texture: ({})", texture_path);
 
     if(auto err = textures_.unload(texture_path).ko(); err) {
         logger::error("fail to unload texture");

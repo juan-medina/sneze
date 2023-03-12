@@ -34,11 +34,11 @@ SOFTWARE.
 namespace sneze {
 
 void sdl_events_system::init(world * /*world*/) {
-    logger::debug("init event system");
+    logger::trace("init event system");
 }
 
 void sdl_events_system::end(world * /*world*/) {
-    logger::debug("end event system");
+    logger::trace("end event system");
 }
 
 void sdl_events_system::update(world *world) {

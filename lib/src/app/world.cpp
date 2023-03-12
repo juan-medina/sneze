@@ -50,18 +50,18 @@ void world::update_systems() {
 }
 
 void world::add_pending_systems() {
-    logger::debug("adding systems");
+    logger::trace("adding systems");
     for(auto &system: systems_to_add_) {
         systems_.push_back(std::move(system));
         systems_.back()->init(this);
     }
     systems_to_add_.clear();
-    logger::debug("sorting systems");
+    logger::trace("sorting systems");
     std::sort(systems_.begin(), systems_.end(), world::sort_by_priority);
 }
 
 void world::remove_pending_systems() noexcept {
-    logger::debug("checking if we need to delete any system");
+    logger::trace("checking if we need to delete any system");
     for(auto type_to_remove: systems_to_remove_) {
         if(!remove_system_from_vector(type_to_remove, systems_)) {
             remove_system_from_vector(type_to_remove, systems_to_add_);
@@ -108,42 +108,42 @@ void world::discard_pending_events() noexcept {
 }
 
 void world::clear() {
-    logger::info("world clean up");
+    logger::trace("world clean up");
 
-    logger::debug("discarding pending events");
+    logger::trace("discarding pending events");
     discard_pending_events();
 
-    logger::debug("removing systems pending to be deleted");
+    logger::trace("removing systems pending to be deleted");
     remove_pending_systems();
 
-    logger::debug("removing all systems");
+    logger::trace("removing all systems");
     remove_all_systems();
 
-    logger::debug("resetting dispatcher");
+    logger::trace("resetting dispatcher");
     event_dispatcher_ = entt::dispatcher{};
 
-    logger::debug("removing globals");
+    logger::trace("removing globals");
     remove_global<game_time>();
 
-    logger::debug("checking for not clear entities & orphans");
+    logger::trace("checking for not clear entities & orphans");
     registry_.each([this](entt::entity entity) {
         if(registry_.orphan(entity)) {
             logger::warning("orphan entity found: {}", static_cast<ENTT_ID_TYPE>(entity));
             registry_.release(entity);
         } else {
-            logger::debug("entity not cleared found: {}", static_cast<ENTT_ID_TYPE>(entity));
+            logger::trace("entity not cleared found: {}", static_cast<ENTT_ID_TYPE>(entity));
         }
 
         for(auto storage: registry_.storage()) {
             if(storage.second.contains(entity)) {
                 auto storage_type = storage.second.type();
                 auto name = storage_type.name();
-                logger::debug("   contains component: {}", name);
+                logger::trace("   contains component: {}", name);
             }
         }
     });
 
-    logger::debug("clear registry");
+    logger::trace("clear registry");
     registry_.clear();
 }
 
@@ -155,13 +155,13 @@ auto world::since_epoch() -> float {
 }
 
 void world::init() {
-    logger::info("world init");
+    logger::trace("world init");
     start_.elapsed = since_epoch();
     start_.delta = 0.0;
 }
 
 void world::end() {
-    logger::info("world end");
+    logger::trace("world end");
     clear();
 }
 

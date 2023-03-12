@@ -67,7 +67,7 @@ auto application::run() -> result<bool, error> {
     logger::setup_log();
 
     logger::info("{}", version::string);
-    logger::debug("running application: {} (Team: {})", name(), team());
+    logger::info("running application: {} (Team: {})", name(), team());
 
     if(auto err = read_settings().ko()) {
         return show_error(*err);
@@ -83,7 +83,7 @@ auto application::run() -> result<bool, error> {
         return show_error(*err);
     }
 
-    logger::info("stopping application: {}", name());
+    logger::trace("stopping application: {}", name());
 
     return true;
 }
@@ -110,18 +110,18 @@ void application::log_level() {
 }
 
 auto application::launch() -> result<> {
-    logger::debug("configure application");
+    logger::trace("configure application");
     auto config = configure();
 
     auto [window, fullscreen, monitor] = get_window_settings(config);
 
-    logger::debug("init render");
+    logger::trace("init render");
     if(auto err = render_->init(window, config.logical(), fullscreen, monitor, name(), config.clear()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
 
-    logger::debug("init world");
+    logger::trace("init world");
     world_->init();
 
     constexpr auto render_priority = world::priority::after_applications;
@@ -130,28 +130,28 @@ auto application::launch() -> result<> {
     constexpr auto layout_priority = render_priority + 1;
     constexpr auto effects_priority = layout_priority + 1;
 
-    logger::debug("adding render system to the world");
+    logger::trace("adding render system to the world");
     world_->add_system_with_priority_internal<render_priority, render_system>(render_);
 
-    logger::debug("adding event system to the world");
+    logger::trace("adding event system to the world");
     world_->add_system_with_priority_internal<sdl_events_priority, sdl_events_system>(render_);
 
-    logger::debug("adding key system to the world");
+    logger::trace("adding key system to the world");
     world_->add_system_with_priority_internal<keys_priority, keys_system>(config.exit(), config.toggle_full_screen());
 
-    logger::debug("adding layout system to the world");
+    logger::trace("adding layout system to the world");
     world_->add_system_with_priority_internal<layout_priority, layout_system>();
 
-    logger::debug("adding effects system to the world");
+    logger::trace("adding effects system to the world");
     world_->add_system_with_priority_internal<effects_priority, effects_system>();
 
-    logger::debug("listening for application_want_closing events");
+    logger::trace("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);
 
-    logger::debug("update initial world state");
+    logger::trace("update initial world state");
     world_->update();
 
-    logger::debug("init application");
+    logger::trace("init application");
     if(auto err = init().ko()) {
         logger::error("error initializing application");
         render_->end();
@@ -162,19 +162,19 @@ auto application::launch() -> result<> {
         world_->update();
     }
 
-    logger::debug("ending application");
+    logger::trace("ending application");
     end();
 
-    logger::debug("remove any listener by sneze::application");
+    logger::trace("remove any listener by sneze::application");
     world_->remove_listeners(this);
 
-    logger::debug("ending world");
+    logger::trace("ending world");
     world_->end();
 
-    logger::debug("save window");
+    logger::trace("save window");
     save_window_settings();
 
-    logger::debug("ending render");
+    logger::trace("ending render");
     render_->end();
 
     return true;
@@ -199,7 +199,7 @@ auto application::save_settings() noexcept -> result<> {
 }
 
 void application::app_want_closing(events::application_want_closing) noexcept { // NOLINT(readability-named-parameter)
-    logger::debug("application want to close");
+    logger::trace("application want to close");
     want_to_close_ = true;
 }
 

@@ -38,7 +38,7 @@ texture::~texture() {
 }
 
 void texture::end() noexcept {
-    logger::debug("texture end");
+    logger::trace("texture end");
 
     if(texture_ != nullptr) {
         SDL_DestroyTexture(texture_);
@@ -62,7 +62,7 @@ auto texture::load_texture(const std::string &file_path) const -> result<SDL_Tex
         int width{0};
         int height{0};
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-        logger::info("texture loaded: {}, size: {}x{}", file_path, width, height);
+        logger::trace("texture loaded: {}, size: {}x{}", file_path, width, height);
         return texture;
     }
     logger::error("error loading texture: {}", IMG_GetError());

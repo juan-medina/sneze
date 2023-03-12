@@ -32,11 +32,11 @@ SOFTWARE.
 namespace sneze {
 
 void effects_system::init(world * /*world*/) {
-    logger::debug("effects system::init");
+    logger::trace("effects system::init");
 }
 
 void effects_system::end(world * /*world*/) {
-    logger::debug("effects system::end");
+    logger::trace("effects system::end");
 }
 
 void effects_system::update(world *world) {

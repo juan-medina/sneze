@@ -30,19 +30,18 @@ SOFTWARE.
 namespace sneze {
 
 void keys_system::init(world *world) {
-    logger::debug("init key system");
+    logger::trace("init key system");
     if(exit_.key != keyboard::key::unknown) {
-        logger::debug("exit full screen key: [{}]", exit_.string());
+        logger::trace("exit full screen key: [{}]", exit_.string());
     }
     if(toggle_full_screen_.key != keyboard::key::unknown) {
-        logger::debug("toggle full screen key: [{}]", toggle_full_screen_.string());
+        logger::trace("toggle full screen key: [{}]", toggle_full_screen_.string());
     }
     world->add_listener<events::key_up, &keys_system::key_up>(this);
 }
 
 void keys_system::end(world *world) {
-    logger::debug("end key system"
-                  );
+    logger::trace("end key system");
     world->remove_listeners(this);
 }
 

@@ -42,10 +42,10 @@ settings::settings(std::string team, std::string application)
 namespace fs = std::filesystem;
 
 auto settings::read() -> result<> {
-    logger::info("reading settings for application: {} (Team: {})", application_, team_);
+    logger::trace("reading settings for application: {} (Team: {})", application_, team_);
 
     if(auto [val, err] = calculate_settings_file_path().ok(); !err) {
-        logger::debug("settings file: {}", val->string()); // NOLINT(bugprone-unchecked-optional-access)
+        logger::trace("settings file: {}", val->string()); // NOLINT(bugprone-unchecked-optional-access)
         settings_file_path_ = *val;                        // NOLINT(bugprone-unchecked-optional-access)
     } else {
         logger::error("error calculate settings file path");
@@ -57,7 +57,7 @@ auto settings::read() -> result<> {
         return error("Can't read settings file.", *err); // NOLINT(bugprone-unchecked-optional-access)
     }
 
-    logger::info("settings file read");
+    logger::trace("settings file read");
     return true;
 }
 
@@ -106,9 +106,9 @@ auto settings::calculate_settings_file_path() -> result<std::filesystem::path> {
 
 auto settings::exist_or_create_directory(const std::filesystem::path &path) -> result<> {
     if(fs::exists(path)) {
-        logger::debug("directory already exist: {}", path.string());
+        logger::trace("directory already exist: {}", path.string());
     } else {
-        logger::debug("Creating directory: {}", path.string());
+        logger::trace("Creating directory: {}", path.string());
         std::error_code error_code;
         if(fs::create_directory(path, error_code); error_code) {
             logger::error("error creating directory: {}", error_code.message());
@@ -124,9 +124,9 @@ auto settings::exist_or_create_directory(const std::filesystem::path &path) -> r
 
 auto settings::exist_or_create_file(const std::filesystem::path &path) -> result<> {
     if(fs::exists(path)) {
-        logger::debug("file already exist: {}", path.string());
+        logger::trace("file already exist: {}", path.string());
     } else {
-        logger::debug("Creating empty file: {}", path.string());
+        logger::trace("Creating empty file: {}", path.string());
         std::fstream file;
         file.open(path, std::ios::out);
         if(file.fail()) {
@@ -147,7 +147,7 @@ auto settings::exist_or_create_file(const std::filesystem::path &path) -> result
 }
 
 auto settings::read_toml() -> result<> {
-    logger::info("reading : {}", settings_file_path_.string());
+    logger::info("reading settings : {}", settings_file_path_.string());
 
     try {
         auto data = toml::parse(settings_file_path_);
@@ -240,7 +240,7 @@ auto settings::save() -> result<> {
         logger::error("failed to close file: {}", settings_file_path_.string());
         return error("Can't save settings file.");
     }
-    logger::info("Settings saved");
+    logger::trace("Settings saved");
     return true;
 }
 
