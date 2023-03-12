@@ -119,7 +119,7 @@ public:
     template<typename TagType>
     void remove_all_tags() {
         for(auto &&[entity]: tagged<TagType>()) {
-            remove_component<components::tag<TagType>>(entity);
+            untag<TagType>(entity);
         }
     }
 
@@ -220,8 +220,8 @@ public:
     template<typename Type>
     [[maybe_unused]] [[nodiscard]] auto get_global() -> auto & {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
-        for(auto &&[entity, value]: tagged<global<Type>, Type>()) {
-            return value;
+        if(auto first = registry_.view<Type, components::tag<global<Type>>>().front(); !(first == entt::null)) {
+            return get_component<Type>(first);
         }
         tag<global<Type>>(add_entity(Type{}));
         return get_global<Type>();
@@ -262,7 +262,8 @@ private:
             std::make_unique<system_with_priority>(type_hash, Priority, std::make_unique<SystemType>(args...)));
     }
 
-    template<typename Type> struct global{};
+    template<typename Type>
+    struct global {};
 
     using system_ptr = std::unique_ptr<system_with_priority>;
     using systems_vector = std::vector<system_ptr>;
