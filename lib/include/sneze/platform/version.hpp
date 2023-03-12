@@ -35,4 +35,13 @@ static const int minor = 0;
 static const int release = 0;
 static const std::string string = fmt::format("sneze v{}.{}.{}", major, minor, release);
 
+static constexpr auto logo = R"(  ____
+ / ___|   _ __     ___   ____   ___
+ \___ \  | '_ \   / _ \ |_  /  / _ \
+  ___) | | | | | |  __/  / /  |  __/
+ |____/  |_| |_|  \___| /___|  \___|
+                  version {}.{}.{})";
+
+static const auto logo_string = fmt::format(logo, major, minor, release);
+
 } // namespace sneze::version

@@ -24,13 +24,16 @@ SOFTWARE.
 
 #include "sneze/platform/logger.hpp"
 
+#include "sneze/platform/version.hpp"
+
 #include <memory>
 
 #include <entt/core/hashed_string.hpp>
 #include <SDL_log.h>
+#include <spdlog/pattern_formatter.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/dist_sink.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/sinks/stdout_sinks.h>
 
 #if defined(_MSC_VER) && defined(_DEBUG)
 #    include <spdlog/sinks/msvc_sink.h>
@@ -38,26 +41,117 @@ SOFTWARE.
 
 namespace sneze::logger {
 
+template<uint8_t R, uint8_t G, uint8_t B>
+auto color_rgb() {
+    return fmt::format("\033[38;2;{};{};{}m", R, G, B);
+}
+
+auto color_reset() {
+    return "\033[0m";
+}
+
+class color_tag_start: public spdlog::custom_flag_formatter {
+public:
+    void format(const spdlog::details::log_msg &msg, const std::tm & /*time*/, spdlog::memory_buf_t &dest) override {
+        std::string color_code;
+
+        switch(msg.level) {
+        case spdlog::level::trace:
+            color_code = color_rgb<0x80, 0x80, 0x80>();
+            break;
+        case spdlog::level::info:
+            color_code = color_rgb<0x7E, 0xFF, 0x00>();
+            break;
+        case spdlog::level::warn:
+            color_code = color_rgb<0xFF, 0x8C, 0x00>();
+            break;
+        [[likely]] case spdlog::level::err:
+            color_code = color_rgb<0xFF, 0x00, 0x0E>();
+            break;
+        [[unlikely]] default:
+            break;
+        }
+
+        if(!color_code.empty()) {
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+            dest.append(color_code.data(), color_code.data() + color_code.size());
+        }
+    }
+
+    [[nodiscard]] auto clone() const -> std::unique_ptr<custom_flag_formatter> override {
+        return spdlog::details::make_unique<color_tag_start>();
+    }
+    static constexpr auto token = '[';
+};
+
+class color_tag_end: public spdlog::custom_flag_formatter {
+public:
+    void format(const spdlog::details::log_msg &msg, const std::tm & /*time*/, spdlog::memory_buf_t &dest) override {
+        std::string color_code;
+
+        switch(msg.level) {
+        case spdlog::level::trace:
+        case spdlog::level::info:
+        case spdlog::level::warn:
+        [[likely]] case spdlog::level::err:
+            color_code = color_reset();
+            break;
+        [[unlikely]] default:
+            break;
+        }
+
+        if(!color_code.empty()) {
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+            dest.append(color_code.data(), color_code.data() + color_code.size());
+        }
+    }
+
+    [[nodiscard]] auto clone() const -> std::unique_ptr<custom_flag_formatter> override {
+        return spdlog::details::make_unique<color_tag_end>();
+    }
+
+    static constexpr auto token = ']';
+};
+
 void setup_spdlog() {
+    using namespace std::string_literals;
+    static const auto initial_pattern = "%v"s;
+    auto default_pattern = "[%x] [%H:%M:%S.%e] [%^%-8l%$] %v"s;
+#if not defined(NDEBUG) && not defined(NO_SOURCE_LOCATION)
+    default_pattern += " -> %@"s;
+#endif
     auto dist_sink = std::make_shared<spdlog::sinks::dist_sink_st>();
 
-    auto color_sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
-    dist_sink->add_sink(color_sink);
+    auto stdout_sink = std::make_shared<spdlog::sinks::stdout_sink_st>();
+    stdout_sink->set_pattern(color_rgb<0x1E, 0x80, 0xFF>() + initial_pattern + color_reset());
+    dist_sink->add_sink(stdout_sink);
 
     auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_st>("sneze.log", true);
+    file_sink->set_pattern(initial_pattern);
     dist_sink->add_sink(file_sink);
 
 #if defined(_MSC_VER) && defined(_DEBUG)
     auto debug_sink = std::make_shared<spdlog::sinks::msvc_sink_st>();
+    debug_sink->set_pattern(initial_pattern);
     dist_sink->add_sink(debug_sink);
 #endif
-#if not defined(NDEBUG) && not defined(NO_SOURCE_LOCATION)
-    dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v -> %@");
-#else
-    dist_sink->set_pattern("[%x] [%H:%M:%S.%e] [%^%-8l%$] %v");
-#endif
+
     auto logger = std::make_shared<spdlog::logger>("sneze", dist_sink);
     spdlog::set_default_logger(logger);
+    spdlog::info(version::logo_string);
+
+    auto color_pattern = "%"s + color_tag_start::token + default_pattern + "%"s + color_tag_end::token;
+    auto formatter = std::make_unique<spdlog::pattern_formatter>();
+    formatter->add_flag<color_tag_start>(color_tag_start::token)
+        .add_flag<color_tag_end>(color_tag_end::token)
+        .set_pattern(color_pattern);
+    stdout_sink->set_formatter(std::move(formatter));
+
+    file_sink->set_pattern(default_pattern);
+
+#if defined(_MSC_VER) && defined(_DEBUG)
+    debug_sink->set_pattern(default_pattern);
+#endif
 }
 
 void sdl_log_callback(void * /*user_data*/, int /*category*/, SDL_LogPriority priority, const char *message) {

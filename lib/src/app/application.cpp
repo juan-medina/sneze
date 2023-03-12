@@ -28,7 +28,6 @@ SOFTWARE.
 #include "sneze/effects/effects_system.hpp"
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
-#include "sneze/platform/version.hpp"
 #include "sneze/render/render.hpp"
 #include "sneze/systems/keys_system.hpp"
 #include "sneze/systems/layout_system.hpp"
@@ -65,8 +64,6 @@ auto application::run() -> result<bool, error> {
 #    pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #endif
     logger::setup_log();
-
-    logger::info("{}", version::string);
     logger::info("running application: {} (Team: {})", name(), team());
 
     if(auto err = read_settings().ko()) {
