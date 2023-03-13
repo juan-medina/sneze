@@ -33,6 +33,8 @@ SOFTWARE.
 #include <utility>
 
 #include <platform_folders.h>
+#include <rapidjson/document.h>
+#include <rapidjson/prettywriter.h>
 
 namespace sneze {
 
@@ -52,8 +54,8 @@ auto settings::read() -> result<> {
         return error("Can't calculate settings file path.", *err); // NOLINT(bugprone-unchecked-optional-access)
     }
 
-    if(auto err = read_toml().ko()) {
-        logger::error("error reading toml file: {}", settings_file_path_.string());
+    if(auto err = read_json().ko()) {
+        logger::error("error reading json file: {}", settings_file_path_.string());
         return error("Can't read settings file.", *err); // NOLINT(bugprone-unchecked-optional-access)
     }
 
@@ -146,95 +148,117 @@ auto settings::exist_or_create_file(const std::filesystem::path &path) -> result
     return true;
 }
 
-auto settings::read_toml() -> result<> {
+auto settings::read_json() -> result<> {
     logger::info("reading settings : {}", settings_file_path_.string());
 
-    try {
-        auto data = toml::parse(settings_file_path_);
-        for(const auto &[section, section_value]: data.as_table()) {
-            if(section_value.is_table()) {
-                for(const auto &[name, value]: section_value.as_table()) {
-                    if(auto err = add_toml_value(section, name, value).ko(); err) {
-                        logger::error("Error parsing toml data ");
-                        return error("Error reading settings file.");
-                    }
+    if(fs::file_size(settings_file_path_) == 0) {
+        logger::trace("settings file is empty: {}", settings_file_path_.string());
+        return true;
+    }
+
+    auto document = rapidjson::Document{};
+    std::ifstream file{settings_file_path_};
+    if(!file.is_open()) {
+        logger::error("error opening settings file: {}", settings_file_path_.string());
+        return error("Can't open settings file.");
+    }
+
+    const std::string json_string{std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()};
+    if(document.Parse(json_string.c_str()).HasParseError()) {
+        logger::error("error parsing json file: {}", settings_file_path_.string());
+        file.close();
+        return error("Can't parse settings file.");
+    }
+    file.close();
+
+    if(!document.IsObject()) {
+        logger::error("error parsing json file: {}", settings_file_path_.string());
+        return error("Can't parse settings file.");
+    }
+
+    for(const auto &section: document.GetObject()) {
+        if(!section.value.IsObject()) {
+            logger::error("error parsing json file: {}", settings_file_path_.string());
+            return error("Can't parse settings file.");
+        }
+        for(const auto &name: section.value.GetObject()) {
+            const auto section_name = std::string(section.name.GetString());
+            const auto value_name = std::string(name.name.GetString());
+            if(section_name == "sneze") {
+                continue;
+            }
+            switch(name.value.GetType()) {
+            case rapidjson::Type::kFalseType:
+                data_[section_name][value_name] = false;
+                break;
+            case rapidjson::Type::kTrueType:
+                data_[section_name][value_name] = true;
+                break;
+            case rapidjson::Type::kNumberType:
+                if(name.value.IsInt() || name.value.IsUint() || name.value.IsInt64() || name.value.IsUint64()) {
+                    data_[section_name][value_name] = std::int64_t{name.value.GetInt()};
+                    break;
                 }
+                data_[section_name][value_name] = name.value.GetDouble();
+                break;
+            case rapidjson::Type::kStringType:
+                data_[section_name][value_name] = std::string(name.value.GetString());
+                break;
+            default:
+                logger::error("error invalid value type in json file: {}", settings_file_path_.string());
+                return error("Can't parse settings file.");
             }
         }
-    } catch(toml::exception &toml_exception) {
-        const auto *msg = toml_exception.what();
-        const auto &location = toml_exception.location();
-        logger::error("toml exception: {}, reading settings file {} ({},{})",
-                      msg,
-                      location.file_name(),
-                      location.line(),
-                      location.column());
-        return error("Invalid settings file.");
-    } catch(std::runtime_error &runtime_error) {
-        const auto *msg = runtime_error.what();
-        logger::error("exception reading settings file: {} ", msg);
-        return error("Error reading settings file.");
     }
 
-    return true;
-}
-
-auto settings::add_toml_value(const std::string &section, const std::string &name, const toml::value &value)
-    -> result<> {
-    switch(value.type()) {
-    case toml::value_t::boolean:
-        set(section, name, value.as_boolean());
-        break;
-    case toml::value_t::integer:
-        set(section, name, value.as_integer());
-        break;
-    case toml::value_t::floating:
-        set(section, name, value.as_floating());
-        break;
-    case toml::value_t::string:
-        set(section, name, value.as_string().str);
-        break;
-    default:
-        logger::error("toml value no supported for value: {}, in section {}", name, section);
-        return error("Invalid settings file.");
-    }
     return true;
 }
 
 auto settings::save() -> result<> {
     logger::info("Saving settings to: {}", settings_file_path_.string());
 
-    auto toml_data = toml::basic_value<toml::preserve_comments>();
+    auto string_buffer = rapidjson::StringBuffer();
+    auto writer = rapidjson::PrettyWriter<rapidjson::StringBuffer>(string_buffer);
+    writer.StartObject();
+
+    writer.Key("sneze");
+    writer.StartObject();
+    writer.Key("version");
+    writer.String(version::string.c_str());
+    writer.EndObject();
 
     for(auto &[section_name, table]: data_) {
-        auto section = toml::value();
+        writer.Key(section_name.c_str());
+        writer.StartObject();
         for(auto &[value_name, value]: table) {
+            writer.Key(value_name.c_str());
             if(std::holds_alternative<bool>(value)) {
-                section[value_name] = std::get<bool>(value);
+                writer.Bool(std::get<bool>(value));
             } else if(std::holds_alternative<double>(value)) {
-                section[value_name] = std::get<double>(value);
+                writer.Double(std::get<double>(value));
             } else if(std::holds_alternative<std::int64_t>(value)) {
-                section[value_name] = std::get<std::int64_t>(value);
+                writer.Int64(std::get<std::int64_t>(value));
             } else if(std::holds_alternative<std::string>(value)) {
-                section[value_name] = std::get<std::string>(value);
+                writer.String(std::get<std::string>(value).c_str());
             }
         }
-        toml_data[section_name] = section;
+        writer.EndObject();
     }
+    writer.EndObject();
 
+    settings_file_path_ = settings_file_path_.replace_extension("json");
     std::ofstream file;
     file.open(settings_file_path_);
     if(file.fail()) {
         logger::error("failed to open file: {}", settings_file_path_.string());
         return error("Can't save settings file.");
     }
-
-    file << "# generated by " << version::string << std::endl << std::setw(0) << toml_data << std::endl;
+    file << string_buffer.GetString();
     if(file.fail()) {
-        logger::error("failed to write to file: {}", settings_file_path_.string());
+        logger::error("failed to write file: {}", settings_file_path_.string());
+        file.close();
         return error("Can't save settings file.");
     }
-
     file.close();
     if(file.fail()) {
         logger::error("failed to close file: {}", settings_file_path_.string());

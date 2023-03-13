@@ -47,14 +47,14 @@ SNEZE comes with a few examples to help you get started. You can find them in th
 
 SNEZE is powered by these incredible projects:
 
-- [EnTT](https://github.com/skypjack/entt) : A fast and reliable entity component system.
-- [SDL](https://www.libsdl.org/) : Simple DirectMedia Layer cross-platform low level access to  audio, keyboard, mouse, joystick, and graphics.
-- [SDL_image](https://github.com/libsdl-org/SDL_image) : Image decoding for many popular formats for SDL.
-- [spdlog](https://github.com/gabime/spdlog) : Fast C++ logging library.
-- [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories.
-- [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes.
-- [{fmt}](https://github.com/fmtlib/fmt) : A modern formatting library
-- [toml11](https://github.com/ToruNiina/toml11) : TOML for Modern C++
+- [EnTT](https://github.com/skypjack/entt) : A fast and reliable entity component system. [LICENSE](https://github.com/skypjack/entt/blob/master/LICENSE)
+- [SDL](https://www.libsdl.org/) : Simple DirectMedia Layer cross-platform low level access to  audio, keyboard, mouse, joystick, and graphics. [LICENSE](https://www.libsdl.org/license.php)
+- [SDL_image](https://github.com/libsdl-org/SDL_image) : Image decoding for many popular formats for SDL. [LICENSE](https://www.libsdl.org/license.php)
+- [spdlog](https://github.com/gabime/spdlog) : Fast C++ logging library. [LICENSE](https://github.com/gabime/spdlog/blob/v1.x/LICENSE)
+- [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories. [LICENSE](https://github.com/sago007/PlatformFolders/blob/master/LICENSE)
+- [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes. [LICENSE](https://github.com/aaronmjacobs/Boxer/blob/master/LICENSE)
+- [{fmt}](https://github.com/fmtlib/fmt) : A modern formatting library. [LICENSE](https://github.com/fmtlib/fmt/blob/master/LICENSE.rst)
+- [rapidjson](https://github.com/Tencent/rapidjson) : A fast JSON parser/generator for C++ with both SAX/DOM style API. [LICENSE](https://github.com/Tencent/rapidjson/blob/master/license.txt)
 
 ## Resources
 

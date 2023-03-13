@@ -82,16 +82,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Boxer)
 
-## add toml11
-FetchContent_Declare(
-        toml11
-        GIT_REPOSITORY https://github.com/ToruNiina/toml11
-        GIT_TAG v3.7.1
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE
-)
-FetchContent_MakeAvailable(toml11)
-
+## add EnTT
 FetchContent_Declare(
         EnTT
         GIT_REPOSITORY https://github.com/skypjack/entt
@@ -100,6 +91,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(EnTT)
 
+## add SDL2
 FetchContent_Declare(
         SDL2
         GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
@@ -109,6 +101,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SDL2)
 
+## add SDL2_image
 FetchContent_Declare(
         SDL2_image
         GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
@@ -121,6 +114,26 @@ set(SDL2IMAGE_INSTALL OFF)
 set(BUILD_SHARED_LIBS FALSE)
 
 FetchContent_MakeAvailable(SDL2_image)
+
+## add rapidjson
+set(RAPIDJSON_BUILD_DOC OFF CACHE BOOL "")
+set(RAPIDJSON_BUILD_EXAMPLES OFF CACHE BOOL "")
+set(RAPIDJSON_BUILD_TESTS OFF CACHE BOOL "")
+set(RAPIDJSON_BUILD_THIRDPARTY_GTEST OFF CACHE BOOL "")
+FetchContent_Declare(
+        rapidjson
+        GIT_REPOSITORY https://github.com/Tencent/rapidjson.git
+        GIT_TAG v1.1.0
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(rapidjson)
+
+set(RapidJSON_DIR ${rapidjson_SOURCE_DIR})
+find_package(RapidJSON REQUIRED QUIET)
+set(rapidjson_INCLUDE_DIR ${rapidjson_SOURCE_DIR}/include)
+
+include_directories(SYSTEM ${rapidjson_INCLUDE_DIR})
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
@@ -135,7 +148,6 @@ target_link_libraries(${LIB_NAME}
         PUBLIC spdlog
         PUBLIC sago::platform_folders
         PUBLIC Boxer
-        PUBLIC toml11
         PUBLIC EnTT::EnTT
         PUBLIC SDL2::SDL2-static
         PUBLIC SDL2_image::SDL2_image-static

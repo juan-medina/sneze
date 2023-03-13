@@ -189,7 +189,7 @@ void setup_log() {
 #ifdef NDEBUG
     set_level(logger::level::info);
 #else
-    set_level(logger::level::debug);
+    set_level(logger::level::trace);
 #endif
 }
 

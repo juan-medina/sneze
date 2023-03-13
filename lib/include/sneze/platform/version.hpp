@@ -33,7 +33,7 @@ namespace sneze::version {
 static const int major = 0;
 static const int minor = 0;
 static const int release = 0;
-static const std::string string = fmt::format("sneze v{}.{}.{}", major, minor, release);
+static const std::string string = fmt::format("v{}.{}.{}", major, minor, release);
 
 static constexpr auto logo = R"(  ____
  / ___|   _ __     ___   ____   ___
