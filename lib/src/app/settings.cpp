@@ -245,8 +245,6 @@ auto settings::save() -> result<> {
         writer.EndObject();
     }
     writer.EndObject();
-
-    settings_file_path_ = settings_file_path_.replace_extension("json");
     std::ofstream file;
     file.open(settings_file_path_);
     if(file.fail()) {
