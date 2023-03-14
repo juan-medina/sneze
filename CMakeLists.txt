@@ -33,13 +33,18 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(SAVED_CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+set(SNEZE_CXX_FLAGS ${SAVED_CMAKE_CXX_FLAGS})
+
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    string(REGEX REPLACE "/W[3|4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX /permissive-")
+    string(REGEX REPLACE "/W[3|4]" "" SNEZE_CXX_FLAGS "${SNEZE_CXX_FLAGS}")
+    set(SNEZE_CXX_FLAGS "${SNEZE_CXX_FLAGS} /W4 /WX /permissive-")
     add_compile_options(/permissive-)
 else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
+    set(SNEZE_CXX_FLAGS "${SNEZE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
 endif ()
+
+set(CMAKE_CXX_FLAGS ${SNEZE_CXX_FLAGS})
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

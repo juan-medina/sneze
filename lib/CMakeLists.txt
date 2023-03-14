@@ -40,6 +40,9 @@ file(GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 include(FetchContent)
 Set(FETCHCONTENT_QUIET FALSE)
 
+# set default flags for dependencies
+set(CMAKE_CXX_FLAGS ${SAVED_CMAKE_CXX_FLAGS})
+
 ## add fmt
 FetchContent_Declare(
         fmt
@@ -135,9 +138,13 @@ set(rapidjson_INCLUDE_DIR ${rapidjson_SOURCE_DIR}/include)
 
 include_directories(SYSTEM ${rapidjson_INCLUDE_DIR})
 
+# restore flags
+set(CMAKE_CXX_FLAGS ${SNEZE_CXX_FLAGS})
+
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
 endif ()
+
 
 #set library
 add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
