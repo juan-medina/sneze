@@ -106,6 +106,10 @@ public:
 
     [[maybe_unused]] void unload_font(const std::string &font_path);
 
+    [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
+
+    [[maybe_unused]] void unload_sprite_sheet(const std::string &sprite_sheet_path);
+
 private:
     std::string team_;
     std::string name_;

@@ -254,6 +254,28 @@ auto render::unload_texture(const std::string &texture_path) -> result<> {
     return true;
 }
 
+auto render::load_sprite_sheet(const std::string &sprite_sheet_path) -> result<> {
+    logger::debug("loading sprite sheet: ({})", sprite_sheet_path);
+
+    if(auto err = sprite_sheets_.load(sprite_sheet_path).ko(); err) {
+        logger::error("fail to load sprite sheet");
+        return error("Fail to load Sprite Sheet", *err);
+    }
+
+    return true;
+}
+
+auto render::unload_sprite_sheet(const std::string &sprite_sheet_path) -> result<> {
+    logger::debug("unloading sprite sheet: ({})", sprite_sheet_path);
+
+    if(auto err = sprite_sheets_.unload(sprite_sheet_path).ko(); err) {
+        logger::error("fail to unload sprite sheet");
+        return error("Fail to unload Sprite Sheet", *err);
+    }
+
+    return true;
+}
+
 auto render::get_texture(const std::string &texture_path) -> std::shared_ptr<texture> {
     if(auto [txt, err] = textures_.get(texture_path).ok(); !err) {
         return *txt; // NOLINT(bugprone-unchecked-optional-access)

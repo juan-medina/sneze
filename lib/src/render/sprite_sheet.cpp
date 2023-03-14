@@ -22,47 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sprites_game.hpp"
+#include "sneze/render/sprite_sheet.hpp"
 
-using namespace std::string_literals;
-const auto game_sprite_sheet = "resources/sprites/sprite_sheet.json"s;
+namespace sneze {
 
-sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
-
-namespace logger = sneze::logger;
-using config = sneze::config;
-namespace components = sneze::components;
-using color = components::color;
-
-auto sprites_game::configure() -> config {
-    logger::debug("configure");
-
-    namespace keyboard = sneze::keyboard;
-    using key = keyboard::key;
-    using modifier = keyboard::modifier;
-
-    return config()
-        .size(1920, 1080)
-        .clear(color::light_gray)
-        .exit(key::escape)
-        .toggle_full_screen(modifier::alt, key::_return);
+sprite_sheet::~sprite_sheet() {
+    sprite_sheet::end();
 }
 
-auto sprites_game::init() -> result {
-    logger::debug("init sprites game");
-
-    using error = sneze::error;
-
-    if(load_sprite_sheet(game_sprite_sheet).ko()) {
-        logger::error("game can't load sprite sheet");
-        return error("Can't load sprite sheet.");
-    }
-
+auto sprite_sheet::init(const std::string & /*uri*/) -> result<> {
+    logger::trace("sprite sheet::init");
     return true;
 }
 
-void sprites_game::end() {
-    logger::debug("ending sprites game");
-
-    unload_sprite_sheet(game_sprite_sheet);
+auto sprite_sheet::end() -> void {
+    logger::trace("sprite sheet::end");
 }
+
+} // namespace sneze

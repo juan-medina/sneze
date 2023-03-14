@@ -31,6 +31,7 @@ SOFTWARE.
 #include "../platform/result.hpp"
 
 #include "font.hpp"
+#include "sprite_sheet.hpp"
 #include "texture.hpp"
 
 struct SDL_Renderer;
@@ -40,7 +41,7 @@ namespace sneze {
 
 class render {
 public:
-    render(): fonts_{this}, textures_{this} {};
+    render(): fonts_{this}, textures_{this}, sprite_sheets_{this} {};
     ~render() = default;
 
     render(const render &) = delete;
@@ -73,6 +74,10 @@ public:
     [[maybe_unused]] [[nodiscard]] auto load_texture(const std::string &texture_path) -> result<>;
 
     [[maybe_unused]] auto unload_texture(const std::string &texture_path) -> result<>;
+
+    [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
+
+    [[maybe_unused]] auto unload_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
 
     void draw_label(const components::label &label, const components::position &from, const components::color &color);
 
@@ -114,6 +119,7 @@ protected:
 private:
     resources_cache<font> fonts_;
     resources_cache<texture> textures_;
+    resources_cache<sprite_sheet> sprite_sheets_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> std::shared_ptr<font>;
 

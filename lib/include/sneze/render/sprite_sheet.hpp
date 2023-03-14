@@ -22,47 +22,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sprites_game.hpp"
+#pragma once
 
-using namespace std::string_literals;
-const auto game_sprite_sheet = "resources/sprites/sprite_sheet.json"s;
+#include <memory>
 
-sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
+#include "resource.hpp"
 
-namespace logger = sneze::logger;
-using config = sneze::config;
-namespace components = sneze::components;
-using color = components::color;
+namespace sneze {
 
-auto sprites_game::configure() -> config {
-    logger::debug("configure");
+class render;
 
-    namespace keyboard = sneze::keyboard;
-    using key = keyboard::key;
-    using modifier = keyboard::modifier;
+class sprite_sheet: public resource {
+public:
+    explicit sprite_sheet(class render *render): resource(render){};
 
-    return config()
-        .size(1920, 1080)
-        .clear(color::light_gray)
-        .exit(key::escape)
-        .toggle_full_screen(modifier::alt, key::_return);
-}
+    ~sprite_sheet() override;
 
-auto sprites_game::init() -> result {
-    logger::debug("init sprites game");
+    sprite_sheet(const sprite_sheet &) = delete;
+    sprite_sheet(sprite_sheet &&) = delete;
 
-    using error = sneze::error;
+    auto operator=(const sprite_sheet &) -> sprite_sheet & = delete;
+    auto operator=(sprite_sheet &&) -> sprite_sheet & = delete;
 
-    if(load_sprite_sheet(game_sprite_sheet).ko()) {
-        logger::error("game can't load sprite sheet");
-        return error("Can't load sprite sheet.");
-    }
+    [[nodiscard]] auto init(const std::string &uri) -> result<> override;
 
-    return true;
-}
+    auto end() -> void override;
+};
 
-void sprites_game::end() {
-    logger::debug("ending sprites game");
-
-    unload_sprite_sheet(game_sprite_sheet);
-}
+} // namespace sneze

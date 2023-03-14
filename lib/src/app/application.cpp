@@ -213,6 +213,18 @@ void application::unload_font(const std::string &font_path) {
     render_->unload_font(font_path);
 }
 
+auto application::load_sprite_sheet(const std::string &sprite_sheet_path) -> result<> {
+    if(auto err = render_->load_sprite_sheet(sprite_sheet_path).ko(); err) {
+        logger::error("error loading sprite sheet: {}", sprite_sheet_path);
+        return error("Can't load Sprite Sheet.", *err);
+    }
+
+    return true;
+}
+void application::unload_sprite_sheet(const std::string &sprite_sheet_path) {
+    render_->unload_sprite_sheet(sprite_sheet_path);
+}
+
 auto application::get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int> {
     using namespace std::literals;
     auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.window().width));
