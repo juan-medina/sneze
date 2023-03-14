@@ -176,7 +176,14 @@ auto settings::read_json() -> result<> {
         return error("Can't parse settings file.");
     }
 
+#if defined(__clang__)
+#    pragma clang diagnostic push
+#    pragma clang diagnostic ignored "-Wambiguous-reversed-operator"
+#endif
     for(const auto &section: document.GetObject()) {
+#if defined(__clang__)
+#    pragma clang diagnostic pop
+#endif
         if(!section.value.IsObject()) {
             logger::error("error parsing json file: {}", settings_file_path_.string());
             return error("Can't parse settings file.");

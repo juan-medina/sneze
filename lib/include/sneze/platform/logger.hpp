@@ -41,18 +41,22 @@ struct source_location {
         return source_location{};
     }
 
+    // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
     [[nodiscard]] constexpr auto line() const noexcept -> uint_least32_t {
         return 0;
     }
 
+    // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
     [[nodiscard]] constexpr auto column() const noexcept -> uint_least32_t {
         return 0;
     }
 
+    // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
     [[nodiscard]] constexpr auto file_name() const noexcept -> const char * {
         return "";
     }
 
+    // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
     [[nodiscard]] constexpr auto function_name() const noexcept -> const char * {
         return "";
     }

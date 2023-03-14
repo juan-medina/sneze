@@ -30,7 +30,14 @@ SOFTWARE.
 #include <utility>
 #include <vector>
 
+#if defined(__clang__)
+#    pragma clang diagnostic push
+#    pragma clang diagnostic ignored "-Wmissing-braces"
+#endif
 #include <entt/entt.hpp>
+#if defined(__clang__)
+#    pragma clang diagnostic pop
+#endif
 
 #include "../components/generic.hpp"
 #include "../events/events.hpp"
