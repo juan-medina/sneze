@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include <string>
 
-hello_game::hello_game(): application("sneze", "Hello Game") {}
+sprites_game::sprites_game(): application("sneze", "Hello Game") {}
 
 namespace logger = sneze::logger;
 using config = sneze::config;
@@ -36,7 +36,7 @@ using color = components::color;
 using namespace std::string_literals;
 const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
 
-auto hello_game::configure() -> config {
+auto sprites_game::configure() -> config {
     logger::debug("configure");
 
     namespace keyboard = sneze::keyboard;
@@ -50,7 +50,7 @@ auto hello_game::configure() -> config {
         .toggle_full_screen(modifier::alt, key::_return);
 }
 
-auto hello_game::init() -> result {
+auto sprites_game::init() -> result {
     logger::debug("init hello game");
 
     using error = sneze::error;
@@ -79,7 +79,7 @@ auto hello_game::init() -> result {
     return true;
 }
 
-void hello_game::end() {
+void sprites_game::end() {
     logger::debug("ending hello game");
 
     unload_font(regular_font);

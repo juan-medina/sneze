@@ -22,13 +22,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <cstdlib>
+#include "sprites_game.hpp"
 
-#include "hello_game.hpp"
+sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
 
-auto main(int /*argc*/, char * /*argv*/[]) -> int {
-    if(auto err = sprites_game().run().ko(); err) {
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
+namespace logger = sneze::logger;
+using config = sneze::config;
+namespace components = sneze::components;
+using color = components::color;
+
+auto sprites_game::configure() -> config {
+    logger::debug("configure");
+
+    namespace keyboard = sneze::keyboard;
+    using key = keyboard::key;
+    using modifier = keyboard::modifier;
+
+    return config()
+        .size(1920, 1080)
+        .clear(color::light_gray)
+        .exit(key::escape)
+        .toggle_full_screen(modifier::alt, key::_return);
+}
+
+auto sprites_game::init() -> result {
+    logger::debug("init sprites game");
+
+    return true;
+}
+
+void sprites_game::end() {
+    logger::debug("ending sprites game");
 }
