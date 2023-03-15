@@ -26,7 +26,6 @@ SOFTWARE.
 
 #include "sneze/render/render.hpp"
 
-#include <filesystem>
 #include <fstream>
 
 #include <rapidjson/document.h>
@@ -39,7 +38,7 @@ sprite_sheet::~sprite_sheet() {
     sprite_sheet::end();
 }
 
-auto parse_meta_data(const rapidjson::Document &document, const std::string &base_dir) -> result<std::string, error> {
+auto parse_meta_data(const rapidjson::Document &document, const fs::path &base_dir) -> result<std::string, error> {
     const auto &meta_value = document["meta"];
     if(!meta_value.IsObject()) {
         logger::error("error parsing sprite sheet, meta not found");

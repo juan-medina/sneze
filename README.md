@@ -3,7 +3,7 @@
 [![Conduct](https://img.shields.io/badge/Conduct-Covenat%202.0-yellow.svg?style=for-the-badge)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
 [![C++](https://img.shields.io/badge/20-yellow.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white&labelColor=gray)](https://en.cppreference.com/w/cpp/20)
 
-<p style="text-align: center">
+<p align ="center">
   <img src="examples/media/sprites/sneze.png" width="150" alt="sneze logo">
 </p>
 

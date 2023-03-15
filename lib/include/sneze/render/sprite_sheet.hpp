@@ -24,6 +24,7 @@ SOFTWARE.
 
 #pragma once
 
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -68,7 +69,7 @@ public:
 private:
     std::unordered_map<std::string, frame> frames_ = {};
     std::string texture_;
-    std::string sprite_sheet_directory_;
+    std::filesystem::path sprite_sheet_directory_;
 };
 
 } // namespace sneze
