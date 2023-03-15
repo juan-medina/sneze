@@ -113,7 +113,8 @@ auto application::launch() -> result<> {
     auto [window, fullscreen, monitor] = get_window_settings(config);
 
     logger::trace("init render");
-    if(auto err = render_->init(window, config.logical(), fullscreen, monitor, name(), config.clear()).ko()) {
+    if(auto err =
+           render_->init(window, config.logical(), fullscreen, monitor, name(), config.icon(), config.clear()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }

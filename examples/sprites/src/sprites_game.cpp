@@ -43,6 +43,7 @@ auto sprites_game::configure() -> config {
 
     return config()
         .size(1920, 1080)
+        .icon(sneze_logo)
         .clear(color::light_gray)
         .exit(key::escape)
         .toggle_full_screen(modifier::alt, key::_return);

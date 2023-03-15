@@ -28,6 +28,7 @@ SOFTWARE.
 #include "sneze/render/font.hpp"
 
 #include <SDL.h>
+#include <SDL_image.h>
 
 namespace sneze {
 
@@ -36,6 +37,7 @@ auto render::init(const components::size &window,
                   const bool &fullscreen,
                   const int &monitor,
                   const std::string &title,
+                  const std::string &icon,
                   const components::color &color) -> result<> {
     fullscreen_ = fullscreen;
 
@@ -64,6 +66,16 @@ auto render::init(const components::size &window,
     if(window_ == nullptr) {
         logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
         return error("error initializing rendering engine.");
+    }
+
+    if(!icon.empty()) {
+        if(auto *const icon_surface = IMG_Load("resources/sprites/sneze.png"); icon_surface != nullptr) {
+            SDL_SetWindowIcon(window_, icon_surface);
+            SDL_FreeSurface(icon_surface);
+        } else {
+            logger::error("can't load application icon: {}", IMG_GetError());
+            return error("error initializing rendering engine.");
+        }
     }
 
 #if defined(__linux__)

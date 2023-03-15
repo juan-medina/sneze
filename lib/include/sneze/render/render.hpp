@@ -59,6 +59,7 @@ public:
                             const bool &fullscreen,
                             const int &monitor,
                             const std::string &title,
+                            const std::string &icon,
                             const components::color &color) -> result<>;
 
     void end();
