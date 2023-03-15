@@ -49,5 +49,6 @@ namespace sneze::components {
 [[maybe_unused]] const color color::brown = color::rgb(127, 106, 79);
 [[maybe_unused]] const color color::dark_brown = color::rgb(76, 63, 47);
 [[maybe_unused]] const color color::magenta = color::rgb(231, 72, 86);
+[[maybe_unused]] const color color::untinted = color::rgb(255, 255, 255);
 
 } // namespace sneze::components

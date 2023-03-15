@@ -57,7 +57,7 @@ struct glyph {
     }
 };
 
-class font: resource {
+class font: resource<> {
 public:
     explicit font(class render *render): resource(render){};
 

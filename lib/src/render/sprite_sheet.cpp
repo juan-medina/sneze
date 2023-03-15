@@ -103,13 +103,13 @@ auto parse_frames(const rapidjson::Document &document, std::unordered_map<std::s
     return true;
 }
 
-auto sprite_sheet::init(const std::string &uri) -> result<> {
+auto sprite_sheet::init(const std::string &uri, bool is_single_texture) -> result<> {
     logger::trace("sprite sheet init");
 
     if(const auto file_path = fs::path{uri}; fs::exists(file_path)) {
         sprite_sheet_directory_ = file_path.parent_path();
 
-        if(file_path.extension() != ".json") {
+        if(is_single_texture) {
             return init_from_texture(file_path);
         }
         return init_from_json(file_path);

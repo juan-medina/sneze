@@ -99,6 +99,7 @@ public:
     static const color brown;
     static const color dark_brown;
     static const color magenta;
+    static const color untinted;
 };
 
 struct sprite {

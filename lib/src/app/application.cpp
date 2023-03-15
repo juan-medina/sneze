@@ -221,8 +221,22 @@ auto application::load_sprite_sheet(const std::string &sprite_sheet_path) -> res
 
     return true;
 }
+
+auto application::load_sprite(const std::string &sprite_path) -> result<> {
+    if(auto err = render_->load_sprite(sprite_path).ko(); err) {
+        logger::error("error loading sprite: {}", sprite_path);
+        return error("Can't load Sprite.", *err);
+    }
+
+    return true;
+}
+
 void application::unload_sprite_sheet(const std::string &sprite_sheet_path) {
     render_->unload_sprite_sheet(sprite_sheet_path);
+}
+
+void application::unload_sprite(const std::string &sprite_path) {
+    render_->unload_sprite(sprite_path);
 }
 
 auto application::get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int> {

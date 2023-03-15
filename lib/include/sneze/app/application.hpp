@@ -108,7 +108,11 @@ public:
 
     [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
 
+    [[maybe_unused]] [[nodiscard]] auto load_sprite(const std::string &sprite_path) -> result<>;
+
     [[maybe_unused]] void unload_sprite_sheet(const std::string &sprite_sheet_path);
+
+    [[maybe_unused]] void unload_sprite(const std::string &sprite_path);
 
 private:
     std::string team_;

@@ -38,7 +38,7 @@ namespace sneze {
 
 class render;
 
-class texture: resource {
+class texture: resource<> {
 public:
     explicit texture(class render *render): resource(render){};
 

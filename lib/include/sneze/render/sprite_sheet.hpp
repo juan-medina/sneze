@@ -42,7 +42,7 @@ struct frame {
     components::position pivot; // cppcheck-suppress unusedStructMember
 };
 
-class sprite_sheet: public resource {
+class sprite_sheet: public resource<bool> {
 public:
     explicit sprite_sheet(class render *render): resource(render){};
 
@@ -54,7 +54,7 @@ public:
     auto operator=(const sprite_sheet &) -> sprite_sheet & = delete;
     auto operator=(sprite_sheet &&) -> sprite_sheet & = delete;
 
-    [[nodiscard]] auto init(const std::string &uri) -> result<> override;
+    [[nodiscard]] auto init(const std::string &uri, bool is_single_texture) -> result<> override;
 
     auto end() -> void override;
 
