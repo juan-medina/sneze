@@ -24,7 +24,6 @@ SOFTWARE.
 
 #pragma once
 
-
 #include "app/application.hpp"
 #include "app/config.hpp"
 #include "app/settings.hpp"
@@ -42,10 +41,12 @@ SOFTWARE.
 #include "platform/error.hpp"
 #include "platform/logger.hpp"
 #include "platform/result.hpp"
+#include "platform/type_name.hpp"
 #include "platform/version.hpp"
 #include "render/font.hpp"
 #include "render/render.hpp"
 #include "render/resource.hpp"
+#include "render/sprite_sheet.hpp"
 #include "render/texture.hpp"
 #include "systems/keys_system.hpp"
 #include "systems/layout_system.hpp"
