@@ -25,12 +25,21 @@ SOFTWARE.
 #pragma once
 
 #include <memory>
+#include <string>
+#include <unordered_map>
+
+#include "../components/geometry.hpp"
 
 #include "resource.hpp"
 
 namespace sneze {
 
 class render;
+
+struct frame {
+    components::rect rect;      // cppcheck-suppress unusedStructMember
+    components::position pivot; // cppcheck-suppress unusedStructMember
+};
 
 class sprite_sheet: public resource {
 public:
@@ -47,6 +56,11 @@ public:
     [[nodiscard]] auto init(const std::string &uri) -> result<> override;
 
     auto end() -> void override;
+
+private:
+    std::unordered_map<std::string, frame> frames_ = {};
+    std::string texture_;
+    std::string sprite_sheet_directory_;
 };
 
 } // namespace sneze

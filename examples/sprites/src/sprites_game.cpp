@@ -25,7 +25,7 @@ SOFTWARE.
 #include "sprites_game.hpp"
 
 using namespace std::string_literals;
-const auto game_sprite_sheet = "resources/sprites/sprite_sheet.json"s;
+const auto game_sprite_sheet = "resources/sprites/robot.json"s;
 
 sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
 
