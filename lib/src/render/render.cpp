@@ -393,11 +393,11 @@ void render::draw_border_box(const components::border_box &box,
 }
 
 void render::draw_sprite(components::sprite &sprite, const components::position &from, const components::color &color) {
-    if(auto sprite_sheet = get_sprite_sheet(sprite.sprite_sheet); sprite_sheet != nullptr) [[likely]] {
+    if(auto sprite_sheet = get_sprite_sheet(sprite.file); sprite_sheet != nullptr) [[likely]] {
         return sprite_sheet->draw_sprite(
             sprite.frame, from, sprite.flip_x, sprite.flip_y, sprite.rotation, sprite.scale, color);
     } else {
-        logger::error("trying to draw a sprite with a not loaded sprite sheet: ({})", sprite.sprite_sheet);
+        logger::error("trying to draw a sprite with a not loaded sprite sheet: ({})", sprite.file);
     }
 }
 

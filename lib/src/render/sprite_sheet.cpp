@@ -109,55 +109,84 @@ auto sprite_sheet::init(const std::string &uri) -> result<> {
     if(const auto file_path = fs::path{uri}; fs::exists(file_path)) {
         sprite_sheet_directory_ = file_path.parent_path();
 
-        std::ifstream file{file_path};
-        if(!file.is_open()) {
-            logger::error("error opening sprite sheet file: {}", file_path.string());
-            return error("Can't open sprite sheet file.");
+        if(file_path.extension() != ".json") {
+            return init_from_texture(file_path);
         }
-
-        auto document = rapidjson::Document{};
-        const std::string json_string{std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()};
-        if(document.Parse(json_string.c_str()).HasParseError()) {
-            logger::error("error parsing json file: {}", file_path.string());
-            file.close();
-            return error("Can't parse sprite sheet file.");
-        }
-        file.close();
-
-        if(!document.IsObject()) {
-            logger::error("error parsing json file: {}", file_path.string());
-            return error("Can't parse sprite sheet file.");
-        }
-
-        if(auto err = parse_frames(document, frames_).ko(); err) {
-            logger::error("error parsing frames");
-            return error("Can't parse sprite sheet file.", *err);
-        }
-
-        if(auto [texture_name, err] = parse_meta_data(document, sprite_sheet_directory_).ok(); !err) {
-            texture_ = *texture_name;
-        } else {
-            logger::error("error parsing meta data");
-            return error("Can't parse sprite sheet file.", *err);
-        }
-
-        if(auto err = get_render()->load_texture(texture_).ko(); err) {
-            logger::error("error loading sprite sheet texture: {}", texture_);
-            texture_ = "";
-            return error("Can't load texture.", *err);
-        }
-
-        logger::trace("sprite sheet init success");
-
-        for(const auto &[name, frame]: frames_) {
-            logger::trace("  frame: {} size: {}x{}", name, frame.rect.size.width, frame.rect.size.height);
-        }
-
-        return true;
+        return init_from_json(file_path);
     }
 
     logger::error("error sprite sheet does not exist: {}", uri);
     return error("Error sprite sheet not exist.");
+}
+
+auto sprite_sheet::init_from_json(const std::filesystem::path &file_path) -> result<> {
+    std::ifstream file{file_path};
+    if(!file.is_open()) {
+        logger::error("error opening sprite sheet file: {}", file_path.string());
+        return error("Can't open sprite sheet file.");
+    }
+
+    auto document = rapidjson::Document{};
+    const std::string json_string{std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()};
+    if(document.Parse(json_string.c_str()).HasParseError()) {
+        logger::error("error parsing json file: {}", file_path.string());
+        file.close();
+        return error("Can't parse sprite sheet file.");
+    }
+    file.close();
+
+    if(!document.IsObject()) {
+        logger::error("error parsing json file: {}", file_path.string());
+        return error("Can't parse sprite sheet file.");
+    }
+
+    if(auto err = parse_frames(document, frames_).ko(); err) {
+        logger::error("error parsing frames");
+        return error("Can't parse sprite sheet file.", *err);
+    }
+
+    if(auto [texture_name, err] = parse_meta_data(document, sprite_sheet_directory_).ok(); !err) {
+        texture_ = *texture_name;
+    } else {
+        logger::error("error parsing meta data");
+        return error("Can't parse sprite sheet file.", *err);
+    }
+
+    if(auto err = get_render()->load_texture(texture_).ko(); err) {
+        logger::error("error loading sprite sheet texture: {}", texture_);
+        texture_ = "";
+        return error("Can't load texture.", *err);
+    }
+
+    logger::trace("sprite sheet init success");
+
+    for(const auto &[name, frame]: frames_) {
+        logger::trace("  frame: {} size: {}x{}", name, frame.rect.size.width, frame.rect.size.height);
+    }
+
+    return true;
+}
+
+auto sprite_sheet::init_from_texture(const std::filesystem::path &file_path) -> result<> {
+    texture_ = file_path.string();
+    if(auto err = get_render()->load_texture(texture_).ko(); err) {
+        logger::error("error loading sprite sheet from texture: {}", texture_);
+        texture_ = "";
+        return error("Can't load texture.", *err);
+    }
+
+    auto texture = get_render()->get_texture(texture_);
+
+    auto new_frame = frame{};
+
+    new_frame.rect.position = {0, 0};
+    new_frame.rect.size = texture->size();
+    new_frame.pivot = {0.5F, 0.5F};
+    frames_.emplace("default", new_frame);
+
+    logger::trace("sprite sheet init success");
+
+    return true;
 }
 
 auto sprite_sheet::end() -> void {

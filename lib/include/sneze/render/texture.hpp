@@ -62,10 +62,15 @@ public:
               float rotation,
               components::color color);
 
+    [[nodiscard]] auto size() const noexcept -> components::size {
+        return size_;
+    }
+
 private:
+    components::size size_{0, 0};
     SDL_Texture *texture_{nullptr};
 
-    [[nodiscard]] auto load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error>;
+    [[nodiscard]] auto load_texture(const std::string &file_path) -> result<SDL_Texture *const, error>;
 };
 
 } // namespace sneze

@@ -57,11 +57,13 @@ auto texture::init(const std::string &file) -> result<> {
     return true;
 }
 
-auto texture::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
+auto texture::load_texture(const std::string &file_path) -> result<SDL_Texture *const, error> {
     if(auto *texture = IMG_LoadTexture(get_render()->sdl_renderer(), file_path.c_str())) {
         int width{0};
         int height{0};
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+        size_.height = static_cast<float>(height);
+        size_.width = static_cast<float>(width);
         logger::trace("texture loaded: {}, size: {}x{}", file_path, width, height);
         return texture;
     }

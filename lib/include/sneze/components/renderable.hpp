@@ -102,12 +102,12 @@ public:
 };
 
 struct sprite {
-    std::string sprite_sheet; // cppcheck-suppress unusedStructMember
-    std::string frame;        // cppcheck-suppress unusedStructMember
-    bool flip_x{false};       // cppcheck-suppress unusedStructMember
-    bool flip_y{false};       // cppcheck-suppress unusedStructMember
-    float scale{1.0F};        // cppcheck-suppress unusedStructMember
-    float rotation{0.0F};     // cppcheck-suppress unusedStructMember
+    std::string file;              // cppcheck-suppress unusedStructMember
+    std::string frame = "default"; // cppcheck-suppress unusedStructMember
+    bool flip_x{false};            // cppcheck-suppress unusedStructMember
+    bool flip_y{false};            // cppcheck-suppress unusedStructMember
+    float scale{1.0F};             // cppcheck-suppress unusedStructMember
+    float rotation{0.0F};          // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze::components

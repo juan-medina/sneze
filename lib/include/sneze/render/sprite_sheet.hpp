@@ -70,6 +70,10 @@ private:
     std::unordered_map<std::string, frame> frames_ = {};
     std::string texture_;
     std::filesystem::path sprite_sheet_directory_;
+
+    [[nodiscard]] auto init_from_json(const std::filesystem::path &file_path) -> result<>;
+
+    [[nodiscard]] auto init_from_texture(const std::filesystem::path &file_path) -> result<>;
 };
 
 } // namespace sneze
