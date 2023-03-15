@@ -85,4 +85,29 @@ void texture::draw(components::rect origin, components::rect destination, compon
     }
 }
 
+void texture::draw(components::rect origin,
+                   components::rect destination,
+                   const bool &flip_x,
+                   const bool &flip_y,
+                   float rotation,
+                   components::color color) {
+    if(texture_ != nullptr) [[likely]] {
+        const auto src = SDL_Rect{static_cast<int>(origin.position.x),
+                                  static_cast<int>(origin.position.y),
+                                  static_cast<int>(origin.size.width),
+                                  static_cast<int>(origin.size.height)};
+        const auto dst = SDL_Rect{static_cast<int>(destination.position.x),
+                                  static_cast<int>(destination.position.y),
+                                  static_cast<int>(destination.size.width),
+                                  static_cast<int>(destination.size.height)};
+        SDL_SetTextureColorMod(texture_, color.r, color.g, color.b);
+        SDL_SetTextureAlphaMod(texture_, color.a);
+
+        auto sdl_flip = static_cast<SDL_RendererFlip>(static_cast<int>(flip_y) * SDL_FLIP_VERTICAL
+                                                      | static_cast<int>(flip_x) * SDL_FLIP_HORIZONTAL);
+
+        SDL_RenderCopyEx(get_render()->sdl_renderer(), texture_, &src, &dst, rotation, nullptr, sdl_flip);
+    }
+}
+
 } // namespace sneze

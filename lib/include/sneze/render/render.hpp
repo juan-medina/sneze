@@ -92,6 +92,8 @@ public:
                          const components::position &from,
                          const components::color &color);
 
+    void draw_sprite(components::sprite &sprite, const components::position &from, const components::color &color);
+
     [[nodiscard]] auto window() -> components::size;
 
     [[nodiscard]] auto logical() -> components::rect;
@@ -111,7 +113,9 @@ public:
     }
 
     void toggle_fullscreen();
+
     friend class font;
+    friend class sprite_sheet;
 
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;
@@ -122,6 +126,8 @@ private:
     resources_cache<sprite_sheet> sprite_sheets_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> std::shared_ptr<font>;
+
+    [[nodiscard]] auto get_sprite_sheet(const std::string &sprite_sheet_path) -> std::shared_ptr<sprite_sheet>;
 
     [[nodiscard]] static auto preferred_driver() -> int;
 

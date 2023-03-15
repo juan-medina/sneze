@@ -392,4 +392,21 @@ void render::draw_border_box(const components::border_box &box,
     draw_box({box.to, box.thickness}, from, box.color);
 }
 
+void render::draw_sprite(components::sprite &sprite, const components::position &from, const components::color &color) {
+    if(auto sprite_sheet = get_sprite_sheet(sprite.sprite_sheet); sprite_sheet != nullptr) [[likely]] {
+        return sprite_sheet->draw_sprite(
+            sprite.frame, from, sprite.flip_x, sprite.flip_y, sprite.rotation, sprite.scale, color);
+    } else {
+        logger::error("trying to draw a sprite with a not loaded sprite sheet: ({})", sprite.sprite_sheet);
+    }
+}
+
+auto render::get_sprite_sheet(const std::string &sprite_sheet_path) -> std::shared_ptr<sprite_sheet> {
+    if(auto [sprite_sheet, err] = sprite_sheets_.get(sprite_sheet_path).ok(); !err) {
+        return *sprite_sheet; // NOLINT(bugprone-unchecked-optional-access)
+    }
+    logger::error("trying to get a font not loaded: ({})", sprite_sheet_path);
+    return nullptr;
+}
+
 } // namespace sneze

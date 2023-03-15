@@ -25,7 +25,8 @@ SOFTWARE.
 #include "sprites_game.hpp"
 
 using namespace std::string_literals;
-const auto game_sprite_sheet = "resources/sprites/robot.json"s;
+const auto sneze_sprite_sheet = "resources/sprites/sneze.json"s;
+const auto idle_frame = "sneze.png"s;
 
 sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
 
@@ -53,10 +54,19 @@ auto sprites_game::init() -> result {
 
     using error = sneze::error;
 
-    if(load_sprite_sheet(game_sprite_sheet).ko()) {
+    if(load_sprite_sheet(sneze_sprite_sheet).ko()) {
         logger::error("game can't load sprite sheet");
         return error("Can't load sprite sheet.");
     }
+
+    using renderable = components::renderable;
+    using sprite = components::sprite;
+    using position = components::position;
+
+    world()->add_entity(renderable{},
+                        sprite{sneze_sprite_sheet, idle_frame},
+                        position{1920.F / 2.F, 1080.F / 2.F},
+                        color{color::white});
 
     return true;
 }
@@ -64,5 +74,5 @@ auto sprites_game::init() -> result {
 void sprites_game::end() {
     logger::debug("ending sprites game");
 
-    unload_sprite_sheet(game_sprite_sheet);
+    unload_sprite_sheet(sneze_sprite_sheet);
 }

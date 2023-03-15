@@ -172,4 +172,33 @@ auto sprite_sheet::end() -> void {
     sprite_sheet_directory_.clear();
 }
 
+void sprite_sheet::draw_sprite(const std::string &name,
+                               const components::position &position,
+                               const bool &flip_x,
+                               const bool &flip_y,
+                               const float &rotation,
+                               const float &scale,
+                               const components::color &color) const {
+    if(auto it_frame = frames_.find(name); it_frame != frames_.end()) [[likely]] {
+        const auto &frame = it_frame->second;
+
+        auto texture = get_render()->get_texture(texture_);
+
+        if(texture == nullptr) {
+            logger::error("error drawing sprite, texture not found: {}", texture_);
+            return;
+        }
+
+        auto pos_x = frame.rect.size.width * frame.pivot.x;
+        auto pos_y = frame.rect.size.height * frame.pivot.y;
+
+        auto dest = components::rect{{position.x - (pos_x * scale), position.y - (pos_y * scale)},
+                                     {frame.rect.size.width * scale, frame.rect.size.height * scale}};
+
+        texture->draw(frame.rect, dest, flip_x, flip_y, rotation, color);
+    } else {
+        logger::error("error drawing sprite, frame not found: {}", name);
+    }
+}
+
 } // namespace sneze

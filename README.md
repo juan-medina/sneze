@@ -3,6 +3,10 @@
 [![Conduct](https://img.shields.io/badge/Conduct-Covenat%202.0-yellow.svg?style=for-the-badge)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
 [![C++](https://img.shields.io/badge/20-yellow.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white&labelColor=gray)](https://en.cppreference.com/w/cpp/20)
 
+<p style="text-align: center">
+  <img src="examples/media/sprites/sneze.png" width="150" alt="sneze logo">
+</p>
+
 SNEZE is a high-level, entity component system based 2D game engine that provides solutions for common game problems. The goal is to make game development fast and easy, while also being zestful.
 
 ## Features (ready)
@@ -12,6 +16,8 @@ SNEZE is a high-level, entity component system based 2D game engine that provide
 - Window creation.
 - Switching between full screen (borderless) and windowed mode.
 - Bitmap fonts rendering, including kerning, and alignment, Using [angelcode](https://www.angelcode.com/products/bmfont/) format.
+- Shape rendering, including lines, rectangles, solid and border box.
+- Sprite rendering, including sheets, with scaling, rotation, color tint. Using [free-tex-packer](http://free-tex-packer.com/) format.
 - Layout management, including anchoring.
 - Automatic scaling, no letter-box, no black bars, including resolution changes.
 - Input management, currently only keyboard.
@@ -22,7 +28,6 @@ SNEZE is a high-level, entity component system based 2D game engine that provide
 
 ## Features (under development)
 - Sprite rendering, including sheets and animations.
-- Shape rendering, including lines, rectangles, circles, and polygons.
 - High level components, such progress bars, floating text, etc.
 - Solutions for Common Game Problems, such as handling state, transitions.
 - Patterns for Basic Game Scenes such as maps, menus, tiled, scrolling, or UI.

@@ -55,6 +55,13 @@ public:
 
     void draw(components::rect origin, components::rect destination, components::color color);
 
+    void draw(components::rect origin,
+              components::rect destination,
+              const bool &flip_x,
+              const bool &flip_y,
+              float rotation,
+              components::color color);
+
 private:
     SDL_Texture *texture_{nullptr};
 

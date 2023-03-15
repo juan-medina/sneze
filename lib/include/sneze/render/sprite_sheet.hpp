@@ -57,6 +57,14 @@ public:
 
     auto end() -> void override;
 
+    void draw_sprite(const std::string &name,
+                     const components::position &position,
+                     const bool &flip_x,
+                     const bool &flip_y,
+                     const float &rotation,
+                     const float &scale,
+                     const components::color &color) const;
+
 private:
     std::unordered_map<std::string, frame> frames_ = {};
     std::string texture_;
