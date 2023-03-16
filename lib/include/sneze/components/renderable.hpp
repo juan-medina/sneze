@@ -24,6 +24,8 @@ SOFTWARE.
 
 #pragma once
 
+#include <string>
+
 namespace sneze::components {
 
 struct renderable {
@@ -97,6 +99,16 @@ public:
     static const color brown;
     static const color dark_brown;
     static const color magenta;
+    static const color untinted;
+};
+
+struct sprite {
+    std::string file;              // cppcheck-suppress unusedStructMember
+    std::string frame = "default"; // cppcheck-suppress unusedStructMember
+    bool flip_x{false};            // cppcheck-suppress unusedStructMember
+    bool flip_y{false};            // cppcheck-suppress unusedStructMember
+    float scale{1.0F};             // cppcheck-suppress unusedStructMember
+    float rotation{0.0F};          // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze::components

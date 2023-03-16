@@ -113,7 +113,8 @@ auto application::launch() -> result<> {
     auto [window, fullscreen, monitor] = get_window_settings(config);
 
     logger::trace("init render");
-    if(auto err = render_->init(window, config.logical(), fullscreen, monitor, name(), config.clear()).ko()) {
+    if(auto err =
+           render_->init(window, config.logical(), fullscreen, monitor, name(), config.icon(), config.clear()).ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
@@ -211,6 +212,32 @@ auto application::load_font(const std::string &font_path) -> result<> {
 
 void application::unload_font(const std::string &font_path) {
     render_->unload_font(font_path);
+}
+
+auto application::load_sprite_sheet(const std::string &sprite_sheet_path) -> result<> {
+    if(auto err = render_->load_sprite_sheet(sprite_sheet_path).ko(); err) {
+        logger::error("error loading sprite sheet: {}", sprite_sheet_path);
+        return error("Can't load Sprite Sheet.", *err);
+    }
+
+    return true;
+}
+
+auto application::load_sprite(const std::string &sprite_path) -> result<> {
+    if(auto err = render_->load_sprite(sprite_path).ko(); err) {
+        logger::error("error loading sprite: {}", sprite_path);
+        return error("Can't load Sprite.", *err);
+    }
+
+    return true;
+}
+
+void application::unload_sprite_sheet(const std::string &sprite_sheet_path) {
+    render_->unload_sprite_sheet(sprite_sheet_path);
+}
+
+void application::unload_sprite(const std::string &sprite_path) {
+    render_->unload_sprite(sprite_path);
 }
 
 auto application::get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int> {

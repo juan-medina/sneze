@@ -28,6 +28,7 @@ SOFTWARE.
 #include "sneze/render/font.hpp"
 
 #include <SDL.h>
+#include <SDL_image.h>
 
 namespace sneze {
 
@@ -36,13 +37,14 @@ auto render::init(const components::size &window,
                   const bool &fullscreen,
                   const int &monitor,
                   const std::string &title,
+                  const std::string &icon,
                   const components::color &color) -> result<> {
     fullscreen_ = fullscreen;
 
     logger::trace("init SDL");
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logger::error("SDL_Init Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Error initializing rendering engine.");
     }
 
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
@@ -63,7 +65,19 @@ auto render::init(const components::size &window,
                                flags);
     if(window_ == nullptr) {
         logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Error creating window.");
+    }
+
+    if(!icon.empty()) {
+        if(auto *const icon_surface = IMG_Load(icon.c_str()); icon_surface != nullptr) {
+            SDL_SetWindowIcon(window_, icon_surface);
+            SDL_FreeSurface(icon_surface);
+        } else {
+            SDL_DestroyWindow(window_);
+            window_ = nullptr;
+            logger::error("can't load window icon: {}", IMG_GetError());
+            return error("Error can't load window icon.");
+        }
     }
 
 #if defined(__linux__)
@@ -75,8 +89,10 @@ auto render::init(const components::size &window,
     logger::trace("creating SDL renderer");
     renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
+        SDL_DestroyWindow(window_);
+        window_ = nullptr;
         logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Error creating device render.");
     }
 
     SDL_RenderSetLogicalSize(renderer_, static_cast<int>(logical.width), static_cast<int>(logical.height));
@@ -254,6 +270,50 @@ auto render::unload_texture(const std::string &texture_path) -> result<> {
     return true;
 }
 
+auto render::load_sprite_sheet(const std::string &sprite_sheet_path) -> result<> {
+    logger::debug("loading sprite sheet: ({})", sprite_sheet_path);
+
+    if(auto err = sprite_sheets_.load(sprite_sheet_path, false).ko(); err) {
+        logger::error("fail to load sprite sheet");
+        return error("Fail to load Sprite Sheet", *err);
+    }
+
+    return true;
+}
+
+auto render::load_sprite(const std::string &sprite_path) -> result<> {
+    logger::debug("loading sprite: ({})", sprite_path);
+
+    if(auto err = sprite_sheets_.load(sprite_path, true).ko(); err) {
+        logger::error("fail to load sprite");
+        return error("Fail to load Sprite", *err);
+    }
+
+    return true;
+}
+
+auto render::unload_sprite_sheet(const std::string &sprite_sheet_path) -> result<> {
+    logger::debug("unloading sprite sheet: ({})", sprite_sheet_path);
+
+    if(auto err = sprite_sheets_.unload(sprite_sheet_path).ko(); err) {
+        logger::error("fail to unload sprite sheet");
+        return error("Fail to unload Sprite Sheet", *err);
+    }
+
+    return true;
+}
+
+auto render::unload_sprite(const std::string &sprite_path) -> result<> {
+    logger::debug("unloading sprite: ({})", sprite_path);
+
+    if(auto err = sprite_sheets_.unload(sprite_path).ko(); err) {
+        logger::error("fail to unload sprite");
+        return error("Fail to unload Sprite", *err);
+    }
+
+    return true;
+}
+
 auto render::get_texture(const std::string &texture_path) -> std::shared_ptr<texture> {
     if(auto [txt, err] = textures_.get(texture_path).ok(); !err) {
         return *txt; // NOLINT(bugprone-unchecked-optional-access)
@@ -368,6 +428,23 @@ void render::draw_border_box(const components::border_box &box,
     draw_solid_box({box.to}, from, color);
 
     draw_box({box.to, box.thickness}, from, box.color);
+}
+
+void render::draw_sprite(components::sprite &sprite, const components::position &from, const components::color &color) {
+    if(auto sprite_sheet = get_sprite_sheet(sprite.file); sprite_sheet != nullptr) [[likely]] {
+        return sprite_sheet->draw_sprite(
+            sprite.frame, from, sprite.flip_x, sprite.flip_y, sprite.rotation, sprite.scale, color);
+    } else {
+        logger::error("trying to draw a sprite with a not loaded sprite sheet: ({})", sprite.file);
+    }
+}
+
+auto render::get_sprite_sheet(const std::string &sprite_sheet_path) -> std::shared_ptr<sprite_sheet> {
+    if(auto [sprite_sheet, err] = sprite_sheets_.get(sprite_sheet_path).ok(); !err) {
+        return *sprite_sheet; // NOLINT(bugprone-unchecked-optional-access)
+    }
+    logger::error("trying to get a font not loaded: ({})", sprite_sheet_path);
+    return nullptr;
 }
 
 } // namespace sneze

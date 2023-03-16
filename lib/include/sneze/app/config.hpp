@@ -24,6 +24,8 @@ SOFTWARE.
 
 #pragma once
 
+#include <string>
+
 #include "../components/renderable.hpp"
 #include "../device/keyboard.hpp"
 
@@ -34,7 +36,7 @@ public:
     explicit config() = default;
     ~config() = default;
 
-    config(const config &) = default;
+    config(const config &) = default; // NOLINT(bugprone-exception-escape)
     config(config &&) = default;
 
     auto operator=(const config &) -> config & = default;
@@ -82,6 +84,11 @@ public:
         return window(width, height).logical(width, height);
     }
 
+    [[maybe_unused]] [[nodiscard]] auto icon(const std::string &icon) -> config {
+        icon_ = icon;
+        return *this;
+    }
+
     [[nodiscard]] inline auto clear() const -> const auto & {
         return clear_;
     }
@@ -102,12 +109,17 @@ public:
         return logical_;
     }
 
+    [[nodiscard]] inline auto icon() const -> const auto & {
+        return icon_;
+    }
+
 private:
     components::size window_ = {1920, 1080};
     components::size logical_ = {1920, 1080};
     components::color clear_ = components::color::black;
     keyboard::key_modifier exit_ = {keyboard::key::unknown, keyboard::modifier::none};
     keyboard::key_modifier toggle_full_screen_ = {keyboard::key::unknown, keyboard::modifier::none};
+    std::string icon_;
 };
 
 } // namespace sneze

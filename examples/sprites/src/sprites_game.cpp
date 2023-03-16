@@ -22,20 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "hello_game.hpp"
+#include "sprites_game.hpp"
 
-#include <string>
+using namespace std::string_literals;
+const auto sneze_logo = "resources/sprites/sneze.png"s;
 
-sprites_game::sprites_game(): application("sneze", "Hello Game") {}
+sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
 
 namespace logger = sneze::logger;
 using config = sneze::config;
 namespace components = sneze::components;
 using color = components::color;
-
-using namespace std::string_literals;
-const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
-const auto sneze_logo = "resources/sprites/sneze.png"s;
 
 auto sprites_game::configure() -> config {
     logger::debug("configure");
@@ -53,36 +50,26 @@ auto sprites_game::configure() -> config {
 }
 
 auto sprites_game::init() -> result {
-    logger::debug("init hello game");
+    logger::debug("init sprites game");
 
     using error = sneze::error;
 
-    if(auto err = load_font(regular_font).ko()) {
-        logger::error("game can't load regular font: {}", regular_font);
-        return error("Can't load regular font.", *err);
+    if(load_sprite(sneze_logo).ko()) {
+        logger::error("game can't load sprite sheet");
+        return error("Can't load sprite sheet.");
     }
 
-    namespace effects = sneze::effects;
     using renderable = components::renderable;
-    using label = components::label;
+    using sprite = components::sprite;
+    using position = components::position;
 
-    using alignment = components::alignment;
-    using vertical = components::vertical;
-    using horizontal = components::horizontal;
-    using anchor = components::anchor;
-    using alternate_color = effects::alternate_color;
-
-    world()->add_entity(renderable{},
-                        label{"Hello from sneze!", regular_font, 60.F, alignment{horizontal::center, vertical::center}},
-                        anchor{horizontal::center, vertical::center},
-                        color::white,
-                        alternate_color{color::white, color::red});
+    world()->add_entity(renderable{}, sprite{sneze_logo}, position{1920.F / 2.F, 1080.F / 2.F}, color::untinted);
 
     return true;
 }
 
 void sprites_game::end() {
-    logger::debug("ending hello game");
+    logger::debug("ending sprites game");
 
-    unload_font(regular_font);
+    unload_sprite(sneze_logo);
 }

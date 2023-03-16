@@ -72,6 +72,8 @@ void render_system::update(world *world) {
                 render_->draw_solid_box(*solid_box, draw_position, color);
             } else if(auto *border_box = world->has_component<components::border_box>(id)) {
                 render_->draw_border_box(*border_box, draw_position, color);
+            } else if(auto *sprite = world->has_component<components::sprite>(id)) {
+                render_->draw_sprite(*sprite, draw_position, color);
             }
         }
     }

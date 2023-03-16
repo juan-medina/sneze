@@ -31,6 +31,7 @@ SOFTWARE.
 #include "../platform/result.hpp"
 
 #include "font.hpp"
+#include "sprite_sheet.hpp"
 #include "texture.hpp"
 
 struct SDL_Renderer;
@@ -40,7 +41,7 @@ namespace sneze {
 
 class render {
 public:
-    render(): fonts_{this}, textures_{this} {};
+    render(): fonts_{this}, textures_{this}, sprite_sheets_{this} {};
     ~render() = default;
 
     render(const render &) = delete;
@@ -58,6 +59,7 @@ public:
                             const bool &fullscreen,
                             const int &monitor,
                             const std::string &title,
+                            const std::string &icon,
                             const components::color &color) -> result<>;
 
     void end();
@@ -74,6 +76,14 @@ public:
 
     [[maybe_unused]] auto unload_texture(const std::string &texture_path) -> result<>;
 
+    [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
+
+    [[maybe_unused]] [[nodiscard]] auto load_sprite(const std::string &sprite_path) -> result<>;
+
+    [[maybe_unused]] auto unload_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
+
+    [[maybe_unused]] auto unload_sprite(const std::string &sprite_path) -> result<>;
+
     void draw_label(const components::label &label, const components::position &from, const components::color &color);
 
     void draw_line(const components::line &line, const components::position &from, const components::color &color);
@@ -86,6 +96,8 @@ public:
     void draw_border_box(const components::border_box &box,
                          const components::position &from,
                          const components::color &color);
+
+    void draw_sprite(components::sprite &sprite, const components::position &from, const components::color &color);
 
     [[nodiscard]] auto window() -> components::size;
 
@@ -106,7 +118,9 @@ public:
     }
 
     void toggle_fullscreen();
+
     friend class font;
+    friend class sprite_sheet;
 
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;
@@ -114,8 +128,11 @@ protected:
 private:
     resources_cache<font> fonts_;
     resources_cache<texture> textures_;
+    resources_cache<sprite_sheet, bool> sprite_sheets_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> std::shared_ptr<font>;
+
+    [[nodiscard]] auto get_sprite_sheet(const std::string &sprite_sheet_path) -> std::shared_ptr<sprite_sheet>;
 
     [[nodiscard]] static auto preferred_driver() -> int;
 

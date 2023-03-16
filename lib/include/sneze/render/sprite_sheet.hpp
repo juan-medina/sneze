@@ -24,53 +24,56 @@ SOFTWARE.
 
 #pragma once
 
+#include <filesystem>
+#include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "../components/geometry.hpp"
-#include "../components/renderable.hpp"
-#include "../platform/result.hpp"
 
 #include "resource.hpp"
-
-struct SDL_Texture;
 
 namespace sneze {
 
 class render;
 
-class texture: resource<> {
+struct frame {
+    components::rect rect;      // cppcheck-suppress unusedStructMember
+    components::position pivot; // cppcheck-suppress unusedStructMember
+};
+
+class sprite_sheet: public resource<bool> {
 public:
-    explicit texture(class render *render): resource(render){};
+    explicit sprite_sheet(class render *render): resource(render){};
 
-    ~texture() override;
+    ~sprite_sheet() override;
 
-    texture(const texture &) = delete;
-    texture(texture &&) = delete;
-    auto operator=(const texture &) -> texture & = delete;
-    auto operator=(texture &&) -> texture & = delete;
+    sprite_sheet(const sprite_sheet &) = delete;
+    sprite_sheet(sprite_sheet &&) = delete;
 
-    [[nodiscard]] auto init(const std::string &file) -> result<> override;
+    auto operator=(const sprite_sheet &) -> sprite_sheet & = delete;
+    auto operator=(sprite_sheet &&) -> sprite_sheet & = delete;
 
-    void end() noexcept override;
+    [[nodiscard]] auto init(const std::string &uri, bool is_single_texture) -> result<> override;
 
-    void draw(components::rect origin, components::rect destination, components::color color);
+    auto end() -> void override;
 
-    void draw(components::rect origin,
-              components::rect destination,
-              const bool &flip_x,
-              const bool &flip_y,
-              float rotation,
-              components::color color);
-
-    [[nodiscard]] auto size() const noexcept -> components::size {
-        return size_;
-    }
+    void draw_sprite(const std::string &name,
+                     const components::position &position,
+                     const bool &flip_x,
+                     const bool &flip_y,
+                     const float &rotation,
+                     const float &scale,
+                     const components::color &color) const;
 
 private:
-    components::size size_{0, 0};
-    SDL_Texture *texture_{nullptr};
+    std::unordered_map<std::string, frame> frames_ = {};
+    std::string texture_;
+    std::filesystem::path sprite_sheet_directory_;
 
-    [[nodiscard]] auto load_texture(const std::string &file_path) -> result<SDL_Texture *const, error>;
+    [[nodiscard]] auto init_from_json(const std::filesystem::path &file_path) -> result<>;
+
+    [[nodiscard]] auto init_from_texture(const std::filesystem::path &file_path) -> result<>;
 };
 
 } // namespace sneze

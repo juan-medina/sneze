@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include <cstdlib>
 
-#include "hello_game.hpp"
+#include "sprites_game.hpp"
 
 auto main(int /*argc*/, char * /*argv*/[]) -> int {
     if(auto err = sprites_game().run().ko(); err) {

@@ -57,11 +57,13 @@ auto texture::init(const std::string &file) -> result<> {
     return true;
 }
 
-auto texture::load_texture(const std::string &file_path) const -> result<SDL_Texture *const, error> {
+auto texture::load_texture(const std::string &file_path) -> result<SDL_Texture *const, error> {
     if(auto *texture = IMG_LoadTexture(get_render()->sdl_renderer(), file_path.c_str())) {
         int width{0};
         int height{0};
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+        size_.height = static_cast<float>(height);
+        size_.width = static_cast<float>(width);
         logger::trace("texture loaded: {}, size: {}x{}", file_path, width, height);
         return texture;
     }
@@ -82,6 +84,31 @@ void texture::draw(components::rect origin, components::rect destination, compon
         SDL_SetTextureColorMod(texture_, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(texture_, color.a);
         SDL_RenderCopy(get_render()->sdl_renderer(), texture_, &src, &dst);
+    }
+}
+
+void texture::draw(components::rect origin,
+                   components::rect destination,
+                   const bool &flip_x,
+                   const bool &flip_y,
+                   float rotation,
+                   components::color color) {
+    if(texture_ != nullptr) [[likely]] {
+        const auto src = SDL_Rect{static_cast<int>(origin.position.x),
+                                  static_cast<int>(origin.position.y),
+                                  static_cast<int>(origin.size.width),
+                                  static_cast<int>(origin.size.height)};
+        const auto dst = SDL_Rect{static_cast<int>(destination.position.x),
+                                  static_cast<int>(destination.position.y),
+                                  static_cast<int>(destination.size.width),
+                                  static_cast<int>(destination.size.height)};
+        SDL_SetTextureColorMod(texture_, color.r, color.g, color.b);
+        SDL_SetTextureAlphaMod(texture_, color.a);
+
+        auto sdl_flip = static_cast<SDL_RendererFlip>(static_cast<int>(flip_y) * SDL_FLIP_VERTICAL
+                                                      | static_cast<int>(flip_x) * SDL_FLIP_HORIZONTAL);
+
+        SDL_RenderCopyEx(get_render()->sdl_renderer(), texture_, &src, &dst, rotation, nullptr, sdl_flip);
     }
 }
 
