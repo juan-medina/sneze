@@ -24,6 +24,9 @@ SOFTWARE.
 
 #pragma once
 
+#include <cstddef>
+#include <span>
+
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
 #include "../components/renderable.hpp"
@@ -126,6 +129,8 @@ public:
     [[nodiscard]] static auto get_sdl_rwops(const std::string &path) -> SDL_RWops *;
 
     static void free_sdl_rwops(SDL_RWops *rwops);
+
+    [[nodiscard]] static auto get_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops *;
 
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;

@@ -27,6 +27,7 @@ SOFTWARE.
 #include "sneze/platform/logger.hpp"
 #include "sneze/render/font.hpp"
 
+#include <binary_resources/binary.hpp>
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -452,24 +453,34 @@ void render::free_sdl_rwops(SDL_RWops *rwops) {
 }
 
 auto render::handle_icon(const std::string &icon) -> result<> {
-    if(!icon.empty()) {
-        if(auto *rwops = get_sdl_rwops(icon); rwops != nullptr) {
-            if(auto *const icon_surface = IMG_Load_RW(rwops, SDL_FALSE); icon_surface != nullptr) {
-                SDL_SetWindowIcon(window_, icon_surface);
-                SDL_FreeSurface(icon_surface);
-                free_sdl_rwops(rwops);
-            } else {
-                free_sdl_rwops(rwops);
-                logger::error("can't load window icon: {}", IMG_GetError());
-                return error("Error can't load window icon.");
-            }
+    SDL_RWops *rwops;
+    if(icon.empty()) {
+        auto sneze_logo = embedded::sneze_logo();
+        rwops = get_sdl_rwops(sneze_logo);
+    } else {
+        rwops = get_sdl_rwops(icon);
+    }
+
+    if(rwops != nullptr) {
+        if(auto *const icon_surface = IMG_Load_RW(rwops, SDL_FALSE); icon_surface != nullptr) {
+            SDL_SetWindowIcon(window_, icon_surface);
+            SDL_FreeSurface(icon_surface);
+            free_sdl_rwops(rwops);
         } else {
-            logger::error("can't load window icon: {}", SDL_GetError());
+            free_sdl_rwops(rwops);
+            logger::error("can't load window icon: {}", IMG_GetError());
             return error("Error can't load window icon.");
         }
+    } else {
+        logger::error("can't load window icon: {}", SDL_GetError());
+        return error("Error can't load window icon.");
     }
 
     return true;
+}
+
+auto render::get_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops * {
+    return SDL_RWFromMem((void *)data.data(), static_cast<int>(data.size())); // cppcheck-suppress cstyleCast
 }
 
 } // namespace sneze

@@ -138,6 +138,31 @@ set(rapidjson_INCLUDE_DIR ${rapidjson_SOURCE_DIR}/include)
 
 include_directories(SYSTEM ${rapidjson_INCLUDE_DIR})
 
+# adding CMake embedded dependencies
+
+FetchContent_Declare(
+        CMakeEmbed
+        GIT_REPOSITORY https://github.com/MiSo1289/cmake-embed.git
+        GIT_TAG v0.3.0
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(CMakeEmbed)
+
+list(APPEND CMAKE_MODULE_PATH "${CMakeEmbed_SOURCE_DIR}/cmake")
+
+include(EmbedResources)
+
+add_embedded_binary_resources(
+        sneze_resources_binary
+        OUT_DIR binary_resources
+        HEADER binary.hpp
+        NAMESPACE sneze::embedded
+        RESOURCE_NAMES sneze_logo
+        RESOURCES
+        "${PROJECT_SOURCE_DIR}/examples/resources/sprites/sneze.png"
+)
+
 # restore flags
 set(CMAKE_CXX_FLAGS ${SNEZE_CXX_FLAGS})
 
@@ -158,6 +183,7 @@ target_link_libraries(${LIB_NAME}
         PUBLIC EnTT::EnTT
         PUBLIC SDL2::SDL2-static
         PUBLIC SDL2_image::SDL2_image-static
+        PRIVATE sneze_resources_binary
         )
 
 #set includes
