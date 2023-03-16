@@ -44,7 +44,7 @@ auto render::init(const components::size &window,
     logger::trace("init SDL");
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logger::error("SDL_Init Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Error initializing rendering engine.");
     }
 
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
@@ -65,16 +65,18 @@ auto render::init(const components::size &window,
                                flags);
     if(window_ == nullptr) {
         logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Error creating window.");
     }
 
     if(!icon.empty()) {
-        if(auto *const icon_surface = IMG_Load("resources/sprites/sneze.png"); icon_surface != nullptr) {
+        if(auto *const icon_surface = IMG_Load(icon.c_str()); icon_surface != nullptr) {
             SDL_SetWindowIcon(window_, icon_surface);
             SDL_FreeSurface(icon_surface);
         } else {
-            logger::error("can't load application icon: {}", IMG_GetError());
-            return error("error initializing rendering engine.");
+            SDL_DestroyWindow(window_);
+            window_ = nullptr;
+            logger::error("can't load window icon: {}", IMG_GetError());
+            return error("Error can't load window icon.");
         }
     }
 
@@ -87,8 +89,10 @@ auto render::init(const components::size &window,
     logger::trace("creating SDL renderer");
     renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
+        SDL_DestroyWindow(window_);
+        window_ = nullptr;
         logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Error creating device render.");
     }
 
     SDL_RenderSetLogicalSize(renderer_, static_cast<int>(logical.width), static_cast<int>(logical.height));
