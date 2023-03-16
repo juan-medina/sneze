@@ -44,7 +44,7 @@ auto render::init(const components::size &window,
     logger::trace("init SDL");
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logger::error("SDL_Init Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Can't init.");
     }
 
     auto flags = SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
@@ -65,7 +65,7 @@ auto render::init(const components::size &window,
                                flags);
     if(window_ == nullptr) {
         logger::error("SDL_CreateWindow Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Can't create window.");
     }
 
     if(!icon.empty()) {
@@ -74,7 +74,7 @@ auto render::init(const components::size &window,
             SDL_FreeSurface(icon_surface);
         } else {
             logger::error("can't load application icon: {}", IMG_GetError());
-            return error("error initializing rendering engine.");
+            return error("Can't load application icon.");
         }
     }
 
@@ -88,7 +88,7 @@ auto render::init(const components::size &window,
     renderer_ = SDL_CreateRenderer(window_, preferred_driver(), SDL_RENDERER_ACCELERATED);
     if(renderer_ == nullptr) {
         logger::error("SDL_CreateRenderer Error: {}", SDL_GetError());
-        return error("error initializing rendering engine.");
+        return error("Can't create device render.");
     }
 
     SDL_RenderSetLogicalSize(renderer_, static_cast<int>(logical.width), static_cast<int>(logical.height));

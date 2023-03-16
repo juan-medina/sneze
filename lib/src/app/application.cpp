@@ -26,6 +26,7 @@ SOFTWARE.
 // we need this before <string> to avoid deprecation warning
 #include <wx/msgdlg.h>
 // do not move
+// do not move
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "sneze/app/application.hpp"
@@ -43,6 +44,9 @@ SOFTWARE.
 
 #include <fmt/format.h>
 
+#include "wx/app.h"
+#include "wx/init.h"
+
 namespace sneze {
 
 application::application(const std::string &team, const std::string &name)
@@ -50,6 +54,7 @@ application::application(const std::string &team, const std::string &name)
       world_{std::make_shared<class world>()} {}
 
 auto application::show_error(const error &err) const -> const auto & {
+    auto message_title = fmt::format("{} : Error!", name());
     std::string message = err.message();
     auto causes = err.causes();
     if(!causes.empty()) {
@@ -59,8 +64,12 @@ auto application::show_error(const error &err) const -> const auto & {
         }
     }
 
-    auto message_title = fmt::format("{} : Error!", name());
-    wxMessageBox(message, message_title, wxICON_ERROR | wxOK);
+    wxApp::SetInstance(new wxApp{}); // NOLINT(cppcoreguidelines-owning-memory)
+    static int dummy = 0;
+
+    wxEntryStart(dummy, static_cast<wxChar **>(nullptr));
+    wxMessageBox(message, message_title, wxICON_ERROR | wxOK | wxSTAY_ON_TOP);
+    wxEntryCleanup();
 
     return err;
 }
