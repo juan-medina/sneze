@@ -69,7 +69,7 @@ auto render::init(const components::size &window,
     }
 
     if(!icon.empty()) {
-        if(auto *const icon_surface = IMG_Load(icon.c_str()); icon_surface != nullptr) {
+        if(auto *const icon_surface = IMG_Load("resources/sprites/sneze.png"); icon_surface != nullptr) {
             SDL_SetWindowIcon(window_, icon_surface);
             SDL_FreeSurface(icon_surface);
         } else {

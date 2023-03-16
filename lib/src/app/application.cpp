@@ -22,13 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-///////////////////////////////////////////////////////////////////////////////
-// we need this before <string> to avoid deprecation warning
-#include <wx/msgdlg.h>
-// do not move
-///////////////////////////////////////////////////////////////////////////////
-
 #include "sneze/app/application.hpp"
+
 #include "sneze/app/world.hpp"
 #include "sneze/effects/effects_system.hpp"
 #include "sneze/events/events.hpp"
@@ -41,6 +36,7 @@ SOFTWARE.
 
 #include <string>
 
+#include <boxer/boxer.h>
 #include <fmt/format.h>
 
 namespace sneze {
@@ -58,10 +54,8 @@ auto application::show_error(const error &err) const -> const auto & {
             message += "\n - " + cause;
         }
     }
-
     auto message_title = fmt::format("{} : Error!", name());
-    wxMessageBox(message, message_title, wxICON_ERROR | wxOK);
-
+    boxer::show(message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit);
     return err;
 }
 

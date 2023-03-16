@@ -75,6 +75,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(platform_folders)
 
+## add Boxer
+FetchContent_Declare(
+        Boxer
+        GIT_REPOSITORY https://github.com/aaronmjacobs/Boxer
+        GIT_TAG aed3fdcab88da5dd925ed5211c21e39bc6c0c147
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(Boxer)
+
 ## add EnTT
 FetchContent_Declare(
         EnTT
@@ -128,30 +138,13 @@ set(rapidjson_INCLUDE_DIR ${rapidjson_SOURCE_DIR}/include)
 
 include_directories(SYSTEM ${rapidjson_INCLUDE_DIR})
 
-## wxWidgets
-set(wxWidgets_USE_STATIC ON)
-set(wxBUILD_SHARED OFF)
-# disable precompiled headers on mingw
-IF(MINGW)
-    set(wxBUILD_PRECOMP OFF)
-ELSE()
-    set(wxBUILD_PRECOMP ON)
-ENDIF()
-FetchContent_Declare(
-        wxWidgets
-        GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
-        GIT_TAG v3.2.2.1
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE
-)
-FetchContent_MakeAvailable(wxWidgets)
-
 # restore flags
 set(CMAKE_CXX_FLAGS ${SNEZE_CXX_FLAGS})
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
 endif ()
+
 
 #set library
 add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
@@ -161,10 +154,10 @@ target_link_libraries(${LIB_NAME}
         PUBLIC fmt
         PUBLIC spdlog
         PUBLIC sago::platform_folders
+        PUBLIC Boxer
         PUBLIC EnTT::EnTT
         PUBLIC SDL2::SDL2-static
         PUBLIC SDL2_image::SDL2_image-static
-        PUBLIC wx::core
         )
 
 #set includes
