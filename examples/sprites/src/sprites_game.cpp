@@ -25,7 +25,7 @@ SOFTWARE.
 #include "sprites_game.hpp"
 
 using namespace std::string_literals;
-const auto sneze_logo = "resources/sprites/sneze.png"s;
+const auto sneze_logo = "resources/sprites/sneze.png!"s;
 
 sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
 

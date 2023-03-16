@@ -68,16 +68,11 @@ auto render::init(const components::size &window,
         return error("Error creating window.");
     }
 
-    if(!icon.empty()) {
-        if(auto *const icon_surface = IMG_Load(icon.c_str()); icon_surface != nullptr) {
-            SDL_SetWindowIcon(window_, icon_surface);
-            SDL_FreeSurface(icon_surface);
-        } else {
-            SDL_DestroyWindow(window_);
-            window_ = nullptr;
-            logger::error("can't load window icon: {}", IMG_GetError());
-            return error("Error can't load window icon.");
-        }
+    if(auto err = handle_icon(icon).ko(); err) {
+        logger::error("error handling icon");
+        SDL_DestroyWindow(window_);
+        window_ = nullptr;
+        return error("Error handling icon.", *err);
     }
 
 #if defined(__linux__)
@@ -354,6 +349,7 @@ auto render::preferred_driver() -> int {
     logger::warning("no preferred SDL driver found, using default");
     return -1;
 }
+
 void render::draw_line(const components::line &line, const components::position &from, const components::color &color) {
     const components::size size{line.to.x - from.x, line.to.y - from.y};
     if(line.thickness == 1) {
@@ -445,6 +441,35 @@ auto render::get_sprite_sheet(const std::string &sprite_sheet_path) -> std::shar
     }
     logger::error("trying to get a font not loaded: ({})", sprite_sheet_path);
     return nullptr;
+}
+
+auto render::get_sdl_rwops(const std::string &path) -> SDL_RWops * {
+    return SDL_RWFromFile(path.c_str(), "r");
+}
+
+void render::free_sdl_rwops(SDL_RWops *rwops) {
+    SDL_RWclose(rwops);
+}
+
+auto render::handle_icon(const std::string &icon) -> result<> {
+    if(!icon.empty()) {
+        if(auto *rwops = get_sdl_rwops(icon); rwops != nullptr) {
+            if(auto *const icon_surface = IMG_Load_RW(rwops, SDL_FALSE); icon_surface != nullptr) {
+                SDL_SetWindowIcon(window_, icon_surface);
+                SDL_FreeSurface(icon_surface);
+                free_sdl_rwops(rwops);
+            } else {
+                free_sdl_rwops(rwops);
+                logger::error("can't load window icon: {}", IMG_GetError());
+                return error("Error can't load window icon.");
+            }
+        } else {
+            logger::error("can't load window icon: {}", SDL_GetError());
+            return error("Error can't load window icon.");
+        }
+    }
+
+    return true;
 }
 
 } // namespace sneze
