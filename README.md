@@ -76,6 +76,7 @@ SNEZE is powered by these incredible projects:
 - [PlatformFolders](https://github.com/sago007/PlatformFolders) : Cross-platform library to look for special system directories. [LICENSE](https://github.com/sago007/PlatformFolders/blob/master/LICENSE)
 - [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes. [LICENSE](https://github.com/aaronmjacobs/Boxer/blob/master/LICENSE)
 - [{fmt}](https://github.com/fmtlib/fmt) : A modern formatting library. [LICENSE](https://github.com/fmtlib/fmt/blob/master/LICENSE.rst)
+- [CMake embed](https://github.com/MiSo1289/cmake-embed) : CMake script for embedding resources in binaries. [LICENSE](https://github.com/MiSo1289/cmake-embed/blob/master/LICENSE)
 - [rapidjson](https://github.com/Tencent/rapidjson) : A fast JSON parser/generator for C++ with both SAX/DOM style API. [LICENSE](https://github.com/Tencent/rapidjson/blob/master/license.txt)
 
 ## Resources
