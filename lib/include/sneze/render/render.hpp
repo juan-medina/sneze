@@ -25,6 +25,8 @@ SOFTWARE.
 #pragma once
 
 #include <cstddef>
+#include <istream>
+#include <memory>
 #include <span>
 
 #include "../app/world.hpp"
@@ -130,6 +132,8 @@ public:
 
     static void free_sdl_rwops(SDL_RWops *rwops);
 
+    [[maybe_unused]] [[nodiscard]] auto get_istream(const std::string &path) -> std::unique_ptr<std::istream>;
+
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;
 
@@ -153,7 +157,9 @@ private:
 
     [[nodiscard]] auto handle_icon(const std::string &icon) -> result<>;
 
-    [[nodiscard]] static auto get_sdl_rwops_from_memory(std::span<std::byte const> &data) -> SDL_RWops *;
+    [[nodiscard]] static auto get_embedded_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops *;
+
+    [[nodiscard]] static auto get_embedded_istream(std::span<std::byte const> &data) -> std::unique_ptr<std::istream>;
 
     void init_embedded_data();
 

@@ -24,9 +24,12 @@ SOFTWARE.
 
 #include "sneze/render/render.hpp"
 
-#include "sneze/platform/logger.hpp"
-#include "sneze/render/font.hpp"
 #include "sneze/embedded/embedded.hpp"
+#include "sneze/platform/logger.hpp"
+#include "sneze/platform/span_istream.hpp"
+#include "sneze/render/font.hpp"
+
+#include <fstream>
 
 #include <binary_resources/binary.hpp>
 #include <SDL.h>
@@ -451,10 +454,20 @@ auto render::get_sdl_rwops(const std::string &path) -> SDL_RWops * {
     logger::trace("get sdl rwops for path: ({})", path);
     if(auto data = get_from_embedded_data(path); data) {
         logger::trace("loading from embedded data: ({})", path);
-        return get_sdl_rwops_from_memory(*data);
+        return get_embedded_sdl_rwops(*data);
     }
     logger::trace("loading from file: ({})", path);
     return SDL_RWFromFile(path.c_str(), "r");
+}
+
+[[maybe_unused]] auto render::get_istream(const std::string &path) -> std::unique_ptr<std::istream> {
+    logger::trace("get istream for path: ({})", path);
+    if(auto data = get_from_embedded_data(path); data) {
+        logger::trace("loading from embedded data: ({})", path);
+        return get_embedded_istream(*data);
+    }
+    logger::trace("loading from file: ({})", path);
+    return std::make_unique<std::ifstream>(std::ifstream{path});
 }
 
 void render::free_sdl_rwops(SDL_RWops *rwops) {
@@ -480,9 +493,13 @@ auto render::handle_icon(const std::string &icon) -> result<> {
     return true;
 }
 
-auto render::get_sdl_rwops_from_memory(std::span<std::byte const> &data) -> SDL_RWops * {
+auto render::get_embedded_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops * {
     // NOLINTNEXTLINE(google-readability-casting)
     return SDL_RWFromMem((void *)data.data(), static_cast<int>(data.size())); // cppcheck-suppress cstyleCast
+}
+
+auto render::get_embedded_istream(std::span<std::byte const> &data) -> std::unique_ptr<std::istream> {
+    return std::make_unique<span_istream>(data);
 }
 
 void render::add_to_embedded_data(const std::string &path, const std::span<std::byte const> &data) {
@@ -504,6 +521,8 @@ auto render::get_from_embedded_data(const std::string &path) -> std::optional<st
 void render::init_embedded_data() {
     logger::info("initializing embedded data");
     add_to_embedded_data(embedded::sneze_logo_png, embedded::sneze_logo());
+    add_to_embedded_data(embedded::mono_font_fnt, embedded::mono_font());
+    add_to_embedded_data(embedded::mono_font_texture, embedded::mono_font_png());
 }
 
 } // namespace sneze

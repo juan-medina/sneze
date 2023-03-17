@@ -22,11 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#pragma once
+#include "sneze/platform/span_istream.hpp"
 
-namespace sneze::embedded {
+namespace sneze {
 
-static constexpr const char *const sneze_logo_png = "embedded://sneze_logo.png";
-static constexpr const char *const mono_font_fnt = "embedded://sneze_mono.fnt";
-static constexpr const char *const mono_font_texture = "embedded://mono_font.png";
-} // namespace sneze::embedded
+span_stream_buffer::span_stream_buffer(std::span<const std::byte> span) {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast,cppcoreguidelines-pro-type-const-cast)
+    auto *begin = reinterpret_cast<char *>(const_cast<std::byte *>(span.data()));
+    auto *end = begin + span.size_bytes(); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    setg(begin, begin, end);
+}
+
+} // namespace sneze

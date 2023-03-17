@@ -24,9 +24,25 @@ SOFTWARE.
 
 #pragma once
 
-namespace sneze::embedded {
+#include <cstring>
+#include <iostream>
+#include <span>
+#include <streambuf>
 
-static constexpr const char *const sneze_logo_png = "embedded://sneze_logo.png";
-static constexpr const char *const mono_font_fnt = "embedded://sneze_mono.fnt";
-static constexpr const char *const mono_font_texture = "embedded://mono_font.png";
-} // namespace sneze::embedded
+namespace sneze {
+
+class span_stream_buffer: public std::streambuf {
+public:
+    explicit span_stream_buffer(std::span<const std::byte> span);
+};
+
+class span_istream: public std::istream {
+public:
+    explicit span_istream(std::span<const std::byte> span)
+        : std::istream(&span_stream_buffer_), span_stream_buffer_{span} {}
+
+private:
+    span_stream_buffer span_stream_buffer_;
+};
+
+} // namespace sneze
