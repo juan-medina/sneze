@@ -160,7 +160,7 @@ add_embedded_binary_resources(
         NAMESPACE sneze::embedded
         RESOURCE_NAMES sneze_logo
         RESOURCES
-        "${PROJECT_SOURCE_DIR}/examples/resources/sprites/sneze.png"
+        "${PROJECT_SOURCE_DIR}/lib/embedded/sprites/sneze.png"
 )
 
 # restore flags

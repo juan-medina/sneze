@@ -4,7 +4,7 @@
 [![C++](https://img.shields.io/badge/20-yellow.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white&labelColor=gray)](https://en.cppreference.com/w/cpp/20)
 
 <p align ="center">
-  <img src="media/sprites/sneze.png" width="150" alt="sneze logo">
+  <img src="../lib/media/sprites/sneze.png" width="150" alt="sneze logo">
 </p>
 
 ### All examples will

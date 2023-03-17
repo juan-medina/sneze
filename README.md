@@ -4,7 +4,7 @@
 [![C++](https://img.shields.io/badge/20-yellow.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white&labelColor=gray)](https://en.cppreference.com/w/cpp/20)
 
 <p align ="center">
-  <img src="examples/media/sprites/sneze.png" width="150" alt="sneze logo">
+  <img src="lib/media/sprites/sneze.png" width="150" alt="sneze logo">
 </p>
 
 SNEZE is a high-level, 2D game engine based in a entity component system that provides solutions for common game problems. The goal is to make game development fast and simple, but not easy, while also being zestful.

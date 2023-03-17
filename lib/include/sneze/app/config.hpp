@@ -28,6 +28,7 @@ SOFTWARE.
 
 #include "../components/renderable.hpp"
 #include "../device/keyboard.hpp"
+#include "../embedded/embedded.hpp"
 
 namespace sneze {
 
@@ -119,7 +120,7 @@ private:
     components::color clear_ = components::color::black;
     keyboard::key_modifier exit_ = {keyboard::key::unknown, keyboard::modifier::none};
     keyboard::key_modifier toggle_full_screen_ = {keyboard::key::unknown, keyboard::modifier::none};
-    std::string icon_;
+    std::string icon_ = embedded::sneze_logo_png;
 };
 
 } // namespace sneze

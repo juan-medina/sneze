@@ -24,12 +24,7 @@ SOFTWARE.
 
 #include "shapes_game.hpp"
 
-#include <string>
-
 shapes_game::shapes_game(): application("sneze", "Shapes Game") {}
-
-using namespace std::string_literals;
-const auto sneze_logo = "resources/sprites/sneze.png"s;
 
 namespace logger = sneze::logger;
 using config = sneze::config;
@@ -45,7 +40,6 @@ auto shapes_game::configure() -> config {
 
     return config()
         .size(1920, 1080)
-        .icon(sneze_logo)
         .clear(color::light_gray)
         .exit(key::escape)
         .toggle_full_screen(modifier::alt, key::_return);

@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include "sneze/platform/logger.hpp"
 #include "sneze/render/font.hpp"
+#include "sneze/embedded/embedded.hpp"
 
 #include <binary_resources/binary.hpp>
 #include <SDL.h>
@@ -40,6 +41,8 @@ auto render::init(const components::size &window,
                   const std::string &title,
                   const std::string &icon,
                   const components::color &color) -> result<> {
+    init_embedded_data();
+
     fullscreen_ = fullscreen;
 
     logger::trace("init SDL");
@@ -445,6 +448,12 @@ auto render::get_sprite_sheet(const std::string &sprite_sheet_path) -> std::shar
 }
 
 auto render::get_sdl_rwops(const std::string &path) -> SDL_RWops * {
+    logger::trace("get sdl rwops for path: ({})", path);
+    if(auto data = get_from_embedded_data(path); data) {
+        logger::trace("loading from embedded data: ({})", path);
+        return get_sdl_rwops_from_memory(*data);
+    }
+    logger::trace("loading from file: ({})", path);
     return SDL_RWFromFile(path.c_str(), "r");
 }
 
@@ -453,22 +462,14 @@ void render::free_sdl_rwops(SDL_RWops *rwops) {
 }
 
 auto render::handle_icon(const std::string &icon) -> result<> {
-    SDL_RWops *rwops;
-    if(icon.empty()) {
-        auto sneze_logo = embedded::sneze_logo();
-        rwops = get_sdl_rwops(sneze_logo);
-    } else {
-        rwops = get_sdl_rwops(icon);
-    }
-
-    if(rwops != nullptr) {
+    if(SDL_RWops *rwops = get_sdl_rwops(icon); rwops != nullptr) {
         if(auto *const icon_surface = IMG_Load_RW(rwops, SDL_FALSE); icon_surface != nullptr) {
             SDL_SetWindowIcon(window_, icon_surface);
             SDL_FreeSurface(icon_surface);
             free_sdl_rwops(rwops);
         } else {
             free_sdl_rwops(rwops);
-            logger::error("can't load window icon: {}", IMG_GetError());
+            logger::error("can't load window icon.", IMG_GetError());
             return error("Error can't load window icon.");
         }
     } else {
@@ -479,8 +480,30 @@ auto render::handle_icon(const std::string &icon) -> result<> {
     return true;
 }
 
-auto render::get_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops * {
+auto render::get_sdl_rwops_from_memory(std::span<std::byte const> &data) -> SDL_RWops * {
+    // NOLINTNEXTLINE(google-readability-casting)
     return SDL_RWFromMem((void *)data.data(), static_cast<int>(data.size())); // cppcheck-suppress cstyleCast
+}
+
+void render::add_to_embedded_data(const std::string &path, const std::span<std::byte const> &data) {
+    if(embedded_data_.contains(path)) [[unlikely]] {
+        logger::warning("trying to add a file to embedded data that already exists: ({})", path);
+        return;
+    }
+
+    embedded_data_.emplace(path, data);
+}
+
+auto render::get_from_embedded_data(const std::string &path) -> std::optional<std::span<std::byte const>> {
+    if(auto data = embedded_data_.find(path); data != embedded_data_.end()) [[likely]] {
+        return data->second;
+    }
+    return std::nullopt;
+}
+
+void render::init_embedded_data() {
+    logger::info("initializing embedded data");
+    add_to_embedded_data(embedded::sneze_logo_png, embedded::sneze_logo());
 }
 
 } // namespace sneze

@@ -37,7 +37,6 @@ using color = components::color;
 
 using namespace std::string_literals;
 const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
-const auto sneze_logo = "resources/sprites/sneze.png"s;
 
 auto draw_game::configure() -> config {
     logger::debug("configure");
@@ -48,7 +47,6 @@ auto draw_game::configure() -> config {
 
     return config()
         .size(1920, 1080)
-        .icon(sneze_logo)
         .clear(color::light_gray)
         .exit(key::escape)
         .toggle_full_screen(modifier::alt, key::_return);

@@ -126,11 +126,9 @@ public:
     friend class font;
     friend class sprite_sheet;
 
-    [[nodiscard]] static auto get_sdl_rwops(const std::string &path) -> SDL_RWops *;
+    [[nodiscard]] auto get_sdl_rwops(const std::string &path) -> SDL_RWops *;
 
     static void free_sdl_rwops(SDL_RWops *rwops);
-
-    [[nodiscard]] static auto get_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops *;
 
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;
@@ -143,6 +141,7 @@ private:
     bool fullscreen_ = false;
     SDL_Window *window_ = {nullptr};
     SDL_Renderer *renderer_ = {nullptr};
+    std::unordered_map<std::string, std::span<std::byte const>> embedded_data_;
 
     [[nodiscard]] auto get_font(const std::string &font_path) -> std::shared_ptr<font>;
 
@@ -153,6 +152,14 @@ private:
     void fill_points_with_triangles(const std::vector<components::position> &points, const components::color &color);
 
     [[nodiscard]] auto handle_icon(const std::string &icon) -> result<>;
+
+    [[nodiscard]] static auto get_sdl_rwops_from_memory(std::span<std::byte const> &data) -> SDL_RWops *;
+
+    void init_embedded_data();
+
+    void add_to_embedded_data(const std::string &path, const std::span<std::byte const> &data);
+
+    [[nodiscard]] auto get_from_embedded_data(const std::string &path) -> std::optional<std::span<std::byte const>>;
 };
 
 } // namespace sneze
