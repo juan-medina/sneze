@@ -48,7 +48,7 @@ application::application(const std::string &team, const std::string &name)
 
 auto application::show_error(const error &err) const -> const auto & {
     std::string message = err.get_message();
-    auto causes = err.causes();
+    auto causes = err.get_causes();
     if(!causes.empty()) {
         message += " Caused by:\n";
         for(const auto &cause: causes) {

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ok_0',['ok',['../classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a',1,'sneze::result']]]
+  ['has_5ferror_0',['has_error',['../classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed',1,'sneze::result']]],
+  ['has_5fvalue_1',['has_value',['../classsneze_1_1result.html#ac0a7e7fd669d5b27f87ce43e8070ba52',1,'sneze::result']]]
 ];

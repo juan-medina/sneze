@@ -30,34 +30,53 @@ SOFTWARE.
 
 namespace sneze {
 
+/**
+ * @brief Represents an error with a message and a list of causes
+ */
 class error {
 public:
+    /**
+     * @brief Construct a new error object
+     *
+     * @param message The error message
+     */
     explicit error(std::string message): message_{std::move(message)} {}
 
-    error(const error &other) = default;
-
-    error(error &&other) = default;
-
+    /**
+     * @brief Construct a new error object, with a cause error
+     *
+     * @param message The error message
+     * @param other The error that caused this error
+     */
     error(std::string message, const error &other): message_{std::move(message)}, causes_{other.causes_} {
         causes_.insert(causes_.begin(), other.message_);
     };
 
-    auto operator=(const error &) -> error & = default;
-
-    auto operator=(error &&) -> error & = default;
-
-    virtual ~error() noexcept = default;
-
-    [[nodiscard]] inline auto get_message() const {
+    /**
+     * @brief Get the error message
+     * @return the error message
+     */
+    [[nodiscard]] inline auto get_message() const -> const std::string & {
         return message_;
     }
 
-    [[nodiscard]] inline auto causes() const {
+    /**
+     * @brief Get the causes of this error
+     * @return the causes of this error
+     */
+    [[nodiscard]] inline auto get_causes() const -> const std::vector<std::string> & {
         return causes_;
     }
 
 private:
+    /**
+     * @brief Holds the error message
+     */
     std::string message_;
+
+    /**
+     * @brief Holds the causes of this error
+     */
     std::vector<std::string> causes_{};
 };
 
