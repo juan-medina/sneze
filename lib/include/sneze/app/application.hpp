@@ -137,6 +137,10 @@ private:
     void save_window_settings();
 
     [[nodiscard]] auto get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int>;
+
+    [[nodiscard]] auto load_embedded_fonts() -> result<>;
+
+    void unload_embedded_fonts();
 };
 
 } // namespace sneze

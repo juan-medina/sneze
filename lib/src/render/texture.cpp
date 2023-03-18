@@ -58,16 +58,20 @@ auto texture::init(const std::string &file) -> result<> {
 }
 
 auto texture::load_texture(const std::string &file_path) -> result<SDL_Texture *const, error> {
-    if(auto *texture = IMG_LoadTexture(get_render()->sdl_renderer(), file_path.c_str())) {
-        int width{0};
-        int height{0};
-        SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-        size_.height = static_cast<float>(height);
-        size_.width = static_cast<float>(width);
-        logger::trace("texture loaded: {}, size: {}x{}", file_path, width, height);
-        return texture;
+    if(auto *rwops = get_render()->get_sdl_rwops(file_path); rwops != nullptr) {
+        if(auto *texture = IMG_LoadTexture_RW(get_render()->sdl_renderer(), rwops, 1); texture != nullptr) {
+            int width{0};
+            int height{0};
+            SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+            size_.height = static_cast<float>(height);
+            size_.width = static_cast<float>(width);
+            logger::trace("texture loaded: {}, size: {}x{}", file_path, width, height);
+            return texture;
+        }
+        logger::error("error loading texture: {}", IMG_GetError());
+        return error("Error loading texture.");
     }
-    logger::error("error loading texture: {}", IMG_GetError());
+    logger::error("error loading texture: {}", SDL_GetError());
     return error("Error loading texture.");
 }
 

@@ -35,21 +35,16 @@ namespace fs = std::filesystem;
 namespace sneze {
 
 auto font::init(const std::string &file) -> result<> {
-    if(const auto file_path = fs::path{file}; fs::exists(file_path)) {
-        font_directory_ = file_path.parent_path();
+    if(get_render()->file_exists(file)) {
+        font_directory_ = get_render()->get_parent(file);
 
-        auto stream = std::ifstream{file_path};
-        if(!stream.is_open()) {
-            logger::error("error opening font file: {}", file);
-            return error{"Error opening font file"};
-        }
+        auto stream = get_render()->get_istream(file);
         auto line = std::string{};
-        while(!stream.eof()) {
-            std::getline(stream, line);
+        while(!stream->eof()) {
+            std::getline(*stream, line);
             auto [type, params] = font::tokens(line);
             if(!parse_line(type, params)) {
                 logger::error("error parsing line in font line: {}", line);
-                stream.close();
                 return error{"Error in font format."};
             }
         }

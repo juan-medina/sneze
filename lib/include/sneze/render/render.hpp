@@ -28,6 +28,7 @@ SOFTWARE.
 #include <istream>
 #include <memory>
 #include <span>
+#include <filesystem>
 
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
@@ -133,6 +134,10 @@ public:
     static void free_sdl_rwops(SDL_RWops *rwops);
 
     [[maybe_unused]] [[nodiscard]] auto get_istream(const std::string &path) -> std::unique_ptr<std::istream>;
+
+    [[maybe_unused]] [[nodiscard]] auto file_exists(const std::string &path) -> bool;
+
+    [[maybe_unused]] [[nodiscard]] auto get_parent(const std::string &path) -> std::filesystem::path;
 
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;

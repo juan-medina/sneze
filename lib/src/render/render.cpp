@@ -520,9 +520,30 @@ auto render::get_from_embedded_data(const std::string &path) -> std::optional<st
 
 void render::init_embedded_data() {
     logger::info("initializing embedded data");
-    add_to_embedded_data(embedded::sneze_logo_png, embedded::sneze_logo());
-    add_to_embedded_data(embedded::mono_font_fnt, embedded::mono_font());
-    add_to_embedded_data(embedded::mono_font_texture, embedded::mono_font_png());
+    add_to_embedded_data(embedded::sneze_logo, embedded::sneze_logo_data());
+    add_to_embedded_data(embedded::mono_font, embedded::mono_font_data());
+    add_to_embedded_data(embedded::mono_font_texture, embedded::mono_font_texture_data());
+}
+
+auto render::file_exists(const std::string &path) -> bool {
+    if(auto data = get_from_embedded_data(path); data) {
+        return true;
+    }
+
+    namespace fs = std::filesystem;
+    if(const auto file_path = fs::path{path}; fs::exists(file_path)) {
+        return true;
+    }
+
+    return false;
+}
+
+auto render::get_parent(const std::string &path) -> std::filesystem::path {
+    namespace fs = std::filesystem;
+    if(auto data = get_from_embedded_data(path); data) {
+        return fs::path{""};
+    }
+    return fs::path{path}.parent_path();
 }
 
 } // namespace sneze

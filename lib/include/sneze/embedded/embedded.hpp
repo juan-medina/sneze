@@ -26,7 +26,7 @@ SOFTWARE.
 
 namespace sneze::embedded {
 
-static constexpr const char *const sneze_logo_png = "embedded://sneze_logo.png";
-static constexpr const char *const mono_font_fnt = "embedded://sneze_mono.fnt";
+static constexpr const char *const sneze_logo = "embedded://sneze_logo.png";
+static constexpr const char *const mono_font = "embedded://sneze_mono.fnt";
 static constexpr const char *const mono_font_texture = "embedded://mono_font.png";
 } // namespace sneze::embedded

@@ -36,10 +36,10 @@ namespace logger = sneze::logger;
 using config = sneze::config;
 namespace components = sneze::components;
 using color = components::color;
+namespace embedded = sneze::embedded;
 
 using namespace std::string_literals;
 const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
-const auto mono_font = "resources/fonts/fira_mono.fnt"s;
 
 auto sandbox_game::configure() -> config {
     logger::debug("configureSS");
@@ -65,11 +65,6 @@ auto sandbox_game::init() -> result {
     if(auto err = load_font(regular_font).ko()) {
         logger::error("game can't load regular font: {}", regular_font);
         return error("Can't load regular font.", *err);
-    }
-
-    if(auto err = load_font(mono_font).ko()) {
-        logger::error("game can't load mono font: {}", mono_font);
-        return error("Can't load mono font.", *err);
     }
 
     auto visits = get_app_setting("visits", std::int64_t{0}) + 1;
@@ -108,13 +103,13 @@ auto sandbox_game::init() -> result {
 
     world()->add_entity(renderable{},
                         counter{counter_1},
-                        label{"Counter:", mono_font, font_size_small, alignment{horizontal::left, vertical::bottom}},
+                        label{"Counter:", embedded::mono_font, font_size_small, alignment{horizontal::left, vertical::bottom}},
                         anchor{horizontal::left, vertical::bottom},
                         color::red);
 
     world()->add_entity(renderable{},
                         counter{counter_2},
-                        label{"Counter:", mono_font, font_size_small, alignment{horizontal::right, vertical::top}},
+                        label{"Counter:", embedded::mono_font, font_size_small, alignment{horizontal::right, vertical::top}},
                         anchor{horizontal::right, vertical::top},
                         color::blue);
 
@@ -132,5 +127,4 @@ void sandbox_game::end() {
     world()->remove_global<acceleration>();
 
     unload_font(regular_font);
-    unload_font(mono_font);
 }

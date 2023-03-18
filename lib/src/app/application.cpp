@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include "sneze/app/world.hpp"
 #include "sneze/effects/effects_system.hpp"
+#include "sneze/embedded/embedded.hpp"
 #include "sneze/events/events.hpp"
 #include "sneze/platform/logger.hpp"
 #include "sneze/render/render.hpp"
@@ -146,6 +147,13 @@ auto application::launch() -> result<> {
     logger::trace("listening for application_want_closing events");
     world_->add_listener<events::application_want_closing, &application::app_want_closing>(this);
 
+    logger::trace("loading embedded fonts");
+    if(auto err = load_embedded_fonts().ko()) {
+        logger::error("error loading embedded fonts");
+        render_->end();
+        return error("Can't init the application.", *err);
+    }
+
     logger::trace("update initial world state");
     world_->update();
 
@@ -162,6 +170,9 @@ auto application::launch() -> result<> {
 
     logger::trace("ending application");
     end();
+
+    logger::trace("unloading embedded fonts");
+    unload_embedded_fonts();
 
     logger::trace("remove any listener by sneze::application");
     world_->remove_listeners(this);
@@ -261,6 +272,18 @@ void application::save_window_settings() {
     }
     settings_.set("window"s, "fullscreen"s, render_->fullscreen());
     settings_.set("window"s, "monitor"s, static_cast<std::int64_t>(render_->monitor()));
+}
+
+auto application::load_embedded_fonts() -> result<> {
+    if(auto err = load_font(embedded::mono_font).ko(); err) {
+        logger::error("error loading mono font");
+        return error("Can't load embedded font.", *err);
+    }
+
+    return true;
+}
+void application::unload_embedded_fonts() {
+    unload_font(embedded::mono_font);
 }
 
 } // namespace sneze
