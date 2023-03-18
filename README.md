@@ -1,4 +1,4 @@
-# SNEZE: Simple Not Easy Zestful Engine
+# Simple Not Easy Zestful Engine
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Conduct](https://img.shields.io/badge/Conduct-Covenat%202.0-yellow.svg?style=for-the-badge)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
 [![C++](https://img.shields.io/badge/20-yellow.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white&labelColor=gray)](https://en.cppreference.com/w/cpp/20)
@@ -63,7 +63,7 @@ To get started, simply follow the instructions in the [Getting Started](GETTING_
 
 ## Examples
 
-SNEZE comes with a few examples to help you get started. You can find them in the [examples](examples) folder.
+SNEZE comes with a few examples to help you get started. You can find them in the [examples](examples/README.md) folder.
 
 ## Dependencies
 
@@ -77,7 +77,8 @@ SNEZE is powered by these incredible projects:
 - [Boxer](https://github.com/aaronmjacobs/Boxer) : Simple library for cross-platform message boxes. [LICENSE](https://github.com/aaronmjacobs/Boxer/blob/master/LICENSE)
 - [{fmt}](https://github.com/fmtlib/fmt) : A modern formatting library. [LICENSE](https://github.com/fmtlib/fmt/blob/master/LICENSE.rst)
 - [CMake embed](https://github.com/MiSo1289/cmake-embed) : CMake script for embedding resources in binaries. [LICENSE](https://github.com/MiSo1289/cmake-embed/blob/master/LICENSE)
-- [rapidjson](https://github.com/Tencent/rapidjson) : A fast JSON parser/generator for C++ with both SAX/DOM style API. [LICENSE](https://github.com/Tencent/rapidjson/blob/master/license.txt)
+- [rapidjson](https://github.com/Tencent/rapidjson) : A fast JSON parser/generator for C++ with both SAX/DOM style API. [LICENSE](https://github.com/Tencent/rapidjson/blob/master/license.txt). 
+- [Doxygen Awesome](https://github.com/jothepro/doxygen-awesome-css). Custom CSS theme for doxygen html-documentation with lots of customization parameters. [LICENSE](https://github.com/jothepro/doxygen-awesome-css/blob/main/LICENSE)
 
 ## Resources
 
@@ -91,4 +92,4 @@ SNEZE examples use these beautiful resources:
 SNEZE is an open source project and contributions are welcome. If you'd like to contribute, please follow the guidelines in the [Contributing](CONTRIBUTING.md) file and make a pull request.
 
 ## License
-See the [LICENSE](LICENSE) file for license rights and limitations.
+See the [LICENSE](https://github.com/juan-medina/sneze/blob/main/LICENSE) file for license rights and limitations.
