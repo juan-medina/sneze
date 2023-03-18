@@ -277,13 +277,19 @@ void application::save_window_settings() {
 auto application::load_embedded_fonts() -> result<> {
     if(auto err = load_font(embedded::mono_font).ko(); err) {
         logger::error("error loading mono font");
-        return error("Can't load embedded font.", *err);
+        return error("Can't load embedded mono font.", *err);
+    }
+
+    if(auto err = load_font(embedded::regular_font).ko(); err) {
+        logger::error("error loading regular font");
+        return error("Can't load embedded regular font.", *err);
     }
 
     return true;
 }
 void application::unload_embedded_fonts() {
     unload_font(embedded::mono_font);
+    unload_font(embedded::regular_font);
 }
 
 } // namespace sneze

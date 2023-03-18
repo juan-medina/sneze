@@ -523,6 +523,8 @@ void render::init_embedded_data() {
     add_to_embedded_data(embedded::sneze_logo, embedded::sneze_logo_data());
     add_to_embedded_data(embedded::mono_font, embedded::mono_font_data());
     add_to_embedded_data(embedded::mono_font_texture, embedded::mono_font_texture_data());
+    add_to_embedded_data(embedded::regular_font, embedded::regular_font_data());
+    add_to_embedded_data(embedded::regular_font_texture, embedded::regular_font_texture_data());
 }
 
 auto render::file_exists(const std::string &path) -> bool {

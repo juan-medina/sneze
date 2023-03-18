@@ -158,11 +158,13 @@ add_embedded_binary_resources(
         OUT_DIR binary_resources
         HEADER binary.hpp
         NAMESPACE sneze::embedded
-        RESOURCE_NAMES sneze_logo_data mono_font_data mono_font_texture_data
+        RESOURCE_NAMES sneze_logo_data mono_font_data mono_font_texture_data regular_font_data regular_font_texture_data
         RESOURCES
         "${PROJECT_SOURCE_DIR}/lib/embedded/sprites/sneze.png"
         "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/fira_mono.fnt"
         "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/fira_mono_0.png"
+        "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/tilt_warp.fnt"
+        "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/tilt_warp_0.png"
 )
 
 # restore flags

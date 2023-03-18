@@ -29,4 +29,7 @@ namespace sneze::embedded {
 static constexpr const char *const sneze_logo = "embedded://sneze_logo.png";
 static constexpr const char *const mono_font = "embedded://sneze_mono.fnt";
 static constexpr const char *const mono_font_texture = "embedded://mono_font.png";
+static constexpr const char *const regular_font = "embedded://regular_font.fnt";
+static constexpr const char *const regular_font_texture = "embedded://regular_font.png";
+
 } // namespace sneze::embedded

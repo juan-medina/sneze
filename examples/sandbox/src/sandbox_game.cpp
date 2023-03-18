@@ -38,11 +38,8 @@ namespace components = sneze::components;
 using color = components::color;
 namespace embedded = sneze::embedded;
 
-using namespace std::string_literals;
-const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
-
 auto sandbox_game::configure() -> config {
-    logger::debug("configureSS");
+    logger::debug("configure");
 
     namespace keyboard = sneze::keyboard;
     using key = keyboard::key;
@@ -58,14 +55,7 @@ auto sandbox_game::configure() -> config {
 auto sandbox_game::init() -> result {
     logger::debug("init sandbox game");
 
-    using error = sneze::error;
-
     logger::debug("init");
-
-    if(auto err = load_font(regular_font).ko()) {
-        logger::error("game can't load regular font: {}", regular_font);
-        return error("Can't load regular font.", *err);
-    }
 
     auto visits = get_app_setting("visits", std::int64_t{0}) + 1;
     set_app_setting("visits", visits);
@@ -87,31 +77,33 @@ auto sandbox_game::init() -> result {
 
     world()->add_entity(
         renderable{},
-        label{"Hello World!", regular_font, font_size_large, alignment{horizontal::center, vertical::center}},
+        label{"Hello World!", embedded::regular_font, font_size_large, alignment{horizontal::center, vertical::center}},
         position{0, -font_size_small},
         anchor{horizontal::center, vertical::center},
         color::white);
 
     world()->add_entity(renderable{},
                         label{fmt::format("You seen this {} times!", visits),
-                              regular_font,
+                              embedded::regular_font,
                               font_size_large,
                               alignment{horizontal::center, vertical::center}},
                         position{0, font_size_small},
                         anchor{horizontal::center, vertical::center},
                         color::white);
 
-    world()->add_entity(renderable{},
-                        counter{counter_1},
-                        label{"Counter:", embedded::mono_font, font_size_small, alignment{horizontal::left, vertical::bottom}},
-                        anchor{horizontal::left, vertical::bottom},
-                        color::red);
+    world()->add_entity(
+        renderable{},
+        counter{counter_1},
+        label{"Counter:", embedded::mono_font, font_size_small, alignment{horizontal::left, vertical::bottom}},
+        anchor{horizontal::left, vertical::bottom},
+        color::red);
 
-    world()->add_entity(renderable{},
-                        counter{counter_2},
-                        label{"Counter:", embedded::mono_font, font_size_small, alignment{horizontal::right, vertical::top}},
-                        anchor{horizontal::right, vertical::top},
-                        color::blue);
+    world()->add_entity(
+        renderable{},
+        counter{counter_2},
+        label{"Counter:", embedded::mono_font, font_size_small, alignment{horizontal::right, vertical::top}},
+        anchor{horizontal::right, vertical::top},
+        color::blue);
 
     world()->set_global<acceleration>(5);
 
@@ -125,6 +117,4 @@ void sandbox_game::end() {
 
     world()->remove_system<counter_system>();
     world()->remove_global<acceleration>();
-
-    unload_font(regular_font);
 }
