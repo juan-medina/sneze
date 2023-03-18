@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['effects_5fsystem_0',['effects_system',['../classsneze_1_1effects__system.html',1,'sneze']]],
-  ['error_1',['error',['../classsneze_1_1error.html',1,'sneze::error'],['../structsneze_1_1logger_1_1error.html',1,'sneze::logger::error&lt; Args &gt;']]],
-  ['event_2',['event',['../structsneze_1_1events_1_1event.html',1,'sneze::events']]]
+  ['result_0',['result',['../classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1',1,'sneze::result::result(const Value &amp;value)'],['../classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973',1,'sneze::result::result(const Error &amp;error)'],['../classsneze_1_1result.html',1,'sneze::result&lt; Value, Error &gt;']]]
 ];

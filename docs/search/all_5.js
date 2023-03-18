@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['font_0',['font',['../classsneze_1_1font.html',1,'sneze']]],
-  ['frame_1',['frame',['../structsneze_1_1frame.html',1,'sneze']]]
+  ['simple_20not_20easy_20zestful_20engine_0',['Simple Not Easy Zestful Engine',['../index.html',1,'']]],
+  ['sneze_1',['sneze',['../namespacesneze.html',1,'']]]
 ];

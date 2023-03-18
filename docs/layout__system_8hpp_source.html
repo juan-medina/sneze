@@ -127,33 +127,26 @@ $(document).ready(function(){initNavTree('layout__system_8hpp_source.html',''); 
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacesneze.html">sneze</a> {</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classsneze_1_1layout__system.html">   34</a></span><span class="keyword">class </span><a class="code hl_class" href="classsneze_1_1layout__system.html">layout_system</a>: <span class="keyword">public</span> <a class="code hl_struct" href="structsneze_1_1system.html">system</a> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">class </span>layout_system: <span class="keyword">public</span> system {</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> init(<a class="code hl_class" href="classsneze_1_1world.html">world</a> *<a class="code hl_class" href="classsneze_1_1world.html">world</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> init(world *world) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> end(<a class="code hl_class" href="classsneze_1_1world.html">world</a> *<a class="code hl_class" href="classsneze_1_1world.html">world</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> end(world *world) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> update(<a class="code hl_class" href="classsneze_1_1world.html">world</a> *<a class="code hl_class" href="classsneze_1_1world.html">world</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> update(world *world) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_struct" href="structsneze_1_1components_1_1rect.html">components::rect</a> logical_ = {{0, 0}, {0, 0}};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    components::rect logical_ = {{0, 0}, {0, 0}};</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> window_resized(<span class="keyword">const</span> <a class="code hl_struct" href="structsneze_1_1events_1_1window__resized.html">events::window_resized</a> &amp;event);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> window_resized(<span class="keyword">const</span> events::window_resized &amp;event);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> add_component_anchor(<a class="code hl_struct" href="structsneze_1_1events_1_1add__component.html">events::add_component&lt;components::anchor&gt;</a> <span class="keyword">const</span> &amp;event);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> add_component_anchor(events::add_component&lt;components::anchor&gt; <span class="keyword">const</span> &amp;event);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> calculate_layout(<a class="code hl_class" href="classsneze_1_1world.html">world</a> *<a class="code hl_class" href="classsneze_1_1world.html">world</a>, entt::entity entity, <span class="keyword">const</span> <a class="code hl_struct" href="structsneze_1_1components_1_1anchor.html">components::anchor</a> &amp;anchor) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> calculate_layout(world *world, entt::entity entity, <span class="keyword">const</span> components::anchor &amp;anchor) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace sneze</span></div>
-<div class="ttc" id="aclasssneze_1_1layout__system_html"><div class="ttname"><a href="classsneze_1_1layout__system.html">sneze::layout_system</a></div><div class="ttdef"><b>Definition:</b> <a href="layout__system_8hpp_source.html#l00034">layout_system.hpp:34</a></div></div>
-<div class="ttc" id="aclasssneze_1_1world_html"><div class="ttname"><a href="classsneze_1_1world.html">sneze::world</a></div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00049">world.hpp:49</a></div></div>
 <div class="ttc" id="anamespacesneze_html"><div class="ttname"><a href="namespacesneze.html">sneze</a></div><div class="ttdoc">sneze default namespace.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00037">application.hpp:37</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1anchor_html"><div class="ttname"><a href="structsneze_1_1components_1_1anchor.html">sneze::components::anchor</a></div><div class="ttdef"><b>Definition:</b> <a href="ui_8hpp_source.html#l00049">ui.hpp:49</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1rect_html"><div class="ttname"><a href="structsneze_1_1components_1_1rect.html">sneze::components::rect</a></div><div class="ttdef"><b>Definition:</b> <a href="geometry_8hpp_source.html#l00043">geometry.hpp:43</a></div></div>
-<div class="ttc" id="astructsneze_1_1events_1_1add__component_html"><div class="ttname"><a href="structsneze_1_1events_1_1add__component.html">sneze::events::add_component</a></div><div class="ttdef"><b>Definition:</b> <a href="events_8hpp_source.html#l00062">events.hpp:62</a></div></div>
-<div class="ttc" id="astructsneze_1_1events_1_1window__resized_html"><div class="ttname"><a href="structsneze_1_1events_1_1window__resized.html">sneze::events::window_resized</a></div><div class="ttdef"><b>Definition:</b> <a href="events_8hpp_source.html#l00056">events.hpp:56</a></div></div>
-<div class="ttc" id="astructsneze_1_1system_html"><div class="ttname"><a href="structsneze_1_1system.html">sneze::system</a></div><div class="ttdef"><b>Definition:</b> <a href="system_8hpp_source.html#l00033">system.hpp:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

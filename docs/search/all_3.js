@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['debug_0',['debug',['../structsneze_1_1logger_1_1debug.html',1,'sneze::logger']]]
+  ['ok_0',['ok',['../classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a',1,'sneze::result']]]
 ];

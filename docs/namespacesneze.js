@@ -1,30 +1,4 @@
 var namespacesneze =
 [
-    [ "application", "classsneze_1_1application.html", null ],
-    [ "config", "classsneze_1_1config.html", null ],
-    [ "effects_system", "classsneze_1_1effects__system.html", null ],
-    [ "error", "classsneze_1_1error.html", null ],
-    [ "font", "classsneze_1_1font.html", null ],
-    [ "frame", "structsneze_1_1frame.html", null ],
-    [ "game_time", "structsneze_1_1game__time.html", null ],
-    [ "glyph", "structsneze_1_1glyph.html", null ],
-    [ "keys_system", "classsneze_1_1keys__system.html", null ],
-    [ "layout_system", "classsneze_1_1layout__system.html", null ],
-    [ "render", "classsneze_1_1render.html", null ],
-    [ "render_system", "classsneze_1_1render__system.html", null ],
-    [ "resource", "classsneze_1_1resource.html", null ],
-    [ "resource_entry", "structsneze_1_1resource__entry.html", null ],
-    [ "resources_cache", "classsneze_1_1resources__cache.html", null ],
-    [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
-    [ "sdl_events_system", "classsneze_1_1sdl__events__system.html", null ],
-    [ "settings", "classsneze_1_1settings.html", null ],
-    [ "span_istream", "classsneze_1_1span__istream.html", null ],
-    [ "span_stream_buffer", "classsneze_1_1span__stream__buffer.html", null ],
-    [ "sprite_sheet", "classsneze_1_1sprite__sheet.html", null ],
-    [ "system", "structsneze_1_1system.html", null ],
-    [ "system_with_priority", "classsneze_1_1system__with__priority.html", null ],
-    [ "texture", "classsneze_1_1texture.html", null ],
-    [ "type_name_format", "structsneze_1_1type__name__format.html", null ],
-    [ "world", "classsneze_1_1world.html", null ],
-    [ "is_value", "conceptsneze_1_1is__value.html", null ]
+    [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ]
 ];

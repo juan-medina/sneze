@@ -130,33 +130,26 @@ $(document).ready(function(){initNavTree('ui_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">enum class</span> horizontal { none, left, center, right };</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structsneze_1_1components_1_1alignment.html">   37</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structsneze_1_1components_1_1alignment.html">alignment</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">struct </span>alignment {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">enum</span> horizontal horizontal = horizontal::left; <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">enum</span> vertical vertical = vertical::top;        <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structsneze_1_1components_1_1label.html">   42</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structsneze_1_1components_1_1label.html">label</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">struct </span>label {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::string text;                                               <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    std::string <a class="code hl_class" href="classsneze_1_1font.html">font</a>;                                               <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">float</span> <a class="code hl_struct" href="structsneze_1_1components_1_1size.html">size</a>;                                                     <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsneze_1_1components_1_1alignment.html">alignment</a> <a class="code hl_struct" href="structsneze_1_1components_1_1alignment.html">alignment</a> = {horizontal::left, vertical::top}; <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    std::string font;                                               <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">float</span> size;                                                     <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">struct </span>alignment alignment = {horizontal::left, vertical::top}; <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structsneze_1_1components_1_1anchor.html">   49</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structsneze_1_1components_1_1anchor.html">anchor</a> {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">struct </span>anchor {</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">enum</span> horizontal horizontal = horizontal::none; <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">enum</span> vertical vertical = vertical::none;       <span class="comment">// cppcheck-suppress unusedStructMember</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structsneze_1_1components_1_1layout.html">   54</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structsneze_1_1components_1_1layout.html">layout</a>: <span class="keyword">public</span> <a class="code hl_struct" href="structsneze_1_1components_1_1position.html">components::position</a> {};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">struct </span>layout: <span class="keyword">public</span> components::position {};</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace sneze::components</span></div>
-<div class="ttc" id="aclasssneze_1_1font_html"><div class="ttname"><a href="classsneze_1_1font.html">sneze::font</a></div><div class="ttdef"><b>Definition:</b> <a href="font_8hpp_source.html#l00060">font.hpp:60</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1alignment_html"><div class="ttname"><a href="structsneze_1_1components_1_1alignment.html">sneze::components::alignment</a></div><div class="ttdef"><b>Definition:</b> <a href="ui_8hpp_source.html#l00037">ui.hpp:37</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1anchor_html"><div class="ttname"><a href="structsneze_1_1components_1_1anchor.html">sneze::components::anchor</a></div><div class="ttdef"><b>Definition:</b> <a href="ui_8hpp_source.html#l00049">ui.hpp:49</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1label_html"><div class="ttname"><a href="structsneze_1_1components_1_1label.html">sneze::components::label</a></div><div class="ttdef"><b>Definition:</b> <a href="ui_8hpp_source.html#l00042">ui.hpp:42</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1layout_html"><div class="ttname"><a href="structsneze_1_1components_1_1layout.html">sneze::components::layout</a></div><div class="ttdef"><b>Definition:</b> <a href="ui_8hpp_source.html#l00054">ui.hpp:54</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1position_html"><div class="ttname"><a href="structsneze_1_1components_1_1position.html">sneze::components::position</a></div><div class="ttdef"><b>Definition:</b> <a href="geometry_8hpp_source.html#l00033">geometry.hpp:33</a></div></div>
-<div class="ttc" id="astructsneze_1_1components_1_1size_html"><div class="ttname"><a href="structsneze_1_1components_1_1size.html">sneze::components::size</a></div><div class="ttdef"><b>Definition:</b> <a href="geometry_8hpp_source.html#l00038">geometry.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

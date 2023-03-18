@@ -1,6 +1,0 @@
-<map id="sneze::keyboard::key_modifier" name="sneze::keyboard::key_modifier">
-<area shape="rect" id="node1" title=" " alt="" coords="111,5,257,45"/>
-<area shape="rect" id="node2" href="$structsneze_1_1events_1_1key__event.html" title=" " alt="" coords="117,93,251,133"/>
-<area shape="rect" id="node3" href="$structsneze_1_1events_1_1key__down.html" title=" " alt="" coords="5,181,176,207"/>
-<area shape="rect" id="node4" href="$structsneze_1_1events_1_1key__up.html" title=" " alt="" coords="200,181,355,207"/>
-</map>

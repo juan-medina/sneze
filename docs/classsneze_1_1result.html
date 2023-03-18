@@ -102,31 +102,15 @@ $(document).ready(function(){initNavTree('classsneze_1_1result.html',''); initRe
  <a href="classsneze_1_1result.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="result_8hpp_source.html">result.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for sneze::result&lt; Value, Error &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classsneze_1_1result__inherit__graph.png" border="0" usemap="#asneze_1_1result_3_01Value_00_01Error_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asneze_1_1result_3_01Value_00_01Error_01_4_inherit__map" id="asneze_1_1result_3_01Value_00_01Error_01_4_inherit__map">
-<area shape="rect" title="A result type that can be used to return a value or an error." alt="" coords="5,93,151,133"/>
-<area shape="rect" title=" " alt="" coords="17,5,139,45"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for sneze::result&lt; Value, Error &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classsneze_1_1result__coll__graph.png" border="0" usemap="#asneze_1_1result_3_01Value_00_01Error_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asneze_1_1result_3_01Value_00_01Error_01_4_coll__map" id="asneze_1_1result_3_01Value_00_01Error_01_4_coll__map">
-<area shape="rect" title="A result type that can be used to return a value or an error." alt="" coords="5,93,151,133"/>
-<area shape="rect" title=" " alt="" coords="17,5,139,45"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits std::variant&lt; bool, class error &gt;.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a93f17764a2297deb5124e5e71ffd21d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1">result</a> (const Value &amp;value)</td></tr>
 <tr class="memdesc:a93f17764a2297deb5124e5e71ffd21d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new result object given a value.  <br /></td></tr>
 <tr class="separator:a93f17764a2297deb5124e5e71ffd21d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf42c27c401c067eccd9cb76c7db0973"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973">result</a> (const Error &amp;<a class="el" href="classsneze_1_1error.html">error</a>)</td></tr>
+<tr class="memitem:adf42c27c401c067eccd9cb76c7db0973"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973">result</a> (const Error &amp;error)</td></tr>
 <tr class="memdesc:adf42c27c401c067eccd9cb76c7db0973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new result object given a error.  <br /></td></tr>
 <tr class="separator:adf42c27c401c067eccd9cb76c7db0973"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a3c022d995f8baa46711e803d2838ed"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed">has_error</a> () const noexcept</td></tr>
@@ -154,7 +138,7 @@ class sneze::result&lt; Value, Error &gt;</div><p>A result type that can be used
 <p>This class is a wrapper around std::variant that can be used to return a value or an error. It is similar to std::expected that will be available in C++23 and heavily inspired by Rust's Result type.</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> divide_by(<span class="keywordtype">int</span> num, <span class="keywordtype">int</span> by) -&gt; <a class="code hl_class" href="classsneze_1_1result.html">sneze::result&lt;int, sneze::error&gt;</a> {</div>
 <div class="line">  <span class="keywordflow">if</span>(by == 0) {</div>
-<div class="line">    <span class="keywordflow">return</span> <a class="code hl_class" href="classsneze_1_1error.html">sneze::error</a>{<span class="stringliteral">&quot;cannot divide by zero&quot;</span>};</div>
+<div class="line">    <span class="keywordflow">return</span> sneze::error{<span class="stringliteral">&quot;cannot divide by zero&quot;</span>};</div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">return</span> num/by;</div>
 <div class="line">}</div>
@@ -167,17 +151,16 @@ class sneze::result&lt; Value, Error &gt;</div><p>A result type that can be used
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordflow">return</span> 0;</div>
-<div class="ttc" id="aclasssneze_1_1error_html"><div class="ttname"><a href="classsneze_1_1error.html">sneze::error</a></div><div class="ttdef"><b>Definition:</b> <a href="error_8hpp_source.html#l00033">error.hpp:33</a></div></div>
 <div class="ttc" id="aclasssneze_1_1result_html"><div class="ttname"><a href="classsneze_1_1result.html">sneze::result</a></div><div class="ttdoc">A result type that can be used to return a value or an error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00065">result.hpp:65</a></div></div>
 <div class="ttc" id="aclasssneze_1_1result_html_a06b2b15750e3c3d11c898651f235070a"><div class="ttname"><a href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">sneze::result::ok</a></div><div class="ttdeci">auto ok() const noexcept -&gt; std::tuple&lt; std::optional&lt; Value &gt;, std::optional&lt; Error &gt; &gt;</div><div class="ttdoc">Get a tuple with an optional value or an optional error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00131">result.hpp:131</a></div></div>
 </div><!-- fragment --> <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Value</td><td>The type of the value to return, defaults to bool </td></tr>
-    <tr><td class="paramname">Error</td><td>The type of the error to return, defaults to <a class="el" href="classsneze_1_1error.html">sneze::error</a> </td></tr>
+    <tr><td class="paramname">Error</td><td>The type of the error to return, defaults to sneze::error </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1error.html">sneze::error</a> </dd>
+<dl class="section see"><dt>See also</dt><dd>sneze::error </dd>
 <dd>
 <a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get a tuple with an optional value or an optional error.">result::ok</a> </dd>
 <dd>

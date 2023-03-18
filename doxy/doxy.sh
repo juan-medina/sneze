@@ -1,6 +1,6 @@
 
 rm -rf ../docs
-doxygen doxy.in
+doxygen
 mv ../docs/html/* ../docs
 rm -rf ../docs/html
 mkdir -p ../docs/lib/media/sprites
