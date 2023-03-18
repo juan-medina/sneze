@@ -28,7 +28,7 @@ SNEZE is a high-level, 2D game engine based in a entity component system that pr
 - Multi-platform : Windows, Mac, Linux.
 - No required to install dependencies, will be downloaded automatically.
 
-## Features (under development)
+## Features (WIP)
 - Sprite animations.
 - Documentation, including API reference.
 - Gamepad support.
