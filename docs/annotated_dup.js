@@ -62,7 +62,7 @@ var annotated_dup =
       [ "resource", "classsneze_1_1resource.html", null ],
       [ "resource_entry", "structsneze_1_1resource__entry.html", null ],
       [ "resources_cache", "classsneze_1_1resources__cache.html", null ],
-      [ "result", "classsneze_1_1result.html", null ],
+      [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
       [ "sdl_events_system", "classsneze_1_1sdl__events__system.html", null ],
       [ "settings", "classsneze_1_1settings.html", null ],
       [ "span_istream", "classsneze_1_1span__istream.html", null ],

@@ -92,16 +92,22 @@ $(document).ready(function(){initNavTree('classsneze_1_1result.html',''); initRe
 
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsneze_1_1result-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">sneze::result&lt; Value, Error &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A result type that can be used to return a value or an error.  
+ <a href="classsneze_1_1result.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="result_8hpp_source.html">result.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for sneze::result&lt; Value, Error &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsneze_1_1result__inherit__graph.png" border="0" usemap="#asneze_1_1result_3_01Value_00_01Error_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="asneze_1_1result_3_01Value_00_01Error_01_4_inherit__map" id="asneze_1_1result_3_01Value_00_01Error_01_4_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,93,151,133"/>
+<area shape="rect" title="A result type that can be used to return a value or an error." alt="" coords="5,93,151,133"/>
 <area shape="rect" title=" " alt="" coords="17,5,139,45"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -110,15 +116,352 @@ Collaboration diagram for sneze::result&lt; Value, Error &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsneze_1_1result__coll__graph.png" border="0" usemap="#asneze_1_1result_3_01Value_00_01Error_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="asneze_1_1result_3_01Value_00_01Error_01_4_coll__map" id="asneze_1_1result_3_01Value_00_01Error_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="5,93,151,133"/>
+<area shape="rect" title="A result type that can be used to return a value or an error." alt="" coords="5,93,151,133"/>
 <area shape="rect" title=" " alt="" coords="17,5,139,45"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a93f17764a2297deb5124e5e71ffd21d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1">result</a> (const Value &amp;value)</td></tr>
+<tr class="memdesc:a93f17764a2297deb5124e5e71ffd21d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new result object given a value.  <br /></td></tr>
+<tr class="separator:a93f17764a2297deb5124e5e71ffd21d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf42c27c401c067eccd9cb76c7db0973"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973">result</a> (const Error &amp;<a class="el" href="classsneze_1_1error.html">error</a>)</td></tr>
+<tr class="memdesc:adf42c27c401c067eccd9cb76c7db0973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new result object given a error.  <br /></td></tr>
+<tr class="separator:adf42c27c401c067eccd9cb76c7db0973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a3c022d995f8baa46711e803d2838ed"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed">has_error</a> () const noexcept</td></tr>
+<tr class="memdesc:a5a3c022d995f8baa46711e803d2838ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return if the result has an error.  <br /></td></tr>
+<tr class="separator:a5a3c022d995f8baa46711e803d2838ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a7e7fd669d5b27f87ce43e8070ba52"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#ac0a7e7fd669d5b27f87ce43e8070ba52">has_value</a> () const noexcept</td></tr>
+<tr class="memdesc:ac0a7e7fd669d5b27f87ce43e8070ba52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the result has a value.  <br /></td></tr>
+<tr class="separator:ac0a7e7fd669d5b27f87ce43e8070ba52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0bf9cb2379d3a67ae2edde62b7c822"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a8f0bf9cb2379d3a67ae2edde62b7c822">get_error</a> () const</td></tr>
+<tr class="memdesc:a8f0bf9cb2379d3a67ae2edde62b7c822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the error.  <br /></td></tr>
+<tr class="separator:a8f0bf9cb2379d3a67ae2edde62b7c822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840f154babf94bd241e0f579a140e936"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936">get_value</a> () const</td></tr>
+<tr class="memdesc:a840f154babf94bd241e0f579a140e936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value.  <br /></td></tr>
+<tr class="separator:a840f154babf94bd241e0f579a140e936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06b2b15750e3c3d11c898651f235070a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">ok</a> () const noexcept -&gt; std::tuple&lt; std::optional&lt; Value &gt;, std::optional&lt; Error &gt; &gt;</td></tr>
+<tr class="memdesc:a06b2b15750e3c3d11c898651f235070a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a tuple with an optional value or an optional error.  <br /></td></tr>
+<tr class="separator:a06b2b15750e3c3d11c898651f235070a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8a4686ac22265c0f1c936ab626adb66"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66">ko</a> () const noexcept -&gt; std::optional&lt; Error &gt;</td></tr>
+<tr class="memdesc:af8a4686ac22265c0f1c936ab626adb66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an optional error.  <br /></td></tr>
+<tr class="separator:af8a4686ac22265c0f1c936ab626adb66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class Value = bool, class Error = class error&gt;<br />
-class sneze::result&lt; Value, Error &gt;</div>
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00035">35</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
-</div></div><!-- contents -->
+class sneze::result&lt; Value, Error &gt;</div><p>A result type that can be used to return a value or an error. </p>
+<p>This class is a wrapper around std::variant that can be used to return a value or an error. It is similar to std::expected that will be available in C++23 and heavily inspired by Rust's Result type.</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> divide_by(<span class="keywordtype">int</span> num, <span class="keywordtype">int</span> by) -&gt; <a class="code hl_class" href="classsneze_1_1result.html">sneze::result&lt;int, sneze::error&gt;</a> {</div>
+<div class="line">  <span class="keywordflow">if</span>(by == 0) {</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code hl_class" href="classsneze_1_1error.html">sneze::error</a>{<span class="stringliteral">&quot;cannot divide by zero&quot;</span>};</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> num/by;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">if</span>(<span class="keyword">auto</span> [value, error] = divide_by(10, 2).<a class="code hl_function" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">ok</a>(); error) {</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; error-&gt;get_message() &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">return</span> 1;</div>
+<div class="line">} <span class="keywordflow">else</span> {</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Result: &quot;</span> &lt;&lt; *value &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">return</span> 0;</div>
+<div class="ttc" id="aclasssneze_1_1error_html"><div class="ttname"><a href="classsneze_1_1error.html">sneze::error</a></div><div class="ttdef"><b>Definition:</b> <a href="error_8hpp_source.html#l00033">error.hpp:33</a></div></div>
+<div class="ttc" id="aclasssneze_1_1result_html"><div class="ttname"><a href="classsneze_1_1result.html">sneze::result</a></div><div class="ttdoc">A result type that can be used to return a value or an error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00065">result.hpp:65</a></div></div>
+<div class="ttc" id="aclasssneze_1_1result_html_a06b2b15750e3c3d11c898651f235070a"><div class="ttname"><a href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">sneze::result::ok</a></div><div class="ttdeci">auto ok() const noexcept -&gt; std::tuple&lt; std::optional&lt; Value &gt;, std::optional&lt; Error &gt; &gt;</div><div class="ttdoc">Get a tuple with an optional value or an optional error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00131">result.hpp:131</a></div></div>
+</div><!-- fragment --> <dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Value</td><td>The type of the value to return, defaults to bool </td></tr>
+    <tr><td class="paramname">Error</td><td>The type of the error to return, defaults to <a class="el" href="classsneze_1_1error.html">sneze::error</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1error.html">sneze::error</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get a tuple with an optional value or an optional error.">result::ok</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00065">65</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a93f17764a2297deb5124e5e71ffd21d1" name="a93f17764a2297deb5124e5e71ffd21d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93f17764a2297deb5124e5e71ffd21d1">&#9670;&#160;</a></span>result() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::result </td>
+          <td>(</td>
+          <td class="paramtype">const Value &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new result object given a value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the value to return </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00073">73</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adf42c27c401c067eccd9cb76c7db0973" name="adf42c27c401c067eccd9cb76c7db0973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf42c27c401c067eccd9cb76c7db0973">&#9670;&#160;</a></span>result() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::result </td>
+          <td>(</td>
+          <td class="paramtype">const Error &amp;&#160;</td>
+          <td class="paramname"><em>error</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new result object given a error. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">error</td><td>the error to return </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00081">81</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8f0bf9cb2379d3a67ae2edde62b7c822" name="a8f0bf9cb2379d3a67ae2edde62b7c822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0bf9cb2379d3a67ae2edde62b7c822">&#9670;&#160;</a></span>get_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::get_error </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the error. </p>
+<dl class="section warning"><dt>Warning</dt><dd>this will throw if the result has a value</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the error object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00110">110</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a840f154babf94bd241e0f579a140e936" name="a840f154babf94bd241e0f579a140e936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840f154babf94bd241e0f579a140e936">&#9670;&#160;</a></span>get_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::get_value </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value. </p>
+<dl class="section warning"><dt>Warning</dt><dd>this will throw if the result has an error</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the value object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00121">121</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a3c022d995f8baa46711e803d2838ed" name="a5a3c022d995f8baa46711e803d2838ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a3c022d995f8baa46711e803d2838ed">&#9670;&#160;</a></span>has_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::has_error </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return if the result has an error. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the result has an error </dd>
+<dd>
+false if the result has a value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00089">89</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0a7e7fd669d5b27f87ce43e8070ba52" name="ac0a7e7fd669d5b27f87ce43e8070ba52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0a7e7fd669d5b27f87ce43e8070ba52">&#9670;&#160;</a></span>has_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::has_value </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the result has a value. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the result has a value </dd>
+<dd>
+false if the result has an error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00099">99</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af8a4686ac22265c0f1c936ab626adb66" name="af8a4686ac22265c0f1c936ab626adb66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8a4686ac22265c0f1c936ab626adb66">&#9670;&#160;</a></span>ko()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::ko </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const -&gt; std::optional&lt;Error&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get an optional error. </p>
+<p>if the result has a value, this will return std::nullopt, this will never throw</p>
+<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Error&gt; the error object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00145">145</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a06b2b15750e3c3d11c898651f235070a" name="a06b2b15750e3c3d11c898651f235070a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06b2b15750e3c3d11c898651f235070a">&#9670;&#160;</a></span>ok()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Value  = bool, class Error  = class error&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classsneze_1_1result.html">sneze::result</a>&lt; Value, Error &gt;::ok </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const -&gt; std::tuple&lt;std::optional&lt;Value&gt;, std::optional&lt;Error&gt;&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a tuple with an optional value or an optional error. </p>
+<p>only one of the two will be present, the other will be std::nullopt, this will never throw </p>
+
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00131">131</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

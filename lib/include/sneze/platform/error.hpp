@@ -48,7 +48,7 @@ public:
 
     virtual ~error() noexcept = default;
 
-    [[nodiscard]] inline auto message() const {
+    [[nodiscard]] inline auto get_message() const {
         return message_;
     }
 

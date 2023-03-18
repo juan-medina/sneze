@@ -47,7 +47,7 @@ application::application(const std::string &team, const std::string &name)
       world_{std::make_shared<class world>()} {}
 
 auto application::show_error(const error &err) const -> const auto & {
-    std::string message = err.message();
+    std::string message = err.get_message();
     auto causes = err.causes();
     if(!causes.empty()) {
         message += " Caused by:\n";
