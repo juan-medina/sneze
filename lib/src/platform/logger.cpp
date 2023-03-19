@@ -155,111 +155,111 @@ void setup_spdlog() {
 }
 
 void sdl_log_callback(void * /*user_data*/, int /*category*/, SDL_LogPriority priority, const char *message) {
-    level::log_level log_level; // NOLINT(cppcoreguidelines-init-variables)
+    level level; // NOLINT(cppcoreguidelines-init-variables)
 
     switch(priority) {
     case SDL_LOG_PRIORITY_VERBOSE:
-        log_level = level::trace;
+        level = level::trace;
         break;
     case SDL_LOG_PRIORITY_DEBUG:
-        log_level = level::debug;
+        level = level::debug;
         break;
     case SDL_LOG_PRIORITY_INFO:
-        log_level = level::info;
+        level = level::info;
         break;
     case SDL_LOG_PRIORITY_WARN:
-        log_level = level::warning;
+        level = level::warning;
         break;
     [[likely]] case SDL_LOG_PRIORITY_ERROR:
-        log_level = level::error;
+        level = level::error;
         break;
     case SDL_LOG_PRIORITY_CRITICAL:
-        log_level = level::critical;
+        level = level::critical;
         break;
     [[unlikely]] default:
-        log_level = level::off;
+        level = level::off;
         break;
     }
-    log(log_level, std::source_location::current(), "SDL: {}", message);
+    log(level, std::source_location::current(), "SDL: {}", message);
 }
 
 void setup_log() {
     setup_spdlog();
     SDL_LogSetOutputFunction(sdl_log_callback, nullptr);
 #ifdef NDEBUG
-    set_level(logger::level::info);
+    set_level(level::info);
 #else
-    set_level(logger::level::trace);
+    set_level(level::trace);
 #endif
 }
 
-void set_level(level::log_level level) {
-    spdlog::level::level_enum spdlog_level; // NOLINT(cppcoreguidelines-init-variables)
-    SDL_LogPriority sdl_log_level;          // NOLINT(cppcoreguidelines-init-variables)
+void set_level(level level) {
+    spdlog::level::level_enum spdlevel; // NOLINT(cppcoreguidelines-init-variables)
+    SDL_LogPriority sdl_level;          // NOLINT(cppcoreguidelines-init-variables)
 
     switch(level) {
     case level::trace:
-        spdlog_level = spdlog::level::trace;
-        sdl_log_level = SDL_LOG_PRIORITY_VERBOSE;
+        spdlevel = spdlog::level::trace;
+        sdl_level = SDL_LOG_PRIORITY_VERBOSE;
         break;
     case level::debug:
-        spdlog_level = spdlog::level::debug;
-        sdl_log_level = SDL_LOG_PRIORITY_DEBUG;
+        spdlevel = spdlog::level::debug;
+        sdl_level = SDL_LOG_PRIORITY_DEBUG;
         break;
     case level::info:
-        spdlog_level = spdlog::level::info;
-        sdl_log_level = SDL_LOG_PRIORITY_INFO;
+        spdlevel = spdlog::level::info;
+        sdl_level = SDL_LOG_PRIORITY_INFO;
         break;
     case level::warning:
-        spdlog_level = spdlog::level::warn;
-        sdl_log_level = SDL_LOG_PRIORITY_WARN;
+        spdlevel = spdlog::level::warn;
+        sdl_level = SDL_LOG_PRIORITY_WARN;
         break;
     [[likely]] case level::error:
-        spdlog_level = spdlog::level::err;
-        sdl_log_level = SDL_LOG_PRIORITY_ERROR;
+        spdlevel = spdlog::level::err;
+        sdl_level = SDL_LOG_PRIORITY_ERROR;
         break;
     case level::critical:
-        spdlog_level = spdlog::level::critical;
-        sdl_log_level = SDL_LOG_PRIORITY_CRITICAL;
+        spdlevel = spdlog::level::critical;
+        sdl_level = SDL_LOG_PRIORITY_CRITICAL;
         break;
     case level::off:
-        spdlog_level = spdlog::level::off;
-        sdl_log_level = SDL_LOG_PRIORITY_CRITICAL;
+        spdlevel = spdlog::level::off;
+        sdl_level = SDL_LOG_PRIORITY_CRITICAL;
         break;
     [[unlikely]] default:
-        spdlog_level = spdlog::level::info;
-        sdl_log_level = SDL_LOG_PRIORITY_CRITICAL;
+        spdlevel = spdlog::level::info;
+        sdl_level = SDL_LOG_PRIORITY_CRITICAL;
         break;
     }
-    spdlog::set_level(spdlog_level);
-    SDL_LogSetAllPriority(sdl_log_level);
+    spdlog::set_level(spdlevel);
+    SDL_LogSetAllPriority(sdl_level);
 }
 
-auto level_from_string(const std::string &log_level) -> level::log_level {
+auto level_from_string(const std::string &level_string) -> level {
     using namespace entt::literals; // NOLINT(google-build-using-namespace)
 
-    switch(entt::hashed_string{log_level.c_str()}) {
+    switch(entt::hashed_string{level_string.c_str()}) {
     case "trace"_hs:
-        return logger::level::trace;
+        return level::trace;
     case "debug"_hs:
-        return logger::level::debug;
+        return level::debug;
     case "info"_hs:
-        return logger::level::info;
+        return level::info;
     case "warning"_hs:
-        return logger::level::warning;
+        return level::warning;
     [[likely]] case "error"_hs:
-        return logger::level::error;
+        return level::error;
     case "critical"_hs:
-        return logger::level::critical;
+        return level::critical;
     case "off"_hs:
-        return logger::level::off;
+        return level::off;
     [[unlikely]] default:
-        return logger::level::error;
+        return level::error;
     }
 }
 
 // NOLINTBEGIN(bugprone-branch-clone)
-auto string_from_level(level::log_level level) -> std::string {
+auto string_from_level(level level) -> std::string {
     using namespace std::string_literals; // NOLINT(google-build-using-namespace)
 
     switch(level) {

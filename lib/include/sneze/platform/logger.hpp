@@ -66,23 +66,53 @@ struct source_location {
 
 #include <spdlog/spdlog.h>
 
+/**
+ * @brief provides a simple way to log messages
+ *
+ * This is a simple wrapper around spdlog that provides a simple way to log messages
+ * using the fmt library. The messages are logged with the file name, line number and
+ * function name in which the log message was called when running in debug mode.
+ *
+ * @attention Logging file names, line numbers and function names is only supported
+ * when the compiler supports the C++20 source_location header. Currently GCC, clang 10 & MSVC
+ * support this, apple's clang does not.
+ *
+ * By default the logger is set to log messages with the level debug and above when running
+ * in debug mode and with the level info and above when running in release mode.
+ *
+ * The current log level can be changed by calling the function logger::set_level and
+ * will be read/write from sneze::settings.
+ *
+ * The log will be written to the file **sneze.log** in the current working directory, and
+ * will be displayed colored in the standard output.
+ *
+ * @code
+ * sneze::logger::info("Hello {}", "World");
+ * @endcode
+ */
 namespace sneze::logger {
 
-namespace level {
-enum log_level : int {
+//! the different log levels
+enum class level : int {
+    //! log all messages
     trace = spdlog::level::trace,
+    //! log debug, info, warning, error and critical messages
     debug = spdlog::level::debug,
+    //! log info, warning, error and critical messages
     info = spdlog::level::info,
+    //! log warning, error and critical messages
     warning = spdlog::level::warn,
+    //! log error and critical messages
     error = spdlog::level::err,
+    //! log critical messages
     critical = spdlog::level::critical,
+    //! log no messages
     off = spdlog::level::off
 };
-} // namespace level
 
 template<typename... Args>
 static void
-log(const level::log_level level, std::source_location source, fmt::format_string<Args...> fmt, Args &&...args) {
+log(const level level, std::source_location source, fmt::format_string<Args...> fmt, Args &&...args) {
     auto location = spdlog::source_loc{source.file_name(), static_cast<int>(source.line()), source.function_name()};
     spdlog::log(location, static_cast<spdlog::level::level_enum>(level), fmt, std::forward<Args>(args)...);
 }
@@ -96,6 +126,12 @@ struct info {
     }
 };
 
+/**
+ * @brief log a message with sneze::logger::level::info
+ *
+ * @param fmt the format string
+ * @param args the arguments to be formatted
+ */
 template<typename... Args>
 info(fmt::format_string<Args...> fmt, Args &&...) -> info<Args...>;
 
@@ -108,6 +144,12 @@ struct debug {
     }
 };
 
+/**
+ * @brief log a message with sneze::logger::level::debug
+ *
+ * @param fmt the format string
+ * @param args the arguments to be formatted
+ */
 template<typename... Args>
 debug(fmt::format_string<Args...> fmt, Args &&...) -> debug<Args...>;
 
@@ -120,6 +162,12 @@ struct error {
     }
 };
 
+/**
+ * @brief log a message with sneze::logger::level::error
+ *
+ * @param fmt the format string
+ * @param args the arguments to be formatted
+ */
 template<typename... Args>
 error(fmt::format_string<Args...> fmt, Args &&...) -> error<Args...>;
 
@@ -132,6 +180,12 @@ struct warning {
     }
 };
 
+/**
+ * @brief log a message with sneze::logger::level::warning
+ *
+ * @param fmt the format string
+ * @param args the arguments to be formatted
+ */
 template<typename... Args>
 warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
 
@@ -147,12 +201,28 @@ struct trace {
 template<typename... Args>
 trace(fmt::format_string<Args...> fmt, Args &&...) -> trace<Args...>;
 
+//! setup the logger system
 void setup_log();
 
-void set_level(level::log_level level);
+/**
+ * @brief set the log level
+ *
+ * @param level the new log sneze::logger:level
+ */
+void set_level(level level);
 
-auto level_from_string(const std::string &level) -> level::log_level;
+/**
+ * @brief get a sneze::logger::level from a string
+ *
+ * @return the sneze logger level
+ */
+auto level_from_string(const std::string &level_string) -> level;
 
-auto string_from_level(level::log_level level) -> std::string;
+/**
+ * @brief get a string from a sneze::logger::level
+ *
+ * @return the string representation of the sneze logger level
+ */
+auto string_from_level(level level) -> std::string;
 
 } // namespace sneze::logger
