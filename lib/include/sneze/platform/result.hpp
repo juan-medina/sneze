@@ -85,6 +85,9 @@ public:
      *
      * @return true if the result has an error
      * @return false if the result has a value
+     * @see result::has_value
+     * @see result::get_error
+     * @see result::ko
      */
     [[maybe_unused]] inline auto has_error() const noexcept {
         return std::holds_alternative<Error>(*this);
@@ -95,6 +98,9 @@ public:
      *
      * @return true if the result has a value
      * @return false if the result has an error
+     * @see result::has_error
+     * @see result::get_value
+     * @see result::ok
      */
     [[maybe_unused]] inline auto has_value() const noexcept {
         return std::holds_alternative<Value>(*this);
@@ -103,9 +109,12 @@ public:
     /**
      * @brief Get the error
      *
-     * @warning this will throw if the result has a value
+     * @warning this will throw if the result has a value, for non-throwing version
+     * use result::ok or result::ko
      *
      * @return the error object
+     * @see result::has_error
+     * @see result::ko
      */
     [[maybe_unused]] [[nodiscard]] inline auto get_error() const {
         return std::get<Error>(*this);
@@ -114,19 +123,33 @@ public:
     /**
      * @brief Get the value
      *
-     * @warning this will throw if the result has an error
+     * @warning this will throw if the result has an error, for a non-throwing
+     * version use result::ok or result::ko
      *
      * @return the value object
+     * @see result::has_value
+     * @see result::ok
      */
     [[maybe_unused]] [[nodiscard]] inline auto get_value() const {
         return std::get<Value>(*this);
     }
 
     /**
-     * @brief Get a tuple with an optional value or an optional error
+     * @brief Get value or error
      *
      * only one of the two will be present, the other will be std::nullopt, this will
-     * never throw
+     * never throw and is preferred over result::get_value and result::get_error.
+     *
+     * @code
+     * if(auto [value, error] = do_something().ok(); error) {
+     *   std::cout << "Error: " << error->get_message() << std::endl;
+     *   return 1;
+     * } else {
+     *   std::cout << "Result: " << *value << std::endl;
+     * }
+     * @endcode
+     * @return a tuple with an optional value or an optional error
+     * @see result::ko
      */
     [[nodiscard]] inline auto ok() const noexcept -> std::tuple<std::optional<Value>, std::optional<Error>> {
         if(has_error()) {
@@ -138,9 +161,17 @@ public:
     /**
      * @brief Get an optional error
      *
-     * if the result has a value, this will return std::nullopt, this will never throw
+     * if the result has a value, this will return std::nullopt, this will never throw and
+     * is preferred over result::get_error.
      *
-     * @return std::optional<Error> the error object
+     * @code
+     * if(auto error = do_something().ko(); error) {
+     *  std::cout << "imError: " << error->get_message() << std::endl;
+     *  return 1;
+     * }
+     * @endcode
+     * @return an optional with the error object
+     * @see result::ok
      */
     [[nodiscard]] inline auto ko() const noexcept -> std::optional<Error> {
         if(has_error()) {
