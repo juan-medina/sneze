@@ -32,6 +32,14 @@ SOFTWARE.
 
 namespace sneze {
 
+namespace internal {
+
+/**
+ * @brief Get the raw type name
+ *
+ * @tparam Type The type to get the name from
+ * @return The raw type name
+ */
 template<typename Type>
 [[nodiscard]] constexpr auto raw_type_name() -> std::string_view {
 #if not defined(_MSC_VER)
@@ -41,11 +49,15 @@ template<typename Type>
 #endif
 }
 
+//! Holds the format of the type name
 struct type_name_format {
+    //! The number of characters to remove from the beginning of the type name
     std::size_t junk_leading = 0;
+    //! The total number of characters to remove from the type name
     std::size_t junk_total = 0;
 };
 
+//! Holds the format of the type name for the current compiler
 constexpr type_name_format type_name_format_arr = [] {
     type_name_format ret;
     std::string_view const sample = raw_type_name<int>();
@@ -56,6 +68,10 @@ constexpr type_name_format type_name_format_arr = [] {
 static_assert(type_name_format_arr.junk_leading != static_cast<std::size_t>(-1),
               "Unable to determine the type name format on this compiler.");
 
+/**
+ * @brief Get the type name storage
+ * @tparam Type the type to get information from
+ */
 template<typename Type>
 static constexpr auto type_name_storage = [] {
     std::array<char, raw_type_name<Type>().size() - type_name_format_arr.junk_total + 1> ret{};
@@ -63,9 +79,23 @@ static constexpr auto type_name_storage = [] {
     return ret;
 }();
 
+} // namespace internal
+
+/**
+ * @brief Get the type name as an string for a given type.
+ *
+ * @code
+ * std::cout << type_name<int>() << std::endl;
+ * @endcode
+ * this will print "int" on most compilers.
+ *
+ * @tparam Type The type to get the name of.
+ *
+ * @return A string with the type name.
+ */
 template<typename Type>
 [[nodiscard]] constexpr auto type_name() -> std::string_view {
-    return {type_name_storage<Type>.data(), type_name_storage<Type>.size() - 1};
+    return {internal::type_name_storage<Type>.data(), internal::type_name_storage<Type>.size() - 1};
 }
 
 } // namespace sneze
