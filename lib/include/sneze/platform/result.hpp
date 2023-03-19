@@ -166,7 +166,7 @@ public:
      *
      * @code
      * if(auto error = do_something().ko(); error) {
-     *  std::cout << "imError: " << error->get_message() << std::endl;
+     *  std::cout << "imuupError: " << error->get_message() << std::endl;
      *  return 1;
      * }
      * @endcode

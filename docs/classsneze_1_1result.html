@@ -126,7 +126,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a840f154babf94bd241e0f579a140e936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value.  <br /></td></tr>
 <tr class="separator:a840f154babf94bd241e0f579a140e936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06b2b15750e3c3d11c898651f235070a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">ok</a> () const noexcept -&gt; std::tuple&lt; std::optional&lt; Value &gt;, std::optional&lt; Error &gt; &gt;</td></tr>
-<tr class="memdesc:a06b2b15750e3c3d11c898651f235070a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a tuple with an optional value or an optional error.  <br /></td></tr>
+<tr class="memdesc:a06b2b15750e3c3d11c898651f235070a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get value or error.  <br /></td></tr>
 <tr class="separator:a06b2b15750e3c3d11c898651f235070a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8a4686ac22265c0f1c936ab626adb66"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66">ko</a> () const noexcept -&gt; std::optional&lt; Error &gt;</td></tr>
 <tr class="memdesc:af8a4686ac22265c0f1c936ab626adb66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an optional error.  <br /></td></tr>
@@ -153,7 +153,7 @@ class sneze::result&lt; Value, Error &gt;</div><p>A result type that can be used
 <div class="line"><span class="keywordflow">return</span> 0;</div>
 <div class="ttc" id="aclasssneze_1_1error_html"><div class="ttname"><a href="classsneze_1_1error.html">sneze::error</a></div><div class="ttdoc">Represents an error with a message and a list of causes.</div><div class="ttdef"><b>Definition:</b> <a href="error_8hpp_source.html#l00036">error.hpp:36</a></div></div>
 <div class="ttc" id="aclasssneze_1_1result_html"><div class="ttname"><a href="classsneze_1_1result.html">sneze::result</a></div><div class="ttdoc">A result type that can be used to return a value or an error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00065">result.hpp:65</a></div></div>
-<div class="ttc" id="aclasssneze_1_1result_html_a06b2b15750e3c3d11c898651f235070a"><div class="ttname"><a href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">sneze::result::ok</a></div><div class="ttdeci">auto ok() const noexcept -&gt; std::tuple&lt; std::optional&lt; Value &gt;, std::optional&lt; Error &gt; &gt;</div><div class="ttdoc">Get a tuple with an optional value or an optional error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00131">result.hpp:131</a></div></div>
+<div class="ttc" id="aclasssneze_1_1result_html_a06b2b15750e3c3d11c898651f235070a"><div class="ttname"><a href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">sneze::result::ok</a></div><div class="ttdeci">auto ok() const noexcept -&gt; std::tuple&lt; std::optional&lt; Value &gt;, std::optional&lt; Error &gt; &gt;</div><div class="ttdoc">Get value or error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00154">result.hpp:154</a></div></div>
 </div><!-- fragment --> <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Value</td><td>The type of the value to return, defaults to bool </td></tr>
@@ -163,7 +163,7 @@ class sneze::result&lt; Value, Error &gt;</div><p>A result type that can be used
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1error.html" title="Represents an error with a message and a list of causes.">sneze::error</a> </dd>
 <dd>
-<a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get a tuple with an optional value or an optional error.">result::ok</a> </dd>
+<a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get value or error.">result::ok</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a> </dd></dl>
 
@@ -272,10 +272,13 @@ template&lt;class Value  = bool, class Error  = class error&gt; </div>
 </div><div class="memdoc">
 
 <p>Get the error. </p>
-<dl class="section warning"><dt>Warning</dt><dd>this will throw if the result has a value</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>this will throw if the result has a value, for non-throwing version use <a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get value or error.">result::ok</a> or <a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the error object </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed" title="Return if the result has an error.">result::has_error</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00110">110</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00119">119</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
 
 </div>
 </div>
@@ -305,10 +308,13 @@ template&lt;class Value  = bool, class Error  = class error&gt; </div>
 </div><div class="memdoc">
 
 <p>Get the value. </p>
-<dl class="section warning"><dt>Warning</dt><dd>this will throw if the result has an error</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>this will throw if the result has an error, for a non-throwing version use <a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get value or error.">result::ok</a> or <a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the value object </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1result.html#ac0a7e7fd669d5b27f87ce43e8070ba52" title="Check if the result has a value.">result::has_value</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get value or error.">result::ok</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00121">121</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00133">133</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
 
 </div>
 </div>
@@ -341,8 +347,13 @@ template&lt;class Value  = bool, class Error  = class error&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if the result has an error </dd>
 <dd>
 false if the result has a value </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1result.html#ac0a7e7fd669d5b27f87ce43e8070ba52" title="Check if the result has a value.">result::has_value</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#a8f0bf9cb2379d3a67ae2edde62b7c822" title="Get the error.">result::get_error</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00089">89</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00092">92</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
 
 </div>
 </div>
@@ -375,8 +386,13 @@ template&lt;class Value  = bool, class Error  = class error&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if the result has a value </dd>
 <dd>
 false if the result has an error </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed" title="Return if the result has an error.">result::has_error</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936" title="Get the value.">result::get_value</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get value or error.">result::ok</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00099">99</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00105">105</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
 
 </div>
 </div>
@@ -406,10 +422,17 @@ template&lt;class Value  = bool, class Error  = class error&gt; </div>
 </div><div class="memdoc">
 
 <p>Get an optional error. </p>
-<p>if the result has a value, this will return std::nullopt, this will never throw</p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Error&gt; the error object </dd></dl>
+<p>if the result has a value, this will return std::nullopt, this will never throw and is preferred over <a class="el" href="classsneze_1_1result.html#a8f0bf9cb2379d3a67ae2edde62b7c822" title="Get the error.">result::get_error</a>.</p>
+<div class="fragment"><div class="line"><span class="keywordflow">if</span>(<span class="keyword">auto</span> <a class="code hl_class" href="classsneze_1_1error.html">error</a> = do_something().<a class="code hl_function" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66">ko</a>(); <a class="code hl_class" href="classsneze_1_1error.html">error</a>) {</div>
+<div class="line"> std::cout &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; <a class="code hl_class" href="classsneze_1_1error.html">error</a>-&gt;<a class="code hl_function" href="classsneze_1_1error.html#a864144ac5a4d5a2e310e2897ba4c9e84">get_message</a>() &lt;&lt; std::endl;</div>
+<div class="line"> <span class="keywordflow">return</span> 1;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1error_html_a864144ac5a4d5a2e310e2897ba4c9e84"><div class="ttname"><a href="classsneze_1_1error.html#a864144ac5a4d5a2e310e2897ba4c9e84">sneze::error::get_message</a></div><div class="ttdeci">auto get_message() const noexcept -&gt; const std::string &amp;</div><div class="ttdoc">Get the error message.</div><div class="ttdef"><b>Definition:</b> <a href="error_8hpp_source.html#l00059">error.hpp:59</a></div></div>
+<div class="ttc" id="aclasssneze_1_1result_html_af8a4686ac22265c0f1c936ab626adb66"><div class="ttname"><a href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66">sneze::result::ko</a></div><div class="ttdeci">auto ko() const noexcept -&gt; std::optional&lt; Error &gt;</div><div class="ttdoc">Get an optional error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8hpp_source.html#l00176">result.hpp:176</a></div></div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Error&gt; the error object </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a" title="Get value or error.">result::ok</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00145">145</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00176">176</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
 
 </div>
 </div>
@@ -438,10 +461,18 @@ template&lt;class Value  = bool, class Error  = class error&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get a tuple with an optional value or an optional error. </p>
-<p>only one of the two will be present, the other will be std::nullopt, this will never throw </p>
+<p>Get value or error. </p>
+<p>only one of the two will be present, the other will be std::nullopt, this will never throw and is preferred over <a class="el" href="classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936" title="Get the value.">result::get_value</a> and <a class="el" href="classsneze_1_1result.html#a8f0bf9cb2379d3a67ae2edde62b7c822" title="Get the error.">result::get_error</a>.</p>
+<div class="fragment"><div class="line"><span class="keywordflow">if</span>(<span class="keyword">auto</span> [value, <a class="code hl_class" href="classsneze_1_1error.html">error</a>] = do_something().<a class="code hl_function" href="classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a">ok</a>(); <a class="code hl_class" href="classsneze_1_1error.html">error</a>) {</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; <a class="code hl_class" href="classsneze_1_1error.html">error</a>-&gt;<a class="code hl_function" href="classsneze_1_1error.html#a864144ac5a4d5a2e310e2897ba4c9e84">get_message</a>() &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">return</span> 1;</div>
+<div class="line">} <span class="keywordflow">else</span> {</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Result: &quot;</span> &lt;&lt; *value &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>a tuple with an optional value or an optional error </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66" title="Get an optional error.">result::ko</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00131">131</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8hpp_source.html#l00154">154</a> of file <a class="el" href="result_8hpp_source.html">result.hpp</a>.</p>
 
 </div>
 </div>

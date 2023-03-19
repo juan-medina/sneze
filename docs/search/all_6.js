@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['simple_20not_20easy_20zestful_20engine_0',['Simple Not Easy Zestful Engine',['../index.html',1,'']]],
-  ['sneze_1',['sneze',['../namespacesneze.html',1,'']]]
+  ['ok_0',['ok',['../classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a',1,'sneze::result']]]
 ];
