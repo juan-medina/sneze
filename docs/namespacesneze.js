@@ -29,5 +29,6 @@ var namespacesneze =
     ] ],
     [ "error", "classsneze_1_1error.html", "classsneze_1_1error" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
-    [ "span_istream", "classsneze_1_1span__istream.html", "classsneze_1_1span__istream" ]
+    [ "span_istream", "classsneze_1_1span__istream.html", "classsneze_1_1span__istream" ],
+    [ "type_name", "namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c", null ]
 ];
