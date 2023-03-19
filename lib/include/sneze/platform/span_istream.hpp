@@ -31,10 +31,23 @@ SOFTWARE.
 
 namespace sneze {
 
+namespace internal {
+/**
+ * @brief A stream buffer that reads from a span
+ *
+ * This allows to read from a span as if it was a file, this is useful for
+ * embedded files.
+ */
 class span_stream_buffer: public std::streambuf {
 public:
+    /**
+     * @brief Construct a new span_stream_buffer object
+     *
+     * @param span The span to read from
+     */
     explicit span_stream_buffer(std::span<const std::byte> span);
 };
+} // namespace internal
 
 /**
  * @brief A input stream that reads from a span
@@ -53,7 +66,10 @@ public:
         : std::istream(&span_stream_buffer_), span_stream_buffer_{span} {}
 
 private:
-    span_stream_buffer span_stream_buffer_;
+    /**
+     * @brief The stream buffer that will read from the span
+     */
+    internal::span_stream_buffer span_stream_buffer_;
 };
 
 } // namespace sneze

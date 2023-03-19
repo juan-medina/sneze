@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "sneze/platform/span_istream.hpp"
 
-namespace sneze {
+namespace sneze::internal {
 
 span_stream_buffer::span_stream_buffer(std::span<const std::byte> span) {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast,cppcoreguidelines-pro-type-const-cast)
@@ -33,4 +33,4 @@ span_stream_buffer::span_stream_buffer(std::span<const std::byte> span) {
     setg(begin, begin, end);
 }
 
-} // namespace sneze
+} // namespace sneze::internal
