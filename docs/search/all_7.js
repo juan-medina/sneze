@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['release_0',['release',['../namespacesneze_1_1version.html#a168fbc22a96b2a50bef926eda4537c4c',1,'sneze::version']]],
-  ['result_1',['result',['../classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1',1,'sneze::result::result(const Value &amp;value)'],['../classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973',1,'sneze::result::result(const Error &amp;error)'],['../classsneze_1_1result.html',1,'sneze::result&lt; Value, Error &gt;']]]
+  ['level_0',['level',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7',1,'sneze::logger']]],
+  ['level_5ffrom_5fstring_1',['level_from_string',['../namespacesneze_1_1logger.html#ad9e4c169cc0cd4a9e10ee92788886302',1,'sneze::logger']]],
+  ['logo_2',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
+  ['logo_5fstring_3',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]]
 ];

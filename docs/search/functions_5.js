@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['result_0',['result',['../classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1',1,'sneze::result::result(const Value &amp;value)'],['../classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973',1,'sneze::result::result(const Error &amp;error)']]]
+  ['ko_0',['ko',['../classsneze_1_1result.html#af8a4686ac22265c0f1c936ab626adb66',1,'sneze::result']]]
 ];

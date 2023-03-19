@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ok_0',['ok',['../classsneze_1_1result.html#a06b2b15750e3c3d11c898651f235070a',1,'sneze::result']]]
+  ['info_0',['info',['../namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37',1,'sneze::logger']]]
 ];

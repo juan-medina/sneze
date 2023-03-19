@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['major_0',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
-  ['minor_1',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]]
+  ['info_0',['info',['../namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37',1,'sneze::logger::info(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; info&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7acaf9b6b99962bf5c2264824231d7a40c',1,'sneze::logger::info()']]]
 ];
