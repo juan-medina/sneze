@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "sneze::application", "classsneze_1_1application.html", null ],
     [ "sneze::error", "classsneze_1_1error.html", null ],
     [ "std::ios_base", null, [
       [ "std::basic_ios< char >", null, [

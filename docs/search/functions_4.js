@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['info_54',['info',['../namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37',1,'sneze::logger']]]
+  ['get_5fcauses_59',['get_causes',['../classsneze_1_1error.html#a10c0beaa5e6d5382b078b9403714e3b0',1,'sneze::error']]],
+  ['get_5ferror_60',['get_error',['../classsneze_1_1result.html#a8f0bf9cb2379d3a67ae2edde62b7c822',1,'sneze::result']]],
+  ['get_5fmessage_61',['get_message',['../classsneze_1_1error.html#a864144ac5a4d5a2e310e2897ba4c9e84',1,'sneze::error']]],
+  ['get_5fname_62',['get_name',['../classsneze_1_1application.html#aba5489425cb811da16633b20e8c9fe8b',1,'sneze::application']]],
+  ['get_5fteam_63',['get_team',['../classsneze_1_1application.html#a687de67755798796e30edd49423c7fa9',1,'sneze::application']]],
+  ['get_5fvalue_64',['get_value',['../classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936',1,'sneze::result']]]
 ];

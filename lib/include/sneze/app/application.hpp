@@ -39,8 +39,30 @@ namespace sneze {
 class render;
 class world;
 
+/**
+ * @brief The class defines an sneze application and controls the world, render, settings, events and systems.
+ *
+ * @note You MUST inherit from this class and implement the following methods:
+ * application::configure, application::init and application::end.
+ */
 class application {
 public:
+    /**
+     * @brief construct a new application
+     *
+     * @note You need to call this constructor from your own application constructor setting the team and name of
+     * your game these values will be used to create the window title and the settings folder and file name.
+     *
+     * @code
+     * class my_game: public application {
+     * public:
+     *   my_game(): application("Team Name", "My Game") {}
+     *   ...
+     * };
+     * @endcode
+     * @param team the team name for your game
+     * @param name the name of your game
+     */
     application(const std::string &team, const std::string &name);
 
     virtual ~application() = default;
@@ -51,19 +73,79 @@ public:
     auto operator=(const application &) -> application & = delete;
     auto operator=(const application &&) -> application & = delete;
 
-    auto run() -> result<bool, error>;
-
+    /**
+     * @brief configure the application
+     *
+     * This method is called before the application::init method and it is used to configure the application.
+     * You can set several options like the window size, the window title, the window icon, and many others, for more
+     * information about the available options please check the sneze::config class.
+     *
+     * @code
+     * my_game::configure() {
+     *   return config()
+     *     .size(1920, 1080)
+     *     .clear(color::light_gray)
+     *     .exit(key::escape)
+     *     .toggle_full_screen(modifier::alt, key::_return);
+     * }
+     * @endcode
+     * @return the desired application configuration
+     * @see sneze::config
+     */
     [[nodiscard]] virtual auto configure() -> config = 0;
 
+    /**
+     * @brief notify the application about initialization
+     * This method is called after the application::configure method and it is used to initialize the application.
+     *
+     * You can load the resources you need for your game here, like fonts, sprites, and others.
+     *
+     * @return a result with the error if any
+     * @see sneze::result
+     */
     [[nodiscard]] virtual auto init() -> result<> = 0;
 
+    /**
+     * @brief notify the application about ending
+     * This method is called before the application closes and it is used to end the application.
+     *
+     * You can unload the resources you loaded in the application::init method here.
+     *
+     */
     virtual void end() = 0;
 
-    [[nodiscard]] inline auto team() const noexcept -> const std::string & {
+    /**
+     * @brief ask the application to run
+     *
+     * tell the application to start running, this method will call the application::configure, application::init and
+     * will start the main loop, after the main loop ends the application::end method will be called.
+     *
+     * @code
+     * auto main(int argc, char * argv[]) -> int {
+     *   if(auto err = my_game().run().ko(); err) {
+     *     return EXIT_FAILURE;
+     *   }
+     *   return EXIT_SUCCESS;
+     * }
+     * @endcode
+     *
+     * @return a result with the error if any
+     * @see sneze::result
+     * @see sneze::result::ko
+     * @see sneze::error
+     * @see sneze::application::configure
+     * @see sneze::application::init
+     * @see sneze::application::end
+     */
+    [[nodiscard]] auto run() -> result<bool, error>;
+
+    //! get the team name for your game
+    [[nodiscard]] inline auto get_team() const noexcept -> const std::string & {
         return team_;
     }
 
-    [[nodiscard]] inline auto name() const noexcept -> const std::string & {
+    //! get the game name
+    [[nodiscard]] inline auto get_name() const noexcept -> const std::string & {
         return name_;
     }
 
@@ -121,6 +203,8 @@ private:
     std::shared_ptr<render> render_;
     std::shared_ptr<class world> world_;
     bool want_to_close_{false};
+
+
 
     void app_want_closing(events::application_want_closing event) noexcept;
 

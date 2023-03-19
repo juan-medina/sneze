@@ -1,12 +1,7 @@
 var searchData=
 [
-  ['logger_24',['logger',['../namespacesneze_1_1logger.html',1,'sneze']]],
-  ['set_5flevel_25',['set_level',['../namespacesneze_1_1logger.html#a8dc1bc397b33440d038268fff57da583',1,'sneze::logger']]],
-  ['setup_5flog_26',['setup_log',['../namespacesneze_1_1logger.html#a1b7484ec500e53ca56bdabb0cd574378',1,'sneze::logger']]],
-  ['simple_20not_20easy_20zestful_20engine_27',['Simple Not Easy Zestful Engine',['../index.html',1,'']]],
-  ['sneze_28',['sneze',['../namespacesneze.html',1,'']]],
-  ['span_5fistream_29',['span_istream',['../classsneze_1_1span__istream.html',1,'sneze::span_istream'],['../classsneze_1_1span__istream.html#a220d43a1161b8447c67cda4d78cc5c33',1,'sneze::span_istream::span_istream()']]],
-  ['string_30',['string',['../namespacesneze_1_1version.html#a9126c7c9e6611ab0d5e13f7e7a3c372f',1,'sneze::version']]],
-  ['string_5ffrom_5flevel_31',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]],
-  ['version_32',['version',['../namespacesneze_1_1version.html',1,'sneze']]]
+  ['raw_5ftype_5fname_27',['raw_type_name',['../namespacesneze.html#ab7ee8852f78ad34a1882afb4319c4520',1,'sneze']]],
+  ['release_28',['release',['../namespacesneze_1_1version.html#a168fbc22a96b2a50bef926eda4537c4c',1,'sneze::version']]],
+  ['result_29',['result',['../classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1',1,'sneze::result::result(const Value &amp;value)'],['../classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973',1,'sneze::result::result(const Error &amp;error)'],['../classsneze_1_1result.html',1,'sneze::result&lt; Value, Error &gt;']]],
+  ['run_30',['run',['../classsneze_1_1application.html#a80261bd6fedb697dce8e6e80b7b71fe1',1,'sneze::application']]]
 ];

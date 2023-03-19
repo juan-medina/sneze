@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['result_40',['result',['../classsneze_1_1result.html',1,'sneze']]]
+  ['error_47',['error',['../classsneze_1_1error.html',1,'sneze']]]
 ];

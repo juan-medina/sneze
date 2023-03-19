@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['critical_0',['critical',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7e85bcb66fb9a809d5ab4f62a8b8bea8',1,'sneze::logger']]]
+  ['application_0',['application',['../classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc',1,'sneze::application::application()'],['../classsneze_1_1application.html',1,'sneze::application']]]
 ];

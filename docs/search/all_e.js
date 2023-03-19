@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['warning_38',['warning',['../namespacesneze_1_1logger.html#a08459585cec2a8e71c7ef1018eceba16',1,'sneze::logger::warning(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; warning&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7b83d3f08fa392b79e3f553b585971cd',1,'sneze::logger::warning()']]]
+  ['trace_40',['trace',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a04a75036e9d520bb983c5ed03b8d0182',1,'sneze::logger']]],
+  ['type_5fname_41',['type_name',['../namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c',1,'sneze']]],
+  ['type_5fname_5fformat_42',['type_name_format',['../structsneze_1_1type__name__format.html',1,'sneze']]],
+  ['type_5fname_5fformat_5farr_43',['type_name_format_arr',['../namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4',1,'sneze']]],
+  ['type_5fname_5fstorage_44',['type_name_storage',['../namespacesneze.html#a776319c93836947f5127be1520ff7dc0',1,'sneze']]]
 ];

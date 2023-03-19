@@ -55,7 +55,7 @@ auto application::show_error(const error &err) const -> const auto & {
             message += "\n - " + cause;
         }
     }
-    auto message_title = fmt::format("{} : Error!", name());
+    auto message_title = fmt::format("{} : Error!", get_name());
     boxer::show(message.c_str(), message_title.c_str(), boxer::Style::Error, boxer::Buttons::Quit);
     return err;
 }
@@ -65,7 +65,7 @@ auto application::run() -> result<bool, error> {
 #    pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #endif
     logger::setup_log();
-    logger::info("running application: {} (Team: {})", name(), team());
+    logger::info("running application: {} (Team: {})", get_name(), get_team());
 
     if(auto err = read_settings().ko()) {
         return show_error(*err);
@@ -81,7 +81,7 @@ auto application::run() -> result<bool, error> {
         return show_error(*err);
     }
 
-    logger::trace("stopping application: {}", name());
+    logger::trace("stopping application: {}", get_name());
 
     return true;
 }
@@ -115,7 +115,8 @@ auto application::launch() -> result<> {
 
     logger::trace("init render");
     if(auto err =
-           render_->init(window, config.logical(), fullscreen, monitor, name(), config.icon(), config.clear()).ko()) {
+           render_->init(window, config.logical(), fullscreen, monitor, get_name(), config.icon(), config.clear())
+               .ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['junk_5fleading_10',['junk_leading',['../structsneze_1_1type__name__format.html#a8f335e9aec00b551f1f93f68de1d76de',1,'sneze::type_name_format']]],
-  ['junk_5ftotal_11',['junk_total',['../structsneze_1_1type__name__format.html#a8665d0ddd24c8a7a7b2beafb7a1088e9',1,'sneze::type_name_format']]]
+  ['info_14',['info',['../namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37',1,'sneze::logger::info(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; info&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7acaf9b6b99962bf5c2264824231d7a40c',1,'sneze::logger::info()']]],
+  ['init_15',['init',['../classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f',1,'sneze::application']]]
 ];

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['get_5fcauses_3',['get_causes',['../classsneze_1_1error.html#a10c0beaa5e6d5382b078b9403714e3b0',1,'sneze::error']]],
-  ['get_5ferror_4',['get_error',['../classsneze_1_1result.html#a8f0bf9cb2379d3a67ae2edde62b7c822',1,'sneze::result']]],
-  ['get_5fmessage_5',['get_message',['../classsneze_1_1error.html#a864144ac5a4d5a2e310e2897ba4c9e84',1,'sneze::error']]],
-  ['get_5fvalue_6',['get_value',['../classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936',1,'sneze::result']]]
+  ['end_4',['end',['../classsneze_1_1application.html#a05d92d42d1ee2ad2c24f87214d58d86b',1,'sneze::application']]],
+  ['error_5',['error',['../classsneze_1_1error.html#a9102d6bf578d57857ff6f4f18b7750c7',1,'sneze::error::error(std::string message)'],['../classsneze_1_1error.html#abbe5539e5d164c7204451c1f225ebd65',1,'sneze::error::error(std::string message, const error &amp;other)'],['../namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa',1,'sneze::logger::error(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; error&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7acb5e100e5a9a3e7f6d1fd97512215282',1,'sneze::logger::error()'],['../classsneze_1_1error.html',1,'sneze::error']]]
 ];
