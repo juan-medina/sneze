@@ -28,13 +28,28 @@ SOFTWARE.
 
 #include <fmt/format.h>
 
+/**
+ * @brief information about the current version
+ *
+ * This namespace contains information about the current version of the
+ * library and includes the sneze ascii logo that will be printed when
+ * the library is initialized.
+ */
 namespace sneze::version {
 
+//! major version
 static const int major = 0;
+
+//! minor version
 static const int minor = 0;
+
+//! release version
 static const int release = 0;
+
+//! version string with format v{major}.{minor}.{release}
 static const std::string string = fmt::format("v{}.{}.{}", major, minor, release);
 
+//! sneze ascii logo template
 static constexpr auto logo = R"(  ____
  / ___|   _ __     ___   ____   ___
  \___ \  | '_ \   / _ \ |_  /  / _ \
@@ -42,6 +57,7 @@ static constexpr auto logo = R"(  ____
  |____/  |_| |_|  \___| /___|  \___|
                   version {}.{}.{})";
 
+//! sneze ascii logo with version
 static const auto logo_string = fmt::format(logo, major, minor, release);
 
 } // namespace sneze::version
