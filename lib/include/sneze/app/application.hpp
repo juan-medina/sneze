@@ -43,14 +43,6 @@ class application {
 public:
     application(const std::string &team, const std::string &name);
 
-    virtual ~application() = default;
-
-    application(const application &) = delete;
-    application(const application &&) = delete;
-
-    auto operator=(const application &) -> application & = delete;
-    auto operator=(const application &&) -> application & = delete;
-
     auto run() -> result<bool, error>;
 
     [[nodiscard]] virtual auto configure() -> config = 0;

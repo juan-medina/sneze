@@ -106,13 +106,13 @@ auto parse_frames(const rapidjson::Document &document, std::unordered_map<std::s
 auto sprite_sheet::init(const std::string &uri, bool is_single_texture) -> result<> {
     logger::trace("sprite sheet init");
 
-    if(const auto file_path = fs::path{uri}; fs::exists(file_path)) {
-        sprite_sheet_directory_ = file_path.parent_path();
+    if(get_render()->file_exists(uri)) {
+        sprite_sheet_directory_ = get_render()->get_parent(uri);
 
         if(is_single_texture) {
-            return init_from_texture(file_path);
+            return init_from_texture(uri);
         }
-        return init_from_json(file_path);
+        return init_from_json(uri);
     }
 
     logger::error("error sprite sheet does not exist: {}", uri);
@@ -120,20 +120,19 @@ auto sprite_sheet::init(const std::string &uri, bool is_single_texture) -> resul
 }
 
 auto sprite_sheet::init_from_json(const std::filesystem::path &file_path) -> result<> {
-    std::ifstream file{file_path};
-    if(!file.is_open()) {
+
+    auto stream = get_render()->get_istream(file_path);
+    if(stream == nullptr) {
         logger::error("error opening sprite sheet file: {}", file_path.string());
         return error("Can't open sprite sheet file.");
     }
 
     auto document = rapidjson::Document{};
-    const std::string json_string{std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()};
+    const std::string json_string{std::istreambuf_iterator<char>(*stream), std::istreambuf_iterator<char>()};
     if(document.Parse(json_string.c_str()).HasParseError()) {
         logger::error("error parsing json file: {}", file_path.string());
-        file.close();
         return error("Can't parse sprite sheet file.");
     }
-    file.close();
 
     if(!document.IsObject()) {
         logger::error("error parsing json file: {}", file_path.string());

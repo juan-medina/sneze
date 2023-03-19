@@ -94,7 +94,8 @@ $(document).ready(function(){initNavTree('namespacesneze.html',''); initResizabl
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">sneze Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -122,17 +123,73 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1span__istream.html">span_istream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A input stream that reads from a span.  <a href="classsneze_1_1span__istream.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsneze_1_1type__name__format.html">type_name_format</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the format of the type name.  <a href="structsneze_1_1type__name__format.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ab7ee8852f78ad34a1882afb4319c4520"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
+<tr class="memitem:ab7ee8852f78ad34a1882afb4319c4520"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze.html#ab7ee8852f78ad34a1882afb4319c4520">raw_type_name</a> () -&gt; std::string_view</td></tr>
+<tr class="memdesc:ab7ee8852f78ad34a1882afb4319c4520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the raw type name.  <br /></td></tr>
+<tr class="separator:ab7ee8852f78ad34a1882afb4319c4520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11165fdc2815714f1490e38fa5a6b19c"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
 <tr class="memitem:a11165fdc2815714f1490e38fa5a6b19c"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c">type_name</a> () -&gt; std::string_view</td></tr>
 <tr class="memdesc:a11165fdc2815714f1490e38fa5a6b19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the type name as an string for a given type.  <br /></td></tr>
 <tr class="separator:a11165fdc2815714f1490e38fa5a6b19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac2fc40755e8c87cf6d924201b19a21f4"><td class="memItemLeft" align="right" valign="top"><a id="ac2fc40755e8c87cf6d924201b19a21f4" name="ac2fc40755e8c87cf6d924201b19a21f4"></a>
+constexpr <a class="el" href="structsneze_1_1type__name__format.html">type_name_format</a>&#160;</td><td class="memItemRight" valign="bottom"><b>type_name_format_arr</b></td></tr>
+<tr class="memdesc:ac2fc40755e8c87cf6d924201b19a21f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the format of the type name for the current compiler. <br /></td></tr>
+<tr class="separator:ac2fc40755e8c87cf6d924201b19a21f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a776319c93836947f5127be1520ff7dc0"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
+<tr class="memitem:a776319c93836947f5127be1520ff7dc0"><td class="memTemplItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze.html#a776319c93836947f5127be1520ff7dc0">type_name_storage</a></td></tr>
+<tr class="memdesc:a776319c93836947f5127be1520ff7dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the type name storage.  <br /></td></tr>
+<tr class="separator:a776319c93836947f5127be1520ff7dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><code>sneze</code> default namespace. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab7ee8852f78ad34a1882afb4319c4520" name="ab7ee8852f78ad34a1882afb4319c4520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7ee8852f78ad34a1882afb4319c4520">&#9670;&#160;</a></span>raw_type_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto sneze::raw_type_name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt; std::string_view </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the raw type name. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>The type to get the name from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The raw type name </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="type__name_8hpp_source.html#l00043">43</a> of file <a class="el" href="type__name_8hpp_source.html">type_name.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a11165fdc2815714f1490e38fa5a6b19c" name="a11165fdc2815714f1490e38fa5a6b19c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11165fdc2815714f1490e38fa5a6b19c">&#9670;&#160;</a></span>type_name()</h2>
 
@@ -169,7 +226,50 @@ template&lt;typename Type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A string with the type name. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="type__name_8hpp_source.html#l00097">97</a> of file <a class="el" href="type__name_8hpp_source.html">type_name.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="type__name_8hpp_source.html#l00094">94</a> of file <a class="el" href="type__name_8hpp_source.html">type_name.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a776319c93836947f5127be1520ff7dc0" name="a776319c93836947f5127be1520ff7dc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776319c93836947f5127be1520ff7dc0">&#9670;&#160;</a></span>type_name_storage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto sneze::type_name_storage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= [] {</div>
+<div class="line">    std::array&lt;char, raw_type_name&lt;Type&gt;().size() - <a class="code hl_variable" href="namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4">type_name_format_arr</a>.<a class="code hl_variable" href="structsneze_1_1type__name__format.html#a8665d0ddd24c8a7a7b2beafb7a1088e9">junk_total</a> + 1&gt; ret{};</div>
+<div class="line">    std::copy_n(raw_type_name&lt;Type&gt;().data() + <a class="code hl_variable" href="namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4">type_name_format_arr</a>.<a class="code hl_variable" href="structsneze_1_1type__name__format.html#a8f335e9aec00b551f1f93f68de1d76de">junk_leading</a>, ret.size() - 1, ret.data());</div>
+<div class="line">    <span class="keywordflow">return</span> ret;</div>
+<div class="line">}()</div>
+<div class="ttc" id="anamespacesneze_html_ac2fc40755e8c87cf6d924201b19a21f4"><div class="ttname"><a href="namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4">sneze::type_name_format_arr</a></div><div class="ttdeci">constexpr type_name_format type_name_format_arr</div><div class="ttdoc">Holds the format of the type name for the current compiler.</div><div class="ttdef"><b>Definition:</b> <a href="type__name_8hpp_source.html#l00060">type_name.hpp:60</a></div></div>
+<div class="ttc" id="astructsneze_1_1type__name__format_html_a8665d0ddd24c8a7a7b2beafb7a1088e9"><div class="ttname"><a href="structsneze_1_1type__name__format.html#a8665d0ddd24c8a7a7b2beafb7a1088e9">sneze::type_name_format::junk_total</a></div><div class="ttdeci">std::size_t junk_total</div><div class="ttdoc">The total number of characters to remove from the type name.</div><div class="ttdef"><b>Definition:</b> <a href="type__name_8hpp_source.html#l00056">type_name.hpp:56</a></div></div>
+<div class="ttc" id="astructsneze_1_1type__name__format_html_a8f335e9aec00b551f1f93f68de1d76de"><div class="ttname"><a href="structsneze_1_1type__name__format.html#a8f335e9aec00b551f1f93f68de1d76de">sneze::type_name_format::junk_leading</a></div><div class="ttdeci">std::size_t junk_leading</div><div class="ttdoc">The number of characters to remove from the beginning of the type name.</div><div class="ttdef"><b>Definition:</b> <a href="type__name_8hpp_source.html#l00054">type_name.hpp:54</a></div></div>
+</div><!-- fragment -->
+<p>Get the type name storage. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>the type to get information from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="type__name_8hpp_source.html#l00075">75</a> of file <a class="el" href="type__name_8hpp_source.html">type_name.hpp</a>.</p>
 
 </div>
 </div>

@@ -10,5 +10,6 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
-    [ "sneze::result< Value, Error >", "classsneze_1_1result.html", null ]
+    [ "sneze::result< Value, Error >", "classsneze_1_1result.html", null ],
+    [ "sneze::type_name_format", "structsneze_1_1type__name__format.html", null ]
 ];

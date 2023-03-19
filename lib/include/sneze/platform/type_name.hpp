@@ -32,7 +32,6 @@ SOFTWARE.
 
 namespace sneze {
 
-namespace internal {
 
 /**
  * @brief Get the raw type name
@@ -49,7 +48,7 @@ template<typename Type>
 #endif
 }
 
-//! Holds the format of the type name
+//! Information of the format of a type name
 struct type_name_format {
     //! The number of characters to remove from the beginning of the type name
     std::size_t junk_leading = 0;
@@ -79,8 +78,6 @@ static constexpr auto type_name_storage = [] {
     return ret;
 }();
 
-} // namespace internal
-
 /**
  * @brief Get the type name as an string for a given type.
  *
@@ -95,7 +92,7 @@ static constexpr auto type_name_storage = [] {
  */
 template<typename Type>
 [[nodiscard]] constexpr auto type_name() -> std::string_view {
-    return {internal::type_name_storage<Type>.data(), internal::type_name_storage<Type>.size() - 1};
+    return {type_name_storage<Type>.data(), type_name_storage<Type>.size() - 1};
 }
 
 } // namespace sneze
