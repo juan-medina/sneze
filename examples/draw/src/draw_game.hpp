@@ -35,6 +35,14 @@ class draw_game: public application {
 public:
     draw_game();
 
+    ~draw_game() override = default;
+
+    draw_game(const draw_game &) = delete;
+    draw_game(const draw_game &&) = delete;
+
+    auto operator=(const draw_game &) -> draw_game & = delete;
+    auto operator=(const draw_game &&) -> draw_game & = delete;
+
     [[nodiscard]] auto configure() -> config override;
 
     auto init() -> result override;

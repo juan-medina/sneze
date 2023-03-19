@@ -34,6 +34,12 @@ class shapes_game: public application {
 public:
     shapes_game();
 
+    shapes_game(const shapes_game &) = delete;
+    shapes_game(const shapes_game &&) = delete;
+
+    auto operator=(const shapes_game &) -> shapes_game & = delete;
+    auto operator=(const shapes_game &&) -> shapes_game & = delete;
+
     [[nodiscard]] auto configure() -> config override;
 
     auto init() -> result override;

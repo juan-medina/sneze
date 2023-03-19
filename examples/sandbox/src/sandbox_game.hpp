@@ -34,6 +34,14 @@ class sandbox_game: public application {
 public:
     sandbox_game();
 
+    ~sandbox_game() override = default;
+
+    sandbox_game(const sandbox_game &) = delete;
+    sandbox_game(const sandbox_game &&) = delete;
+
+    auto operator=(const sandbox_game &) -> sandbox_game & = delete;
+    auto operator=(const sandbox_game &&) -> sandbox_game & = delete;
+
     [[nodiscard]] auto configure() -> config override;
 
     auto init() -> result override;

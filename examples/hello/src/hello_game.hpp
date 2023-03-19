@@ -34,6 +34,14 @@ class sprites_game: public application {
 public:
     sprites_game();
 
+    ~sprites_game() override = default;
+
+    sprites_game(const sprites_game &) = delete;
+    sprites_game(const sprites_game &&) = delete;
+
+    auto operator=(const sprites_game &) -> sprites_game & = delete;
+    auto operator=(const sprites_game &&) -> sprites_game & = delete;
+
     [[nodiscard]] auto configure() -> config override;
 
     auto init() -> result override;
