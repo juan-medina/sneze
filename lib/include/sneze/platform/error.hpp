@@ -56,7 +56,7 @@ public:
      * @brief Get the error message
      * @return the error message
      */
-    [[nodiscard]] inline auto get_message() const -> const std::string & {
+    [[nodiscard]] inline auto get_message() const noexcept -> const std::string & {
         return message_;
     }
 
@@ -64,7 +64,7 @@ public:
      * @brief Get the causes of this error
      * @return the causes of this error
      */
-    [[nodiscard]] inline auto get_causes() const -> const std::vector<std::string> & {
+    [[nodiscard]] inline auto get_causes() const noexcept -> const std::vector<std::string> & {
         return causes_;
     }
 

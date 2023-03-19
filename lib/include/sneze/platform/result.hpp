@@ -86,7 +86,7 @@ public:
      * @return true if the result has an error
      * @return false if the result has a value
      */
-    inline auto has_error() const noexcept {
+    [[maybe_unused]] inline auto has_error() const noexcept {
         return std::holds_alternative<Error>(*this);
     }
 
@@ -128,7 +128,7 @@ public:
      * only one of the two will be present, the other will be std::nullopt, this will
      * never throw
      */
-    inline auto ok() const noexcept -> std::tuple<std::optional<Value>, std::optional<Error>> {
+    [[nodiscard]] inline auto ok() const noexcept -> std::tuple<std::optional<Value>, std::optional<Error>> {
         if(has_error()) {
             return {std::nullopt, *std::get_if<Error>(this)};
         }
@@ -142,7 +142,7 @@ public:
      *
      * @return std::optional<Error> the error object
      */
-    [[maybe_unused]] [[nodiscard]] inline auto ko() const noexcept -> std::optional<Error> {
+    [[nodiscard]] inline auto ko() const noexcept -> std::optional<Error> {
         if(has_error()) {
             return *std::get_if<Error>(this);
         }

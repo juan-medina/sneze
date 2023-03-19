@@ -111,12 +111,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abbe5539e5d164c7204451c1f225ebd65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1error.html#abbe5539e5d164c7204451c1f225ebd65">error</a> (std::string message, const <a class="el" href="classsneze_1_1error.html">error</a> &amp;other)</td></tr>
 <tr class="memdesc:abbe5539e5d164c7204451c1f225ebd65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new error object, with a cause error.  <br /></td></tr>
 <tr class="separator:abbe5539e5d164c7204451c1f225ebd65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7eb02f7502d2e15c930079a2e7a341e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1error.html#ab7eb02f7502d2e15c930079a2e7a341e">get_message</a> () const -&gt; const std::string &amp;</td></tr>
-<tr class="memdesc:ab7eb02f7502d2e15c930079a2e7a341e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the error message.  <br /></td></tr>
-<tr class="separator:ab7eb02f7502d2e15c930079a2e7a341e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af22a6c41d787971d0c4df195ed58bc59"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1error.html#af22a6c41d787971d0c4df195ed58bc59">causes</a> () const -&gt; const std::vector&lt; std::string &gt; &amp;</td></tr>
-<tr class="memdesc:af22a6c41d787971d0c4df195ed58bc59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the causes of this error.  <br /></td></tr>
-<tr class="separator:af22a6c41d787971d0c4df195ed58bc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864144ac5a4d5a2e310e2897ba4c9e84"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1error.html#a864144ac5a4d5a2e310e2897ba4c9e84">get_message</a> () const noexcept -&gt; const std::string &amp;</td></tr>
+<tr class="memdesc:a864144ac5a4d5a2e310e2897ba4c9e84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the error message.  <br /></td></tr>
+<tr class="separator:a864144ac5a4d5a2e310e2897ba4c9e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c0beaa5e6d5382b078b9403714e3b0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1error.html#a10c0beaa5e6d5382b078b9403714e3b0">get_causes</a> () const noexcept -&gt; const std::vector&lt; std::string &gt; &amp;</td></tr>
+<tr class="memdesc:a10c0beaa5e6d5382b078b9403714e3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the causes of this error.  <br /></td></tr>
+<tr class="separator:a10c0beaa5e6d5382b078b9403714e3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an error with a message and a list of causes. </p>
@@ -207,8 +207,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af22a6c41d787971d0c4df195ed58bc59" name="af22a6c41d787971d0c4df195ed58bc59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af22a6c41d787971d0c4df195ed58bc59">&#9670;&#160;</a></span>causes()</h2>
+<a id="a10c0beaa5e6d5382b078b9403714e3b0" name="a10c0beaa5e6d5382b078b9403714e3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c0beaa5e6d5382b078b9403714e3b0">&#9670;&#160;</a></span>get_causes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +217,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto sneze::error::causes </td>
+          <td class="memname">auto sneze::error::get_causes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const -&gt; const std::vector&lt;std::string&gt; &amp; </td>
@@ -225,7 +225,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -237,8 +237,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab7eb02f7502d2e15c930079a2e7a341e" name="ab7eb02f7502d2e15c930079a2e7a341e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7eb02f7502d2e15c930079a2e7a341e">&#9670;&#160;</a></span>get_message()</h2>
+<a id="a864144ac5a4d5a2e310e2897ba4c9e84" name="a864144ac5a4d5a2e310e2897ba4c9e84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a864144ac5a4d5a2e310e2897ba4c9e84">&#9670;&#160;</a></span>get_message()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +255,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
