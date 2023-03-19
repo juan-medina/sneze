@@ -36,8 +36,19 @@ public:
     explicit span_stream_buffer(std::span<const std::byte> span);
 };
 
+/**
+ * @brief A input stream that reads from a span
+ *
+ * This allows to read from a span as if it was a file, this is useful for
+ * embedded files.
+ */
 class span_istream: public std::istream {
 public:
+    /**
+     * @brief Construct a new span_istream object
+     *
+     * @param span The span to read from
+     */
     explicit span_istream(std::span<const std::byte> span)
         : std::istream(&span_stream_buffer_), span_stream_buffer_{span} {}
 
