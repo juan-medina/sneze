@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['warning_88',['warning',['../namespacesneze_1_1logger.html#a08459585cec2a8e71c7ef1018eceba16',1,'sneze::logger']]]
+  ['unload_5ffont_95',['unload_font',['../classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94',1,'sneze::application']]],
+  ['unload_5fsprite_96',['unload_sprite',['../classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628',1,'sneze::application']]]
 ];

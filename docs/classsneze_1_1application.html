@@ -138,6 +138,21 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">get_app_setting</a> (const std::string &amp;name, const Type &amp;default_value)</td></tr>
 <tr class="memdesc:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value from an given name.  <a href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">More...</a><br /></td></tr>
 <tr class="separator:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053e3e5dfc2ed525b9779ffbad4e76ab"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a053e3e5dfc2ed525b9779ffbad4e76ab">world</a> () noexcept -&gt; auto</td></tr>
+<tr class="memdesc:a053e3e5dfc2ed525b9779ffbad4e76ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ECS world.  <a href="classsneze_1_1application.html#a053e3e5dfc2ed525b9779ffbad4e76ab">More...</a><br /></td></tr>
+<tr class="separator:a053e3e5dfc2ed525b9779ffbad4e76ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d869b104c3f955c6e29bfaffe322cd1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1">load_font</a> (const std::string &amp;font_path) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td></tr>
+<tr class="memdesc:a4d869b104c3f955c6e29bfaffe322cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a BITMAP font from a given path.  <a href="classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1">More...</a><br /></td></tr>
+<tr class="separator:a4d869b104c3f955c6e29bfaffe322cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab488ae7a23ba8ec7ed35f7fe7e1d0d94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94">unload_font</a> (const std::string &amp;font_path)</td></tr>
+<tr class="memdesc:ab488ae7a23ba8ec7ed35f7fe7e1d0d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload a BITMAP font from a given path.  <a href="classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94">More...</a><br /></td></tr>
+<tr class="separator:ab488ae7a23ba8ec7ed35f7fe7e1d0d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">load_sprite</a> (const std::string &amp;sprite_path) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td></tr>
+<tr class="memdesc:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a sprite font from a given path.  <a href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">More...</a><br /></td></tr>
+<tr class="separator:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf04dbb77deac251078b55cbb9110628"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">unload_sprite</a> (const std::string &amp;sprite_path)</td></tr>
+<tr class="memdesc:adf04dbb77deac251078b55cbb9110628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload a sprite from a given path.  <a href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">More...</a><br /></td></tr>
+<tr class="separator:adf04dbb77deac251078b55cbb9110628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class defines an sneze application and controls the world, render, settings, events and systems. </p>
@@ -375,10 +390,11 @@ template&lt;is_value Type&gt; </div>
 <li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>If you want to set a setting for the application, you should use <a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1" title="Sets an application setting given the name and value.">application::set_app_setting</a> instead.</dd></dl>
-<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
 <div class="line">  <a class="code" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">set_setting</a>(<span class="stringliteral">&quot;section_name&quot;</span>, <span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;value&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_a3549d50570717ecd6cf6714238d8a499"><div class="ttname"><a href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">sneze::application::set_setting</a></div><div class="ttdeci">void set_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an section+name setting to the given value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00190">application.hpp:190</a></div></div>
+<div class="ttc" id="aclasssneze_1_1application_html_a3549d50570717ecd6cf6714238d8a499"><div class="ttname"><a href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">sneze::application::set_setting</a></div><div class="ttdeci">void set_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an section+name setting to the given value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00191">application.hpp:191</a></div></div>
 </div><!-- fragment --><p>This code will set in the settings file the following setting:</p>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  <span class="stringliteral">&quot;section_name&quot;</span>: {</div>
@@ -405,7 +421,7 @@ template&lt;is_value Type&gt; </div>
 <dd>
 sneze::settings::set </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00190">190</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00191">191</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -460,10 +476,11 @@ template&lt;is_value Type&gt; </div>
 <li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>If you want to get a setting for the application, you should use <a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece" title="Get the value from an given name.">application::get_app_setting</a> instead.</dd></dl>
-<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
 <div class="line">  <span class="keyword">auto</span> value = <a class="code" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">get_setting</a>(<span class="stringliteral">&quot;section_name&quot;</span>, <span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;default_value&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_ab809762bf4da9bd0cd4717abcc572c70"><div class="ttname"><a href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">sneze::application::get_setting</a></div><div class="ttdeci">auto get_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given section+name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00224">application.hpp:224</a></div></div>
+<div class="ttc" id="aclasssneze_1_1application_html_ab809762bf4da9bd0cd4717abcc572c70"><div class="ttname"><a href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">sneze::application::get_setting</a></div><div class="ttdeci">auto get_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given section+name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00226">application.hpp:226</a></div></div>
 </div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
@@ -485,7 +502,7 @@ template&lt;is_value Type&gt; </div>
 <dd>
 sneze::settings::get </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00224">224</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00226">226</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -533,10 +550,11 @@ template&lt;is_value Type&gt; </div>
 <li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
 <li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
 </ul>
-<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
 <div class="line">  <a class="code" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">set_app_setting</a>(<span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;value&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_ab7f647502d0de4d654145fd5a6f735d1"><div class="ttname"><a href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">sneze::application::set_app_setting</a></div><div class="ttdeci">void set_app_setting(const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an application setting given the name and value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00262">application.hpp:262</a></div></div>
+<div class="ttc" id="aclasssneze_1_1application_html_ab7f647502d0de4d654145fd5a6f735d1"><div class="ttname"><a href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">sneze::application::set_app_setting</a></div><div class="ttdeci">void set_app_setting(const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an application setting given the name and value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00265">application.hpp:265</a></div></div>
 </div><!-- fragment --><p>This code will set in the settings file the following setting:</p>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  <span class="stringliteral">&quot;My Game&quot;</span>: {</div>
@@ -560,7 +578,7 @@ template&lt;is_value Type&gt; </div>
 <dd>
 <a class="el" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499" title="Sets an section+name setting to the given value.">sneze::application::set_setting</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00262">262</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00265">265</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -608,10 +626,11 @@ template&lt;is_value Type&gt; </div>
 <li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
 <li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
 </ul>
-<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
 <div class="line">  <span class="keyword">auto</span> value = <a class="code" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">get_app_setting</a>(<span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;default_value&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_a7cfedeb4eb81a02edc9a39968a9d7ece"><div class="ttname"><a href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">sneze::application::get_app_setting</a></div><div class="ttdeci">auto get_app_setting(const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00292">application.hpp:292</a></div></div>
+<div class="ttc" id="aclasssneze_1_1application_html_a7cfedeb4eb81a02edc9a39968a9d7ece"><div class="ttname"><a href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">sneze::application::get_app_setting</a></div><div class="ttdeci">auto get_app_setting(const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00296">application.hpp:296</a></div></div>
 </div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
@@ -632,7 +651,181 @@ template&lt;is_value Type&gt; </div>
 <dd>
 sneze::settings::get </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00292">292</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00296">296</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a053e3e5dfc2ed525b9779ffbad4e76ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053e3e5dfc2ed525b9779ffbad4e76ab">&#9670;&nbsp;</a></span>world()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::application::world </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt; auto </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the ECS world. </p>
+<dl class="section return"><dt>Returns</dt><dd>the ECS world </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>sneze::world </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00305">305</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4d869b104c3f955c6e29bfaffe322cd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d869b104c3f955c6e29bfaffe322cd1">&#9670;&nbsp;</a></span>load_font()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::application::load_font </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>font_path</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load a BITMAP font from a given path. </p>
+<p>This method is used to load a BITMAP font from a given path, the font will be loaded only once, if the font is already loaded, the method will return true.</p>
+<dl class="section note"><dt>Note</dt><dd>You should unload the font when you don't need it anymore using the unload_font method.</dd></dl>
+<div class="fragment"><div class="line">my_game::init() -&gt; result&lt;&gt; {</div>
+<div class="line">  <span class="keywordflow">if</span>(<span class="keyword">auto</span> err = <a class="code" href="classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1">load_font</a>(<span class="stringliteral">&quot;fonts/my_font.fnt&quot;</span>).ko()) {</div>
+<div class="line">    <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">logger::error</a>(<span class="stringliteral">&quot;game can&#39;t load font&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">error</a>(<span class="stringliteral">&quot;Can&#39;t load game font.&quot;</span>, *err);</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_a4d869b104c3f955c6e29bfaffe322cd1"><div class="ttname"><a href="classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1">sneze::application::load_font</a></div><div class="ttdeci">auto load_font(const std::string &amp;font_path) -&gt; result&lt;&gt;</div><div class="ttdoc">Load a BITMAP font from a given path.</div></div>
+<div class="ttc" id="anamespacesneze_1_1logger_html_ae61a4bd7ff949820a9507c3d67b894aa"><div class="ttname"><a href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">sneze::logger::error</a></div><div class="ttdeci">error(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; error&lt; Args... &gt;</div><div class="ttdoc">log a message with sneze::logger::level::error</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">font_path</td><td>the path to the font</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>if the font was loaded successfully </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94" title="Unload a BITMAP font from a given path.">sneze::application::unload_font</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab488ae7a23ba8ec7ed35f7fe7e1d0d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab488ae7a23ba8ec7ed35f7fe7e1d0d94">&#9670;&nbsp;</a></span>unload_font()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::application::unload_font </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>font_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unload a BITMAP font from a given path. </p>
+<p>This method is used to unload a BITMAP font from a given path, the font will be unloaded if there are no more references to it.</p>
+<dl class="section note"><dt>Note</dt><dd>You should load the font before using it using the <a class="el" href="classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1" title="Load a BITMAP font from a given path.">application::load_font</a>, however this method will not fail if the font is not loaded.</dd></dl>
+<div class="fragment"><div class="line">my_game::end() {</div>
+<div class="line">  <a class="code" href="classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94">unload_font</a>(<span class="stringliteral">&quot;fonts/my_font.fnt&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_ab488ae7a23ba8ec7ed35f7fe7e1d0d94"><div class="ttname"><a href="classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94">sneze::application::unload_font</a></div><div class="ttdeci">void unload_font(const std::string &amp;font_path)</div><div class="ttdoc">Unload a BITMAP font from a given path.</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">font_path</td><td>the path to the font</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1" title="Load a BITMAP font from a given path.">sneze::application::load_font</a> </dd></dl>
+
+</div>
+</div>
+<a id="a3dd5d26d8e031f19aeeb0e5b9ec663f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dd5d26d8e031f19aeeb0e5b9ec663f4">&#9670;&nbsp;</a></span>load_sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::application::load_sprite </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sprite_path</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load a sprite font from a given path. </p>
+<p>This method is used to load a sprite for a given path, the sprite will be loaded only once, if the sprite is already loaded, the method will return true.</p>
+<dl class="section note"><dt>Note</dt><dd>You should unload the sprite when you don't need it anymore using the unload sprite method.</dd></dl>
+<div class="fragment"><div class="line">my_game::init() -&gt; result&lt;&gt; {</div>
+<div class="line">  <span class="keywordflow">if</span>(<span class="keyword">auto</span> err = <a class="code" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">load_sprite</a>(<span class="stringliteral">&quot;sprites/my_sprite.png&quot;</span>).ko()) {</div>
+<div class="line">    <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">logger::error</a>(<span class="stringliteral">&quot;game can&#39;t load sprite&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">error</a>(<span class="stringliteral">&quot;Can&#39;t load sprite.&quot;</span>, *err);</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_a3dd5d26d8e031f19aeeb0e5b9ec663f4"><div class="ttname"><a href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">sneze::application::load_sprite</a></div><div class="ttdeci">auto load_sprite(const std::string &amp;sprite_path) -&gt; result&lt;&gt;</div><div class="ttdoc">Load a sprite font from a given path.</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite_path</td><td>the path to the sprite</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>if the sprite was loaded successfully </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628" title="Unload a sprite from a given path.">sneze::application::unload_sprite</a> </dd></dl>
+
+</div>
+</div>
+<a id="adf04dbb77deac251078b55cbb9110628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf04dbb77deac251078b55cbb9110628">&#9670;&nbsp;</a></span>unload_sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::application::unload_sprite </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sprite_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unload a sprite from a given path. </p>
+<p>This method is used to unload a sprite from a given path, the sprite be unloaded if there are no more references to it.</p>
+<dl class="section note"><dt>Note</dt><dd>You should load the sprite before using it using the <a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4" title="Load a sprite font from a given path.">application::load_sprite</a>, however this method will not fail if the sprite is not loaded.</dd></dl>
+<div class="fragment"><div class="line">my_game::end() {</div>
+<div class="line">  <a class="code" href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">unload_sprite</a>(<span class="stringliteral">&quot;sprites/my_sprite.png&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_adf04dbb77deac251078b55cbb9110628"><div class="ttname"><a href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">sneze::application::unload_sprite</a></div><div class="ttdeci">void unload_sprite(const std::string &amp;sprite_path)</div><div class="ttdoc">Unload a sprite from a given path.</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite_path</td><td>the path to the sprite</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4" title="Load a sprite font from a given path.">sneze::application::load_sprite</a> </dd></dl>
 
 </div>
 </div>

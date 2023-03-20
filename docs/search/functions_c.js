@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type_5fname_87',['type_name',['../namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c',1,'sneze']]]
+  ['type_5fname_94',['type_name',['../namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c',1,'sneze']]]
 ];

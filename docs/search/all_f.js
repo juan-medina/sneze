@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['warning_49',['warning',['../namespacesneze_1_1logger.html#a08459585cec2a8e71c7ef1018eceba16',1,'sneze::logger::warning(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; warning&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7b83d3f08fa392b79e3f553b585971cd',1,'sneze::logger::warning()']]]
+  ['unload_5ffont_51',['unload_font',['../classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94',1,'sneze::application']]],
+  ['unload_5fsprite_52',['unload_sprite',['../classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628',1,'sneze::application']]]
 ];

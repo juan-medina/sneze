@@ -163,8 +163,9 @@ public:
      * @note If you want to set a setting for the application, you should use application::set_app_setting instead.
      *
      * @code
-     * my_game::init() {
+     * auto my_game::init() -> result<> {
      *   set_setting("section_name", "setting_name", "value");
+     *   return true;
      * }
      * @endcode
      *
@@ -205,8 +206,9 @@ public:
      * @note If you want to get a setting for the application, you should use application::get_app_setting instead.
      *
      * @code
-     * my_game::init() {
+     * auto my_game::init() -> result<> {
      *   auto value = get_setting("section_name", "setting_name", "default_value");
+     *   return true;
      * }
      * @endcode
      *
@@ -237,8 +239,9 @@ public:
      * - macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json
      *
      * @code
-     * my_game::init() {
+     * auto my_game::init() -> result<> {
      *   set_app_setting("setting_name", "value");
+     *   return true;
      * }
      * @endcode
      *
@@ -275,8 +278,9 @@ public:
      * - macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json
      *
      * @code
-     * my_game::init() {
+     * auto my_game::init() -> result<> {
      *   auto value = get_app_setting("setting_name", "default_value");
+     *   return true;
      * }
      * @endcode
      *
@@ -293,21 +297,110 @@ public:
         return settings_.get<Type>(name_, name, default_value);
     }
 
+    /**
+     * @brief Get the ECS world.
+     * @return the ECS world
+     * @see sneze::world
+     */
     [[nodiscard]] inline auto world() noexcept -> auto {
         return world_;
     }
 
+    /**
+     * @brief Load a BITMAP font from a given path.
+     *
+     * This method is used to load a BITMAP font from a given path, the font will be loaded only once,
+     * if the font is already loaded, the method will return true.
+     *
+     * @note You should unload the font when you don't need it anymore using the unload_font method.
+     *
+     * @code
+     * my_game::init() -> result<> {
+     *   if(auto err = load_font("fonts/my_font.fnt").ko()) {
+     *     logger::error("game can't load font");
+     *     return error("Can't load game font.", *err);
+     *   }
+     *   return true;
+     * }
+     * @endcode
+     *
+     * @param font_path the path to the font
+     *
+     * @return if the font was loaded successfully
+     * @see sneze::application::unload_font
+     */
     [[maybe_unused]] [[nodiscard]] auto load_font(const std::string &font_path) -> result<>;
 
+    /**
+     * @brief Unload a BITMAP font from a given path.
+     *
+     * This method is used to unload a BITMAP font from a given path, the font will be unloaded if there are no more
+     * references to it.
+     *
+     * @note You should load the font before using it using the application::load_font, however this method will
+     * not fail if the font is not loaded.
+     *
+     * @code
+     * my_game::end() {
+     *   unload_font("fonts/my_font.fnt");
+     * }
+     * @endcode
+     *
+     * @param font_path the path to the font
+     *
+     * @see sneze::application::load_font
+     */
     [[maybe_unused]] void unload_font(const std::string &font_path);
+
+    /**
+     * @brief Load a sprite font from a given path.
+     *
+     * This method is used to load a sprite for a given path, the sprite will be loaded only once,
+     * if the sprite is already loaded, the method will return true.
+     *
+     * @note You should unload the sprite when you don't need it anymore using the unload sprite method.
+     *
+     * @code
+     * my_game::init() -> result<> {
+     *   if(auto err = load_sprite("sprites/my_sprite.png").ko()) {
+     *     logger::error("game can't load sprite");
+     *     return error("Can't load sprite.", *err);
+     *   }
+     *   return true;
+     * }
+     * @endcode
+     *
+     * @param sprite_path the path to the sprite
+     *
+     * @return if the sprite was loaded successfully
+     * @see sneze::application::unload_sprite
+     */
+    [[maybe_unused]] [[nodiscard]] auto load_sprite(const std::string &sprite_path) -> result<>;
+
+    /**
+     * @brief Unload a sprite from a given path.
+     *
+     * This method is used to unload a sprite from a given path, the sprite be unloaded if there are no more
+     * references to it.
+     *
+     * @note You should load the sprite before using it using the application::load_sprite, however this method will
+     * not fail if the sprite is not loaded.
+     *
+     * @code
+     * my_game::end() {
+     *   unload_sprite("sprites/my_sprite.png");
+     * }
+     * @endcode
+     *
+     * @param sprite_path the path to the sprite
+     *
+     * @see sneze::application::load_sprite
+     */
+    [[maybe_unused]] void unload_sprite(const std::string &sprite_path);
 
     [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
 
-    [[maybe_unused]] [[nodiscard]] auto load_sprite(const std::string &sprite_path) -> result<>;
-
     [[maybe_unused]] void unload_sprite_sheet(const std::string &sprite_sheet_path);
-
-    [[maybe_unused]] void unload_sprite(const std::string &sprite_path);
 
 private:
     std::string team_;
