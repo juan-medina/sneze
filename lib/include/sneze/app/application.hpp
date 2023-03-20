@@ -149,32 +149,145 @@ public:
         return name_;
     }
 
+    /**
+     * @brief Sets an section+name setting to the given value.
+     *
+     * This method is used to set an setting, the setting will be saved in the settings file.
+     *
+     * The settings file is located in the user's configuration folder, this folder is different for each platform:
+     *
+     * - Windows: %APPDATA%\\sneze\\[team]\\[name]\\settings.json
+     * - Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json
+     * - macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json
+     *
+     * @note If you want to set a setting for the application, you should use application::set_app_setting instead.
+     *
+     * @code
+     * my_game::init() {
+     *   set_setting("section_name", "setting_name", "value");
+     * }
+     * @endcode
+     *
+     * This code will set in the settings file the following setting:
+     *
+     * @code{.cpp}
+     * {
+     *   "section_name": {
+     *     "setting_name": "value"
+     *   },
+     * }
+     * @endcode
+     *
+     * @tparam Type the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string
+     * @param section the section name
+     * @param name the setting name
+     * @param value the setting value
+     * @see sneze::application::get_setting
+     * @see sneze::application::set_app_setting
+     * @see sneze::settings::set
+     */
     template<is_value Type>
     [[maybe_unused]] inline void set_setting(const std::string &section, const std::string &name, const Type &value) {
         settings_.set<Type>(section, name, value);
     }
 
+    /**
+     * @brief Get the value from an given section+name.
+     *
+     * This method is used to get an setting value.
+     *
+     * The settings file is located in the user's configuration folder, this folder is different for each platform:
+     *
+     * - Windows: %APPDATA%\\sneze\\[team]\\[name]\\settings.json
+     * - Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json
+     * - macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json
+     *
+     * @note If you want to get a setting for the application, you should use application::get_app_setting instead.
+     *
+     * @code
+     * my_game::init() {
+     *   auto value = get_setting("section_name", "setting_name", "default_value");
+     * }
+     * @endcode
+     *
+     * @tparam Type the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string
+     * @param section the section name
+     * @param name the setting name
+     * @param default_value the default value to return if the setting is not found
+     * @return the setting value or the default value if the setting is not found
+     * @see sneze::application::set_setting
+     * @see sneze::application::get_app_setting
+     * @see sneze::settings::get
+     */
     template<is_value Type>
     [[maybe_unused]] [[nodiscard]] inline auto
     get_setting(const std::string &section, const std::string &name, const Type &default_value) {
         return settings_.get<Type>(section, name, default_value);
     }
 
-    template<is_value Type>
-    [[maybe_unused]] inline void get_set_setting(const std::string &section,
-                                                 const std::string &name,
-                                                 const Type &default_value,
-                                                 Type (*func)(Type)) {
-        Type value = settings_.get(section, name, default_value);
-        value = func(value);
-        settings_.set<Type>(section, name, value);
-    }
-
+    /**
+     * @brief Sets an application setting given the name and value.
+     *
+     * This method is used to set a setting, the setting will be saved in the settings file.
+     *
+     * The settings file is located in the user's configuration folder, this folder is different for each platform:
+     *
+     * - Windows: %APPDATA%\\sneze\\[team]\\[name]\\settings.json
+     * - Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json
+     * - macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json
+     *
+     * @code
+     * my_game::init() {
+     *   set_app_setting("setting_name", "value");
+     * }
+     * @endcode
+     *
+     * This code will set in the settings file the following setting:
+     *
+     * @code{.cpp}
+     * {
+     *   "My Game": {
+     *     "setting_name": "value"
+     *   },
+     * }
+     * @endcode
+     *
+     * @tparam Type the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string
+     * @param name the setting name
+     * @param value the setting value
+     * @see sneze::application::get_app_setting
+     * @see sneze::application::set_setting
+     */
     template<is_value Type>
     [[maybe_unused]] inline void set_app_setting(const std::string &name, const Type &value) {
         settings_.set<Type>(name_, name, value);
     }
 
+    /**
+     * @brief Get the value from an given name.
+     *
+     * This method is used to get an setting value.
+     *
+     * The settings file is located in the user's configuration folder, this folder is different for each platform:
+     *
+     * - Windows: %APPDATA%\\sneze\\[team]\\[name]\\settings.json
+     * - Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json
+     * - macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json
+     *
+     * @code
+     * my_game::init() {
+     *   auto value = get_app_setting("setting_name", "default_value");
+     * }
+     * @endcode
+     *
+     * @tparam Type the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string
+     * @param name the setting name
+     * @param default_value the default value to return if the setting is not found
+     * @return the setting value or the default value if the setting is not found
+     * @see sneze::application::set_app_setting
+     * @see sneze::application::get_setting
+     * @see sneze::settings::get
+     */
     template<is_value Type>
     [[maybe_unused]] [[nodiscard]] inline auto get_app_setting(const std::string &name, const Type &default_value) {
         return settings_.get<Type>(name_, name, default_value);

@@ -122,6 +122,22 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#aba5489425cb811da16633b20e8c9fe8b">get_name</a> () const noexcept -&gt; const std::string &amp;</td></tr>
 <tr class="memdesc:aba5489425cb811da16633b20e8c9fe8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the game name <br /></td></tr>
 <tr class="separator:aba5489425cb811da16633b20e8c9fe8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3549d50570717ecd6cf6714238d8a499"><td class="memTemplParams" colspan="2">template&lt;is_value Type&gt; </td></tr>
+<tr class="memitem:a3549d50570717ecd6cf6714238d8a499"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">set_setting</a> (const std::string &amp;section, const std::string &amp;name, const Type &amp;value)</td></tr>
+<tr class="memdesc:a3549d50570717ecd6cf6714238d8a499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an section+name setting to the given value.  <a href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">More...</a><br /></td></tr>
+<tr class="separator:a3549d50570717ecd6cf6714238d8a499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab809762bf4da9bd0cd4717abcc572c70"><td class="memTemplParams" colspan="2">template&lt;is_value Type&gt; </td></tr>
+<tr class="memitem:ab809762bf4da9bd0cd4717abcc572c70"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">get_setting</a> (const std::string &amp;section, const std::string &amp;name, const Type &amp;default_value)</td></tr>
+<tr class="memdesc:ab809762bf4da9bd0cd4717abcc572c70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value from an given section+name.  <a href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">More...</a><br /></td></tr>
+<tr class="separator:ab809762bf4da9bd0cd4717abcc572c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7f647502d0de4d654145fd5a6f735d1"><td class="memTemplParams" colspan="2">template&lt;is_value Type&gt; </td></tr>
+<tr class="memitem:ab7f647502d0de4d654145fd5a6f735d1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">set_app_setting</a> (const std::string &amp;name, const Type &amp;value)</td></tr>
+<tr class="memdesc:ab7f647502d0de4d654145fd5a6f735d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an application setting given the name and value.  <a href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">More...</a><br /></td></tr>
+<tr class="separator:ab7f647502d0de4d654145fd5a6f735d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="memTemplParams" colspan="2">template&lt;is_value Type&gt; </td></tr>
+<tr class="memitem:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">get_app_setting</a> (const std::string &amp;name, const Type &amp;default_value)</td></tr>
+<tr class="memdesc:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value from an given name.  <a href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">More...</a><br /></td></tr>
+<tr class="separator:a7cfedeb4eb81a02edc9a39968a9d7ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class defines an sneze application and controls the world, render, settings, events and systems. </p>
@@ -305,6 +321,318 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f" title="notify the application about initialization This method is called after the application::configure me...">sneze::application::init</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1application.html#a05d92d42d1ee2ad2c24f87214d58d86b" title="notify the application about ending This method is called before the application closes and it is use...">sneze::application::end</a> </dd></dl>
+
+</div>
+</div>
+<a id="a3549d50570717ecd6cf6714238d8a499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3549d50570717ecd6cf6714238d8a499">&#9670;&nbsp;</a></span>set_setting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;is_value Type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::application::set_setting </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>section</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets an section+name setting to the given value. </p>
+<p>This method is used to set an setting, the setting will be saved in the settings file.</p>
+<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
+<ul>
+<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
+<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
+<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>If you want to set a setting for the application, you should use <a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1" title="Sets an application setting given the name and value.">application::set_app_setting</a> instead.</dd></dl>
+<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="line">  <a class="code" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">set_setting</a>(<span class="stringliteral">&quot;section_name&quot;</span>, <span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;value&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_a3549d50570717ecd6cf6714238d8a499"><div class="ttname"><a href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">sneze::application::set_setting</a></div><div class="ttdeci">void set_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an section+name setting to the given value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00190">application.hpp:190</a></div></div>
+</div><!-- fragment --><p>This code will set in the settings file the following setting:</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  <span class="stringliteral">&quot;section_name&quot;</span>: {</div>
+<div class="line">    <span class="stringliteral">&quot;setting_name&quot;</span>: <span class="stringliteral">&quot;value&quot;</span></div>
+<div class="line">  },</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>the section name </td></tr>
+    <tr><td class="paramname">name</td><td>the setting name </td></tr>
+    <tr><td class="paramname">value</td><td>the setting value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70" title="Get the value from an given section+name.">sneze::application::get_setting</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1" title="Sets an application setting given the name and value.">sneze::application::set_app_setting</a> </dd>
+<dd>
+sneze::settings::set </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00190">190</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab809762bf4da9bd0cd4717abcc572c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab809762bf4da9bd0cd4717abcc572c70">&#9670;&nbsp;</a></span>get_setting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;is_value Type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::application::get_setting </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>section</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>default_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value from an given section+name. </p>
+<p>This method is used to get an setting value.</p>
+<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
+<ul>
+<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
+<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
+<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>If you want to get a setting for the application, you should use <a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece" title="Get the value from an given name.">application::get_app_setting</a> instead.</dd></dl>
+<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="line">  <span class="keyword">auto</span> value = <a class="code" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">get_setting</a>(<span class="stringliteral">&quot;section_name&quot;</span>, <span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;default_value&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_ab809762bf4da9bd0cd4717abcc572c70"><div class="ttname"><a href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">sneze::application::get_setting</a></div><div class="ttdeci">auto get_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given section+name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00224">application.hpp:224</a></div></div>
+</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>the section name </td></tr>
+    <tr><td class="paramname">name</td><td>the setting name </td></tr>
+    <tr><td class="paramname">default_value</td><td>the default value to return if the setting is not found </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the setting value or the default value if the setting is not found </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499" title="Sets an section+name setting to the given value.">sneze::application::set_setting</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece" title="Get the value from an given name.">sneze::application::get_app_setting</a> </dd>
+<dd>
+sneze::settings::get </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00224">224</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7f647502d0de4d654145fd5a6f735d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7f647502d0de4d654145fd5a6f735d1">&#9670;&nbsp;</a></span>set_app_setting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;is_value Type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::application::set_app_setting </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets an application setting given the name and value. </p>
+<p>This method is used to set a setting, the setting will be saved in the settings file.</p>
+<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
+<ul>
+<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
+<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
+<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
+</ul>
+<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="line">  <a class="code" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">set_app_setting</a>(<span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;value&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_ab7f647502d0de4d654145fd5a6f735d1"><div class="ttname"><a href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">sneze::application::set_app_setting</a></div><div class="ttdeci">void set_app_setting(const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an application setting given the name and value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00262">application.hpp:262</a></div></div>
+</div><!-- fragment --><p>This code will set in the settings file the following setting:</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  <span class="stringliteral">&quot;My Game&quot;</span>: {</div>
+<div class="line">    <span class="stringliteral">&quot;setting_name&quot;</span>: <span class="stringliteral">&quot;value&quot;</span></div>
+<div class="line">  },</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the setting name </td></tr>
+    <tr><td class="paramname">value</td><td>the setting value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece" title="Get the value from an given name.">sneze::application::get_app_setting</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499" title="Sets an section+name setting to the given value.">sneze::application::set_setting</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00262">262</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7cfedeb4eb81a02edc9a39968a9d7ece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cfedeb4eb81a02edc9a39968a9d7ece">&#9670;&nbsp;</a></span>get_app_setting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;is_value Type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::application::get_app_setting </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>default_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the value from an given name. </p>
+<p>This method is used to get an setting value.</p>
+<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
+<ul>
+<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
+<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
+<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
+</ul>
+<div class="fragment"><div class="line">my_game::init() {</div>
+<div class="line">  <span class="keyword">auto</span> value = <a class="code" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">get_app_setting</a>(<span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;default_value&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_a7cfedeb4eb81a02edc9a39968a9d7ece"><div class="ttname"><a href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">sneze::application::get_app_setting</a></div><div class="ttdeci">auto get_app_setting(const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00292">application.hpp:292</a></div></div>
+</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the setting name </td></tr>
+    <tr><td class="paramname">default_value</td><td>the default value to return if the setting is not found </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the setting value or the default value if the setting is not found </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1" title="Sets an application setting given the name and value.">sneze::application::set_app_setting</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70" title="Get the value from an given section+name.">sneze::application::get_setting</a> </dd>
+<dd>
+sneze::settings::get </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00292">292</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
