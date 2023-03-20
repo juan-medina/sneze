@@ -353,12 +353,12 @@ public:
     [[maybe_unused]] void unload_font(const std::string &font_path);
 
     /**
-     * @brief Load a sprite font from a given path.
+     * @brief Load a sprite from a given path.
      *
      * This method is used to load a sprite for a given path, the sprite will be loaded only once,
      * if the sprite is already loaded, the method will return true.
      *
-     * @note You should unload the sprite when you don't need it anymore using the unload sprite method.
+     * @note You should unload the sprite when you don't need it anymore using the unload_sprite method.
      *
      * @code
      * my_game::init() -> result<> {
@@ -398,8 +398,50 @@ public:
      */
     [[maybe_unused]] void unload_sprite(const std::string &sprite_path);
 
+    /**
+     * @brief Load a sprite sheet from a given path.
+     *
+     * This method is used to load a sprite sheet for a given path, the sprite sheet will be loaded only once,
+     * if the sprite sheet is already loaded, the method will return true.
+     *
+     * @note You should unload the sprite sheet when you don't need it anymore using the unload_sprite_sheet method.
+     *
+     * @code
+     * my_game::init() -> result<> {
+     *   if(auto err = load_sprite_sheet("sprites/sprites.json").ko()) {
+     *     logger::error("game can't load sprite sheet");
+     *     return error("Can't load sprite sheet.", *err);
+     *   }
+     *   return true;
+     * }
+     * @endcode
+     *
+     * @param sprite_sheet_path the path to the sprite sheet
+     *
+     * @return if the sprite was loaded successfully
+     * @see sneze::application::unload_sprite_sheet
+     */
     [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
 
+    /**
+     * @brief Unload a sprite sheet from a given path.
+     *
+     * This method is used to unload a sprite sheet from a given path, the sprite sheet be unloaded if there are no more
+     * references to it.
+     *
+     * @note You should load the sprite sheet before using it using the application::load_sprite_sheet, however
+     * this method will not fail if the sprite sheet is not loaded.
+     *
+     * @code
+     * my_game::end() {
+     *   unload_sprite_sheet("sprites/sprites.json");
+     * }
+     * @endcode
+     *
+     * @param sprite_sheet_path the path to the sprite sheet
+     *
+     * @see sneze::application::load_sprite_sheet
+     */
     [[maybe_unused]] void unload_sprite_sheet(const std::string &sprite_sheet_path);
 
 private:
@@ -409,8 +451,6 @@ private:
     std::shared_ptr<render> render_;
     std::shared_ptr<class world> world_;
     bool want_to_close_{false};
-
-
 
     void app_want_closing(events::application_want_closing event) noexcept;
 

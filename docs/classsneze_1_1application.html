@@ -148,11 +148,17 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ab488ae7a23ba8ec7ed35f7fe7e1d0d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload a BITMAP font from a given path.  <a href="classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94">More...</a><br /></td></tr>
 <tr class="separator:ab488ae7a23ba8ec7ed35f7fe7e1d0d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">load_sprite</a> (const std::string &amp;sprite_path) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td></tr>
-<tr class="memdesc:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a sprite font from a given path.  <a href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">More...</a><br /></td></tr>
+<tr class="memdesc:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a sprite from a given path.  <a href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">More...</a><br /></td></tr>
 <tr class="separator:a3dd5d26d8e031f19aeeb0e5b9ec663f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf04dbb77deac251078b55cbb9110628"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">unload_sprite</a> (const std::string &amp;sprite_path)</td></tr>
 <tr class="memdesc:adf04dbb77deac251078b55cbb9110628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload a sprite from a given path.  <a href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">More...</a><br /></td></tr>
 <tr class="separator:adf04dbb77deac251078b55cbb9110628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa79961c6db97ef128ac326945092fd1e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e">load_sprite_sheet</a> (const std::string &amp;sprite_sheet_path) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td></tr>
+<tr class="memdesc:aa79961c6db97ef128ac326945092fd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a sprite sheet from a given path.  <a href="classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e">More...</a><br /></td></tr>
+<tr class="separator:aa79961c6db97ef128ac326945092fd1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6505efe69f0e01941ed99b14944dc8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d">unload_sprite_sheet</a> (const std::string &amp;sprite_sheet_path)</td></tr>
+<tr class="memdesc:ac6505efe69f0e01941ed99b14944dc8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload a sprite sheet from a given path.  <a href="classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d">More...</a><br /></td></tr>
+<tr class="separator:ac6505efe69f0e01941ed99b14944dc8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The class defines an sneze application and controls the world, render, settings, events and systems. </p>
@@ -774,9 +780,9 @@ sneze::settings::get </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Load a sprite font from a given path. </p>
+<p>Load a sprite from a given path. </p>
 <p>This method is used to load a sprite for a given path, the sprite will be loaded only once, if the sprite is already loaded, the method will return true.</p>
-<dl class="section note"><dt>Note</dt><dd>You should unload the sprite when you don't need it anymore using the unload sprite method.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You should unload the sprite when you don't need it anymore using the unload_sprite method.</dd></dl>
 <div class="fragment"><div class="line">my_game::init() -&gt; result&lt;&gt; {</div>
 <div class="line">  <span class="keywordflow">if</span>(<span class="keyword">auto</span> err = <a class="code" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">load_sprite</a>(<span class="stringliteral">&quot;sprites/my_sprite.png&quot;</span>).ko()) {</div>
 <div class="line">    <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">logger::error</a>(<span class="stringliteral">&quot;game can&#39;t load sprite&quot;</span>);</div>
@@ -784,7 +790,7 @@ sneze::settings::get </dd></dl>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_a3dd5d26d8e031f19aeeb0e5b9ec663f4"><div class="ttname"><a href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">sneze::application::load_sprite</a></div><div class="ttdeci">auto load_sprite(const std::string &amp;sprite_path) -&gt; result&lt;&gt;</div><div class="ttdoc">Load a sprite font from a given path.</div></div>
+<div class="ttc" id="aclasssneze_1_1application_html_a3dd5d26d8e031f19aeeb0e5b9ec663f4"><div class="ttname"><a href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4">sneze::application::load_sprite</a></div><div class="ttdeci">auto load_sprite(const std::string &amp;sprite_path) -&gt; result&lt;&gt;</div><div class="ttdoc">Load a sprite from a given path.</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite_path</td><td>the path to the sprite</td></tr>
@@ -814,7 +820,7 @@ sneze::settings::get </dd></dl>
 
 <p>Unload a sprite from a given path. </p>
 <p>This method is used to unload a sprite from a given path, the sprite be unloaded if there are no more references to it.</p>
-<dl class="section note"><dt>Note</dt><dd>You should load the sprite before using it using the <a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4" title="Load a sprite font from a given path.">application::load_sprite</a>, however this method will not fail if the sprite is not loaded.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You should load the sprite before using it using the <a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4" title="Load a sprite from a given path.">application::load_sprite</a>, however this method will not fail if the sprite is not loaded.</dd></dl>
 <div class="fragment"><div class="line">my_game::end() {</div>
 <div class="line">  <a class="code" href="classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628">unload_sprite</a>(<span class="stringliteral">&quot;sprites/my_sprite.png&quot;</span>);</div>
 <div class="line">}</div>
@@ -825,7 +831,78 @@ sneze::settings::get </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4" title="Load a sprite font from a given path.">sneze::application::load_sprite</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4" title="Load a sprite from a given path.">sneze::application::load_sprite</a> </dd></dl>
+
+</div>
+</div>
+<a id="aa79961c6db97ef128ac326945092fd1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa79961c6db97ef128ac326945092fd1e">&#9670;&nbsp;</a></span>load_sprite_sheet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::application::load_sprite_sheet </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sprite_sheet_path</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load a sprite sheet from a given path. </p>
+<p>This method is used to load a sprite sheet for a given path, the sprite sheet will be loaded only once, if the sprite sheet is already loaded, the method will return true.</p>
+<dl class="section note"><dt>Note</dt><dd>You should unload the sprite sheet when you don't need it anymore using the unload_sprite_sheet method.</dd></dl>
+<div class="fragment"><div class="line">my_game::init() -&gt; result&lt;&gt; {</div>
+<div class="line">  <span class="keywordflow">if</span>(<span class="keyword">auto</span> err = <a class="code" href="classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e">load_sprite_sheet</a>(<span class="stringliteral">&quot;sprites/sprites.json&quot;</span>).ko()) {</div>
+<div class="line">    <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">logger::error</a>(<span class="stringliteral">&quot;game can&#39;t load sprite sheet&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="namespacesneze_1_1logger.html#ae61a4bd7ff949820a9507c3d67b894aa">error</a>(<span class="stringliteral">&quot;Can&#39;t load sprite sheet.&quot;</span>, *err);</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_aa79961c6db97ef128ac326945092fd1e"><div class="ttname"><a href="classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e">sneze::application::load_sprite_sheet</a></div><div class="ttdeci">auto load_sprite_sheet(const std::string &amp;sprite_sheet_path) -&gt; result&lt;&gt;</div><div class="ttdoc">Load a sprite sheet from a given path.</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite_sheet_path</td><td>the path to the sprite sheet</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>if the sprite was loaded successfully </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d" title="Unload a sprite sheet from a given path.">sneze::application::unload_sprite_sheet</a> </dd></dl>
+
+</div>
+</div>
+<a id="ac6505efe69f0e01941ed99b14944dc8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6505efe69f0e01941ed99b14944dc8d">&#9670;&nbsp;</a></span>unload_sprite_sheet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::application::unload_sprite_sheet </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sprite_sheet_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unload a sprite sheet from a given path. </p>
+<p>This method is used to unload a sprite sheet from a given path, the sprite sheet be unloaded if there are no more references to it.</p>
+<dl class="section note"><dt>Note</dt><dd>You should load the sprite sheet before using it using the <a class="el" href="classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e" title="Load a sprite sheet from a given path.">application::load_sprite_sheet</a>, however this method will not fail if the sprite sheet is not loaded.</dd></dl>
+<div class="fragment"><div class="line">my_game::end() {</div>
+<div class="line">  <a class="code" href="classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d">unload_sprite_sheet</a>(<span class="stringliteral">&quot;sprites/sprites.json&quot;</span>);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclasssneze_1_1application_html_ac6505efe69f0e01941ed99b14944dc8d"><div class="ttname"><a href="classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d">sneze::application::unload_sprite_sheet</a></div><div class="ttdeci">void unload_sprite_sheet(const std::string &amp;sprite_sheet_path)</div><div class="ttdoc">Unload a sprite sheet from a given path.</div></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite_sheet_path</td><td>the path to the sprite sheet</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e" title="Load a sprite sheet from a given path.">sneze::application::load_sprite_sheet</a> </dd></dl>
 
 </div>
 </div>

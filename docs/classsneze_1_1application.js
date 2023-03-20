@@ -15,5 +15,7 @@ var classsneze_1_1application =
     [ "load_font", "classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1", null ],
     [ "unload_font", "classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94", null ],
     [ "load_sprite", "classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4", null ],
-    [ "unload_sprite", "classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628", null ]
+    [ "unload_sprite", "classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628", null ],
+    [ "load_sprite_sheet", "classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e", null ],
+    [ "unload_sprite_sheet", "classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d", null ]
 ];
