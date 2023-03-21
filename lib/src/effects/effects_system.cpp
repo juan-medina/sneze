@@ -41,7 +41,8 @@ void effects_system::end(world * /*world*/) {
 
 void effects_system::update(world *world) {
     auto time = world->get_global<game_time>();
-    for(auto const &&[entity, alternate_color, color]: world->entities<effects::alternate_color, components::color>()) {
+    for(auto const &&[entity, alternate_color, color]:
+        world->get_entities<effects::alternate_color, components::color>()) {
         color = alternate_color.from;
         alternate_color.current_time += time.delta;
         if(alternate_color.pause) {

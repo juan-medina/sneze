@@ -52,7 +52,7 @@ void render_system::update(world *world) {
     using label = components::label;
     using layout = components::layout;
 
-    for(auto const [id, renderable, color, pos]: world->entities<const renderable, const color, const position>()) {
+    for(auto const [id, renderable, color, pos]: world->get_entities<const renderable, const color, const position>()) {
         if(renderable.visible) {
             // local position
             auto draw_position = pos;

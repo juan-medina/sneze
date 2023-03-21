@@ -119,7 +119,7 @@ void draw_game::mouse_button_up(const events::mouse_button_up &event) {
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 void draw_game::mouse_moved(const events::mouse_moved &event) {
     using line = components::line;
-    for(auto &&[entity, line]: event.world->tagged<drawing, line>()) {
+    for(auto &&[entity, line]: event.world->get_tagged<drawing, line>()) {
         line.to = event.point;
     }
 }

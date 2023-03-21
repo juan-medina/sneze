@@ -50,7 +50,7 @@ void layout_system::window_resized(const events::window_resized &event) {
     logical_ = event.logical;
     using anchor = components::anchor;
 
-    for(auto const &&[entity, anc]: event.world->entities<anchor>()) {
+    for(auto const &&[entity, anc]: event.world->get_entities<anchor>()) {
         calculate_layout(event.world, entity, anc);
     }
 }

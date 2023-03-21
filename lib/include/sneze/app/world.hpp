@@ -59,12 +59,6 @@ public:
     auto operator=(const world &) -> world & = delete;
     auto operator=(const world &&) -> world & = delete;
 
-    void init();
-
-    void end();
-
-    [[nodiscard]] static auto since_epoch() -> float;
-
     template<typename... Args>
     auto add_entity(Args... args) {
         auto entity_id = registry_.create();
@@ -97,7 +91,7 @@ public:
     }
 
     template<typename... Types>
-    [[nodiscard]] auto entities() {
+    [[nodiscard]] auto get_entities() {
         return registry_.view<Types...>().each();
     }
 
@@ -112,27 +106,71 @@ public:
     }
 
     template<typename TagType, typename... Types>
-    [[nodiscard]] auto tagged() {
+    [[nodiscard]] auto get_tagged() {
         return registry_.view<Types..., components::tag<TagType>>().each();
     }
 
     template<typename TagType>
     void remove_all_tagged() {
-        for(auto &&[entity]: tagged<TagType>()) {
+        for(auto &&[entity]: get_tagged<TagType>()) {
             remove_entity(entity);
         }
     }
 
     template<typename TagType>
     void remove_all_tags() {
-        for(auto &&[entity]: tagged<TagType>()) {
+        for(auto &&[entity]: get_tagged<TagType>()) {
             untag<TagType>(entity);
         }
+    }
+
+    template<typename Type, typename... Args>
+    [[maybe_unused]] void set_global(Args &&...args) {
+        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
+        auto &&global = get_global<Type>();
+        global = Type{std::forward<Args>(args)...};
+    }
+
+    template<typename Type>
+    [[maybe_unused]] [[nodiscard]] auto get_global() -> auto & {
+        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
+        if(auto first = registry_.view<Type, components::tag<global<Type>>>().front(); !(first == entt::null)) {
+            return get_component<Type>(first);
+        }
+        tag<global<Type>>(add_entity(Type{}));
+        return get_global<Type>();
+    }
+
+    template<typename Type>
+    [[maybe_unused]] void remove_global() {
+        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
+        remove_all_tagged<global<Type>>();
     }
 
     template<typename Type, typename Compare>
     void sort(Compare compare) {
         registry_.sort<Type>(compare);
+    }
+
+    template<typename SystemType, typename... Args>
+    [[maybe_unused]] void add_system(Args... args) noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        add_system_with_priority<priority::normal, SystemType>(args...);
+    }
+
+    template<int32_t Priority, typename SystemType, typename... Args>
+    [[maybe_unused]] void add_system_with_priority(Args... args) noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        static_assert(Priority >= world::priority::low && Priority <= world::priority::high,
+                      "priority must be between priority::low (-1000) and priority::high (1000)");
+        add_system_with_priority_internal<Priority, SystemType>(args...);
+    }
+
+    template<typename SystemType>
+    [[maybe_unused]] void remove_system() noexcept {
+        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
+        auto constexpr type_to_remove = entt::type_hash<SystemType>::value();
+        systems_to_remove_.push_back(type_to_remove);
     }
 
     template<typename EventType, auto Candidate, typename InstanceType>
@@ -161,11 +199,6 @@ public:
         event_dispatcher_.disconnect(instance);
     }
 
-    template<typename ComponentType, typename InstanceType>
-    [[maybe_unused]] void remove_component_listeners(InstanceType &&instance) {
-        remove_listener_to_add_component<ComponentType>(instance);
-    }
-
     template<typename EventType, typename... Args>
     void emmit(Args &&...args) {
         static_assert(std::is_base_of<events::event, EventType>::value,
@@ -187,6 +220,20 @@ public:
         remove_listener<events::add_component<ComponentType>>(instance);
     }
 
+    template<typename ComponentType, typename InstanceType>
+    [[maybe_unused]] void remove_component_listeners(InstanceType &&instance) {
+        remove_listener_to_add_component<ComponentType>(instance);
+    }
+
+protected:
+    void init();
+
+    void update();
+
+    void end();
+
+    void clear();
+
     enum priority : int32_t {
         low = -1000,
         normal = 0,
@@ -195,55 +242,6 @@ public:
         before_applications = high + 1000,
         after_applications = low - 1000,
     };
-
-    template<typename SystemType, typename... Args>
-    [[maybe_unused]] void add_system(Args... args) noexcept {
-        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
-        add_system_with_priority<priority::normal, SystemType>(args...);
-    }
-
-    template<int32_t Priority, typename SystemType, typename... Args>
-    [[maybe_unused]] void add_system_with_priority(Args... args) noexcept {
-        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
-        static_assert(Priority >= world::priority::low && Priority <= world::priority::high,
-                      "priority must be between priority::low (-1000) and priority::high (1000)");
-        add_system_with_priority_internal<Priority, SystemType>(args...);
-    }
-
-    template<typename SystemType>
-    [[maybe_unused]] void remove_system() noexcept {
-        static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
-        auto constexpr type_to_remove = entt::type_hash<SystemType>::value();
-        systems_to_remove_.push_back(type_to_remove);
-    }
-
-    template<typename Type, typename... Args>
-    [[maybe_unused]] void set_global(Args &&...args) {
-        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
-        auto &&global = get_global<Type>();
-        global = Type{std::forward<Args>(args)...};
-    }
-
-    template<typename Type>
-    [[maybe_unused]] [[nodiscard]] auto get_global() -> auto & {
-        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
-        if(auto first = registry_.view<Type, components::tag<global<Type>>>().front(); !(first == entt::null)) {
-            return get_component<Type>(first);
-        }
-        tag<global<Type>>(add_entity(Type{}));
-        return get_global<Type>();
-    }
-
-    template<typename Type>
-    [[maybe_unused]] void remove_global() {
-        static_assert(std::default_initializable<Type>, "the type must have a default initializer");
-        remove_all_tagged<global<Type>>();
-    }
-
-protected:
-    void update();
-
-    void clear();
 
     template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority_internal(Args... args) noexcept {
@@ -255,6 +253,8 @@ protected:
     }
 
 private:
+    [[nodiscard]] static auto since_epoch() -> float;
+
     template<typename ComponentType>
     void add_listener_to_add_component_internal(entt::registry & /*registry*/, entt::entity entity) {
         auto &component = registry_.get<ComponentType>(entity);
@@ -287,17 +287,17 @@ private:
 
     entt::dispatcher event_dispatcher_;
 
+    void update_time();
+
+    void update_systems();
+
+    void sent_events();
+
     void remove_all_systems() noexcept;
 
     void discard_pending_events() noexcept;
 
     void remove_pending_systems() noexcept;
-
-    void sent_events();
-
-    void update_systems();
-
-    void update_time();
 
     static auto match_type(entt::id_type type_to_remove) noexcept {
         return [type_to_remove](const system_ptr &system) noexcept -> bool { return system->type() == type_to_remove; };
