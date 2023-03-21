@@ -13,5 +13,9 @@ var classsneze_1_1world =
     [ "untag", "classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937", null ],
     [ "get_tagged", "classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897", null ],
     [ "remove_all_tagged", "classsneze_1_1world.html#a524e3e45902cb7ce09c44b35c918b0ec", null ],
-    [ "remove_all_tags", "classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055", null ]
+    [ "remove_all_tags", "classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055", null ],
+    [ "set_global", "classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946", null ],
+    [ "get_global", "classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128", null ],
+    [ "remove_global", "classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528", null ],
+    [ "sort", "classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89", null ]
 ];

@@ -153,6 +153,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af118df3a49955fc632dba9e57df72055"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055">remove_all_tags</a> ()</td></tr>
 <tr class="memdesc:af118df3a49955fc632dba9e57df72055"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all the tags of a particular type from all the entities in the world  <a href="classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055">More...</a><br /></td></tr>
 <tr class="separator:af118df3a49955fc632dba9e57df72055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedf4b8c72bfe477f429f35eff774a946"><td class="memTemplParams" colspan="2">template&lt;typename Type , typename... Args&gt; </td></tr>
+<tr class="memitem:aedf4b8c72bfe477f429f35eff774a946"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946">set_global</a> (Args &amp;&amp;...args)</td></tr>
+<tr class="memdesc:aedf4b8c72bfe477f429f35eff774a946"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will set the global entity to the given value.</p><ul>
+<li></li>
+</ul>
+ <a href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946">More...</a><br /></td></tr>
+<tr class="separator:aedf4b8c72bfe477f429f35eff774a946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2811a5090e34c1748dea936b5f92f128"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
+<tr class="memitem:a2811a5090e34c1748dea936b5f92f128"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128">get_global</a> () -&gt; auto &amp;</td></tr>
+<tr class="memdesc:a2811a5090e34c1748dea936b5f92f128"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will return a reference to the global entity.  <a href="classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128">More...</a><br /></td></tr>
+<tr class="separator:a2811a5090e34c1748dea936b5f92f128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacec7ead076c9aabad14234a0945e528"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
+<tr class="memitem:aacec7ead076c9aabad14234a0945e528"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528">remove_global</a> ()</td></tr>
+<tr class="memdesc:aacec7ead076c9aabad14234a0945e528"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will remove the global entity.  <a href="classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528">More...</a><br /></td></tr>
+<tr class="separator:aacec7ead076c9aabad14234a0945e528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00482c687c49ec5d199d7b2fccc24a89"><td class="memTemplParams" colspan="2">template&lt;typename Type , typename Compare &gt; </td></tr>
+<tr class="memitem:a00482c687c49ec5d199d7b2fccc24a89"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89">sort</a> (Compare compare)</td></tr>
+<tr class="memdesc:a00482c687c49ec5d199d7b2fccc24a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">sort the entities that have a particular component, using a custom compare function  <a href="classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89">More...</a><br /></td></tr>
+<tr class="separator:a00482c687c49ec5d199d7b2fccc24a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The world class This class is the main class of the engine, it will hold all the entities, globals, components, and systems. </p>
@@ -168,7 +187,7 @@ world::add_system </dd>
 <dd>
 world::add_listener </dd>
 <dd>
-world::set_global </dd>
+<a class="el" href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946" title="set a global entity A global entity is an entity that is always present in the world and can be acces...">world::set_global</a> </dd>
 <dd>
 world::emmit </dd></dl>
 
@@ -729,6 +748,179 @@ template&lt;typename TagType &gt; </div>
 <a class="el" href="classsneze_1_1world.html#a524e3e45902cb7ce09c44b35c918b0ec" title="remove all the entities that have a particular tag">world::remove_all_tagged</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00245">245</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aedf4b8c72bfe477f429f35eff774a946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedf4b8c72bfe477f429f35eff774a946">&#9670;&nbsp;</a></span>set_global()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::set_global </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will set the global entity to the given value.</p><ul>
+<li></li>
+</ul>
+</p>
+<dl class="section note"><dt>Note</dt><dd>the global entity must have a default initializer, otherwise the function will fail to compile</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>of the global entity </td></tr>
+    <tr><td class="paramname">Args</td><td>arguments type to pass to the global entity constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>arguments to pass to the global entity constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00263">263</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2811a5090e34c1748dea936b5f92f128"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2811a5090e34c1748dea936b5f92f128">&#9670;&nbsp;</a></span>get_global()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto sneze::world::get_global </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt; auto &amp; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will return a reference to the global entity. </p>
+<p>If the global entity does not exist, it will be created with the default iiitializer.</p>
+<dl class="section note"><dt>Note</dt><dd>the global entity must have a default initializer, otherwise the function will fail to compile</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>of the global entity </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a reference to the global component </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00282">282</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aacec7ead076c9aabad14234a0945e528"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacec7ead076c9aabad14234a0945e528">&#9670;&nbsp;</a></span>remove_global()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::remove_global </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will remove the global entity. </p>
+<dl class="section note"><dt>Note</dt><dd>the global entity must have a default initializer, otherwise the function will fail to compile</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>of the global entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00301">301</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a00482c687c49ec5d199d7b2fccc24a89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00482c687c49ec5d199d7b2fccc24a89">&#9670;&nbsp;</a></span>sort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type , typename Compare &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::sort </td>
+          <td>(</td>
+          <td class="paramtype">Compare&#160;</td>
+          <td class="paramname"><em>compare</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>sort the entities that have a particular component, using a custom compare function </p>
+<dl class="section note"><dt>Note</dt><dd>the sort function is in-place, so the order of the entities will change</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td>the type of the component to sort </td></tr>
+    <tr><td class="paramname">Compare</td><td>the compare function type to use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">compare</td><td>the compare function to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00316">316</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['config_91',['config',['../classsneze_1_1config.html',1,'sneze']]]
+  ['config_95',['config',['../classsneze_1_1config.html',1,'sneze']]]
 ];
