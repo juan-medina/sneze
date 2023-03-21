@@ -114,9 +114,15 @@ auto application::launch() -> result<> {
     auto [window, fullscreen, monitor] = get_window_settings(config);
 
     logger::trace("init render");
-    if(auto err =
-           render_->init(window, config.logical(), fullscreen, monitor, get_name(), config.icon(), config.clear())
-               .ko()) {
+    if(auto err = render_
+                      ->init(window,
+                             config.get_logical_size(),
+                             fullscreen,
+                             monitor,
+                             get_name(),
+                             config.get_window_icon(),
+                             config.get_clear_color())
+                      .ko()) {
         logger::error("error initializing render");
         return error("Can't init the render system.", *err);
     }
@@ -137,7 +143,8 @@ auto application::launch() -> result<> {
     world_->add_system_with_priority_internal<sdl_events_priority, sdl_events_system>(render_);
 
     logger::trace("adding key system to the world");
-    world_->add_system_with_priority_internal<keys_priority, keys_system>(config.exit(), config.toggle_full_screen());
+    world_->add_system_with_priority_internal<keys_priority, keys_system>(config.get_exit_key(),
+                                                                          config.get_toggle_full_screen_key());
 
     logger::trace("adding layout system to the world");
     world_->add_system_with_priority_internal<layout_priority, layout_system>();
@@ -254,8 +261,8 @@ void application::unload_sprite(const std::string &sprite_path) {
 
 auto application::get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int> {
     using namespace std::literals;
-    auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.window().width));
-    auto height = settings_.get("window"s, "height"s, static_cast<std::int64_t>(cfg.window().height));
+    auto width = settings_.get("window"s, "width"s, static_cast<std::int64_t>(cfg.get_window_size().width));
+    auto height = settings_.get("window"s, "height"s, static_cast<std::int64_t>(cfg.get_window_size().height));
     auto size = components::size{static_cast<float>(width), static_cast<float>(height)};
     auto monitor = static_cast<int>(settings_.get("window"s, "monitor"s, static_cast<std::int64_t>(0)));
 

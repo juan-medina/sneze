@@ -102,7 +102,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a513b04c9c1c4b28dd5dcafa1660ef5cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc">application</a> (const std::string &amp;team, const std::string &amp;name)</td></tr>
 <tr class="memdesc:a513b04c9c1c4b28dd5dcafa1660ef5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct a new application  <a href="classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc">More...</a><br /></td></tr>
 <tr class="separator:a513b04c9c1c4b28dd5dcafa1660ef5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d60d8bb77447f5701286ccee2f77ce"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#ab7d60d8bb77447f5701286ccee2f77ce">configure</a> () -&gt; config=0</td></tr>
+<tr class="memitem:ab7d60d8bb77447f5701286ccee2f77ce"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#ab7d60d8bb77447f5701286ccee2f77ce">configure</a> () -&gt; <a class="el" href="classsneze_1_1config.html">config</a>=0</td></tr>
 <tr class="memdesc:ab7d60d8bb77447f5701286ccee2f77ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure the application  <a href="classsneze_1_1application.html#ab7d60d8bb77447f5701286ccee2f77ce">More...</a><br /></td></tr>
 <tr class="separator:ab7d60d8bb77447f5701286ccee2f77ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4938985d6d544ed9a06a5d7b4398b14f"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f">init</a> () -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;=0</td></tr>
@@ -224,7 +224,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">virtual auto sneze::application::configure </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt;  config</td>
+          <td> -&gt;  <a class="el" href="classsneze_1_1config.html">config</a></td>
         </tr>
       </table>
   </td>
@@ -235,7 +235,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>configure the application </p>
-<p>This method is called before the <a class="el" href="classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f" title="notify the application about initialization This method is called after the application::configure me...">application::init</a> method and it is used to configure the application. You can set several options like the window size, the window title, the window icon, and many others, for more information about the available options please check the sneze::config class.</p>
+<p>This method is called before the <a class="el" href="classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f" title="notify the application about initialization This method is called after the application::configure me...">application::init</a> method and it is used to configure the application. You can set several options like the window size, the window title, the window icon, and many others, for more information about the available options please check the <a class="el" href="classsneze_1_1config.html" title="Application configuration.">sneze::config</a> class.</p>
 <div class="fragment"><div class="line">my_game::configure() {</div>
 <div class="line">  <span class="keywordflow">return</span> config()</div>
 <div class="line">    .size(1920, 1080)</div>
@@ -244,7 +244,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="line">    .toggle_full_screen(modifier::alt, key::_return);</div>
 <div class="line">}</div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>the desired application configuration </dd></dl>
-<dl class="section see"><dt>See also</dt><dd>sneze::config </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1config.html" title="Application configuration.">sneze::config</a> </dd></dl>
 
 </div>
 </div>
