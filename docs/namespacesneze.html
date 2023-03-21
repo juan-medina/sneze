@@ -114,6 +114,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1config.html">config</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application configuration.  <a href="classsneze_1_1config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1settings.html">settings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application settings.  <a href="classsneze_1_1settings.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1error.html">error</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an error with a message and a list of causes.  <a href="classsneze_1_1error.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,6 +143,10 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a51c1b4d1d2c50f278d1dfc5f33145a7d"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
+<tr class="memitem:a51c1b4d1d2c50f278d1dfc5f33145a7d"><td class="memTemplItemLeft" align="right" valign="top">concept&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze.html#a51c1b4d1d2c50f278d1dfc5f33145a7d">is_value</a></td></tr>
+<tr class="memdesc:a51c1b4d1d2c50f278d1dfc5f33145a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept for value types.  <a href="namespacesneze.html#a51c1b4d1d2c50f278d1dfc5f33145a7d">More...</a><br /></td></tr>
+<tr class="separator:a51c1b4d1d2c50f278d1dfc5f33145a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2fc40755e8c87cf6d924201b19a21f4"><td class="memItemLeft" align="right" valign="top"><a id="ac2fc40755e8c87cf6d924201b19a21f4"></a>
 constexpr <a class="el" href="structsneze_1_1type__name__format.html">type_name_format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4">type_name_format_arr</a></td></tr>
 <tr class="memdesc:ac2fc40755e8c87cf6d924201b19a21f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the format of the type name for the current compiler. <br /></td></tr>
@@ -231,6 +238,42 @@ template&lt;typename Type &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a51c1b4d1d2c50f278d1dfc5f33145a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c1b4d1d2c50f278d1dfc5f33145a7d">&#9670;&nbsp;</a></span>is_value</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">concept sneze::is_value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= std::is_same_v&lt;Type, std::int64_t&gt; || std::is_same_v&lt;Type, double&gt; || std::is_same_v&lt;Type, bool&gt;</div>
+<div class="line">                   || std::is_same_v&lt;Type, std::string&gt;</div>
+</div><!-- fragment -->
+<p>Concept for value types. </p>
+<p>This is a concept to check if a type is a valid value type for settings</p>
+<dl class="section note"><dt>Note</dt><dd>Valid types are:<ul>
+<li>std::int64_t</li>
+<li>double</li>
+<li>bool</li>
+<li>std::string</li>
+</ul>
+</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Type</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="settings_8hpp_source.html#l00054">54</a> of file <a class="el" href="settings_8hpp_source.html">settings.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a776319c93836947f5127be1520ff7dc0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a776319c93836947f5127be1520ff7dc0">&#9670;&nbsp;</a></span>type_name_storage</h2>
 

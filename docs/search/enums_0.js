@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['level_142',['level',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7',1,'sneze::logger']]]
+  ['level_155',['level',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7',1,'sneze::logger']]]
 ];

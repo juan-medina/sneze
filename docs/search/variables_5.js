@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['type_5fname_5fformat_5farr_140',['type_name_format_arr',['../namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4',1,'sneze']]],
-  ['type_5fname_5fstorage_141',['type_name_storage',['../namespacesneze.html#a776319c93836947f5127be1520ff7dc0',1,'sneze']]]
+  ['string_152',['string',['../namespacesneze_1_1version.html#a9126c7c9e6611ab0d5e13f7e7a3c372f',1,'sneze::version']]]
 ];

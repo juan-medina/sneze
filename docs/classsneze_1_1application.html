@@ -389,25 +389,7 @@ template&lt;is_value Type&gt; </div>
 
 <p>Sets an section+name setting to the given value. </p>
 <p>This method is used to set an setting, the setting will be saved in the settings file.</p>
-<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
-<ul>
-<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
-<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
-<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>If you want to set a setting for the application, you should use <a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1" title="Sets an application setting given the name and value.">application::set_app_setting</a> instead.</dd></dl>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
-<div class="line">  <a class="code" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">set_setting</a>(<span class="stringliteral">&quot;section_name&quot;</span>, <span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;value&quot;</span>);</div>
-<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_a3549d50570717ecd6cf6714238d8a499"><div class="ttname"><a href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499">sneze::application::set_setting</a></div><div class="ttdeci">void set_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an section+name setting to the given value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00191">application.hpp:191</a></div></div>
-</div><!-- fragment --><p>This code will set in the settings file the following setting:</p>
-<div class="fragment"><div class="line">{</div>
-<div class="line">  <span class="stringliteral">&quot;section_name&quot;</span>: {</div>
-<div class="line">    <span class="stringliteral">&quot;setting_name&quot;</span>: <span class="stringliteral">&quot;value&quot;</span></div>
-<div class="line">  },</div>
-<div class="line">}</div>
-</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
   </table>
@@ -425,9 +407,11 @@ template&lt;is_value Type&gt; </div>
 <dd>
 <a class="el" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1" title="Sets an application setting given the name and value.">sneze::application::set_app_setting</a> </dd>
 <dd>
-sneze::settings::set </dd></dl>
+<a class="el" href="classsneze_1_1settings.html#af124674e88887972af607a4d04d8dafd" title="Set a setting value.">sneze::settings::set</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1settings.html" title="Application settings.">sneze::settings</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00191">191</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00167">167</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -475,19 +459,7 @@ template&lt;is_value Type&gt; </div>
 
 <p>Get the value from an given section+name. </p>
 <p>This method is used to get an setting value.</p>
-<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
-<ul>
-<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
-<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
-<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>If you want to get a setting for the application, you should use <a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece" title="Get the value from an given name.">application::get_app_setting</a> instead.</dd></dl>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
-<div class="line">  <span class="keyword">auto</span> value = <a class="code" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">get_setting</a>(<span class="stringliteral">&quot;section_name&quot;</span>, <span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;default_value&quot;</span>);</div>
-<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_ab809762bf4da9bd0cd4717abcc572c70"><div class="ttname"><a href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70">sneze::application::get_setting</a></div><div class="ttdeci">auto get_setting(const std::string &amp;section, const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given section+name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00226">application.hpp:226</a></div></div>
-</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
   </table>
@@ -506,9 +478,11 @@ template&lt;is_value Type&gt; </div>
 <dd>
 <a class="el" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece" title="Get the value from an given name.">sneze::application::get_app_setting</a> </dd>
 <dd>
-sneze::settings::get </dd></dl>
+<a class="el" href="classsneze_1_1settings.html#a9b864a2f171b8954a3835e27e357791f" title="Get a setting value.">sneze::settings::get</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1settings.html" title="Application settings.">sneze::settings</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00226">226</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00188">188</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -550,24 +524,8 @@ template&lt;is_value Type&gt; </div>
 
 <p>Sets an application setting given the name and value. </p>
 <p>This method is used to set a setting, the setting will be saved in the settings file.</p>
-<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
-<ul>
-<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
-<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
-<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
-</ul>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
-<div class="line">  <a class="code" href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">set_app_setting</a>(<span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;value&quot;</span>);</div>
-<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_ab7f647502d0de4d654145fd5a6f735d1"><div class="ttname"><a href="classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1">sneze::application::set_app_setting</a></div><div class="ttdeci">void set_app_setting(const std::string &amp;name, const Type &amp;value)</div><div class="ttdoc">Sets an application setting given the name and value.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00265">application.hpp:265</a></div></div>
-</div><!-- fragment --><p>This code will set in the settings file the following setting:</p>
-<div class="fragment"><div class="line">{</div>
-<div class="line">  <span class="stringliteral">&quot;My Game&quot;</span>: {</div>
-<div class="line">    <span class="stringliteral">&quot;setting_name&quot;</span>: <span class="stringliteral">&quot;value&quot;</span></div>
-<div class="line">  },</div>
-<div class="line">}</div>
-</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+<dl class="section note"><dt>Note</dt><dd>the section name will be the application name</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
   </table>
@@ -584,7 +542,7 @@ template&lt;is_value Type&gt; </div>
 <dd>
 <a class="el" href="classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499" title="Sets an section+name setting to the given value.">sneze::application::set_setting</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00265">265</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00206">206</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -626,18 +584,8 @@ template&lt;is_value Type&gt; </div>
 
 <p>Get the value from an given name. </p>
 <p>This method is used to get an setting value.</p>
-<p>The settings file is located in the user's configuration folder, this folder is different for each platform:</p>
-<ul>
-<li>Windows: APPDATA%\sneze\[team]\[name]\settings.json</li>
-<li>Linux: $XDG_CONFIG_HOME/sneze/[team]/[name]/settings.json</li>
-<li>macOS: $HOME/Library/Application Support/sneze/[team]/[name]/settings.json</li>
-</ul>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> my_game::init() -&gt; result&lt;&gt; {</div>
-<div class="line">  <span class="keyword">auto</span> value = <a class="code" href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">get_app_setting</a>(<span class="stringliteral">&quot;setting_name&quot;</span>, <span class="stringliteral">&quot;default_value&quot;</span>);</div>
-<div class="line">  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line">}</div>
-<div class="ttc" id="aclasssneze_1_1application_html_a7cfedeb4eb81a02edc9a39968a9d7ece"><div class="ttname"><a href="classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece">sneze::application::get_app_setting</a></div><div class="ttdeci">auto get_app_setting(const std::string &amp;name, const Type &amp;default_value)</div><div class="ttdoc">Get the value from an given name.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00296">application.hpp:296</a></div></div>
-</div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
+<dl class="section note"><dt>Note</dt><dd>the section name will be the application name</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Type</td><td>the type of the setting value. The type must be one of: bool, std::int64_t, double or std::string </td></tr>
   </table>
@@ -655,9 +603,9 @@ template&lt;is_value Type&gt; </div>
 <dd>
 <a class="el" href="classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70" title="Get the value from an given section+name.">sneze::application::get_setting</a> </dd>
 <dd>
-sneze::settings::get </dd></dl>
+<a class="el" href="classsneze_1_1settings.html#a9b864a2f171b8954a3835e27e357791f" title="Get a setting value.">sneze::settings::get</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00296">296</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00226">226</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>
@@ -688,7 +636,7 @@ sneze::settings::get </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the ECS world </dd></dl>
 <dl class="section see"><dt>See also</dt><dd>sneze::world </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00305">305</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="application_8hpp_source.html#l00235">235</a> of file <a class="el" href="application_8hpp_source.html">application.hpp</a>.</p>
 
 </div>
 </div>

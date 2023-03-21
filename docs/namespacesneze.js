@@ -29,12 +29,14 @@ var namespacesneze =
     ] ],
     [ "application", "classsneze_1_1application.html", "classsneze_1_1application" ],
     [ "config", "classsneze_1_1config.html", "classsneze_1_1config" ],
+    [ "settings", "classsneze_1_1settings.html", "classsneze_1_1settings" ],
     [ "error", "classsneze_1_1error.html", "classsneze_1_1error" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
     [ "span_istream", "classsneze_1_1span__istream.html", "classsneze_1_1span__istream" ],
     [ "type_name_format", "structsneze_1_1type__name__format.html", "structsneze_1_1type__name__format" ],
     [ "raw_type_name", "namespacesneze.html#ab7ee8852f78ad34a1882afb4319c4520", null ],
     [ "type_name", "namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c", null ],
+    [ "is_value", "namespacesneze.html#a51c1b4d1d2c50f278d1dfc5f33145a7d", null ],
     [ "type_name_format_arr", "namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4", null ],
     [ "type_name_storage", "namespacesneze.html#a776319c93836947f5127be1520ff7dc0", null ]
 ];
