@@ -46,11 +46,30 @@ SOFTWARE.
 
 namespace sneze {
 
+/**
+ * @brief The world class
+ * This class is the main class of the engine, it will hold all the entities, globals, components, and systems.
+ *
+ * It handles the creation of events, and listeners.
+ *
+ * It will also be the main class that the user will interact with, either in systems, listeners or the own application.
+ *
+ * @see application
+ * @see system
+ * @see world::add_entity
+ * @see world::add_system
+ * @see world::add_listener
+ * @see world::set_global
+ * @see world::emmit
+ */
 class world {
     friend class application;
 
 public:
+    //! world Default constructor
     world() = default;
+
+    //! world Default destructor
     ~world() = default;
 
     world(const world &) = delete;
@@ -59,6 +78,14 @@ public:
     auto operator=(const world &) -> world & = delete;
     auto operator=(const world &&) -> world & = delete;
 
+    /**
+     * @brief add an entity to the world
+     * This function will add an entity to the world, and will return the entity id.
+     * @tparam Args the types of the components to add to the entity
+     * @param args the values of the components to add to the entity
+     * @return the entity id
+     * @see world::remove_entity
+     */
     template<typename... Args>
     auto add_entity(Args... args) {
         auto entity_id = registry_.create();
@@ -66,50 +93,139 @@ public:
         return entity_id;
     }
 
+    /**
+     * @brief remove an entity from the world
+     * @param entity the entity id to remove
+     * @see world::add_entity
+     */
     [[maybe_unused]] void remove_entity(entt::entity entity) {
         registry_.destroy(entity);
     }
 
+    /**
+     * @brief get a component from an entity
+     * This function will return a reference to the component of the entity.
+     *
+     * @tparam Type the type of the component to get
+     * @param entity the entity id to get the component from
+     * @return a reference to the component
+     * @see world::set_component
+     * @see world::remove_component
+     * @see world::has_component
+     */
     template<typename Type>
     [[maybe_unused]] auto get_component(entt::entity entity) -> decltype(auto) {
         return registry_.get<Type>(entity);
     }
 
+    /**
+     * @brief remove a component from an entity
+     * This function will remove a component from an entity.
+     *
+     * @tparam Type the type of the component to remove
+     * @param entity the entity id to remove the component from
+     * @see world::set_component
+     * @see world::get_component
+     * @see world::has_component
+     */
     template<typename Type>
     [[maybe_unused]] auto remove_component(entt::entity entity) {
         registry_.remove<Type>(entity);
     }
 
+    /**
+     * @brief set a component to an entity
+     * This function will set a component to an entity.
+     *
+     * @tparam Type the type of the component to set
+     * @tparam Args the types of the arguments to pass to the component
+     * @param entity the entity id to set the component to
+     * @param args the arguments to pass to the component
+     * @see world::get_component
+     * @see world::remove_component
+     * @see world::has_component
+     */
     template<typename Type, typename... Args>
     void set_component(entt::entity entity, Args &&...args) {
         registry_.emplace<Type>(entity, std::forward<Args>(args)...);
     }
 
+    /**
+     * @brief check if an entity has a component
+     * This function will check if an entity has a component.
+     *
+     * @tparam Type the type of the component to check
+     * @param entity the entity id to check
+     * @return true if the entity has the component, false otherwise
+     * @see world::set_component
+     * @see world::get_component
+     * @see world::remove_component
+     */
     template<typename Type>
     auto has_component(entt::entity entity) {
         return registry_.try_get<Type>(entity);
     }
 
+    /**
+     * @brief get all the entities that have the components
+     * This function will return a view of all the entities that have the components.
+     *
+     * @tparam Types the types of the components to check
+     * @return a view of all the entities that have the components
+     * @see world::add_entity
+     */
     template<typename... Types>
     [[nodiscard]] auto get_entities() {
         return registry_.view<Types...>().each();
     }
 
+    /**
+     * @tag an entity
+     * @tparam TagType the type of the tag to add
+     * @param entity the entity id to tag
+     * @see world::untag
+     * @see world::get_tagged
+     */
     template<typename TagType>
     void tag(entt::entity entity) {
         set_component<components::tag<TagType>>(entity);
     }
 
+    /**
+     * @brief untag an entity
+     * @tparam TagType the type of the tag to remove
+     * @param entity the entity id to untag
+     * @see world::tag
+     * @see world::get_tagged
+     */
     template<typename TagType>
     void untag(entt::entity entity) {
         remove_component<components::tag<TagType>>(entity);
     }
 
+    /**
+     * @brief return all the entities that have the tag and a set of components
+     * @tparam TagType the type of the tag to check
+     * @tparam Types the types of the components to check
+     * @return a view of all the entities that have the tag
+     * @see world::tag
+     * @see world::untag
+     * @see world::remove_all_tagged
+     * @see world::remove_all_tags
+     */
     template<typename TagType, typename... Types>
     [[nodiscard]] auto get_tagged() {
         return registry_.view<Types..., components::tag<TagType>>().each();
     }
 
+    /**
+     * @brief remove all the entities that have a particular tag
+     * @tparam TagType the type of the tag to check
+     * @see world::tag
+     * @see world::untag
+     * @see world::get_tagged
+     * @see world::remove_all_tags
+     */
     template<typename TagType>
     void remove_all_tagged() {
         for(auto &&[entity]: get_tagged<TagType>()) {
@@ -117,6 +233,14 @@ public:
         }
     }
 
+    /**
+     * @brief remove all the tags of a particular type from all the entities in the world
+     * @tparam TagType the type of the tag to remove
+     * @see world::tag
+     * @see world::untag
+     * @see world::get_tagged
+     * @see world::remove_all_tagged
+     */
     template<typename TagType>
     void remove_all_tags() {
         for(auto &&[entity]: get_tagged<TagType>()) {
@@ -124,6 +248,17 @@ public:
         }
     }
 
+    /**
+     * @brief set a global entity
+     * A global entity is an entity that is always present in the world and can be accessed by any system, but its only
+     * exists in one entity. This function will set the global entity to the given value.
+     *     *
+     * @note the global entity must have a default initializer, otherwise the function will fail to compile
+     *
+     * @tparam Type of the global entity
+     * @tparam Args arguments type to pass to the global entity constructor
+     * @param args arguments to pass to the global entity constructor
+     */
     template<typename Type, typename... Args>
     [[maybe_unused]] void set_global(Args &&...args) {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
@@ -131,6 +266,18 @@ public:
         global = Type{std::forward<Args>(args)...};
     }
 
+    /**
+     * @brief get a global entity
+     * A global entity is an entity that is always present in the world and can be accessed by any system, but its only
+     * exists in one entity. This function will return a reference to the global entity.
+     *
+     * If the global entity does not exist, it will be created with the default iiitializer.
+     *
+     * @note the global entity must have a default initializer, otherwise the function will fail to compile
+     *
+     * @tparam Type of the global entity
+     * @return a reference to the global component
+     */
     template<typename Type>
     [[maybe_unused]] [[nodiscard]] auto get_global() -> auto & {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
@@ -141,12 +288,30 @@ public:
         return get_global<Type>();
     }
 
+    /**
+     * @brief remove a global entity
+     * A global entity is an entity that is always present in the world and can be accessed by any system, but its only
+     * exists in one entity. This function will remove the global entity.
+     *
+     * @note the global entity must have a default initializer, otherwise the function will fail to compile
+     *
+     * @tparam Type of the global entity
+     */
     template<typename Type>
     [[maybe_unused]] void remove_global() {
         static_assert(std::default_initializable<Type>, "the type must have a default initializer");
         remove_all_tagged<global<Type>>();
     }
 
+    /**
+     * @brief sort the entities that have a particular component, using a custom compare function
+     *
+     * @note the sort function is in-place, so the order of the entities will change
+     *
+     * @tparam Type the type of the component to sort
+     * @tparam Compare the compare function type to use
+     * @param compare the compare function to use
+     */
     template<typename Type, typename Compare>
     void sort(Compare compare) {
         registry_.sort<Type>(compare);
