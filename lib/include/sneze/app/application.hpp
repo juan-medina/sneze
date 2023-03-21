@@ -445,31 +445,53 @@ public:
     [[maybe_unused]] void unload_sprite_sheet(const std::string &sprite_sheet_path);
 
 private:
+
+    //! Holds the team name
     std::string team_;
+
+    //! Holds the game name
     std::string name_;
+
+    //! Application settings
     settings settings_;
+
+    //! Hold the render
     std::shared_ptr<render> render_;
+
+    //! Holds the world
     std::shared_ptr<class world> world_;
+
+    //! flag to indicate if the application want to close
     bool want_to_close_{false};
 
+    //! event handler if the application want to close
     void app_want_closing(events::application_want_closing event) noexcept;
 
+    //! launch the application
     auto launch() -> result<>;
 
+    //! read the settings from the settings file
     auto read_settings() noexcept -> result<>;
 
+    //! save the settings to the settings file
     auto save_settings() noexcept -> result<>;
 
+    //! set the log level
     void log_level();
 
+    //! display an error message dialog
     [[nodiscard]] auto show_error(const error &err) const -> const auto &;
 
+    //! save the window size, fullscreen and monitor
     void save_window_settings();
 
+    //! get the window size, fullscreen and monitor
     [[nodiscard]] auto get_window_settings(const config &cfg) -> std::tuple<components::size, bool, int>;
 
+    //! load the embedded fonts
     [[nodiscard]] auto load_embedded_fonts() -> result<>;
 
+    //! unload the embedded fonts
     void unload_embedded_fonts();
 };
 
