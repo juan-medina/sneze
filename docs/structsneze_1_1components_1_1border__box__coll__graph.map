@@ -1,5 +1,6 @@
 <map id="sneze::components::border_box" name="sneze::components::border_box">
-<area shape="rect" id="node1" title="component that represent a box with a border" alt="" coords="5,200,161,241"/>
-<area shape="rect" id="node2" href="$structsneze_1_1components_1_1solid__box.html" title="component that represent a solid box" alt="" coords="5,109,161,151"/>
+<area shape="rect" id="node1" title="component that represent a box with a border" alt="" coords="95,333,251,375"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1solid__box.html" title="component that represent a solid box" alt="" coords="5,169,161,211"/>
 <area shape="rect" id="node3" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node4" href="$classsneze_1_1components_1_1color.html" title="component that indicates the color of the entity" alt="" coords="185,169,341,211"/>
 </map>

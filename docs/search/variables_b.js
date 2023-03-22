@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_248',['x',['../structsneze_1_1components_1_1position.html#a3d1136e4c91b2475515a5a191a1a78dd',1,'sneze::components::position']]]
+  ['orange_315',['orange',['../classsneze_1_1components_1_1color.html#aafb97b840b7954c78ab6a87f2e71e480',1,'sneze::components::color']]]
 ];

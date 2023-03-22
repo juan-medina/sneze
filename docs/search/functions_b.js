@@ -1,16 +1,19 @@
 var searchData=
 [
-  ['save_205',['save',['../classsneze_1_1settings.html#a5623c354647fa1df2a537600e461aa98',1,'sneze::settings']]],
-  ['set_206',['set',['../classsneze_1_1settings.html#af124674e88887972af607a4d04d8dafd',1,'sneze::settings']]],
-  ['set_5fapp_5fsetting_207',['set_app_setting',['../classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1',1,'sneze::application']]],
-  ['set_5fcomponent_208',['set_component',['../classsneze_1_1world.html#a0c40e2a0feccfe8e7a890f6e78a2ea74',1,'sneze::world']]],
-  ['set_5fglobal_209',['set_global',['../classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946',1,'sneze::world']]],
-  ['set_5flevel_210',['set_level',['../namespacesneze_1_1logger.html#a8dc1bc397b33440d038268fff57da583',1,'sneze::logger']]],
-  ['set_5fsetting_211',['set_setting',['../classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499',1,'sneze::application']]],
-  ['settings_212',['settings',['../classsneze_1_1settings.html#a9ccb5b84dd12faff4d2a7202b84fe83e',1,'sneze::settings']]],
-  ['setup_5flog_213',['setup_log',['../namespacesneze_1_1logger.html#a1b7484ec500e53ca56bdabb0cd574378',1,'sneze::logger']]],
-  ['size_214',['size',['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config']]],
-  ['sort_215',['sort',['../classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89',1,'sneze::world']]],
-  ['span_5fistream_216',['span_istream',['../classsneze_1_1span__istream.html#a220d43a1161b8447c67cda4d78cc5c33',1,'sneze::span_istream']]],
-  ['string_5ffrom_5flevel_217',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]]
+  ['raw_5ftype_5fname_241',['raw_type_name',['../namespacesneze.html#ab7ee8852f78ad34a1882afb4319c4520',1,'sneze']]],
+  ['read_242',['read',['../classsneze_1_1settings.html#a09867e2e5bfb5785155d0faabe9bff00',1,'sneze::settings']]],
+  ['remove_5fall_5ftagged_243',['remove_all_tagged',['../classsneze_1_1world.html#a524e3e45902cb7ce09c44b35c918b0ec',1,'sneze::world']]],
+  ['remove_5fall_5ftags_244',['remove_all_tags',['../classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055',1,'sneze::world']]],
+  ['remove_5fcomponent_245',['remove_component',['../classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a',1,'sneze::world']]],
+  ['remove_5fcomponent_5flisteners_246',['remove_component_listeners',['../classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636',1,'sneze::world']]],
+  ['remove_5fentity_247',['remove_entity',['../classsneze_1_1world.html#af6d8be1e40f04afe1c07d0c3ea99178b',1,'sneze::world']]],
+  ['remove_5fglobal_248',['remove_global',['../classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528',1,'sneze::world']]],
+  ['remove_5flistener_249',['remove_listener',['../classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb',1,'sneze::world']]],
+  ['remove_5flistener_5fto_5fadd_5fcomponent_250',['remove_listener_to_add_component',['../classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22',1,'sneze::world']]],
+  ['remove_5flisteners_251',['remove_listeners',['../classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd',1,'sneze::world']]],
+  ['remove_5fsystem_252',['remove_system',['../classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f',1,'sneze::world']]],
+  ['result_253',['result',['../classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1',1,'sneze::result::result(const Value &amp;value)'],['../classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973',1,'sneze::result::result(const Error &amp;error)']]],
+  ['rgb_254',['rgb',['../classsneze_1_1components_1_1color.html#a3c8441c896da3a9cc6d8fc6246ec2987',1,'sneze::components::color']]],
+  ['rgba_255',['rgba',['../classsneze_1_1components_1_1color.html#ac71c9d8ee292d2756fbdd2cd5af66f85',1,'sneze::components::color']]],
+  ['run_256',['run',['../classsneze_1_1application.html#a80261bd6fedb697dce8e6e80b7b71fe1',1,'sneze::application']]]
 ];

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['logo_235',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
-  ['logo_5fstring_236',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]]
+  ['file_295',['file',['../structsneze_1_1components_1_1sprite.html#acc8c7f8bd778ddd49b0eeed8a9155200',1,'sneze::components::sprite']]],
+  ['flip_5fx_296',['flip_x',['../structsneze_1_1components_1_1sprite.html#ab502080b2fa38746a6f661e2810232bb',1,'sneze::components::sprite']]],
+  ['flip_5fy_297',['flip_y',['../structsneze_1_1components_1_1sprite.html#ae44129e739d240c0eceef2ddd5d48d75',1,'sneze::components::sprite']]],
+  ['frame_298',['frame',['../structsneze_1_1components_1_1sprite.html#a274c9614d03bd53f935b1b8da617a914',1,'sneze::components::sprite']]]
 ];

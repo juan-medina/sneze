@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['width_247',['width',['../structsneze_1_1components_1_1size.html#aa189004f0600e6e7234b861b59ad82d5',1,'sneze::components::size']]]
+  ['magenta_311',['magenta',['../classsneze_1_1components_1_1color.html#a08ca6b274bc6f83a2c460ea22a272859',1,'sneze::components::color']]],
+  ['major_312',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
+  ['maroon_313',['maroon',['../classsneze_1_1components_1_1color.html#a37de24e43f0359c920d985b759e63dd3',1,'sneze::components::color']]],
+  ['minor_314',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]]
 ];

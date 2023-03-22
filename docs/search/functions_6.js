@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['icon_181',['icon',['../classsneze_1_1config.html#a4dddc3e4f9b421895e0877086ed950d3',1,'sneze::config']]],
-  ['info_182',['info',['../namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37',1,'sneze::logger']]],
-  ['init_183',['init',['../classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f',1,'sneze::application::init()'],['../classsneze_1_1world.html#abef413441fe1df7363d9022245bba602',1,'sneze::world::init()']]]
+  ['has_5fcomponent_228',['has_component',['../classsneze_1_1world.html#a3091cf1ed2b0cffce1eeb6b15b8f55ee',1,'sneze::world']]],
+  ['has_5ferror_229',['has_error',['../classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed',1,'sneze::result']]],
+  ['has_5fvalue_230',['has_value',['../classsneze_1_1result.html#ac0a7e7fd669d5b27f87ce43e8070ba52',1,'sneze::result']]]
 ];

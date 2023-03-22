@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['is_5fvalue_232',['is_value',['../namespacesneze.html#a51c1b4d1d2c50f278d1dfc5f33145a7d',1,'sneze']]]
+  ['color_288',['color',['../structsneze_1_1components_1_1border__box.html#a9e0d19e0d712bc91d8348724a1ffb7f6',1,'sneze::components::border_box']]]
 ];

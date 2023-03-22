@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['icon_44',['icon',['../classsneze_1_1config.html#a4dddc3e4f9b421895e0877086ed950d3',1,'sneze::config']]],
-  ['info_45',['info',['../namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37',1,'sneze::logger::info(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; info&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7acaf9b6b99962bf5c2264824231d7a40c',1,'sneze::logger::info()']]],
-  ['init_46',['init',['../classsneze_1_1application.html#a4938985d6d544ed9a06a5d7b4398b14f',1,'sneze::application::init()'],['../classsneze_1_1world.html#abef413441fe1df7363d9022245bba602',1,'sneze::world::init()']]],
-  ['is_5fvalue_47',['is_value',['../namespacesneze.html#a51c1b4d1d2c50f278d1dfc5f33145a7d',1,'sneze']]]
+  ['has_5fcomponent_62',['has_component',['../classsneze_1_1world.html#a3091cf1ed2b0cffce1eeb6b15b8f55ee',1,'sneze::world']]],
+  ['has_5ferror_63',['has_error',['../classsneze_1_1result.html#a5a3c022d995f8baa46711e803d2838ed',1,'sneze::result']]],
+  ['has_5fvalue_64',['has_value',['../classsneze_1_1result.html#ac0a7e7fd669d5b27f87ce43e8070ba52',1,'sneze::result']]],
+  ['height_65',['height',['../structsneze_1_1components_1_1size.html#a06320b4b2516a309a900ba16acea7d77',1,'sneze::components::size']]],
+  ['high_66',['high',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962af39a73d58371d930f01c547111df9b7e',1,'sneze::world']]]
 ];
