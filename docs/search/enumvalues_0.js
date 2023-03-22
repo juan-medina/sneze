@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['critical_211',['critical',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7e85bcb66fb9a809d5ab4f62a8b8bea8',1,'sneze::logger']]]
+  ['after_5fapplications_220',['after_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032',1,'sneze::world']]]
 ];

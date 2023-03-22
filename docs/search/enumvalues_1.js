@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['debug_212',['debug',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7aad42f6697b035b7580e4fef93be20b4d',1,'sneze::logger']]]
+  ['before_5fapplications_221',['before_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962a4b86d833d24e882554388d49202212a7',1,'sneze::world']]]
 ];

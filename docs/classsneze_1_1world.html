@@ -86,6 +86,8 @@ $(document).ready(function(){initNavTree('classsneze_1_1world.html',''); initRes
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classsneze_1_1world-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">sneze::world Class Reference</div>  </div>
@@ -155,10 +157,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af118df3a49955fc632dba9e57df72055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedf4b8c72bfe477f429f35eff774a946"><td class="memTemplParams" colspan="2">template&lt;typename Type , typename... Args&gt; </td></tr>
 <tr class="memitem:aedf4b8c72bfe477f429f35eff774a946"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946">set_global</a> (Args &amp;&amp;...args)</td></tr>
-<tr class="memdesc:aedf4b8c72bfe477f429f35eff774a946"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will set the global entity to the given value.</p><ul>
-<li></li>
-</ul>
- <a href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946">More...</a><br /></td></tr>
+<tr class="memdesc:aedf4b8c72bfe477f429f35eff774a946"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will set the global entity to the given value.  <a href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946">More...</a><br /></td></tr>
 <tr class="separator:aedf4b8c72bfe477f429f35eff774a946"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2811a5090e34c1748dea936b5f92f128"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
 <tr class="memitem:a2811a5090e34c1748dea936b5f92f128"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128">get_global</a> () -&gt; auto &amp;</td></tr>
@@ -212,6 +211,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99bb3cef6a29b1a18a0724eb144fe636"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">remove_component_listeners</a> (InstanceType &amp;&amp;instance)</td></tr>
 <tr class="memdesc:a99bb3cef6a29b1a18a0724eb144fe636"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all listeners to components of type in entity  <a href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">More...</a><br /></td></tr>
 <tr class="separator:a99bb3cef6a29b1a18a0724eb144fe636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:af882eb0734ac9b4457209c4da1f76962"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962">priority</a> : int32_t </td></tr>
+<tr class="memdesc:af882eb0734ac9b4457209c4da1f76962"><td class="mdescLeft">&#160;</td><td class="mdescRight">priority of the systems  <a href="classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962">More...</a><br /></td></tr>
+<tr class="separator:af882eb0734ac9b4457209c4da1f76962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:abef413441fe1df7363d9022245bba602"><td class="memItemLeft" align="right" valign="top"><a id="abef413441fe1df7363d9022245bba602"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#abef413441fe1df7363d9022245bba602">init</a> ()</td></tr>
+<tr class="memdesc:abef413441fe1df7363d9022245bba602"><td class="mdescLeft">&#160;</td><td class="mdescRight">inintialize the world <br /></td></tr>
+<tr class="separator:abef413441fe1df7363d9022245bba602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb681364d86ff384a171866d2c5423a0"><td class="memItemLeft" align="right" valign="top"><a id="adb681364d86ff384a171866d2c5423a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#adb681364d86ff384a171866d2c5423a0">update</a> ()</td></tr>
+<tr class="memdesc:adb681364d86ff384a171866d2c5423a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the world <br /></td></tr>
+<tr class="separator:adb681364d86ff384a171866d2c5423a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5d88cdbad491e3cf4116d43ea9c31c0"><td class="memItemLeft" align="right" valign="top"><a id="af5d88cdbad491e3cf4116d43ea9c31c0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#af5d88cdbad491e3cf4116d43ea9c31c0">end</a> ()</td></tr>
+<tr class="memdesc:af5d88cdbad491e3cf4116d43ea9c31c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">end the world <br /></td></tr>
+<tr class="separator:af5d88cdbad491e3cf4116d43ea9c31c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9755abf52731a956addc3d4d3a7c222"><td class="memItemLeft" align="right" valign="top"><a id="af9755abf52731a956addc3d4d3a7c222"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#af9755abf52731a956addc3d4d3a7c222">clear</a> ()</td></tr>
+<tr class="memdesc:af9755abf52731a956addc3d4d3a7c222"><td class="mdescLeft">&#160;</td><td class="mdescRight">clear the world <br /></td></tr>
+<tr class="separator:af9755abf52731a956addc3d4d3a7c222"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The world class This class is the main class of the engine, it will hold all the entities, globals, components, and systems. </p>
@@ -232,7 +256,46 @@ system </dd>
 <a class="el" href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5" title="enqueue an event to be dispatched">world::emmit</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00065">65</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="af882eb0734ac9b4457209c4da1f76962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af882eb0734ac9b4457209c4da1f76962">&#9670;&nbsp;</a></span>priority</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962">sneze::world::priority</a> : int32_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>priority of the systems </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af882eb0734ac9b4457209c4da1f76962a632cc3677ca855035975cc88e2e70b16"></a>low&#160;</td><td class="fielddoc"><p>lowest priority </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af882eb0734ac9b4457209c4da1f76962abbe291a49f6891148c584a4489448d17"></a>normal&#160;</td><td class="fielddoc"><p>normal priority </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af882eb0734ac9b4457209c4da1f76962af39a73d58371d930f01c547111df9b7e"></a>high&#160;</td><td class="fielddoc"><p>highest priority </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af882eb0734ac9b4457209c4da1f76962a4b86d833d24e882554388d49202212a7"></a>before_applications&#160;</td><td class="fielddoc"><p>priority before the applications </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032"></a>after_applications&#160;</td><td class="fielddoc"><p>priority after the applications </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00499">499</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a674ced6bd76f7e498f4d1b6fce2ac125"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a674ced6bd76f7e498f4d1b6fce2ac125">&#9670;&nbsp;</a></span>add_entity()</h2>
 
@@ -817,10 +880,7 @@ template&lt;typename Type , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>set a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will set the global entity to the given value.</p><ul>
-<li></li>
-</ul>
-</p>
+<p>set a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will set the global entity to the given value. </p>
 <dl class="section note"><dt>Note</dt><dd>the global entity must have a default initializer, otherwise the function will fail to compile</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">

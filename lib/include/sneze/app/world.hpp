@@ -252,7 +252,7 @@ public:
      * @brief set a global entity
      * A global entity is an entity that is always present in the world and can be accessed by any system, but its only
      * exists in one entity. This function will set the global entity to the given value.
-     *     *
+     *
      * @note the global entity must have a default initializer, otherwise the function will fail to compile
      *
      * @tparam Type of the global entity
@@ -483,23 +483,52 @@ public:
     }
 
 protected:
+    //! inintialize the world
     void init();
 
+    //! update the world
     void update();
 
+    //! end the world
     void end();
 
+    //! clear the world
     void clear();
 
+    //! priority of the systems
     enum priority : int32_t {
+        //! lowest priority
         low = -1000,
+
+        //! normal priority
         normal = 0,
+
+        //! highest priority
         high = 1000,
 
+        //! priority before the applications
         before_applications = high + 1000,
+
+        //! priority after the applications
         after_applications = low - 1000,
     };
 
+    /**
+     * @brief add a system to the world with a given priority, for internal use only
+     *
+     * Create a system and add it to the world. The system will be added with the given priority.
+     *
+     * note: the priority must be between priority::after_applications and priority::before_applications
+     *
+     * When the world is updated, the system will be updated in the order of the priority.
+     *
+     * @tparam Priority the priority of the system
+     * @tparam SystemType the type of the system to add
+     * @tparam Args the types of the arguments to pass to the system constructor
+     * @param args the arguments to pass to the system constructor
+     * @see world::add_system
+     * @see world::remove_system
+     */
     template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority_internal(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
@@ -510,14 +539,7 @@ protected:
     }
 
 private:
-    [[nodiscard]] static auto since_epoch() -> float;
-
-    template<typename ComponentType>
-    void add_listener_to_add_component_internal(entt::registry & /*registry*/, entt::entity entity) {
-        auto &component = registry_.get<ComponentType>(entity);
-        emmit<events::add_component<ComponentType>>(entity, component);
-    }
-
+    //! add system with priority, without checking the priority, enqueue the system to be added
     template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority_unrestricted(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
@@ -526,59 +548,99 @@ private:
             std::make_unique<system_with_priority>(type_hash, Priority, std::make_unique<SystemType>(args...)));
     }
 
+    //! internal add listener to add component
+    template<typename ComponentType>
+    void add_listener_to_add_component_internal(entt::registry & /*registry*/, entt::entity entity) {
+        auto &component = registry_.get<ComponentType>(entity);
+        emmit<events::add_component<ComponentType>>(entity, component);
+    }
+
+    //! global tag
     template<typename Type>
     struct global {};
 
+    //! system ptr with priority
     using system_ptr = std::unique_ptr<system_with_priority>;
+
+    //! vector of system ptr
     using systems_vector = std::vector<system_ptr>;
+
+    //! vector of system id
     using systems_id_vector = std::vector<entt::id_type>;
 
+    //! the time that the world was created since the epoch
     game_time start_;
+
+    //! the current time since start
     game_time current_;
 
+    //! the current systems
     systems_vector systems_;
+
+    //! the systems to add
     systems_vector systems_to_add_;
 
+    //! the systems to remove
     systems_id_vector systems_to_remove_;
+
+    //! the registry
     entt::registry registry_;
 
+    //! the event dispatcher
     entt::dispatcher event_dispatcher_;
 
+    //! get the time since the epoch
+    [[nodiscard]] static auto since_epoch() -> float;
+
+    //! update the time
     void update_time();
 
+    //! update the systems
     void update_systems();
 
+    //! send the pending events
     void sent_events();
 
+    //! remove all systems
     void remove_all_systems() noexcept;
 
+    //! discard pending events
     void discard_pending_events() noexcept;
 
+    //! remove pending systems
     void remove_pending_systems() noexcept;
 
+    //! match systems by type
     static auto match_type(entt::id_type type_to_remove) noexcept {
         return [type_to_remove](const system_ptr &system) noexcept -> bool { return system->type() == type_to_remove; };
     }
 
+    //! add pending systems
     void add_pending_systems();
 
+    //! helper to remove a system from a vector of systems for a given type
     auto remove_system_from_vector(entt::id_type type_to_remove, systems_vector &systems) noexcept -> bool;
 
+    //! helper to remove all systems from a vector of systems
     void remove_all_systems_from_vector(systems_vector &systems) noexcept;
 
+    //! helper to recursively create components
     template<typename... Args>
     void recurse_create(entt::entity entity_id, Args... args) {
         helper_create_shift(entity_id, args...);
     }
 
+    //! helper to recursively create components, add one component and shift the arguments
     template<typename Type, typename... Args>
     [[maybe_unused]] void helper_create_shift(entt::entity entity_id, Type value, Args &&...args) {
         set_component<Type>(entity_id, value);
         recurse_create(entity_id, args...);
     }
 
+    //! helper to recursively create components, for the last component
     void helper_create_shift(entt::entity) {} // NOLINT(readability-named-parameter)
 
+    //! sorting function by priority
     static auto sort_by_priority(const system_ptr &lhs, const system_ptr &rhs) noexcept -> bool;
 };
 

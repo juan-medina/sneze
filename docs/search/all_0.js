@@ -5,5 +5,6 @@ var searchData=
   ['add_5flistener_5fto_5fadd_5fcomponent_2',['add_listener_to_add_component',['../classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5',1,'sneze::world']]],
   ['add_5fsystem_3',['add_system',['../classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de',1,'sneze::world']]],
   ['add_5fsystem_5fwith_5fpriority_4',['add_system_with_priority',['../classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2',1,'sneze::world']]],
-  ['application_5',['application',['../classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc',1,'sneze::application::application()'],['../classsneze_1_1application.html',1,'sneze::application']]]
+  ['after_5fapplications_5',['after_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032',1,'sneze::world']]],
+  ['application_6',['application',['../classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc',1,'sneze::application::application()'],['../classsneze_1_1application.html',1,'sneze::application']]]
 ];
