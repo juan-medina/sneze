@@ -12,7 +12,11 @@ var annotated_dup =
         [ "border_box", "structsneze_1_1components_1_1border__box.html", "structsneze_1_1components_1_1border__box" ],
         [ "renderable", "structsneze_1_1components_1_1renderable.html", "structsneze_1_1components_1_1renderable" ],
         [ "color", "classsneze_1_1components_1_1color.html", "classsneze_1_1components_1_1color" ],
-        [ "sprite", "structsneze_1_1components_1_1sprite.html", "structsneze_1_1components_1_1sprite" ]
+        [ "sprite", "structsneze_1_1components_1_1sprite.html", "structsneze_1_1components_1_1sprite" ],
+        [ "alignment", "structsneze_1_1components_1_1alignment.html", "structsneze_1_1components_1_1alignment" ],
+        [ "label", "structsneze_1_1components_1_1label.html", "structsneze_1_1components_1_1label" ],
+        [ "anchor", "structsneze_1_1components_1_1anchor.html", "structsneze_1_1components_1_1anchor" ],
+        [ "layout", "structsneze_1_1components_1_1layout.html", null ]
       ] ],
       [ "application", "classsneze_1_1application.html", "classsneze_1_1application" ],
       [ "config", "classsneze_1_1config.html", "classsneze_1_1config" ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['trace_353',['trace',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a04a75036e9d520bb983c5ed03b8d0182',1,'sneze::logger']]]
+  ['right_382',['right',['../namespacesneze_1_1components.html#a35e88ac59a84ece38c7b8e5af8b6d4f5a7c4f29407893c334a6cb7a87bf045c0d',1,'sneze::components']]]
 ];

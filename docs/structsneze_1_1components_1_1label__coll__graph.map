@@ -1,0 +1,4 @@
+<map id="sneze::components::label" name="sneze::components::label">
+<area shape="rect" id="node1" title="This define a label, with a font, size and alignment." alt="" coords="5,109,161,151"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1alignment.html" title="This is a struct to define the alignment of a element." alt="" coords="5,5,161,47"/>
+</map>

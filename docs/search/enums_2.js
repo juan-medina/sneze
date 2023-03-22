@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['priority_342',['priority',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962',1,'sneze::world']]]
+  ['opacity_365',['opacity',['../classsneze_1_1components_1_1color.html#a9c3f04325b0062b932b5c4b182bdd961',1,'sneze::components::color']]]
 ];

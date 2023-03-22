@@ -30,27 +30,71 @@ SOFTWARE.
 
 namespace sneze::components {
 
-enum class vertical { none, top, center, bottom };
-
-enum class horizontal { none, left, center, right };
-
-struct alignment {
-    enum horizontal horizontal = horizontal::left; // cppcheck-suppress unusedStructMember
-    enum vertical vertical = vertical::top;        // cppcheck-suppress unusedStructMember
+/**
+ * @brief This is an enum to define the vertical alignment
+ */
+enum class vertical {
+    //! No vertical alignment
+    none,
+    //! Align vertically to the top
+    top,
+    //! Align vertically to the center
+    center,
+    //! Align vertically to the bottom
+    bottom
 };
 
+/**
+ * @brief This is an enum to define the horizontal alignment
+ */
+enum class horizontal {
+    //! No horizontal alignment
+    none,
+    //! Align horizontally to the left
+    left,
+    //! Align horizontally to the center
+    center,
+    //! Align horizontally to the
+    right
+};
+
+/**
+ * @brief This is a struct to define the alignment of a element
+ */
+struct alignment {
+    //! The horizontal alignment, default is left
+    enum horizontal horizontal = horizontal::left; // cppcheck-suppress unusedStructMember
+    //! The vertical alignment, default is top
+    enum vertical vertical = vertical::top; // cppcheck-suppress unusedStructMember
+};
+
+/**
+ * @brief This define a label, with a font, size and alignment
+ */
 struct label {
-    std::string text;                                               // cppcheck-suppress unusedStructMember
-    std::string font;                                               // cppcheck-suppress unusedStructMember
-    float size;                                                     // cppcheck-suppress unusedStructMember
+    //! The text to display
+    std::string text; // cppcheck-suppress unusedStructMember
+    //! The font to use
+    std::string font; // cppcheck-suppress unusedStructMember
+    //! The size of the font
+    float size; // cppcheck-suppress unusedStructMember
+    //! The alignment of the text
     struct alignment alignment = {horizontal::left, vertical::top}; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief This define an screen anchor, with a horizontal and vertical alignment
+ */
 struct anchor {
+    //! The horizontal alignment
     enum horizontal horizontal = horizontal::none; // cppcheck-suppress unusedStructMember
-    enum vertical vertical = vertical::none;       // cppcheck-suppress unusedStructMember
+    //! The vertical alignment
+    enum vertical vertical = vertical::none; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief This define a layout, with a position
+ */
 struct layout: public components::position {};
 
 } // namespace sneze::components

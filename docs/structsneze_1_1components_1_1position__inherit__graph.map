@@ -1,0 +1,4 @@
+<map id="sneze::components::position" name="sneze::components::position">
+<area shape="rect" id="node1" title="component to hold the position of an entity" alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1layout.html" title="This define a layout, with a position." alt="" coords="5,95,161,136"/>
+</map>

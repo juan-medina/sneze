@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['opacity_341',['opacity',['../classsneze_1_1components_1_1color.html#a9c3f04325b0062b932b5c4b182bdd961',1,'sneze::components::color']]]
+  ['level_364',['level',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7',1,'sneze::logger']]]
 ];
