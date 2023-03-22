@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['world_118',['world',['../classsneze_1_1world.html',1,'sneze']]]
+  ['rect_132',['rect',['../structsneze_1_1components_1_1rect.html',1,'sneze::components']]],
+  ['result_133',['result',['../classsneze_1_1result.html',1,'sneze']]]
 ];

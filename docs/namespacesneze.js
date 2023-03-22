@@ -1,5 +1,6 @@
 var namespacesneze =
 [
+    [ "components", "namespacesneze_1_1components.html", "namespacesneze_1_1components" ],
     [ "logger", "namespacesneze_1_1logger.html", [
       [ "level", "namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7", [
         [ "trace", "namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a04a75036e9d520bb983c5ed03b8d0182", null ],

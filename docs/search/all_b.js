@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['major_56',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
-  ['minor_57',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]]
+  ['major_61',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
+  ['minor_62',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]]
 ];

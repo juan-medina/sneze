@@ -26,9 +26,14 @@ SOFTWARE.
 
 #include <string>
 
+//! @brief sneze components namespace
 namespace sneze::components {
 
+/**
+ * @brief struct to hold the tag for a component
+ * @tparam Type the type of the component
+ */
 template<typename Type>
-struct tag{};
+struct tag {};
 
 } // namespace sneze::components

@@ -198,7 +198,7 @@ $(document).ready(function(){initNavTree('world_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TagType, <span class="keyword">typename</span>... Types&gt;</div>
 <div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897">  217</a></span>&#160;    [[nodiscard]] <span class="keyword">auto</span> <a class="code" href="classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897">get_tagged</a>() {</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">return</span> registry_.view&lt;Types..., components::tag&lt;TagType&gt;&gt;().each();</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">return</span> registry_.view&lt;Types..., <a class="code" href="structsneze_1_1components_1_1tag.html">components::tag&lt;TagType&gt;</a>&gt;().each();</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    }</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TagType&gt;</div>
@@ -225,7 +225,7 @@ $(document).ready(function(){initNavTree('world_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
 <div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128">  282</a></span>&#160;    [[maybe_unused]] [[nodiscard]] <span class="keyword">auto</span> <a class="code" href="classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128">get_global</a>() -&gt; <span class="keyword">auto</span> &amp; {</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        static_assert(std::default_initializable&lt;Type&gt;, <span class="stringliteral">&quot;the type must have a default initializer&quot;</span>);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> first = registry_.view&lt;Type, components::tag&lt;global&lt;Type&gt;&gt;&gt;().front(); !(first == entt::null)) {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordflow">if</span>(<span class="keyword">auto</span> first = registry_.view&lt;Type, <a class="code" href="structsneze_1_1components_1_1tag.html">components::tag</a>&lt;global&lt;Type&gt;&gt;&gt;().front(); !(first == entt::null)) {</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            <span class="keywordflow">return</span> get_component&lt;Type&gt;(first);</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        tag&lt;global&lt;Type&gt;&gt;(<a class="code" href="classsneze_1_1world.html#a674ced6bd76f7e498f4d1b6fce2ac125">add_entity</a>(Type{}));</div>
@@ -459,6 +459,7 @@ $(document).ready(function(){initNavTree('world_8hpp_source.html',''); initResiz
 <div class="ttc" id="aclasssneze_1_1world_html_af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032"><div class="ttname"><a href="classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032">sneze::world::after_applications</a></div><div class="ttdeci">@ after_applications</div><div class="ttdoc">priority after the applications</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00513">world.hpp:513</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_af9755abf52731a956addc3d4d3a7c222"><div class="ttname"><a href="classsneze_1_1world.html#af9755abf52731a956addc3d4d3a7c222">sneze::world::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">clear the world</div></div>
 <div class="ttc" id="anamespacesneze_html"><div class="ttname"><a href="namespacesneze.html">sneze</a></div><div class="ttdoc">sneze default namespace.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00037">application.hpp:37</a></div></div>
+<div class="ttc" id="astructsneze_1_1components_1_1tag_html"><div class="ttname"><a href="structsneze_1_1components_1_1tag.html">sneze::components::tag</a></div><div class="ttdoc">struct to hold the tag for a component</div><div class="ttdef"><b>Definition:</b> <a href="generic_8hpp_source.html#l00037">generic.hpp:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

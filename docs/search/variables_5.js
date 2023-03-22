@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['string_215',['string',['../namespacesneze_1_1version.html#a9126c7c9e6611ab0d5e13f7e7a3c372f',1,'sneze::version']]]
+  ['major_237',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
+  ['minor_238',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]]
 ];

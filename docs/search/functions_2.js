@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['debug_131',['debug',['../namespacesneze_1_1logger.html#a73104fba4a19234c53fb9a44da78f6f5',1,'sneze::logger']]]
+  ['debug_154',['debug',['../namespacesneze_1_1logger.html#a73104fba4a19234c53fb9a44da78f6f5',1,'sneze::logger']]]
 ];

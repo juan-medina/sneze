@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['settings_115',['settings',['../classsneze_1_1settings.html',1,'sneze']]],
-  ['span_5fistream_116',['span_istream',['../classsneze_1_1span__istream.html',1,'sneze']]]
+  ['line_130',['line',['../structsneze_1_1components_1_1line.html',1,'sneze::components']]]
 ];

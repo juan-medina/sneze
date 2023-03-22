@@ -30,37 +30,71 @@ SOFTWARE.
 
 namespace sneze::components {
 
+/**
+ * @brief component to hold the position of an entity
+ */
 struct position {
+    //! @brief the x position in logical coordinates
     float x; // cppcheck-suppress unusedStructMember
+    //! @brief the y position in logical coordinates
     float y; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief component to hold the size of an entity
+ */
 struct size {
-    float width;  // cppcheck-suppress unusedStructMember
+    //! @brief the width in logical coordinates
+    float width; // cppcheck-suppress unusedStructMember
+    //! @brief the height in logical coordinates
     float height; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief component to hold the rectangular area of an entity
+ */
 struct rect {
+    //! @brief the start position of the entity
     struct position position; // cppcheck-suppress unusedStructMember
-    struct size size;         // cppcheck-suppress unusedStructMember
+    //! @brief the size of the entity
+    struct size size; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief component that represent a line
+ */
 struct line {
+    //! @brief the start position of the line
     struct position to; // cppcheck-suppress unusedStructMember
-    float thickness;    // cppcheck-suppress unusedStructMember
+    //! @brief the thickness of the line
+    float thickness; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief component that represent a box
+ */
 struct box {
+    //! @brief the start position of the box
     struct position to; // cppcheck-suppress unusedStructMember
-    float thickness;    // cppcheck-suppress unusedStructMember
+    //! @brief the thickness of the box
+    float thickness; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief component that represent a solid box
+ */
 struct solid_box {
+    //! @brief the start position of the box
     struct position to; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief component that represent a box with a border
+ */
 struct border_box: public solid_box {
-    float thickness;         // cppcheck-suppress unusedStructMember
+    //! @brief the thickness of the border
+    float thickness; // cppcheck-suppress unusedStructMember
+    //! @brief the color of the border
     components::color color; // cppcheck-suppress unusedStructMember
 };
 
