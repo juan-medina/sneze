@@ -271,7 +271,7 @@ public:
      * A global entity is an entity that is always present in the world and can be accessed by any system, but its only
      * exists in one entity. This function will return a reference to the global entity.
      *
-     * If the global entity does not exist, it will be created with the default iiitializer.
+     * If the global entity does not exist, it will be created with the default initializer.
      *
      * @note the global entity must have a default initializer, otherwise the function will fail to compile
      *
@@ -317,12 +317,41 @@ public:
         registry_.sort<Type>(compare);
     }
 
+    /**
+     * @brief add a system to the world
+     *
+     * Create a system and add it to the world. The system will be added with the priority::normal priority.
+     *
+     * When the world is updated, the system will be updated in the order of the priority.
+     *
+     * @tparam SystemType the type of the system to add
+     * @tparam Args the types of the arguments to pass to the system constructor
+     * @param args the arguments to pass to the system constructor
+     * @see world::add_system_with_priority
+     * @see world::remove_system
+     */
     template<typename SystemType, typename... Args>
     [[maybe_unused]] void add_system(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
         add_system_with_priority<priority::normal, SystemType>(args...);
     }
 
+    /**
+     * @brief add a system to the world with a given priority
+     *
+     * Create a system and add it to the world. The system will be added with the given priority.
+     *
+     * note: the priority must be between priority::low (-1000) and priority::high (1000)
+     *
+     * When the world is updated, the system will be updated in the order of the priority.
+     *
+     * @tparam Priority the priority of the system
+     * @tparam SystemType the type of the system to add
+     * @tparam Args the types of the arguments to pass to the system constructor
+     * @param args the arguments to pass to the system constructor
+     * @see world::add_system
+     * @see world::remove_system
+     */
     template<int32_t Priority, typename SystemType, typename... Args>
     [[maybe_unused]] void add_system_with_priority(Args... args) noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
@@ -331,6 +360,15 @@ public:
         add_system_with_priority_internal<Priority, SystemType>(args...);
     }
 
+    /**
+     * @brief remove a system from the world
+     *
+     * Remove a system from the world. The system will be removed at the end of the current update.
+     *
+     * @tparam SystemType the type of the system to remove
+     * @see world::add_system
+     * @see world::add_system_with_priority
+     */
     template<typename SystemType>
     [[maybe_unused]] void remove_system() noexcept {
         static_assert(std::is_base_of<system, SystemType>::value, "the system to add must implement sneze::system");
@@ -338,6 +376,13 @@ public:
         systems_to_remove_.push_back(type_to_remove);
     }
 
+    /**
+     * @brief add a listener to an event
+     * @tparam EventType the type of the event to listen to
+     * @tparam Candidate the function to call when the event is dispatched
+     * @tparam InstanceType the type of the instance to call the function on
+     * @param instance the instance to call the function on
+     */
     template<typename EventType, auto Candidate, typename InstanceType>
     void add_listener(InstanceType &&instance) {
         static_assert(std::is_base_of<events::event, EventType>::value,
@@ -345,13 +390,12 @@ public:
         event_dispatcher_.sink<EventType>().template connect<Candidate>(instance);
     }
 
-    template<typename EventType, auto Candidate, typename InstanceType>
-    [[maybe_unused]] void remove_listener(InstanceType &&instance) {
-        static_assert(std::is_base_of<events::event, EventType>::value,
-                      "the event must be a descendant of sneze::events::event");
-        event_dispatcher_.sink<EventType>().template disconnect<Candidate>(instance);
-    }
-
+    /**
+     * @brief remove all listeners from an event
+     * @tparam EventType the type of the event to remove the listeners from
+     * @tparam InstanceType the type of the instance to remove the listeners from
+     * @param instance the instance to remove the listeners from
+     */
     template<typename EventType, typename InstanceType>
     [[maybe_unused]] void remove_listener(InstanceType &&instance) {
         static_assert(std::is_base_of<events::event, EventType>::value,
@@ -359,11 +403,28 @@ public:
         event_dispatcher_.sink<EventType>().disconnect(instance);
     }
 
+    /**
+     * @brief remove all listeners from an instance
+     * @tparam InstanceType the type of the instance to remove the listeners from
+     * @param instance the instance to remove the listeners from
+     */
     template<typename InstanceType>
     [[maybe_unused]] void remove_listeners(InstanceType &&instance) {
         event_dispatcher_.disconnect(instance);
     }
 
+    /**
+     * @brief enqueue an event to be dispatched
+     *
+     * Enqueue an event to be dispatched. The event will be dispatched at the end of the current update.
+     *
+     * @note the event must be a descendant of sneze::event
+     *
+     * @tparam EventType the type of the event to enqueue
+     * @tparam Args the types of the arguments to pass to the event constructor
+     * @param args the arguments to pass to the event constructor
+     * @see world::add_listener
+     */
     template<typename EventType, typename... Args>
     void emmit(Args &&...args) {
         static_assert(std::is_base_of<events::event, EventType>::value,
@@ -371,6 +432,19 @@ public:
         event_dispatcher_.enqueue<EventType>(this, std::forward<Args>(args)...);
     }
 
+    /**
+     * @brief add listener to addition of a component type to an entity
+     *
+     * note: to remove the listener, use world::remove_listener_to_add_component or
+     * world::remove_listener_to_add_component
+     *
+     * @tparam ComponentType the type of the component to listen to
+     * @tparam Candidate the function to call when the event is dispatched
+     * @tparam InstanceType the type of the instance to call the function on
+     * @param instance the instance to call the function on
+     * @see world::remove_listener_to_add_component
+     * @see world::remove_component_listeners
+     */
     template<typename ComponentType, auto Candidate, typename InstanceType>
     void add_listener_to_add_component(InstanceType &&instance) {
         registry_.on_construct<ComponentType>()
@@ -378,6 +452,15 @@ public:
         add_listener<events::add_component<ComponentType>, Candidate>(instance);
     }
 
+    /**
+     * @brief remove listener to addition of a component type to an entity
+     *
+     * @tparam ComponentType the type of the component to remove the listener from
+     * @tparam InstanceType the type of the instance to remove the listener from
+     * @param instance the instance to remove the listener from
+     * @see world::add_listener_to_add_component
+     * @see world::remove_component_listeners
+     */
     template<typename ComponentType, typename InstanceType>
     void remove_listener_to_add_component(InstanceType &&instance) {
         registry_.on_construct<ComponentType>()
@@ -385,6 +468,15 @@ public:
         remove_listener<events::add_component<ComponentType>>(instance);
     }
 
+    /**
+     * @brief remove all listeners to components of type in entity
+     *
+     * @tparam ComponentType the type of the component to remove the listeners from
+     * @tparam InstanceType the type of the instance to remove the listeners from
+     * @param instance the instance to remove the listeners from
+     * @see world::add_listener_to_add_component
+     * @see world::remove_listener_to_add_component
+     */
     template<typename ComponentType, typename InstanceType>
     [[maybe_unused]] void remove_component_listeners(InstanceType &&instance) {
         remove_listener_to_add_component<ComponentType>(instance);

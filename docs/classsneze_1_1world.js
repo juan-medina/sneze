@@ -17,5 +17,15 @@ var classsneze_1_1world =
     [ "set_global", "classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946", null ],
     [ "get_global", "classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128", null ],
     [ "remove_global", "classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528", null ],
-    [ "sort", "classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89", null ]
+    [ "sort", "classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89", null ],
+    [ "add_system", "classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de", null ],
+    [ "add_system_with_priority", "classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2", null ],
+    [ "remove_system", "classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f", null ],
+    [ "add_listener", "classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c", null ],
+    [ "remove_listener", "classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb", null ],
+    [ "remove_listeners", "classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd", null ],
+    [ "emmit", "classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5", null ],
+    [ "add_listener_to_add_component", "classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5", null ],
+    [ "remove_listener_to_add_component", "classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22", null ],
+    [ "remove_component_listeners", "classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636", null ]
 ];

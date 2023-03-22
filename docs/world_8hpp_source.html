@@ -243,199 +243,202 @@ $(document).ready(function(){initNavTree('world_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        registry_.sort&lt;Type&gt;(compare);</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    }</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> add_system(Args... args) noexcept {</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        add_system_with_priority&lt;priority::normal, SystemType&gt;(args...);</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    }</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keyword">template</span>&lt;int32_t Priority, <span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> add_system_with_priority(Args... args) noexcept {</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        static_assert(Priority &gt;= world::priority::low &amp;&amp; Priority &lt;= world::priority::high,</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                      <span class="stringliteral">&quot;priority must be between priority::low (-1000) and priority::high (1000)&quot;</span>);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        add_system_with_priority_internal&lt;Priority, SystemType&gt;(args...);</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    }</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> SystemType&gt;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> remove_system() noexcept {</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keyword">auto</span> constexpr type_to_remove = entt::type_hash&lt;SystemType&gt;::value();</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        systems_to_remove_.push_back(type_to_remove);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    }</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, auto Cand<span class="keywordtype">id</span>ate, <span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordtype">void</span> add_listener(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        event_dispatcher_.sink&lt;EventType&gt;().<span class="keyword">template</span> connect&lt;Candidate&gt;(instance);</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    }</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, auto Cand<span class="keywordtype">id</span>ate, <span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> remove_listener(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        event_dispatcher_.sink&lt;EventType&gt;().<span class="keyword">template</span> disconnect&lt;Candidate&gt;(instance);</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, <span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> remove_listener(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        event_dispatcher_.sink&lt;EventType&gt;().disconnect(instance);</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    }</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> remove_listeners(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        event_dispatcher_.disconnect(instance);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    }</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordtype">void</span> emmit(Args &amp;&amp;...args) {</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        event_dispatcher_.enqueue&lt;EventType&gt;(<span class="keyword">this</span>, std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    }</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType, auto Cand<span class="keywordtype">id</span>ate, <span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordtype">void</span> add_listener_to_add_component(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        registry_.on_construct&lt;ComponentType&gt;()</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            .<span class="keyword">template</span> connect&lt;&amp;world::add_listener_to_add_component_internal&lt;ComponentType&gt;&gt;(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        add_listener&lt;events::add_component&lt;ComponentType&gt;, Candidate&gt;(instance);</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    }</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType, <span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordtype">void</span> remove_listener_to_add_component(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        registry_.on_construct&lt;ComponentType&gt;()</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            .<span class="keyword">template</span> disconnect&lt;&amp;world::add_listener_to_add_component_internal&lt;ComponentType&gt;&gt;(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        remove_listener&lt;events::add_component&lt;ComponentType&gt;&gt;(instance);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType, <span class="keyword">typename</span> InstanceType&gt;</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> remove_component_listeners(InstanceType &amp;&amp;instance) {</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        remove_listener_to_add_component&lt;ComponentType&gt;(instance);</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00334"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de">  334</a></span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de">add_system</a>(Args... args) noexcept {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        add_system_with_priority&lt;priority::normal, SystemType&gt;(args...);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    }</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keyword">template</span>&lt;int32_t Priority, <span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2">  356</a></span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2">add_system_with_priority</a>(Args... args) noexcept {</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        static_assert(Priority &gt;= world::priority::low &amp;&amp; Priority &lt;= world::priority::high,</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                      <span class="stringliteral">&quot;priority must be between priority::low (-1000) and priority::high (1000)&quot;</span>);</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        add_system_with_priority_internal&lt;Priority, SystemType&gt;(args...);</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    }</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> SystemType&gt;</div>
+<div class="line"><a name="l00373"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f">  373</a></span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f">remove_system</a>() noexcept {</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keyword">auto</span> constexpr type_to_remove = entt::type_hash&lt;SystemType&gt;::value();</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        systems_to_remove_.push_back(type_to_remove);</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    }</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, auto Cand<span class="keywordtype">id</span>ate, <span class="keyword">typename</span> InstanceType&gt;</div>
+<div class="line"><a name="l00387"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c">  387</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c">add_listener</a>(InstanceType &amp;&amp;instance) {</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        event_dispatcher_.sink&lt;EventType&gt;().<span class="keyword">template</span> connect&lt;Candidate&gt;(instance);</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    }</div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keywordtype">void</span> init();</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordtype">void</span> end();</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="keywordtype">void</span> clear();</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keyword">enum</span> priority : int32_t {</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        low = -1000,</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        normal = 0,</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        high = 1000,</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        before_applications = high + 1000,</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        after_applications = low - 1000,</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    };</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">template</span>&lt;int32_t Priority, <span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> add_system_with_priority_internal(Args... args) noexcept {</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        static_assert(Priority &gt;= world::priority::after_applications</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                          &amp;&amp; Priority &lt;= world::priority::before_applications,</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                      <span class="stringliteral">&quot;priority must be between priority::after_applications and priority::before_applications&quot;</span>);</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        add_system_with_priority_unrestricted&lt;Priority, SystemType&gt;(args...);</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">auto</span> since_epoch() -&gt; float;</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType&gt;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keywordtype">void</span> add_listener_to_add_component_internal(entt::registry &amp; <span class="comment">/*registry*/</span>, entt::entity entity) {</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        <span class="keyword">auto</span> &amp;component = registry_.get&lt;ComponentType&gt;(entity);</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        emmit&lt;events::add_component&lt;ComponentType&gt;&gt;(entity, component);</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    }</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160; </div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keyword">template</span>&lt;int32_t Priority, <span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> add_system_with_priority_unrestricted(Args... args) noexcept {</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        <span class="keyword">auto</span> constexpr type_hash = entt::type_hash&lt;SystemType&gt;::value();</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        systems_to_add_.push_back(</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            std::make_unique&lt;system_with_priority&gt;(type_hash, Priority, std::make_unique&lt;SystemType&gt;(args...)));</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    }</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160; </div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    <span class="keyword">struct </span>global {};</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keyword">using</span> system_ptr = std::unique_ptr&lt;system_with_priority&gt;;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keyword">using</span> systems_vector = std::vector&lt;system_ptr&gt;;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <span class="keyword">using</span> systems_id_vector = std::vector&lt;entt::id_type&gt;;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    game_time start_;</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    game_time current_;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    systems_vector systems_;</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    systems_vector systems_to_add_;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    systems_id_vector systems_to_remove_;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    entt::registry registry_;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    entt::dispatcher event_dispatcher_;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, <span class="keyword">typename</span> InstanceType&gt;</div>
+<div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb">  400</a></span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb">remove_listener</a>(InstanceType &amp;&amp;instance) {</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        event_dispatcher_.sink&lt;EventType&gt;().disconnect(instance);</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    }</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> InstanceType&gt;</div>
+<div class="line"><a name="l00412"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd">  412</a></span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd">remove_listeners</a>(InstanceType &amp;&amp;instance) {</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        event_dispatcher_.disconnect(instance);</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    }</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EventType, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00429"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5">  429</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5">emmit</a>(Args &amp;&amp;...args) {</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        static_assert(std::is_base_of&lt;events::event, EventType&gt;::value,</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;                      <span class="stringliteral">&quot;the event must be a descendant of sneze::events::event&quot;</span>);</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        event_dispatcher_.enqueue&lt;EventType&gt;(<span class="keyword">this</span>, std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    }</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType, auto Cand<span class="keywordtype">id</span>ate, <span class="keyword">typename</span> InstanceType&gt;</div>
+<div class="line"><a name="l00449"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5">  449</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5">add_listener_to_add_component</a>(InstanceType &amp;&amp;instance) {</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        registry_.on_construct&lt;ComponentType&gt;()</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;            .<span class="keyword">template</span> connect&lt;&amp;world::add_listener_to_add_component_internal&lt;ComponentType&gt;&gt;(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        add_listener&lt;events::add_component&lt;ComponentType&gt;, Candidate&gt;(instance);</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    }</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160; </div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keywordtype">void</span> update_time();</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    <span class="keywordtype">void</span> update_systems();</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordtype">void</span> sent_events();</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordtype">void</span> remove_all_systems() noexcept;</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    <span class="keywordtype">void</span> discard_pending_events() noexcept;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordtype">void</span> remove_pending_systems() noexcept;</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160; </div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    static auto match_type(entt::id_type type_to_remove) noexcept {</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        <span class="keywordflow">return</span> [type_to_remove](<span class="keyword">const</span> system_ptr &amp;system) noexcept -&gt; <span class="keywordtype">bool</span> { <span class="keywordflow">return</span> system-&gt;type() == type_to_remove; };</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType, <span class="keyword">typename</span> InstanceType&gt;</div>
+<div class="line"><a name="l00465"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22">  465</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22">remove_listener_to_add_component</a>(InstanceType &amp;&amp;instance) {</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        registry_.on_construct&lt;ComponentType&gt;()</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            .<span class="keyword">template</span> disconnect&lt;&amp;world::add_listener_to_add_component_internal&lt;ComponentType&gt;&gt;(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        remove_listener&lt;events::add_component&lt;ComponentType&gt;&gt;(instance);</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    }</div>
 <div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    <span class="keywordtype">void</span> add_pending_systems();</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160; </div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keyword">auto</span> remove_system_from_vector(entt::id_type type_to_remove, systems_vector &amp;systems) noexcept -&gt; bool;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160; </div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="keywordtype">void</span> remove_all_systems_from_vector(systems_vector &amp;systems) noexcept;</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <span class="keywordtype">void</span> recurse_create(entt::entity entity_id, Args... args) {</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;        helper_create_shift(entity_id, args...);</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    }</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160; </div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> helper_create_shift(entt::entity entity_id, Type value, Args &amp;&amp;...args) {</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        set_component&lt;Type&gt;(entity_id, value);</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;        recurse_create(entity_id, args...);</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    }</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType, <span class="keyword">typename</span> InstanceType&gt;</div>
+<div class="line"><a name="l00481"></a><span class="lineno"><a class="line" href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">  481</a></span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> <a class="code" href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">remove_component_listeners</a>(InstanceType &amp;&amp;instance) {</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        remove_listener_to_add_component&lt;ComponentType&gt;(instance);</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    }</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160; </div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="keywordtype">void</span> init();</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160; </div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    <span class="keywordtype">void</span> helper_create_shift(entt::entity) {} <span class="comment">// NOLINT(readability-named-parameter)</span></div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    <span class="keywordtype">void</span> update();</div>
 <div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> sort_by_priority(<span class="keyword">const</span> system_ptr &amp;lhs, <span class="keyword">const</span> system_ptr &amp;rhs) noexcept -&gt; bool;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;};</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;} <span class="comment">// namespace sneze</span></div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keywordtype">void</span> end();</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    <span class="keywordtype">void</span> clear();</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="keyword">enum</span> priority : int32_t {</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        low = -1000,</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;        normal = 0,</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        high = 1000,</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        before_applications = high + 1000,</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;        after_applications = low - 1000,</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    };</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160; </div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    <span class="keyword">template</span>&lt;int32_t Priority, <span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> add_system_with_priority_internal(Args... args) noexcept {</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;        static_assert(Priority &gt;= world::priority::after_applications</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;                          &amp;&amp; Priority &lt;= world::priority::before_applications,</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;                      <span class="stringliteral">&quot;priority must be between priority::after_applications and priority::before_applications&quot;</span>);</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;        add_system_with_priority_unrestricted&lt;Priority, SystemType&gt;(args...);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    }</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    [[nodiscard]] <span class="keyword">static</span> <span class="keyword">auto</span> since_epoch() -&gt; float;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160; </div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ComponentType&gt;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keywordtype">void</span> add_listener_to_add_component_internal(entt::registry &amp; <span class="comment">/*registry*/</span>, entt::entity entity) {</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        <span class="keyword">auto</span> &amp;component = registry_.get&lt;ComponentType&gt;(entity);</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        emmit&lt;events::add_component&lt;ComponentType&gt;&gt;(entity, component);</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    }</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160; </div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    <span class="keyword">template</span>&lt;int32_t Priority, <span class="keyword">typename</span> SystemType, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> add_system_with_priority_unrestricted(Args... args) noexcept {</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        static_assert(std::is_base_of&lt;system, SystemType&gt;::value, <span class="stringliteral">&quot;the system to add must implement sneze::system&quot;</span>);</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        <span class="keyword">auto</span> constexpr type_hash = entt::type_hash&lt;SystemType&gt;::value();</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        systems_to_add_.push_back(</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;            std::make_unique&lt;system_with_priority&gt;(type_hash, Priority, std::make_unique&lt;SystemType&gt;(args...)));</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    }</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    <span class="keyword">struct </span>global {};</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160; </div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keyword">using</span> system_ptr = std::unique_ptr&lt;system_with_priority&gt;;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;    <span class="keyword">using</span> systems_vector = std::vector&lt;system_ptr&gt;;</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;    <span class="keyword">using</span> systems_id_vector = std::vector&lt;entt::id_type&gt;;</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160; </div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    game_time start_;</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    game_time current_;</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160; </div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;    systems_vector systems_;</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    systems_vector systems_to_add_;</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160; </div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;    systems_id_vector systems_to_remove_;</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    entt::registry registry_;</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160; </div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;    entt::dispatcher event_dispatcher_;</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160; </div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;    <span class="keywordtype">void</span> update_time();</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160; </div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;    <span class="keywordtype">void</span> update_systems();</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;    <span class="keywordtype">void</span> sent_events();</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160; </div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;    <span class="keywordtype">void</span> remove_all_systems() noexcept;</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160; </div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    <span class="keywordtype">void</span> discard_pending_events() noexcept;</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160; </div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;    <span class="keywordtype">void</span> remove_pending_systems() noexcept;</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160; </div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    static auto match_type(entt::id_type type_to_remove) noexcept {</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;        <span class="keywordflow">return</span> [type_to_remove](<span class="keyword">const</span> system_ptr &amp;system) noexcept -&gt; <span class="keywordtype">bool</span> { <span class="keywordflow">return</span> system-&gt;type() == type_to_remove; };</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    }</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    <span class="keywordtype">void</span> add_pending_systems();</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160; </div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;    <span class="keyword">auto</span> remove_system_from_vector(entt::id_type type_to_remove, systems_vector &amp;systems) noexcept -&gt; bool;</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    <span class="keywordtype">void</span> remove_all_systems_from_vector(systems_vector &amp;systems) noexcept;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    <span class="keywordtype">void</span> recurse_create(entt::entity entity_id, Args... args) {</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;        helper_create_shift(entity_id, args...);</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    }</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160; </div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;    [[maybe_unused]] <span class="keywordtype">void</span> helper_create_shift(entt::entity entity_id, Type value, Args &amp;&amp;...args) {</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        set_component&lt;Type&gt;(entity_id, value);</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        recurse_create(entity_id, args...);</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    }</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    <span class="keywordtype">void</span> helper_create_shift(entt::entity) {} <span class="comment">// NOLINT(readability-named-parameter)</span></div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160; </div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    <span class="keyword">static</span> <span class="keyword">auto</span> sort_by_priority(<span class="keyword">const</span> system_ptr &amp;lhs, <span class="keyword">const</span> system_ptr &amp;rhs) noexcept -&gt; bool;</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;};</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;} <span class="comment">// namespace sneze</span></div>
 <div class="ttc" id="aclasssneze_1_1application_html"><div class="ttname"><a href="classsneze_1_1application.html">sneze::application</a></div><div class="ttdoc">The class defines an sneze application and controls the world, render, settings, events and systems.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00048">application.hpp:48</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html"><div class="ttname"><a href="classsneze_1_1world.html">sneze::world</a></div><div class="ttdoc">The world class This class is the main class of the engine, it will hold all the entities,...</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00065">world.hpp:65</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a00482c687c49ec5d199d7b2fccc24a89"><div class="ttname"><a href="classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89">sneze::world::sort</a></div><div class="ttdeci">void sort(Compare compare)</div><div class="ttdoc">sort the entities that have a particular component, using a custom compare function</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00316">world.hpp:316</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a005f5f40c9f3f27b0b4a0d89ee98ad3f"><div class="ttname"><a href="classsneze_1_1world.html#a005f5f40c9f3f27b0b4a0d89ee98ad3f">sneze::world::get_component</a></div><div class="ttdeci">auto get_component(entt::entity entity) -&gt; decltype(auto)</div><div class="ttdoc">get a component from an entity This function will return a reference to the component of the entity.</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00117">world.hpp:117</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a0c40e2a0feccfe8e7a890f6e78a2ea74"><div class="ttname"><a href="classsneze_1_1world.html#a0c40e2a0feccfe8e7a890f6e78a2ea74">sneze::world::set_component</a></div><div class="ttdeci">void set_component(entt::entity entity, Args &amp;&amp;...args)</div><div class="ttdoc">set a component to an entity This function will set a component to an entity.</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00149">world.hpp:149</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a0c77ba6ab9c3360abde63a16173ea5bb"><div class="ttname"><a href="classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb">sneze::world::remove_listener</a></div><div class="ttdeci">void remove_listener(InstanceType &amp;&amp;instance)</div><div class="ttdoc">remove all listeners from an event</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00400">world.hpp:400</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a0fd61555aac4d8f1a995f4c00a159a91"><div class="ttname"><a href="classsneze_1_1world.html#a0fd61555aac4d8f1a995f4c00a159a91">sneze::world::~world</a></div><div class="ttdeci">~world()=default</div><div class="ttdoc">world Default destructor</div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a1f5739a0a2846bc6f01c05eb8e66516c"><div class="ttname"><a href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c">sneze::world::add_listener</a></div><div class="ttdeci">void add_listener(InstanceType &amp;&amp;instance)</div><div class="ttdoc">add a listener to an event</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00387">world.hpp:387</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a2811a5090e34c1748dea936b5f92f128"><div class="ttname"><a href="classsneze_1_1world.html#a2811a5090e34c1748dea936b5f92f128">sneze::world::get_global</a></div><div class="ttdeci">auto get_global() -&gt; auto &amp;</div><div class="ttdoc">get a global entity A global entity is an entity that is always present in the world and can be acces...</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00282">world.hpp:282</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a3091cf1ed2b0cffce1eeb6b15b8f55ee"><div class="ttname"><a href="classsneze_1_1world.html#a3091cf1ed2b0cffce1eeb6b15b8f55ee">sneze::world::has_component</a></div><div class="ttdeci">auto has_component(entt::entity entity)</div><div class="ttdoc">check if an entity has a component This function will check if an entity has a component.</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00165">world.hpp:165</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a33a03ac70990783d30ac7c18931b9937"><div class="ttname"><a href="classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937">sneze::world::untag</a></div><div class="ttdeci">void untag(entt::entity entity)</div><div class="ttdoc">untag an entity</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00202">world.hpp:202</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a3438c3b8a51430f3d4091afcf3f583d5"><div class="ttname"><a href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5">sneze::world::emmit</a></div><div class="ttdeci">void emmit(Args &amp;&amp;...args)</div><div class="ttdoc">enqueue an event to be dispatched</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00429">world.hpp:429</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a3d10d4bb69f1b40dda312e47e21f5787"><div class="ttname"><a href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787">sneze::world::tag</a></div><div class="ttdeci">void tag(entt::entity entity)</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00190">world.hpp:190</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a40e806e1cb8a7ba4bb7585ac9c3233c2"><div class="ttname"><a href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2">sneze::world::add_system_with_priority</a></div><div class="ttdeci">void add_system_with_priority(Args... args) noexcept</div><div class="ttdoc">add a system to the world with a given priority</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00356">world.hpp:356</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a524e3e45902cb7ce09c44b35c918b0ec"><div class="ttname"><a href="classsneze_1_1world.html#a524e3e45902cb7ce09c44b35c918b0ec">sneze::world::remove_all_tagged</a></div><div class="ttdeci">void remove_all_tagged()</div><div class="ttdoc">remove all the entities that have a particular tag</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00230">world.hpp:230</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a5918c152140be58ef44ca9f9fc232897"><div class="ttname"><a href="classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897">sneze::world::get_tagged</a></div><div class="ttdeci">auto get_tagged()</div><div class="ttdoc">return all the entities that have the tag and a set of components</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00217">world.hpp:217</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a674ced6bd76f7e498f4d1b6fce2ac125"><div class="ttname"><a href="classsneze_1_1world.html#a674ced6bd76f7e498f4d1b6fce2ac125">sneze::world::add_entity</a></div><div class="ttdeci">auto add_entity(Args... args)</div><div class="ttdoc">add an entity to the world This function will add an entity to the world, and will return the entity ...</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00090">world.hpp:90</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a716691c4afaca1b1872408aa6f0b4e22"><div class="ttname"><a href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22">sneze::world::remove_listener_to_add_component</a></div><div class="ttdeci">void remove_listener_to_add_component(InstanceType &amp;&amp;instance)</div><div class="ttdoc">remove listener to addition of a component type to an entity</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00465">world.hpp:465</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a7211ea69db095aa132677453f372d3c5"><div class="ttname"><a href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5">sneze::world::add_listener_to_add_component</a></div><div class="ttdeci">void add_listener_to_add_component(InstanceType &amp;&amp;instance)</div><div class="ttdoc">add listener to addition of a component type to an entity</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00449">world.hpp:449</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a776445828abbae5f164d55f18748fa3a"><div class="ttname"><a href="classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a">sneze::world::remove_component</a></div><div class="ttdeci">auto remove_component(entt::entity entity)</div><div class="ttdoc">remove a component from an entity This function will remove a component from an entity.</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00132">world.hpp:132</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a85dfa93aa55964e31c1d5e5186a404cf"><div class="ttname"><a href="classsneze_1_1world.html#a85dfa93aa55964e31c1d5e5186a404cf">sneze::world::world</a></div><div class="ttdeci">world()=default</div><div class="ttdoc">world Default constructor</div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a8d7338854eb15141cdad5d01df9d94de"><div class="ttname"><a href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de">sneze::world::add_system</a></div><div class="ttdeci">void add_system(Args... args) noexcept</div><div class="ttdoc">add a system to the world</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00334">world.hpp:334</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_a9865bc6502fcdf224437421ac929ab1c"><div class="ttname"><a href="classsneze_1_1world.html#a9865bc6502fcdf224437421ac929ab1c">sneze::world::get_entities</a></div><div class="ttdeci">auto get_entities()</div><div class="ttdoc">get all the entities that have the components This function will return a view of all the entities th...</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00178">world.hpp:178</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_a99bb3cef6a29b1a18a0724eb144fe636"><div class="ttname"><a href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">sneze::world::remove_component_listeners</a></div><div class="ttdeci">void remove_component_listeners(InstanceType &amp;&amp;instance)</div><div class="ttdoc">remove all listeners to components of type in entity</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00481">world.hpp:481</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_aacec7ead076c9aabad14234a0945e528"><div class="ttname"><a href="classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528">sneze::world::remove_global</a></div><div class="ttdeci">void remove_global()</div><div class="ttdoc">remove a global entity A global entity is an entity that is always present in the world and can be ac...</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00301">world.hpp:301</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_ac264029f5a9f46f9f22c9ef99af53c6f"><div class="ttname"><a href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f">sneze::world::remove_system</a></div><div class="ttdeci">void remove_system() noexcept</div><div class="ttdoc">remove a system from the world</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00373">world.hpp:373</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_aedf4b8c72bfe477f429f35eff774a946"><div class="ttname"><a href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946">sneze::world::set_global</a></div><div class="ttdeci">void set_global(Args &amp;&amp;...args)</div><div class="ttdoc">set a global entity A global entity is an entity that is always present in the world and can be acces...</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00263">world.hpp:263</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_af118df3a49955fc632dba9e57df72055"><div class="ttname"><a href="classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055">sneze::world::remove_all_tags</a></div><div class="ttdeci">void remove_all_tags()</div><div class="ttdoc">remove all the tags of a particular type from all the entities in the world</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00245">world.hpp:245</a></div></div>
+<div class="ttc" id="aclasssneze_1_1world_html_af643ca8f3f663a15338616ab488272fd"><div class="ttname"><a href="classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd">sneze::world::remove_listeners</a></div><div class="ttdeci">void remove_listeners(InstanceType &amp;&amp;instance)</div><div class="ttdoc">remove all listeners from an instance</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00412">world.hpp:412</a></div></div>
 <div class="ttc" id="aclasssneze_1_1world_html_af6d8be1e40f04afe1c07d0c3ea99178b"><div class="ttname"><a href="classsneze_1_1world.html#af6d8be1e40f04afe1c07d0c3ea99178b">sneze::world::remove_entity</a></div><div class="ttdeci">void remove_entity(entt::entity entity)</div><div class="ttdoc">remove an entity from the world</div><div class="ttdef"><b>Definition:</b> <a href="world_8hpp_source.html#l00101">world.hpp:101</a></div></div>
 <div class="ttc" id="anamespacesneze_html"><div class="ttname"><a href="namespacesneze.html">sneze</a></div><div class="ttdoc">sneze default namespace.</div><div class="ttdef"><b>Definition:</b> <a href="application_8hpp_source.html#l00037">application.hpp:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

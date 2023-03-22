@@ -172,6 +172,46 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a00482c687c49ec5d199d7b2fccc24a89"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89">sort</a> (Compare compare)</td></tr>
 <tr class="memdesc:a00482c687c49ec5d199d7b2fccc24a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">sort the entities that have a particular component, using a custom compare function  <a href="classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89">More...</a><br /></td></tr>
 <tr class="separator:a00482c687c49ec5d199d7b2fccc24a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7338854eb15141cdad5d01df9d94de"><td class="memTemplParams" colspan="2">template&lt;typename SystemType , typename... Args&gt; </td></tr>
+<tr class="memitem:a8d7338854eb15141cdad5d01df9d94de"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de">add_system</a> (Args... args) noexcept</td></tr>
+<tr class="memdesc:a8d7338854eb15141cdad5d01df9d94de"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a system to the world  <a href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de">More...</a><br /></td></tr>
+<tr class="separator:a8d7338854eb15141cdad5d01df9d94de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40e806e1cb8a7ba4bb7585ac9c3233c2"><td class="memTemplParams" colspan="2">template&lt;int32_t Priority, typename SystemType , typename... Args&gt; </td></tr>
+<tr class="memitem:a40e806e1cb8a7ba4bb7585ac9c3233c2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2">add_system_with_priority</a> (Args... args) noexcept</td></tr>
+<tr class="memdesc:a40e806e1cb8a7ba4bb7585ac9c3233c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a system to the world with a given priority  <a href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2">More...</a><br /></td></tr>
+<tr class="separator:a40e806e1cb8a7ba4bb7585ac9c3233c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac264029f5a9f46f9f22c9ef99af53c6f"><td class="memTemplParams" colspan="2">template&lt;typename SystemType &gt; </td></tr>
+<tr class="memitem:ac264029f5a9f46f9f22c9ef99af53c6f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f">remove_system</a> () noexcept</td></tr>
+<tr class="memdesc:ac264029f5a9f46f9f22c9ef99af53c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a system from the world  <a href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f">More...</a><br /></td></tr>
+<tr class="separator:ac264029f5a9f46f9f22c9ef99af53c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f5739a0a2846bc6f01c05eb8e66516c"><td class="memTemplParams" colspan="2">template&lt;typename EventType , auto Candidate, typename InstanceType &gt; </td></tr>
+<tr class="memitem:a1f5739a0a2846bc6f01c05eb8e66516c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c">add_listener</a> (InstanceType &amp;&amp;instance)</td></tr>
+<tr class="memdesc:a1f5739a0a2846bc6f01c05eb8e66516c"><td class="mdescLeft">&#160;</td><td class="mdescRight">add a listener to an event  <a href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c">More...</a><br /></td></tr>
+<tr class="separator:a1f5739a0a2846bc6f01c05eb8e66516c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c77ba6ab9c3360abde63a16173ea5bb"><td class="memTemplParams" colspan="2">template&lt;typename EventType , typename InstanceType &gt; </td></tr>
+<tr class="memitem:a0c77ba6ab9c3360abde63a16173ea5bb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb">remove_listener</a> (InstanceType &amp;&amp;instance)</td></tr>
+<tr class="memdesc:a0c77ba6ab9c3360abde63a16173ea5bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all listeners from an event  <a href="classsneze_1_1world.html#a0c77ba6ab9c3360abde63a16173ea5bb">More...</a><br /></td></tr>
+<tr class="separator:a0c77ba6ab9c3360abde63a16173ea5bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af643ca8f3f663a15338616ab488272fd"><td class="memTemplParams" colspan="2">template&lt;typename InstanceType &gt; </td></tr>
+<tr class="memitem:af643ca8f3f663a15338616ab488272fd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd">remove_listeners</a> (InstanceType &amp;&amp;instance)</td></tr>
+<tr class="memdesc:af643ca8f3f663a15338616ab488272fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all listeners from an instance  <a href="classsneze_1_1world.html#af643ca8f3f663a15338616ab488272fd">More...</a><br /></td></tr>
+<tr class="separator:af643ca8f3f663a15338616ab488272fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3438c3b8a51430f3d4091afcf3f583d5"><td class="memTemplParams" colspan="2">template&lt;typename EventType , typename... Args&gt; </td></tr>
+<tr class="memitem:a3438c3b8a51430f3d4091afcf3f583d5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5">emmit</a> (Args &amp;&amp;...args)</td></tr>
+<tr class="memdesc:a3438c3b8a51430f3d4091afcf3f583d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">enqueue an event to be dispatched  <a href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5">More...</a><br /></td></tr>
+<tr class="separator:a3438c3b8a51430f3d4091afcf3f583d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7211ea69db095aa132677453f372d3c5"><td class="memTemplParams" colspan="2">template&lt;typename ComponentType , auto Candidate, typename InstanceType &gt; </td></tr>
+<tr class="memitem:a7211ea69db095aa132677453f372d3c5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5">add_listener_to_add_component</a> (InstanceType &amp;&amp;instance)</td></tr>
+<tr class="memdesc:a7211ea69db095aa132677453f372d3c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">add listener to addition of a component type to an entity  <a href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5">More...</a><br /></td></tr>
+<tr class="separator:a7211ea69db095aa132677453f372d3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a716691c4afaca1b1872408aa6f0b4e22"><td class="memTemplParams" colspan="2">template&lt;typename ComponentType , typename InstanceType &gt; </td></tr>
+<tr class="memitem:a716691c4afaca1b1872408aa6f0b4e22"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22">remove_listener_to_add_component</a> (InstanceType &amp;&amp;instance)</td></tr>
+<tr class="memdesc:a716691c4afaca1b1872408aa6f0b4e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove listener to addition of a component type to an entity  <a href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22">More...</a><br /></td></tr>
+<tr class="separator:a716691c4afaca1b1872408aa6f0b4e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99bb3cef6a29b1a18a0724eb144fe636"><td class="memTemplParams" colspan="2">template&lt;typename ComponentType , typename InstanceType &gt; </td></tr>
+<tr class="memitem:a99bb3cef6a29b1a18a0724eb144fe636"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">remove_component_listeners</a> (InstanceType &amp;&amp;instance)</td></tr>
+<tr class="memdesc:a99bb3cef6a29b1a18a0724eb144fe636"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all listeners to components of type in entity  <a href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636">More...</a><br /></td></tr>
+<tr class="separator:a99bb3cef6a29b1a18a0724eb144fe636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The world class This class is the main class of the engine, it will hold all the entities, globals, components, and systems. </p>
@@ -183,13 +223,13 @@ system </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a674ced6bd76f7e498f4d1b6fce2ac125" title="add an entity to the world This function will add an entity to the world, and will return the entity ...">world::add_entity</a> </dd>
 <dd>
-world::add_system </dd>
+<a class="el" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de" title="add a system to the world">world::add_system</a> </dd>
 <dd>
-world::add_listener </dd>
+<a class="el" href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c" title="add a listener to an event">world::add_listener</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946" title="set a global entity A global entity is an entity that is always present in the world and can be acces...">world::set_global</a> </dd>
 <dd>
-world::emmit </dd></dl>
+<a class="el" href="classsneze_1_1world.html#a3438c3b8a51430f3d4091afcf3f583d5" title="enqueue an event to be dispatched">world::emmit</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00065">65</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -826,7 +866,7 @@ template&lt;typename Type &gt; </div>
 </div><div class="memdoc">
 
 <p>get a global entity A global entity is an entity that is always present in the world and can be accessed by any system, but its only exists in one entity. This function will return a reference to the global entity. </p>
-<p>If the global entity does not exist, it will be created with the default iiitializer.</p>
+<p>If the global entity does not exist, it will be created with the default initializer.</p>
 <dl class="section note"><dt>Note</dt><dd>the global entity must have a default initializer, otherwise the function will fail to compile</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -921,6 +961,478 @@ template&lt;typename Type , typename Compare &gt; </div>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00316">316</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d7338854eb15141cdad5d01df9d94de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d7338854eb15141cdad5d01df9d94de">&#9670;&nbsp;</a></span>add_system()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SystemType , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::add_system </td>
+          <td>(</td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add a system to the world </p>
+<p>Create a system and add it to the world. The system will be added with the priority::normal priority.</p>
+<p>When the world is updated, the system will be updated in the order of the priority.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">SystemType</td><td>the type of the system to add </td></tr>
+    <tr><td class="paramname">Args</td><td>the types of the arguments to pass to the system constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>the arguments to pass to the system constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2" title="add a system to the world with a given priority">world::add_system_with_priority</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f" title="remove a system from the world">world::remove_system</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00334">334</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a40e806e1cb8a7ba4bb7585ac9c3233c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e806e1cb8a7ba4bb7585ac9c3233c2">&#9670;&nbsp;</a></span>add_system_with_priority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int32_t Priority, typename SystemType , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::add_system_with_priority </td>
+          <td>(</td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add a system to the world with a given priority </p>
+<p>Create a system and add it to the world. The system will be added with the given priority.</p>
+<p>note: the priority must be between priority::low (-1000) and priority::high (1000)</p>
+<p>When the world is updated, the system will be updated in the order of the priority.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Priority</td><td>the priority of the system </td></tr>
+    <tr><td class="paramname">SystemType</td><td>the type of the system to add </td></tr>
+    <tr><td class="paramname">Args</td><td>the types of the arguments to pass to the system constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>the arguments to pass to the system constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de" title="add a system to the world">world::add_system</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1world.html#ac264029f5a9f46f9f22c9ef99af53c6f" title="remove a system from the world">world::remove_system</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00356">356</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac264029f5a9f46f9f22c9ef99af53c6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac264029f5a9f46f9f22c9ef99af53c6f">&#9670;&nbsp;</a></span>remove_system()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SystemType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::remove_system </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove a system from the world </p>
+<p>Remove a system from the world. The system will be removed at the end of the current update.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">SystemType</td><td>the type of the system to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de" title="add a system to the world">world::add_system</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2" title="add a system to the world with a given priority">world::add_system_with_priority</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00373">373</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f5739a0a2846bc6f01c05eb8e66516c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f5739a0a2846bc6f01c05eb8e66516c">&#9670;&nbsp;</a></span>add_listener()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename EventType , auto Candidate, typename InstanceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::add_listener </td>
+          <td>(</td>
+          <td class="paramtype">InstanceType &amp;&amp;&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add a listener to an event </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">EventType</td><td>the type of the event to listen to </td></tr>
+    <tr><td class="paramname">Candidate</td><td>the function to call when the event is dispatched </td></tr>
+    <tr><td class="paramname">InstanceType</td><td>the type of the instance to call the function on </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>the instance to call the function on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00387">387</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c77ba6ab9c3360abde63a16173ea5bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c77ba6ab9c3360abde63a16173ea5bb">&#9670;&nbsp;</a></span>remove_listener()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename EventType , typename InstanceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::remove_listener </td>
+          <td>(</td>
+          <td class="paramtype">InstanceType &amp;&amp;&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove all listeners from an event </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">EventType</td><td>the type of the event to remove the listeners from </td></tr>
+    <tr><td class="paramname">InstanceType</td><td>the type of the instance to remove the listeners from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>the instance to remove the listeners from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00400">400</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af643ca8f3f663a15338616ab488272fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af643ca8f3f663a15338616ab488272fd">&#9670;&nbsp;</a></span>remove_listeners()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename InstanceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::remove_listeners </td>
+          <td>(</td>
+          <td class="paramtype">InstanceType &amp;&amp;&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove all listeners from an instance </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">InstanceType</td><td>the type of the instance to remove the listeners from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>the instance to remove the listeners from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00412">412</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3438c3b8a51430f3d4091afcf3f583d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3438c3b8a51430f3d4091afcf3f583d5">&#9670;&nbsp;</a></span>emmit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename EventType , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::emmit </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>enqueue an event to be dispatched </p>
+<p>Enqueue an event to be dispatched. The event will be dispatched at the end of the current update.</p>
+<dl class="section note"><dt>Note</dt><dd>the event must be a descendant of sneze::event</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">EventType</td><td>the type of the event to enqueue </td></tr>
+    <tr><td class="paramname">Args</td><td>the types of the arguments to pass to the event constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>the arguments to pass to the event constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c" title="add a listener to an event">world::add_listener</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00429">429</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7211ea69db095aa132677453f372d3c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7211ea69db095aa132677453f372d3c5">&#9670;&nbsp;</a></span>add_listener_to_add_component()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ComponentType , auto Candidate, typename InstanceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::add_listener_to_add_component </td>
+          <td>(</td>
+          <td class="paramtype">InstanceType &amp;&amp;&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>add listener to addition of a component type to an entity </p>
+<p>note: to remove the listener, use <a class="el" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22" title="remove listener to addition of a component type to an entity">world::remove_listener_to_add_component</a> or <a class="el" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22" title="remove listener to addition of a component type to an entity">world::remove_listener_to_add_component</a></p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ComponentType</td><td>the type of the component to listen to </td></tr>
+    <tr><td class="paramname">Candidate</td><td>the function to call when the event is dispatched </td></tr>
+    <tr><td class="paramname">InstanceType</td><td>the type of the instance to call the function on </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>the instance to call the function on </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22" title="remove listener to addition of a component type to an entity">world::remove_listener_to_add_component</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636" title="remove all listeners to components of type in entity">world::remove_component_listeners</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00449">449</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a716691c4afaca1b1872408aa6f0b4e22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a716691c4afaca1b1872408aa6f0b4e22">&#9670;&nbsp;</a></span>remove_listener_to_add_component()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ComponentType , typename InstanceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::remove_listener_to_add_component </td>
+          <td>(</td>
+          <td class="paramtype">InstanceType &amp;&amp;&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove listener to addition of a component type to an entity </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ComponentType</td><td>the type of the component to remove the listener from </td></tr>
+    <tr><td class="paramname">InstanceType</td><td>the type of the instance to remove the listener from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>the instance to remove the listener from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5" title="add listener to addition of a component type to an entity">world::add_listener_to_add_component</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636" title="remove all listeners to components of type in entity">world::remove_component_listeners</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00465">465</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a99bb3cef6a29b1a18a0724eb144fe636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99bb3cef6a29b1a18a0724eb144fe636">&#9670;&nbsp;</a></span>remove_component_listeners()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ComponentType , typename InstanceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sneze::world::remove_component_listeners </td>
+          <td>(</td>
+          <td class="paramtype">InstanceType &amp;&amp;&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove all listeners to components of type in entity </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ComponentType</td><td>the type of the component to remove the listeners from </td></tr>
+    <tr><td class="paramname">InstanceType</td><td>the type of the instance to remove the listeners from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>the instance to remove the listeners from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5" title="add listener to addition of a component type to an entity">world::add_listener_to_add_component</a> </dd>
+<dd>
+<a class="el" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22" title="remove listener to addition of a component type to an entity">world::remove_listener_to_add_component</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00481">481</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
 
 </div>
 </div>
