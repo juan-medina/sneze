@@ -1,4 +1,4 @@
 <map id="sneze::components::border_box" name="sneze::components::border_box">
-<area shape="rect" id="node1" title="component that represent a box with a border" alt="" coords="5,95,161,136"/>
-<area shape="rect" id="node2" href="$structsneze_1_1components_1_1solid__box.html" title="component that represent a solid box" alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node1" title="component that represent a box with a border" alt="" coords="5,93,161,133"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1solid__box.html" title="component that represent a solid box" alt="" coords="5,5,161,45"/>
 </map>

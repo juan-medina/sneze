@@ -24,6 +24,13 @@ SOFTWARE.
 
 #pragma once
 
+/**
+ * @namespace sneze
+ *
+ * @brief `sneze` default namespace.
+ */
+namespace sneze {}
+
 #include "app/application.hpp"
 #include "app/config.hpp"
 #include "app/settings.hpp"

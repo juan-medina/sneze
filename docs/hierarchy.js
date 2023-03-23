@@ -8,14 +8,13 @@ var hierarchy =
     [ "sneze::config", "classsneze_1_1config.html", null ],
     [ "sneze::error", "classsneze_1_1error.html", null ],
     [ "std::ios_base", null, [
-      [ "std::basic_ios< char >", null, [
-        [ "std::basic_istream< char >", null, [
+      [ "std::basic_ios< Char >", null, [
+        [ "std::basic_istream< Char >", null, [
           [ "std::istream", null, [
             [ "sneze::span_istream", "classsneze_1_1span__istream.html", null ]
           ] ]
         ] ]
-      ] ],
-      [ "std::basic_ios< Char >", null, null ]
+      ] ]
     ] ],
     [ "sneze::components::label", "structsneze_1_1components_1_1label.html", null ],
     [ "sneze::components::line", "structsneze_1_1components_1_1line.html", null ],

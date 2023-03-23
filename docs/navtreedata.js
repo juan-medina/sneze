@@ -25,18 +25,7 @@
 var NAVTREE =
 [
   [ "sneze", "index.html", [
-    [ "Simple Not Easy Zestful Engine", "index.html", [
-      [ "Features (ready)", "index.html#autotoc_md1", null ],
-      [ "Features (WIP)", "index.html#autotoc_md2", null ],
-      [ "Background", "index.html#autotoc_md3", null ],
-      [ "Why Not...", "index.html#autotoc_md4", null ],
-      [ "Getting Started", "index.html#autotoc_md5", null ],
-      [ "Examples", "index.html#autotoc_md6", null ],
-      [ "Dependencies", "index.html#autotoc_md7", null ],
-      [ "Resources", "index.html#autotoc_md8", null ],
-      [ "Contributions", "index.html#autotoc_md9", null ],
-      [ "License", "index.html#autotoc_md10", null ]
-    ] ],
+    [ "Simple Not Easy Zestful Engine", "index.html", "index" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -46,6 +35,7 @@ var NAVTREE =
         [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
+    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -68,7 +58,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structsneze_1_1components_1_1box.html"
+"classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

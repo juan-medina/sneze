@@ -5,7 +5,7 @@
 [![Docs](https://img.shields.io/badge/DOCS-0.0.0-yellow.svg?style=for-the-badge)](https://juan-medina.github.io/sneze/)
 
 <p align ="center">
-  <img src="lib/media/sprites/sneze.png" width="150" alt="sneze logo">
+  <img src="sneze.png" width="150" alt="sneze logo">
 </p>
 
 SNEZE is a high-level, 2D game engine based in a entity component system that provides solutions for common game problems. The goal is to make game development fast and simple, but not easy, while also being zestful.

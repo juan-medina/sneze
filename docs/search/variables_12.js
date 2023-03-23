@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['white_357',['white',['../classsneze_1_1components_1_1color.html#a8d11fcfb22911be5d4e36e026031c724',1,'sneze::components::color']]],
-  ['width_358',['width',['../structsneze_1_1components_1_1size.html#aa189004f0600e6e7234b861b59ad82d5',1,'sneze::components::size']]]
+  ['x_0',['x',['../structsneze_1_1components_1_1position.html#a3d1136e4c91b2475515a5a191a1a78dd',1,'sneze::components::position']]]
 ];

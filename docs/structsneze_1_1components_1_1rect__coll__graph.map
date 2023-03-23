@@ -1,5 +1,5 @@
 <map id="sneze::components::rect" name="sneze::components::rect">
-<area shape="rect" id="node1" title="component to hold the rectangular area of an entity" alt="" coords="102,109,283,136"/>
-<area shape="rect" id="node2" href="$structsneze_1_1components_1_1size.html" title="component to hold the size of an entity" alt="" coords="5,13,188,39"/>
-<area shape="rect" id="node3" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="212,5,368,47"/>
+<area shape="rect" id="node1" title="component to hold the rectangular area of an entity" alt="" coords="89,108,270,133"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="5,5,161,45"/>
+<area shape="rect" id="node3" href="$structsneze_1_1components_1_1size.html" title="component to hold the size of an entity" alt="" coords="185,13,368,38"/>
 </map>

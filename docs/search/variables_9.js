@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['light_5fgray_328',['light_gray',['../classsneze_1_1components_1_1color.html#a1fe90fb85cea70b58aff845ef8902005',1,'sneze::components::color']]],
-  ['lime_329',['lime',['../classsneze_1_1components_1_1color.html#a0d0a62b731200f5b993054daad888717',1,'sneze::components::color']]],
-  ['logo_330',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
-  ['logo_5fstring_331',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]]
+  ['magenta_0',['magenta',['../classsneze_1_1components_1_1color.html#a08ca6b274bc6f83a2c460ea22a272859',1,'sneze::components::color']]],
+  ['major_1',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
+  ['maroon_2',['maroon',['../classsneze_1_1components_1_1color.html#a37de24e43f0359c920d985b759e63dd3',1,'sneze::components::color']]],
+  ['minor_3',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]]
 ];
