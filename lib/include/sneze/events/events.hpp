@@ -36,45 +36,72 @@ SOFTWARE.
 namespace sneze {
 class world;
 
+//! events namespace.
 namespace events {
 
+//! event base class.
 struct event {
+    //! the current world.
     class world *world; // cppcheck-suppress unusedStructMember
 };
 
+//! event that indicates that the application is closing.
 struct application_want_closing: public event {};
 
+//! event that indicates that we want to toggle fullscreen.
 struct toggle_fullscreen: public event {};
 
+//! key base event.
 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init)
 struct key_event: public event, public keyboard::key_modifier {};
 
+//! key down event.
 struct key_down: key_event {};
 
+//! key up event.
 struct key_up: key_event {};
 
+//! window resized event.
 struct window_resized: public event {
-    components::size window;  // cppcheck-suppress unusedStructMember
+    //! the new size of the window.
+    components::size window; // cppcheck-suppress unusedStructMember
+    /**
+     * @brief new size of the client area, may be different from the original size.
+     * @see config::logical
+     */
     components::rect logical; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief event that indicates that we want to add a component to an entity.
+ * @tparam ComponentType the type of the component to add.
+ */
 template<typename ComponentType>
 struct add_component: public event {
+    //! the entity id
     entt::entity entity;
+    //! the component to add
     ComponentType component;
 };
 
+//! mouse moved event.
 struct mouse_moved: public event {
+    //! the new position of the mouse.
     components::position point; // cppcheck-suppress unusedStructMember
 };
 
+//! mouse button base event.
 struct mouse_button: public event {
-    mouse::button button;       // cppcheck-suppress unusedStructMember
+    //! the button that was used.
+    mouse::button button; // cppcheck-suppress unusedStructMember
+    //! the position of the mouse.
     components::position point; // cppcheck-suppress unusedStructMember
 };
 
+//! mouse button down event.
 struct mouse_button_down: public mouse_button {};
 
+//! mouse button up event.
 struct mouse_button_up: public mouse_button {};
 
 } // namespace events

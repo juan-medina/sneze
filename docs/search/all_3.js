@@ -7,7 +7,7 @@ var searchData=
   ['code_4',['code',['../namespacesneze_1_1keyboard.html#ae43f256a260dcc1ddf9af4fc9636ef1f',1,'sneze::keyboard']]],
   ['color_5',['color',['../structsneze_1_1components_1_1border__box.html#a9e0d19e0d712bc91d8348724a1ffb7f6',1,'sneze::components::border_box::color'],['../classsneze_1_1components_1_1color.html',1,'sneze::components::color']]],
   ['comma_6',['comma',['../classsneze_1_1keyboard_1_1key.html#ac2865a9e747329c8e9e0a911e60aa498',1,'sneze::keyboard::key']]],
-  ['component_7',['component',['../classsneze_1_1components_1_1color.html#a55c57241916f40895482d147c167c75b',1,'sneze::components::color']]],
+  ['component_7',['component',['../classsneze_1_1components_1_1color.html#a55c57241916f40895482d147c167c75b',1,'sneze::components::color::component'],['../structsneze_1_1events_1_1add__component.html#a173fe6ce4a4d77c0d13b6034648867dd',1,'sneze::events::add_component::component']]],
   ['config_8',['config',['../classsneze_1_1config.html#a45280ab7d39251d38e1fbba8738fb37b',1,'sneze::config::config()'],['../classsneze_1_1config.html',1,'sneze::config']]],
   ['configure_9',['configure',['../classsneze_1_1application.html#ab7d60d8bb77447f5701286ccee2f77ce',1,'sneze::application']]],
   ['control_10',['control',['../classsneze_1_1keyboard_1_1modifier.html#a5d8ec5f85e7fc262e8706ca2f02f1349',1,'sneze::keyboard::modifier']]],

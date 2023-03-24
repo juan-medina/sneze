@@ -1,0 +1,4 @@
+<map id="sneze::events::add_component&lt; ComponentType &gt;" name="sneze::events::add_component&lt; ComponentType &gt;">
+<area shape="rect" id="node1" title="event that indicates that we want to add a component to an entity." alt="" coords="5,79,243,119"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="45,5,203,31"/>
+</map>

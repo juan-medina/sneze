@@ -1,0 +1,6 @@
+<map id="sneze::events::key_down" name="sneze::events::key_down">
+<area shape="rect" id="node1" title="key down event." alt="" coords="82,181,267,207"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1key__event.html" title="key base event." alt="" coords="103,93,246,133"/>
+<area shape="rect" id="node3" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="5,13,163,38"/>
+<area shape="rect" id="node4" href="$structsneze_1_1keyboard_1_1key__modifier.html" title="Key and modifier pair." alt="" coords="187,5,346,45"/>
+</map>

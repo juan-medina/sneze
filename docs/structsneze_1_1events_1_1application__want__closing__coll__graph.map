@@ -1,0 +1,5 @@
+<map id="sneze::events::application_want_closing" name="sneze::events::application_want_closing">
+<area shape="rect" id="node1" title="event that indicates that the application is closing." alt="" coords="5,168,197,208"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="23,93,180,119"/>
+<area shape="rect" id="node3" href="$classsneze_1_1world.html" title="The world class This class is the main class of the engine, it will hold all the entities,..." alt="" coords="49,5,153,31"/>
+</map>

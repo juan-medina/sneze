@@ -9,5 +9,9 @@ var searchData=
   ['mod_6',['mod',['../namespacesneze_1_1keyboard.html#a952d06bfce3a740f136300b2440b2577',1,'sneze::keyboard']]],
   ['modifier_7',['modifier',['../structsneze_1_1keyboard_1_1key__modifier.html#a07d1c23a5d240d96d356846cba4662f8',1,'sneze::keyboard::key_modifier::modifier'],['../classsneze_1_1keyboard_1_1modifier.html',1,'sneze::keyboard::modifier']]],
   ['mono_5ffont_8',['mono_font',['../namespacesneze_1_1embedded.html#acd6fa1e6517f5e7301f0c05cd58cf5e0',1,'sneze::embedded']]],
-  ['mono_5ffont_5ftexture_9',['mono_font_texture',['../namespacesneze_1_1embedded.html#a6667dcf9ef206941d3b8aac9ec04c6a1',1,'sneze::embedded']]]
+  ['mono_5ffont_5ftexture_9',['mono_font_texture',['../namespacesneze_1_1embedded.html#a6667dcf9ef206941d3b8aac9ec04c6a1',1,'sneze::embedded']]],
+  ['mouse_5fbutton_10',['mouse_button',['../structsneze_1_1events_1_1mouse__button.html',1,'sneze::events']]],
+  ['mouse_5fbutton_5fdown_11',['mouse_button_down',['../structsneze_1_1events_1_1mouse__button__down.html',1,'sneze::events']]],
+  ['mouse_5fbutton_5fup_12',['mouse_button_up',['../structsneze_1_1events_1_1mouse__button__up.html',1,'sneze::events']]],
+  ['mouse_5fmoved_13',['mouse_moved',['../structsneze_1_1events_1_1mouse__moved.html',1,'sneze::events']]]
 ];

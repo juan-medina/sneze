@@ -12,5 +12,6 @@ var searchData=
   ['border_5fbox_9',['border_box',['../structsneze_1_1components_1_1border__box.html',1,'sneze::components']]],
   ['bottom_10',['bottom',['../namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43a71f262d796bed1ab30e8a2d5a8ddee6f',1,'sneze::components']]],
   ['box_11',['box',['../structsneze_1_1components_1_1box.html',1,'sneze::components']]],
-  ['brown_12',['brown',['../classsneze_1_1components_1_1color.html#a7c140f14df9d08a768f5d120025bb559',1,'sneze::components::color']]]
+  ['brown_12',['brown',['../classsneze_1_1components_1_1color.html#a7c140f14df9d08a768f5d120025bb559',1,'sneze::components::color']]],
+  ['button_13',['button',['../structsneze_1_1events_1_1mouse__button.html#acf38938db39b5a01ee00366c302dd995',1,'sneze::events::mouse_button']]]
 ];

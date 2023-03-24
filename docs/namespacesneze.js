@@ -9,6 +9,7 @@ var namespacesneze =
       [ "regular_font", "namespacesneze_1_1embedded.html#a83ff19a70f419a5ea1b3a1027b3ecc5b", null ],
       [ "regular_font_texture", "namespacesneze_1_1embedded.html#a1f288ea65e8c7323fe9b5d40a176e93c", null ]
     ] ],
+    [ "events", "namespacesneze_1_1events.html", "namespacesneze_1_1events" ],
     [ "keyboard", "namespacesneze_1_1keyboard.html", "namespacesneze_1_1keyboard" ],
     [ "logger", "namespacesneze_1_1logger.html", [
       [ "level", "namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7", [

@@ -7,5 +7,6 @@ var searchData=
   ['beige_4',['beige',['../classsneze_1_1components_1_1color.html#a444d81ac6dfb8b34767109418bc7b682',1,'sneze::components::color']]],
   ['black_5',['black',['../classsneze_1_1components_1_1color.html#a77e9dabc0aa2c111eefdb6c3c79afe91',1,'sneze::components::color']]],
   ['blue_6',['blue',['../classsneze_1_1components_1_1color.html#a0ca50fdba3147cd12d53ba879410862c',1,'sneze::components::color']]],
-  ['brown_7',['brown',['../classsneze_1_1components_1_1color.html#a7c140f14df9d08a768f5d120025bb559',1,'sneze::components::color']]]
+  ['brown_7',['brown',['../classsneze_1_1components_1_1color.html#a7c140f14df9d08a768f5d120025bb559',1,'sneze::components::color']]],
+  ['button_8',['button',['../structsneze_1_1events_1_1mouse__button.html#acf38938db39b5a01ee00366c302dd995',1,'sneze::events::mouse_button']]]
 ];

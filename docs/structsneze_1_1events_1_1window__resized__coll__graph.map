@@ -1,0 +1,8 @@
+<map id="sneze::events::window_resized" name="sneze::events::window_resized">
+<area shape="rect" id="node1" title="window resized event." alt="" coords="136,196,307,236"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="5,108,163,133"/>
+<area shape="rect" id="node3" href="$classsneze_1_1world.html" title="The world class This class is the main class of the engine, it will hold all the entities,..." alt="" coords="20,13,124,38"/>
+<area shape="rect" id="node4" href="$structsneze_1_1components_1_1size.html" title="component to hold the size of an entity" alt="" coords="149,13,331,38"/>
+<area shape="rect" id="node5" href="$structsneze_1_1components_1_1rect.html" title="component to hold the rectangular area of an entity" alt="" coords="300,108,481,133"/>
+<area shape="rect" id="node6" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="355,5,511,45"/>
+</map>

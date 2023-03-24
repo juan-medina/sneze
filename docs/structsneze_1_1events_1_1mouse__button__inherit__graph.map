@@ -1,0 +1,6 @@
+<map id="sneze::events::mouse_button" name="sneze::events::mouse_button">
+<area shape="rect" id="node1" title="mouse button base event." alt="" coords="99,79,263,119"/>
+<area shape="rect" id="node3" href="$structsneze_1_1events_1_1mouse__button__down.html" title="mouse button down event." alt="" coords="5,167,169,207"/>
+<area shape="rect" id="node4" href="$structsneze_1_1events_1_1mouse__button__up.html" title="mouse button up event." alt="" coords="193,167,357,207"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="102,5,259,31"/>
+</map>

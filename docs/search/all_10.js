@@ -7,8 +7,9 @@ var searchData=
   ['period_4',['period',['../classsneze_1_1keyboard_1_1key.html#a9b7111e2bd51c11addd0345a8bb9ccb7',1,'sneze::keyboard::key']]],
   ['pink_5',['pink',['../classsneze_1_1components_1_1color.html#a2fc78a6c759c04f3c5eac3e36286bdf7',1,'sneze::components::color']]],
   ['plus_6',['plus',['../classsneze_1_1keyboard_1_1key.html#a0d12355901085c2313e0056da003c99e',1,'sneze::keyboard::key']]],
-  ['position_7',['position',['../structsneze_1_1components_1_1rect.html#a49e2dfe775e33128901066953c6707fa',1,'sneze::components::rect::position'],['../structsneze_1_1components_1_1position.html',1,'sneze::components::position']]],
-  ['print_5fscreen_8',['print_screen',['../classsneze_1_1keyboard_1_1key.html#ad91cff59495940fc2fff71748f9888c4',1,'sneze::keyboard::key']]],
-  ['priority_9',['priority',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962',1,'sneze::world']]],
-  ['purple_10',['purple',['../classsneze_1_1components_1_1color.html#aa92d2c36bc8cf37d031bcc773b6002cb',1,'sneze::components::color']]]
+  ['point_7',['point',['../structsneze_1_1events_1_1mouse__moved.html#a081c8f71deba881a9ac72ed362c89e20',1,'sneze::events::mouse_moved::point'],['../structsneze_1_1events_1_1mouse__button.html#a74733590c046e6ac32c55bc4240f33a7',1,'sneze::events::mouse_button::point']]],
+  ['position_8',['position',['../structsneze_1_1components_1_1rect.html#a49e2dfe775e33128901066953c6707fa',1,'sneze::components::rect::position'],['../structsneze_1_1components_1_1position.html',1,'sneze::components::position']]],
+  ['print_5fscreen_9',['print_screen',['../classsneze_1_1keyboard_1_1key.html#ad91cff59495940fc2fff71748f9888c4',1,'sneze::keyboard::key']]],
+  ['priority_10',['priority',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962',1,'sneze::world']]],
+  ['purple_11',['purple',['../classsneze_1_1components_1_1color.html#aa92d2c36bc8cf37d031bcc773b6002cb',1,'sneze::components::color']]]
 ];

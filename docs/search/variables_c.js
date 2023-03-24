@@ -10,6 +10,7 @@ var searchData=
   ['left_5fshift_7',['left_shift',['../classsneze_1_1keyboard_1_1modifier.html#acba801173bff5993c7347db39ea0e247',1,'sneze::keyboard::modifier']]],
   ['light_5fgray_8',['light_gray',['../classsneze_1_1components_1_1color.html#a1fe90fb85cea70b58aff845ef8902005',1,'sneze::components::color']]],
   ['lime_9',['lime',['../classsneze_1_1components_1_1color.html#a0d0a62b731200f5b993054daad888717',1,'sneze::components::color']]],
-  ['logo_10',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
-  ['logo_5fstring_11',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]]
+  ['logical_10',['logical',['../structsneze_1_1events_1_1window__resized.html#aa11452ab698afc9303800a602f2dda50',1,'sneze::events::window_resized']]],
+  ['logo_11',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
+  ['logo_5fstring_12',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]]
 ];

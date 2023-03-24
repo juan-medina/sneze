@@ -9,6 +9,21 @@ var hierarchy =
     [ "sneze::config", "classsneze_1_1config.html", null ],
     [ "sneze::effects_system", "classsneze_1_1effects__system.html", null ],
     [ "sneze::error", "classsneze_1_1error.html", null ],
+    [ "sneze::events::event", "structsneze_1_1events_1_1event.html", [
+      [ "sneze::events::add_component< ComponentType >", "structsneze_1_1events_1_1add__component.html", null ],
+      [ "sneze::events::application_want_closing", "structsneze_1_1events_1_1application__want__closing.html", null ],
+      [ "sneze::events::key_event", "structsneze_1_1events_1_1key__event.html", [
+        [ "sneze::events::key_down", "structsneze_1_1events_1_1key__down.html", null ],
+        [ "sneze::events::key_up", "structsneze_1_1events_1_1key__up.html", null ]
+      ] ],
+      [ "sneze::events::mouse_button", "structsneze_1_1events_1_1mouse__button.html", [
+        [ "sneze::events::mouse_button_down", "structsneze_1_1events_1_1mouse__button__down.html", null ],
+        [ "sneze::events::mouse_button_up", "structsneze_1_1events_1_1mouse__button__up.html", null ]
+      ] ],
+      [ "sneze::events::mouse_moved", "structsneze_1_1events_1_1mouse__moved.html", null ],
+      [ "sneze::events::toggle_fullscreen", "structsneze_1_1events_1_1toggle__fullscreen.html", null ],
+      [ "sneze::events::window_resized", "structsneze_1_1events_1_1window__resized.html", null ]
+    ] ],
     [ "std::ios_base", null, [
       [ "std::basic_ios< Char >", null, [
         [ "std::basic_istream< Char >", null, [
@@ -19,7 +34,9 @@ var hierarchy =
       ] ]
     ] ],
     [ "sneze::keyboard::key", "classsneze_1_1keyboard_1_1key.html", null ],
-    [ "sneze::keyboard::key_modifier", "structsneze_1_1keyboard_1_1key__modifier.html", null ],
+    [ "sneze::keyboard::key_modifier", "structsneze_1_1keyboard_1_1key__modifier.html", [
+      [ "sneze::events::key_event", "structsneze_1_1events_1_1key__event.html", null ]
+    ] ],
     [ "sneze::components::label", "structsneze_1_1components_1_1label.html", null ],
     [ "sneze::components::line", "structsneze_1_1components_1_1line.html", null ],
     [ "sneze::keyboard::modifier", "classsneze_1_1keyboard_1_1modifier.html", null ],

@@ -1,0 +1,7 @@
+<map id="sneze::events::mouse_button_down" name="sneze::events::mouse_button_down">
+<area shape="rect" id="node1" title="mouse button down event." alt="" coords="93,285,257,325"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1mouse__button.html" title="mouse button base event." alt="" coords="93,196,257,236"/>
+<area shape="rect" id="node3" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="5,101,163,126"/>
+<area shape="rect" id="node4" href="$classsneze_1_1world.html" title="The world class This class is the main class of the engine, it will hold all the entities,..." alt="" coords="32,5,136,31"/>
+<area shape="rect" id="node5" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="187,93,343,133"/>
+</map>
