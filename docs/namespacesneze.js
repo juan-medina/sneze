@@ -45,6 +45,7 @@ var namespacesneze =
     [ "game_time", "structsneze_1_1game__time.html", "structsneze_1_1game__time" ],
     [ "keys_system", "classsneze_1_1keys__system.html", "classsneze_1_1keys__system" ],
     [ "layout_system", "classsneze_1_1layout__system.html", "classsneze_1_1layout__system" ],
+    [ "render_system", "classsneze_1_1render__system.html", "classsneze_1_1render__system" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
     [ "settings", "classsneze_1_1settings.html", "classsneze_1_1settings" ],
     [ "span_istream", "classsneze_1_1span__istream.html", "classsneze_1_1span__istream" ],

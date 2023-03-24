@@ -1,0 +1,4 @@
+<map id="sneze::render_system" name="sneze::render_system">
+<area shape="rect" id="node1" title="Render system." alt="" coords="5,79,171,104"/>
+<area shape="rect" id="node2" href="$structsneze_1_1system.html" title="base class for all systems" alt="" coords="30,5,146,31"/>
+</map>

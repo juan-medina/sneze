@@ -36,23 +36,40 @@ namespace sneze {
 
 class render;
 
+/**
+ * @brief Render system
+ *
+ * This system will handle all the rendering of the game.
+ */
 class render_system final: public system {
 public:
+    /**
+     * @brief Construct a new render system object
+     *
+     * @param render The render object to use
+     * @see render
+     */
     explicit render_system(std::shared_ptr<render> render);
 
+    //! update the system
     void update(world *world) override;
 
+    //! init the system
     void init(world *world) override;
 
+    //! shutdown the system
     void end(world *world) override;
 
 private:
+    //! the render object
     std::shared_ptr<render> render_;
 
+    //! sort renderables by depth
     static inline auto sort_by_depth(const components::renderable &lhs, const components::renderable &rhs) {
         return lhs.depth > rhs.depth;
     }
 
+    //! toggle fullscreen event handler
     void toggle_fullscreen(events::toggle_fullscreen const &event) noexcept;
 };
 
