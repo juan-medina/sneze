@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>sneze: Class Members</title>
+<title>sneze: sneze::game_time Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('functions_d.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('structsneze_1_1game__time.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -90,27 +90,40 @@ $(document).ready(function(){initNavTree('functions_d.html',''); initResizable()
 </div>
 </div>
 
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structsneze_1_1game__time-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">sneze::game_time Struct Reference</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
-<h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
-<li>d&#160;:&#160;<a class="el" href="classsneze_1_1keyboard_1_1key.html#ab2675bac7563f54dffa425539f97fa8f">sneze::keyboard::key</a></li>
-<li>dark_blue&#160;:&#160;<a class="el" href="classsneze_1_1components_1_1color.html#a00c6454166f807a98393d24d50073b25">sneze::components::color</a></li>
-<li>dark_brown&#160;:&#160;<a class="el" href="classsneze_1_1components_1_1color.html#ac1ef384be65ea2f7736b50e7acf34074">sneze::components::color</a></li>
-<li>dark_gray&#160;:&#160;<a class="el" href="classsneze_1_1components_1_1color.html#ab80d7c0bcd3f5710384fa1c9d48c2b33">sneze::components::color</a></li>
-<li>dark_green&#160;:&#160;<a class="el" href="classsneze_1_1components_1_1color.html#a19c31cc6dcfeb42cbc4d23553d8d5e67">sneze::components::color</a></li>
-<li>dark_purple&#160;:&#160;<a class="el" href="classsneze_1_1components_1_1color.html#ac8a4e4469ab6e56f0470b296dc386a82">sneze::components::color</a></li>
-<li>delay&#160;:&#160;<a class="el" href="structsneze_1_1effects_1_1alternate__color.html#a22c5a5896689c20b1d7c10008fce38c7">sneze::effects::alternate_color</a></li>
-<li>delta&#160;:&#160;<a class="el" href="structsneze_1_1game__time.html#a7d8ead26a8c8bb43b26397833c413275">sneze::game_time</a></li>
-<li>depth&#160;:&#160;<a class="el" href="structsneze_1_1components_1_1renderable.html#a69c1b4c734514d9e2926ab58ca1befb3">sneze::components::renderable</a></li>
-<li>dollar&#160;:&#160;<a class="el" href="classsneze_1_1keyboard_1_1key.html#a75b0cac5233764af41213a2c2dec6637">sneze::keyboard::key</a></li>
-<li>double_quote&#160;:&#160;<a class="el" href="classsneze_1_1keyboard_1_1key.html#a5cbefbb520f56ac2d8e654ca94edf008">sneze::keyboard::key</a></li>
-</ul>
-</div><!-- contents -->
+<p>game time global  
+ <a href="structsneze_1_1game__time.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="globals_8hpp_source.html">sneze/globals/globals.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a7d8ead26a8c8bb43b26397833c413275"><td class="memItemLeft" align="right" valign="top"><a id="a7d8ead26a8c8bb43b26397833c413275" name="a7d8ead26a8c8bb43b26397833c413275"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>delta</b> = 0.F</td></tr>
+<tr class="memdesc:a7d8ead26a8c8bb43b26397833c413275"><td class="mdescLeft">&#160;</td><td class="mdescRight">delta time, since last frame <br /></td></tr>
+<tr class="separator:a7d8ead26a8c8bb43b26397833c413275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a444a0d15417fef54afea774d31efd2af"><td class="memItemLeft" align="right" valign="top"><a id="a444a0d15417fef54afea774d31efd2af" name="a444a0d15417fef54afea774d31efd2af"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>elapsed</b> = 0.F</td></tr>
+<tr class="memdesc:a444a0d15417fef54afea774d31efd2af"><td class="mdescLeft">&#160;</td><td class="mdescRight">elapsed time, since game start <br /></td></tr>
+<tr class="separator:a444a0d15417fef54afea774d31efd2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>game time global </p>
+
+<p class="definition">Definition at line <a class="el" href="globals_8hpp_source.html#l00030">30</a> of file <a class="el" href="globals_8hpp_source.html">globals.hpp</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="namespacesneze.html">sneze</a></li><li class="navelem"><a class="el" href="structsneze_1_1game__time.html">game_time</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

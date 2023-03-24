@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['tag_0',['tag',['../structsneze_1_1components_1_1tag.html',1,'sneze::components']]],
-  ['toggle_5ffullscreen_1',['toggle_fullscreen',['../structsneze_1_1events_1_1toggle__fullscreen.html',1,'sneze::events']]],
-  ['type_5fname_5fformat_2',['type_name_format',['../structsneze_1_1type__name__format.html',1,'sneze']]]
+  ['settings_0',['settings',['../classsneze_1_1settings.html',1,'sneze']]],
+  ['size_1',['size',['../structsneze_1_1components_1_1size.html',1,'sneze::components']]],
+  ['solid_5fbox_2',['solid_box',['../structsneze_1_1components_1_1solid__box.html',1,'sneze::components']]],
+  ['span_5fistream_3',['span_istream',['../classsneze_1_1span__istream.html',1,'sneze']]],
+  ['sprite_4',['sprite',['../structsneze_1_1components_1_1sprite.html',1,'sneze::components']]]
 ];

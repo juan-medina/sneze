@@ -24,6 +24,7 @@ var hierarchy =
       [ "sneze::events::toggle_fullscreen", "structsneze_1_1events_1_1toggle__fullscreen.html", null ],
       [ "sneze::events::window_resized", "structsneze_1_1events_1_1window__resized.html", null ]
     ] ],
+    [ "sneze::game_time", "structsneze_1_1game__time.html", null ],
     [ "std::ios_base", null, [
       [ "std::basic_ios< Char >", null, [
         [ "std::basic_istream< Char >", null, [

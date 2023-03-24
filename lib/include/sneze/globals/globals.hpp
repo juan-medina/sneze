@@ -26,8 +26,11 @@ SOFTWARE.
 
 namespace sneze {
 
+//! game time global
 struct game_time {
+    //! delta time, since last frame
     float delta = 0.F;   // cppcheck-suppress unusedStructMember
+    //! elapsed time, since game start
     float elapsed = 0.F; // cppcheck-suppress unusedStructMember
 };
 

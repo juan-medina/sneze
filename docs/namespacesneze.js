@@ -42,6 +42,7 @@ var namespacesneze =
     [ "config", "classsneze_1_1config.html", "classsneze_1_1config" ],
     [ "effects_system", "classsneze_1_1effects__system.html", "classsneze_1_1effects__system" ],
     [ "error", "classsneze_1_1error.html", "classsneze_1_1error" ],
+    [ "game_time", "structsneze_1_1game__time.html", "structsneze_1_1game__time" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
     [ "settings", "classsneze_1_1settings.html", "classsneze_1_1settings" ],
     [ "span_istream", "classsneze_1_1span__istream.html", "classsneze_1_1span__istream" ],
