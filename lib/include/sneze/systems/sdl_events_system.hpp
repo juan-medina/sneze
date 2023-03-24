@@ -50,14 +50,23 @@ public:
      */
     explicit sdl_events_system(std::shared_ptr<render> render): render_{std::move(render)} {};
 
-    //! update the system
-    void update(world *world) override;
-
-    //! init the system
+    /**
+     * @brief initialize the system
+     * @param world the world that owns this system
+     */
     void init(world *world) override;
 
-    //! shutdown the system
+    /**
+     * @brief shutdown the system
+     * @param world the world that owns this system
+     */
     void end(world *world) override;
+
+    /**
+     * @brief update the system
+     * @param world the world that owns this system
+     */
+    void update(world *world) override;
 
 private:
     //! the render object

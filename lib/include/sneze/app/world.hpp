@@ -129,7 +129,7 @@ public:
      * @see world::has_component
      */
     template<typename Type>
-    [[maybe_unused]] auto remove_component(entt::entity entity) {
+    [[maybe_unused]] void remove_component(entt::entity entity) {
         registry_.remove<Type>(entity);
     }
 
@@ -180,7 +180,7 @@ public:
     }
 
     /**
-     * @tag an entity
+     * @brief tag an entity
      * @tparam TagType the type of the tag to add
      * @param entity the entity id to tag
      * @see world::untag

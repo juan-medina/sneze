@@ -126,10 +126,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a005f5f40c9f3f27b0b4a0d89ee98ad3f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a005f5f40c9f3f27b0b4a0d89ee98ad3f">get_component</a> (entt::entity entity) -&gt; decltype(auto)</td></tr>
 <tr class="memdesc:a005f5f40c9f3f27b0b4a0d89ee98ad3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a component from an entity This function will return a reference to the component of the entity.  <br /></td></tr>
 <tr class="separator:a005f5f40c9f3f27b0b4a0d89ee98ad3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a776445828abbae5f164d55f18748fa3a"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
-<tr class="memitem:a776445828abbae5f164d55f18748fa3a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a">remove_component</a> (entt::entity entity)</td></tr>
-<tr class="memdesc:a776445828abbae5f164d55f18748fa3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a component from an entity This function will remove a component from an entity.  <br /></td></tr>
-<tr class="separator:a776445828abbae5f164d55f18748fa3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d64ee5ac05d72026682141777c86677"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
+<tr class="memitem:a7d64ee5ac05d72026682141777c86677"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a7d64ee5ac05d72026682141777c86677">remove_component</a> (entt::entity entity)</td></tr>
+<tr class="memdesc:a7d64ee5ac05d72026682141777c86677"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a component from an entity This function will remove a component from an entity.  <br /></td></tr>
+<tr class="separator:a7d64ee5ac05d72026682141777c86677"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c40e2a0feccfe8e7a890f6e78a2ea74"><td class="memTemplParams" colspan="2">template&lt;typename Type , typename... Args&gt; </td></tr>
 <tr class="memitem:a0c40e2a0feccfe8e7a890f6e78a2ea74"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a0c40e2a0feccfe8e7a890f6e78a2ea74">set_component</a> (entt::entity entity, Args &amp;&amp;...args)</td></tr>
 <tr class="memdesc:a0c40e2a0feccfe8e7a890f6e78a2ea74"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a component to an entity This function will set a component to an entity.  <br /></td></tr>
@@ -144,6 +144,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9865bc6502fcdf224437421ac929ab1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d10d4bb69f1b40dda312e47e21f5787"><td class="memTemplParams" colspan="2">template&lt;typename TagType &gt; </td></tr>
 <tr class="memitem:a3d10d4bb69f1b40dda312e47e21f5787"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787">tag</a> (entt::entity entity)</td></tr>
+<tr class="memdesc:a3d10d4bb69f1b40dda312e47e21f5787"><td class="mdescLeft">&#160;</td><td class="mdescRight">tag an entity  <br /></td></tr>
 <tr class="separator:a3d10d4bb69f1b40dda312e47e21f5787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33a03ac70990783d30ac7c18931b9937"><td class="memTemplParams" colspan="2">template&lt;typename TagType &gt; </td></tr>
 <tr class="memitem:a33a03ac70990783d30ac7c18931b9937"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937">untag</a> (entt::entity entity)</td></tr>
@@ -427,7 +428,7 @@ template&lt;typename Type &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a reference to the component </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a0c40e2a0feccfe8e7a890f6e78a2ea74" title="set a component to an entity This function will set a component to an entity.">world::set_component</a> </dd>
 <dd>
-<a class="el" href="classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a" title="remove a component from an entity This function will remove a component from an entity.">world::remove_component</a> </dd>
+<a class="el" href="classsneze_1_1world.html#a7d64ee5ac05d72026682141777c86677" title="remove a component from an entity This function will remove a component from an entity.">world::remove_component</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a3091cf1ed2b0cffce1eeb6b15b8f55ee" title="check if an entity has a component This function will check if an entity has a component.">world::has_component</a> </dd></dl>
 
@@ -435,8 +436,8 @@ template&lt;typename Type &gt; </div>
 
 </div>
 </div>
-<a id="a776445828abbae5f164d55f18748fa3a" name="a776445828abbae5f164d55f18748fa3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a776445828abbae5f164d55f18748fa3a">&#9670;&#160;</a></span>remove_component()</h2>
+<a id="a7d64ee5ac05d72026682141777c86677" name="a7d64ee5ac05d72026682141777c86677"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d64ee5ac05d72026682141777c86677">&#9670;&#160;</a></span>remove_component()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -447,7 +448,7 @@ template&lt;typename Type &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto sneze::world::remove_component </td>
+          <td class="memname">void sneze::world::remove_component </td>
           <td>(</td>
           <td class="paramtype">entt::entity&#160;</td>
           <td class="paramname"><em>entity</em></td><td>)</td>
@@ -537,7 +538,7 @@ template&lt;typename Type , typename... Args&gt; </div>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a005f5f40c9f3f27b0b4a0d89ee98ad3f" title="get a component from an entity This function will return a reference to the component of the entity.">world::get_component</a> </dd>
 <dd>
-<a class="el" href="classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a" title="remove a component from an entity This function will remove a component from an entity.">world::remove_component</a> </dd>
+<a class="el" href="classsneze_1_1world.html#a7d64ee5ac05d72026682141777c86677" title="remove a component from an entity This function will remove a component from an entity.">world::remove_component</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a3091cf1ed2b0cffce1eeb6b15b8f55ee" title="check if an entity has a component This function will check if an entity has a component.">world::has_component</a> </dd></dl>
 
@@ -589,7 +590,7 @@ template&lt;typename Type &gt; </div>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a005f5f40c9f3f27b0b4a0d89ee98ad3f" title="get a component from an entity This function will return a reference to the component of the entity.">world::get_component</a> </dd>
 <dd>
-<a class="el" href="classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a" title="remove a component from an entity This function will remove a component from an entity.">world::remove_component</a> </dd></dl>
+<a class="el" href="classsneze_1_1world.html#a7d64ee5ac05d72026682141777c86677" title="remove a component from an entity This function will remove a component from an entity.">world::remove_component</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00165">165</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
 
@@ -659,7 +660,9 @@ template&lt;typename TagType &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>@tag an entity </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+
+<p>tag an entity </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">TagType</td><td>the type of the tag to add </td></tr>
   </table>
@@ -718,7 +721,7 @@ template&lt;typename TagType &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787">world::tag</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787" title="tag an entity">world::tag</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897" title="return all the entities that have the tag and a set of components">world::get_tagged</a> </dd></dl>
 
@@ -760,7 +763,7 @@ template&lt;typename TagType , typename... Types&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a view of all the entities that have the tag </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787">world::tag</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787" title="tag an entity">world::tag</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937" title="untag an entity">world::untag</a> </dd>
 <dd>
@@ -804,7 +807,7 @@ template&lt;typename TagType &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787">world::tag</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787" title="tag an entity">world::tag</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937" title="untag an entity">world::untag</a> </dd>
 <dd>
@@ -848,7 +851,7 @@ template&lt;typename TagType &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787">world::tag</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787" title="tag an entity">world::tag</a> </dd>
 <dd>
 <a class="el" href="classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937" title="untag an entity">world::untag</a> </dd>
 <dd>

@@ -195,10 +195,9 @@ public:
         return *this;
     }
 
-    /** @brief Set the window icon
+    /** @brief get the clear color
      *
-     * @param icon The path to the icon file
-     * @return config& A reference to the config object to allow chaining
+     * @return the clear color
      */
     [[nodiscard]] inline auto get_clear_color() const -> const auto & {
         return clear_;

@@ -41,14 +41,22 @@ namespace sneze {
  */
 class layout_system: public system {
 public:
-
-    //! initialize the system
+    /**
+     * @brief initialize the system
+     * @param world the world that owns this system
+     */
     void init(world *world) override;
 
-    //! shutdown the system
+    /**
+     * @brief shutdown the system
+     * @param world the world that owns this system
+     */
     void end(world *world) override;
 
-    //! update the system
+    /**
+     * @brief update the system
+     * @param world the world that owns this system
+     */
     void update(world *world) override;
 
 private:

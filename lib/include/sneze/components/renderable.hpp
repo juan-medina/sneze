@@ -111,7 +111,7 @@ public:
     /**
      * @brief create a color base on the existing blend with the given color by the given factor
      * @param other the color to blend with
-     * @return factor the factor to blend the color, in the range of 0.0F to 1.0F
+     * @param factor the factor to blend the color, in the range of 0.0F to 1.0F
      */
     void blend(const color &other, float factor) {
         r = static_cast<component>(static_cast<float>(r) * (1.0F - factor) + static_cast<float>(other.r) * factor);

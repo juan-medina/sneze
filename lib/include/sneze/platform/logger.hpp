@@ -129,8 +129,8 @@ struct info {
 /**
  * @brief log a message with sneze::logger::level::info
  *
+ * @tparam Args the types of the arguments to be formatted
  * @param fmt the format string
- * @param args the arguments to be formatted
  */
 template<typename... Args>
 info(fmt::format_string<Args...> fmt, Args &&...) -> info<Args...>;
@@ -147,8 +147,8 @@ struct debug {
 /**
  * @brief log a message with sneze::logger::level::debug
  *
+ * @tparam Args the types of the arguments to be formatted
  * @param fmt the format string
- * @param args the arguments to be formatted
  */
 template<typename... Args>
 debug(fmt::format_string<Args...> fmt, Args &&...) -> debug<Args...>;
@@ -165,8 +165,8 @@ struct error {
 /**
  * @brief log a message with sneze::logger::level::error
  *
+ * @tparam Args the types of the arguments to be formatted
  * @param fmt the format string
- * @param args the arguments to be formatted
  */
 template<typename... Args>
 error(fmt::format_string<Args...> fmt, Args &&...) -> error<Args...>;
@@ -183,8 +183,8 @@ struct warning {
 /**
  * @brief log a message with sneze::logger::level::warning
  *
+ * @tparam Args the types of the arguments to be formatted
  * @param fmt the format string
- * @param args the arguments to be formatted
  */
 template<typename... Args>
 warning(fmt::format_string<Args...> fmt, Args &&...) -> warning<Args...>;
@@ -213,7 +213,7 @@ void set_level(level level);
 
 /**
  * @brief get a sneze::logger::level from a string
- *
+ * @param level_string the string representation of the sneze logger level
  * @return the sneze logger level
  */
 auto level_from_string(const std::string &level_string) -> level;
@@ -221,6 +221,7 @@ auto level_from_string(const std::string &level_string) -> level;
 /**
  * @brief get a string from a sneze::logger::level
  *
+ * @param level the sneze logger level
  * @return the string representation of the sneze logger level
  */
 auto string_from_level(level level) -> std::string;

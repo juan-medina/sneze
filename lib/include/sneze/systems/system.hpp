@@ -37,12 +37,23 @@ class world;
  * @see sneze::world::add_system_with_priority
  */
 struct system {
-    //! initialize the system
-    virtual void init(world *world) = 0;
-    //! update the system
-    virtual void update(world *world) = 0;
-    //! shutdown the system
+    /**
+     * @brief initialize the system
+     * @param world the world that owns this system
+     */
+    virtual void init(world *world) =0;
+
+    /**
+     * @brief shutdown the system
+     * @param world the world that owns this system
+     */
     virtual void end(world *world) = 0;
+
+    /**
+     * @brief update the system
+     * @param world the world that owns this system
+     */
+    virtual void update(world *world) = 0;
 
     system() = default;
     virtual ~system() = default;
@@ -69,20 +80,30 @@ public:
     system_with_priority(const entt::id_type type, std::int32_t priority, std::unique_ptr<system> system)
         : type_{type}, system_{std::move(system)}, priority_{priority} {}
 
-    //! initialize the system
+    /**
+     * @brief initialize the system
+     * @param world the world that owns this system
+     */
     void init(world *world) {
         system_->init(world);
     }
 
-    //! update the system
+    /**
+     * @brief shutdown the system
+     * @param world the world that owns this system
+     */
+    void end(world *world) {
+        system_->end(world);
+    }
+
+    /**
+     * @brief update the system
+     * @param world the world that owns this system
+     */
     void update(world *world) {
         system_->update(world);
     }
 
-    //! shutdown the system
-    void end(world *world) {
-        system_->end(world);
-    }
 
     /**
      * @brief Get the priority of the system

@@ -12,7 +12,7 @@ var classsneze_1_1world =
     [ "add_entity", "classsneze_1_1world.html#a674ced6bd76f7e498f4d1b6fce2ac125", null ],
     [ "remove_entity", "classsneze_1_1world.html#af6d8be1e40f04afe1c07d0c3ea99178b", null ],
     [ "get_component", "classsneze_1_1world.html#a005f5f40c9f3f27b0b4a0d89ee98ad3f", null ],
-    [ "remove_component", "classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a", null ],
+    [ "remove_component", "classsneze_1_1world.html#a7d64ee5ac05d72026682141777c86677", null ],
     [ "set_component", "classsneze_1_1world.html#a0c40e2a0feccfe8e7a890f6e78a2ea74", null ],
     [ "has_component", "classsneze_1_1world.html#a3091cf1ed2b0cffce1eeb6b15b8f55ee", null ],
     [ "get_entities", "classsneze_1_1world.html#a9865bc6502fcdf224437421ac929ab1c", null ],

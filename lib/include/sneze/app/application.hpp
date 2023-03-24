@@ -139,12 +139,18 @@ public:
      */
     [[nodiscard]] auto run() -> result<bool, error>;
 
-    //! get the team name for your game
+    /**
+     * @brief get the team name for your game
+     * @return the team name
+     */
     [[nodiscard]] inline auto get_team() const noexcept -> const std::string & {
         return team_;
     }
 
-    //! get the game name
+    /**
+     * @brief get the name of your game
+     * @return the game name
+     */
     [[nodiscard]] inline auto get_name() const noexcept -> const std::string & {
         return name_;
     }

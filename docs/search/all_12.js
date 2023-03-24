@@ -10,7 +10,7 @@ var searchData=
   ['release_7',['release',['../namespacesneze_1_1version.html#a168fbc22a96b2a50bef926eda4537c4c',1,'sneze::version']]],
   ['remove_5fall_5ftagged_8',['remove_all_tagged',['../classsneze_1_1world.html#a524e3e45902cb7ce09c44b35c918b0ec',1,'sneze::world']]],
   ['remove_5fall_5ftags_9',['remove_all_tags',['../classsneze_1_1world.html#af118df3a49955fc632dba9e57df72055',1,'sneze::world']]],
-  ['remove_5fcomponent_10',['remove_component',['../classsneze_1_1world.html#a776445828abbae5f164d55f18748fa3a',1,'sneze::world']]],
+  ['remove_5fcomponent_10',['remove_component',['../classsneze_1_1world.html#a7d64ee5ac05d72026682141777c86677',1,'sneze::world']]],
   ['remove_5fcomponent_5flisteners_11',['remove_component_listeners',['../classsneze_1_1world.html#a99bb3cef6a29b1a18a0724eb144fe636',1,'sneze::world']]],
   ['remove_5fentity_12',['remove_entity',['../classsneze_1_1world.html#af6d8be1e40f04afe1c07d0c3ea99178b',1,'sneze::world']]],
   ['remove_5fglobal_13',['remove_global',['../classsneze_1_1world.html#aacec7ead076c9aabad14234a0945e528',1,'sneze::world']]],

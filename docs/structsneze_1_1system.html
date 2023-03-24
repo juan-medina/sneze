@@ -118,18 +118,15 @@ Inheritance diagram for sneze::system:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afcb4d9d0efb41fe238443f9da51f7605"><td class="memItemLeft" align="right" valign="top"><a id="afcb4d9d0efb41fe238443f9da51f7605" name="afcb4d9d0efb41fe238443f9da51f7605"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
-<tr class="memdesc:afcb4d9d0efb41fe238443f9da51f7605"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the system <br /></td></tr>
+<tr class="memitem:afcb4d9d0efb41fe238443f9da51f7605"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsneze_1_1system.html#afcb4d9d0efb41fe238443f9da51f7605">init</a> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
+<tr class="memdesc:afcb4d9d0efb41fe238443f9da51f7605"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the system  <br /></td></tr>
 <tr class="separator:afcb4d9d0efb41fe238443f9da51f7605"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7e22de62a69d1508809595eeca71810"><td class="memItemLeft" align="right" valign="top"><a id="ac7e22de62a69d1508809595eeca71810" name="ac7e22de62a69d1508809595eeca71810"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
-<tr class="memdesc:ac7e22de62a69d1508809595eeca71810"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the system <br /></td></tr>
-<tr class="separator:ac7e22de62a69d1508809595eeca71810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43554dba7c5fb20bccbda4109774678c"><td class="memItemLeft" align="right" valign="top"><a id="a43554dba7c5fb20bccbda4109774678c" name="a43554dba7c5fb20bccbda4109774678c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
-<tr class="memdesc:a43554dba7c5fb20bccbda4109774678c"><td class="mdescLeft">&#160;</td><td class="mdescRight">shutdown the system <br /></td></tr>
+<tr class="memitem:a43554dba7c5fb20bccbda4109774678c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsneze_1_1system.html#a43554dba7c5fb20bccbda4109774678c">end</a> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
+<tr class="memdesc:a43554dba7c5fb20bccbda4109774678c"><td class="mdescLeft">&#160;</td><td class="mdescRight">shutdown the system  <br /></td></tr>
 <tr class="separator:a43554dba7c5fb20bccbda4109774678c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7e22de62a69d1508809595eeca71810"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsneze_1_1system.html#ac7e22de62a69d1508809595eeca71810">update</a> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
+<tr class="memdesc:ac7e22de62a69d1508809595eeca71810"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the system  <br /></td></tr>
+<tr class="separator:ac7e22de62a69d1508809595eeca71810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>base class for all systems </p>
@@ -140,7 +137,116 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> (<a c
 <a class="el" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2" title="add a system to the world with a given priority">sneze::world::add_system_with_priority</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="system_8hpp_source.html#l00039">39</a> of file <a class="el" href="system_8hpp_source.html">system.hpp</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="afcb4d9d0efb41fe238443f9da51f7605" name="afcb4d9d0efb41fe238443f9da51f7605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb4d9d0efb41fe238443f9da51f7605">&#9670;&#160;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void sneze::system::init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsneze_1_1world.html">world</a> *&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>initialize the system </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>the world that owns this system </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classsneze_1_1effects__system.html#a9504c0e962c211581192ce87bc104c60">sneze::effects_system</a>, <a class="el" href="classsneze_1_1keys__system.html#afb5bd8ce339c4440d5d289083a69e76a">sneze::keys_system</a>, <a class="el" href="classsneze_1_1layout__system.html#a21d73574bc5a9f74054c775d182d12df">sneze::layout_system</a>, <a class="el" href="classsneze_1_1render__system.html#a7eb0d9ec88bb9c3f7c040bbb6ddf07e0">sneze::render_system</a>, and <a class="el" href="classsneze_1_1sdl__events__system.html#a0b3934491a23a240f3ac488b693b9fec">sneze::sdl_events_system</a>.</p>
+
+</div>
+</div>
+<a id="a43554dba7c5fb20bccbda4109774678c" name="a43554dba7c5fb20bccbda4109774678c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43554dba7c5fb20bccbda4109774678c">&#9670;&#160;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void sneze::system::end </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsneze_1_1world.html">world</a> *&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>shutdown the system </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>the world that owns this system </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classsneze_1_1effects__system.html#a14bd914cf9374e6523485de1eb2e5d63">sneze::effects_system</a>, <a class="el" href="classsneze_1_1keys__system.html#a5ad62e1647b9dbb652139fc5fe2122a4">sneze::keys_system</a>, <a class="el" href="classsneze_1_1layout__system.html#ab63f4a45bfa3b51f3cbfc47b618a21b4">sneze::layout_system</a>, <a class="el" href="classsneze_1_1render__system.html#a54495cfd618ddd22e37ab9f7c8057eb8">sneze::render_system</a>, and <a class="el" href="classsneze_1_1sdl__events__system.html#a3dcfbaa5202d6eb65fdc3dc2320efe67">sneze::sdl_events_system</a>.</p>
+
+</div>
+</div>
+<a id="ac7e22de62a69d1508809595eeca71810" name="ac7e22de62a69d1508809595eeca71810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e22de62a69d1508809595eeca71810">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void sneze::system::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsneze_1_1world.html">world</a> *&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>update the system </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>the world that owns this system </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classsneze_1_1effects__system.html#a834887aa102cfbf0a3d71a1db9efde49">sneze::effects_system</a>, <a class="el" href="classsneze_1_1keys__system.html#ae92f144024777cae1d03dc9b0aa335ee">sneze::keys_system</a>, <a class="el" href="classsneze_1_1layout__system.html#ab97424516db744388adcf928671f9cbe">sneze::layout_system</a>, <a class="el" href="classsneze_1_1render__system.html#aecf8f751a2a03bb8392c5c6672b2de64">sneze::render_system</a>, and <a class="el" href="classsneze_1_1sdl__events__system.html#a31a1eedd23adf4ba5ff928b74d861582">sneze::sdl_events_system</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
