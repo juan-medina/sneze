@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsneze_1_1system.html" title="base class for all systems" alt="" coords="5,31,121,56"/>
+<area shape="rect" id="node1" href="$structsneze_1_1system.html" title="base class for all systems" alt="" coords="5,55,121,80"/>
 <area shape="rect" id="node2" href="$classsneze_1_1effects__system.html" title="Effects system." alt="" coords="169,5,336,31"/>
 <area shape="rect" id="node3" href="$classsneze_1_1keys__system.html" title="keys system" alt="" coords="176,55,329,80"/>
+<area shape="rect" id="node4" href="$classsneze_1_1layout__system.html" title="layout system" alt="" coords="171,104,335,129"/>
 </map>

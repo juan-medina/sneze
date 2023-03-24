@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>sneze: sneze::system Struct Reference</title>
+<title>sneze: sneze::layout_system Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('structsneze_1_1system.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classsneze_1_1layout__system.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -93,29 +93,48 @@ $(document).ready(function(){initNavTree('structsneze_1_1system.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="structsneze_1_1system-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">sneze::system Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+<a href="classsneze_1_1layout__system-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">sneze::layout_system Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>base class for all systems  
- <a href="structsneze_1_1system.html#details">More...</a></p>
+<p>layout system  
+ <a href="classsneze_1_1layout__system.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="system_8hpp_source.html">sneze/systems/system.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="layout__system_8hpp_source.html">sneze/systems/layout_system.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for sneze::system:</div>
+Inheritance diagram for sneze::layout_system:</div>
 <div class="dyncontent">
-<div class="center"><img src="structsneze_1_1system__inherit__graph.png" border="0" usemap="#asneze_1_1system_inherit__map" alt="Inheritance graph"/></div>
-<map name="asneze_1_1system_inherit__map" id="asneze_1_1system_inherit__map">
-<area shape="rect" title="base class for all systems" alt="" coords="215,5,331,31"/>
-<area shape="rect" href="classsneze_1_1effects__system.html" title="Effects system." alt="" coords="5,79,172,104"/>
-<area shape="rect" href="classsneze_1_1keys__system.html" title="keys system" alt="" coords="196,79,349,104"/>
-<area shape="rect" href="classsneze_1_1layout__system.html" title="layout system" alt="" coords="373,79,537,104"/>
+<div class="center"><img src="classsneze_1_1layout__system__inherit__graph.png" border="0" usemap="#asneze_1_1layout__system_inherit__map" alt="Inheritance graph"/></div>
+<map name="asneze_1_1layout__system_inherit__map" id="asneze_1_1layout__system_inherit__map">
+<area shape="rect" title="layout system" alt="" coords="5,79,169,104"/>
+<area shape="rect" href="structsneze_1_1system.html" title="base class for all systems" alt="" coords="29,5,145,31"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sneze::layout_system:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsneze_1_1layout__system__coll__graph.png" border="0" usemap="#asneze_1_1layout__system_coll__map" alt="Collaboration graph"/></div>
+<map name="asneze_1_1layout__system_coll__map" id="asneze_1_1layout__system_coll__map">
+<area shape="rect" title="layout system" alt="" coords="5,79,169,104"/>
+<area shape="rect" href="structsneze_1_1system.html" title="base class for all systems" alt="" coords="29,5,145,31"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a21d73574bc5a9f74054c775d182d12df"><td class="memItemLeft" align="right" valign="top"><a id="a21d73574bc5a9f74054c775d182d12df" name="a21d73574bc5a9f74054c775d182d12df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>) override</td></tr>
+<tr class="memdesc:a21d73574bc5a9f74054c775d182d12df"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the system <br /></td></tr>
+<tr class="separator:a21d73574bc5a9f74054c775d182d12df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63f4a45bfa3b51f3cbfc47b618a21b4"><td class="memItemLeft" align="right" valign="top"><a id="ab63f4a45bfa3b51f3cbfc47b618a21b4" name="ab63f4a45bfa3b51f3cbfc47b618a21b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>) override</td></tr>
+<tr class="memdesc:ab63f4a45bfa3b51f3cbfc47b618a21b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">shutdown the system <br /></td></tr>
+<tr class="separator:ab63f4a45bfa3b51f3cbfc47b618a21b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab97424516db744388adcf928671f9cbe"><td class="memItemLeft" align="right" valign="top"><a id="ab97424516db744388adcf928671f9cbe" name="ab97424516db744388adcf928671f9cbe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>) override</td></tr>
+<tr class="memdesc:ab97424516db744388adcf928671f9cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the system <br /></td></tr>
+<tr class="separator:ab97424516db744388adcf928671f9cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcb4d9d0efb41fe238443f9da51f7605"><td class="memItemLeft" align="right" valign="top"><a id="afcb4d9d0efb41fe238443f9da51f7605" name="afcb4d9d0efb41fe238443f9da51f7605"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (<a class="el" href="classsneze_1_1world.html">world</a> *<a class="el" href="classsneze_1_1world.html">world</a>)=0</td></tr>
 <tr class="memdesc:afcb4d9d0efb41fe238443f9da51f7605"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the system <br /></td></tr>
@@ -130,20 +149,18 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> (<a c
 <tr class="separator:a43554dba7c5fb20bccbda4109774678c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>base class for all systems </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classsneze_1_1world.html" title="The world class This class is the main class of the engine, it will hold all the entities,...">sneze::world</a> </dd>
-<dd>
-<a class="el" href="classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de" title="add a system to the world">sneze::world::add_system</a> </dd>
-<dd>
-<a class="el" href="classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2" title="add a system to the world with a given priority">sneze::world::add_system_with_priority</a> </dd></dl>
+<div class="textblock"><p>layout system </p>
+<p>this system will handle the layout of elements in the screen</p>
+<dl class="section note"><dt>Note</dt><dd>this system will only work with entities that have the anchor component </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structsneze_1_1components_1_1anchor.html" title="This define an screen anchor, with a horizontal and vertical alignment.">components::anchor</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="system_8hpp_source.html#l00039">39</a> of file <a class="el" href="system_8hpp_source.html">system.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout__system_8hpp_source.html#l00042">42</a> of file <a class="el" href="layout__system_8hpp_source.html">layout_system.hpp</a>.</p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacesneze.html">sneze</a></li><li class="navelem"><a class="el" href="structsneze_1_1system.html">system</a></li>
+    <li class="navelem"><a class="el" href="namespacesneze.html">sneze</a></li><li class="navelem"><a class="el" href="classsneze_1_1layout__system.html">layout_system</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
   </ul>
 </div>

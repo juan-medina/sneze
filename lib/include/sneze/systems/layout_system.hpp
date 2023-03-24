@@ -31,21 +31,37 @@ SOFTWARE.
 
 namespace sneze {
 
+/**
+ * @brief layout system
+ *
+ * this system will handle the layout of elements in the screen
+ *
+ * @note this system will only work with entities that have the anchor component
+ * @see components::anchor
+ */
 class layout_system: public system {
 public:
+
+    //! initialize the system
     void init(world *world) override;
 
+    //! shutdown the system
     void end(world *world) override;
 
+    //! update the system
     void update(world *world) override;
 
 private:
+    //! logical size of the screen
     components::rect logical_ = {{0, 0}, {0, 0}};
 
+    //! window resized event handler
     void window_resized(const events::window_resized &event);
 
+    //! add component anchor event handler
     void add_component_anchor(events::add_component<components::anchor> const &event);
 
+    //! calculate the layout of the entity
     void calculate_layout(world *world, entt::entity entity, const components::anchor &anchor) const;
 };
 
