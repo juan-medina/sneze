@@ -47,6 +47,7 @@ var namespacesneze =
     [ "layout_system", "classsneze_1_1layout__system.html", "classsneze_1_1layout__system" ],
     [ "render_system", "classsneze_1_1render__system.html", "classsneze_1_1render__system" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
+    [ "sdl_events_system", "classsneze_1_1sdl__events__system.html", "classsneze_1_1sdl__events__system" ],
     [ "settings", "classsneze_1_1settings.html", "classsneze_1_1settings" ],
     [ "span_istream", "classsneze_1_1span__istream.html", "classsneze_1_1span__istream" ],
     [ "system", "structsneze_1_1system.html", "structsneze_1_1system" ],

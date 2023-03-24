@@ -35,18 +35,35 @@ namespace sneze {
 
 class render;
 
+/**
+ * @brief sdl events system
+ *
+ * This system will handle all the events from the sdl library
+ *
+ */
 class sdl_events_system: public system {
 public:
+    /**
+     * @brief Construct a new sdl events system object
+     *
+     * @param render the render object
+     */
     explicit sdl_events_system(std::shared_ptr<render> render): render_{std::move(render)} {};
 
+    //! update the system
     void update(world *world) override;
 
+    //! init the system
     void init(world *world) override;
 
+    //! shutdown the system
     void end(world *world) override;
 
 private:
+    //! the render object
     std::shared_ptr<sneze::render> render_;
+
+    //! convert sdl mouse button to sneze mouse button
     static auto sdl_mouse_button_to_sneze(uint8_t button) -> mouse::button;
 };
 

@@ -56,7 +56,8 @@ var hierarchy =
       [ "sneze::effects_system", "classsneze_1_1effects__system.html", null ],
       [ "sneze::keys_system", "classsneze_1_1keys__system.html", null ],
       [ "sneze::layout_system", "classsneze_1_1layout__system.html", null ],
-      [ "sneze::render_system", "classsneze_1_1render__system.html", null ]
+      [ "sneze::render_system", "classsneze_1_1render__system.html", null ],
+      [ "sneze::sdl_events_system", "classsneze_1_1sdl__events__system.html", null ]
     ] ],
     [ "sneze::system_with_priority", "classsneze_1_1system__with__priority.html", null ],
     [ "sneze::components::tag< Type >", "structsneze_1_1components_1_1tag.html", null ],
