@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['g_0',['g',['../classsneze_1_1components_1_1color.html#af7ea1acbb333105c0999068712c6965e',1,'sneze::components::color']]],
-  ['gold_1',['gold',['../classsneze_1_1components_1_1color.html#a17118124d8c933690211ef9abfa96143',1,'sneze::components::color']]],
-  ['gray_2',['gray',['../classsneze_1_1components_1_1color.html#a3b22a0ab89378c43e21224c2899b67cb',1,'sneze::components::color']]],
-  ['green_3',['green',['../classsneze_1_1components_1_1color.html#a6d5581dcc58d20b2ed755ef770e80fc2',1,'sneze::components::color']]]
+  ['e_0',['e',['../classsneze_1_1keyboard_1_1key.html#acfb017b095cf6607ad5e0b354602d780',1,'sneze::keyboard::key']]],
+  ['end_1',['end',['../classsneze_1_1keyboard_1_1key.html#a249f821d82ba2e47c7e46048ca302c84',1,'sneze::keyboard::key']]],
+  ['equals_2',['equals',['../classsneze_1_1keyboard_1_1key.html#ada0fc9f42883f43c1b97bd09f162ff11',1,'sneze::keyboard::key']]],
+  ['escape_3',['escape',['../classsneze_1_1keyboard_1_1key.html#a917b4d764ec3cd5191f4a8541e874c1c',1,'sneze::keyboard::key']]],
+  ['exclamation_5fmark_4',['exclamation_mark',['../classsneze_1_1keyboard_1_1key.html#a9218d3ce003365e584d95eeef552d84e',1,'sneze::keyboard::key']]]
 ];

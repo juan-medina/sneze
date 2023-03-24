@@ -12,5 +12,6 @@ var searchData=
   ['size_9',['size',['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config']]],
   ['sort_10',['sort',['../classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89',1,'sneze::world']]],
   ['span_5fistream_11',['span_istream',['../classsneze_1_1span__istream.html#a220d43a1161b8447c67cda4d78cc5c33',1,'sneze::span_istream']]],
-  ['string_5ffrom_5flevel_12',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]]
+  ['string_12',['string',['../classsneze_1_1keyboard_1_1key.html#a61dd83209744be75c45d6be5452f600d',1,'sneze::keyboard::key::string()'],['../classsneze_1_1keyboard_1_1modifier.html#a73b29a83ec2eaed94f39ab058bf5c32b',1,'sneze::keyboard::modifier::string()'],['../structsneze_1_1keyboard_1_1key__modifier.html#a3d0dea373a42aa0399951a15ac91079a',1,'sneze::keyboard::key_modifier::string()']]],
+  ['string_5ffrom_5flevel_13',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]]
 ];

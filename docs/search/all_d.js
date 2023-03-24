@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['none_0',['none',['../namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43a334c4a4c42fdb79d7ebc3e73b517e6f8',1,'sneze::components::none'],['../namespacesneze_1_1components.html#a35e88ac59a84ece38c7b8e5af8b6d4f5a334c4a4c42fdb79d7ebc3e73b517e6f8',1,'sneze::components::none']]],
-  ['normal_1',['normal',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962abbe291a49f6891148c584a4489448d17',1,'sneze::world']]]
+  ['m_0',['m',['../classsneze_1_1keyboard_1_1key.html#ac03a75cc5ea2ba9b4c6c7a6799e31bd8',1,'sneze::keyboard::key']]],
+  ['magenta_1',['magenta',['../classsneze_1_1components_1_1color.html#a08ca6b274bc6f83a2c460ea22a272859',1,'sneze::components::color']]],
+  ['major_2',['major',['../namespacesneze_1_1version.html#a26026fe86b348a16437aae1cb4f8868a',1,'sneze::version']]],
+  ['maroon_3',['maroon',['../classsneze_1_1components_1_1color.html#a37de24e43f0359c920d985b759e63dd3',1,'sneze::components::color']]],
+  ['minor_4',['minor',['../namespacesneze_1_1version.html#a72603f3be2dbb042884a6dea31759bd5',1,'sneze::version']]],
+  ['minus_5',['minus',['../classsneze_1_1keyboard_1_1key.html#a3d2253c90939f936e8f8d93e0bd6bc57',1,'sneze::keyboard::key']]],
+  ['mod_6',['mod',['../namespacesneze_1_1keyboard.html#a952d06bfce3a740f136300b2440b2577',1,'sneze::keyboard']]],
+  ['modifier_7',['modifier',['../structsneze_1_1keyboard_1_1key__modifier.html#a07d1c23a5d240d96d356846cba4662f8',1,'sneze::keyboard::key_modifier::modifier'],['../classsneze_1_1keyboard_1_1modifier.html',1,'sneze::keyboard::modifier']]]
 ];

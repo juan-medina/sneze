@@ -1,10 +1,16 @@
 var searchData=
 [
-  ['center_0',['center',['../namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43aadb115059e28d960fa8badfac5516667',1,'sneze::components::center'],['../namespacesneze_1_1components.html#a35e88ac59a84ece38c7b8e5af8b6d4f5aadb115059e28d960fa8badfac5516667',1,'sneze::components::center']]],
-  ['clear_1',['clear',['../classsneze_1_1config.html#a57ccbdb04ec6263edf248b9996998fc0',1,'sneze::config::clear()'],['../classsneze_1_1world.html#af9755abf52731a956addc3d4d3a7c222',1,'sneze::world::clear()']]],
-  ['color_2',['color',['../structsneze_1_1components_1_1border__box.html#a9e0d19e0d712bc91d8348724a1ffb7f6',1,'sneze::components::border_box::color'],['../classsneze_1_1components_1_1color.html',1,'sneze::components::color']]],
-  ['component_3',['component',['../classsneze_1_1components_1_1color.html#a55c57241916f40895482d147c167c75b',1,'sneze::components::color']]],
-  ['config_4',['config',['../classsneze_1_1config.html#a45280ab7d39251d38e1fbba8738fb37b',1,'sneze::config::config()'],['../classsneze_1_1config.html',1,'sneze::config']]],
-  ['configure_5',['configure',['../classsneze_1_1application.html#ab7d60d8bb77447f5701286ccee2f77ce',1,'sneze::application']]],
-  ['critical_6',['critical',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7e85bcb66fb9a809d5ab4f62a8b8bea8',1,'sneze::logger']]]
+  ['b_0',['b',['../classsneze_1_1components_1_1color.html#a3d3ee9833eac130b73a49c7be9beb3fd',1,'sneze::components::color::b'],['../classsneze_1_1keyboard_1_1key.html#a8a20968571f37c299af6a1344975c4d4',1,'sneze::keyboard::key::b']]],
+  ['back_5fquote_1',['back_quote',['../classsneze_1_1keyboard_1_1key.html#aa1adaa4635b9972dea9a8db8dfddccce',1,'sneze::keyboard::key']]],
+  ['back_5fslash_2',['back_slash',['../classsneze_1_1keyboard_1_1key.html#a7f8331e8b25fa8227439c6dfa3320231',1,'sneze::keyboard::key']]],
+  ['backspace_3',['backspace',['../classsneze_1_1keyboard_1_1key.html#a56e3e6d1d8d3a77ea7129d34379a6683',1,'sneze::keyboard::key']]],
+  ['before_5fapplications_4',['before_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962a4b86d833d24e882554388d49202212a7',1,'sneze::world']]],
+  ['beige_5',['beige',['../classsneze_1_1components_1_1color.html#a444d81ac6dfb8b34767109418bc7b682',1,'sneze::components::color']]],
+  ['black_6',['black',['../classsneze_1_1components_1_1color.html#a77e9dabc0aa2c111eefdb6c3c79afe91',1,'sneze::components::color']]],
+  ['blend_7',['blend',['../classsneze_1_1components_1_1color.html#a580ec98066a8efbc3598927b9426f792',1,'sneze::components::color']]],
+  ['blue_8',['blue',['../classsneze_1_1components_1_1color.html#a0ca50fdba3147cd12d53ba879410862c',1,'sneze::components::color']]],
+  ['border_5fbox_9',['border_box',['../structsneze_1_1components_1_1border__box.html',1,'sneze::components']]],
+  ['bottom_10',['bottom',['../namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43a71f262d796bed1ab30e8a2d5a8ddee6f',1,'sneze::components']]],
+  ['box_11',['box',['../structsneze_1_1components_1_1box.html',1,'sneze::components']]],
+  ['brown_12',['brown',['../classsneze_1_1components_1_1color.html#a7c140f14df9d08a768f5d120025bb559',1,'sneze::components::color']]]
 ];

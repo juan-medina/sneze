@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['pink_0',['pink',['../classsneze_1_1components_1_1color.html#a2fc78a6c759c04f3c5eac3e36286bdf7',1,'sneze::components::color']]],
-  ['position_1',['position',['../structsneze_1_1components_1_1rect.html#a49e2dfe775e33128901066953c6707fa',1,'sneze::components::rect']]],
-  ['purple_2',['purple',['../classsneze_1_1components_1_1color.html#aa92d2c36bc8cf37d031bcc773b6002cb',1,'sneze::components::color']]]
+  ['k_0',['k',['../classsneze_1_1keyboard_1_1key.html#ac3cea8ac853de44c7a455a8e9db932cc',1,'sneze::keyboard::key']]],
+  ['key_1',['key',['../structsneze_1_1keyboard_1_1key__modifier.html#aac90893ee3171cff478e07674385dcc4',1,'sneze::keyboard::key_modifier']]]
 ];

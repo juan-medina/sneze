@@ -158,10 +158,26 @@ auto modifier::string(const mod &modifier) -> std::string {
         text = "Right Alt";
         break;
     case modifier::left_gui:
+#if defined(__APPLE__)
+        text = "Left Command";
+#elif defined(__linux__)
+        text = "Left Super";
+#elif defined(_WIN32)
+        text = "Left Windows";
+#else
         text = "Left GUI";
+#endif
         break;
     case modifier::right_gui:
+#if defined(__APPLE__)
+        text = "Right Command";
+#elif defined(__linux__)
+        text = "Right Super";
+#elif defined(_WIN32)
+        text = "Right Windows";
+#else
         text = "Right GUI";
+#endif
         break;
     case modifier::shift:
         text = "Shift";
@@ -173,7 +189,15 @@ auto modifier::string(const mod &modifier) -> std::string {
         text = "Alt";
         break;
     case modifier::gui:
+#if defined(__APPLE__)
+        text = "Command";
+#elif defined(__linux__)
+        text = "Super";
+#elif defined(_WIN32)
+        text = "Windows";
+#else
         text = "GUI";
+#endif
         break;
     }
 

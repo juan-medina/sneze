@@ -16,8 +16,11 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
+    [ "sneze::keyboard::key", "classsneze_1_1keyboard_1_1key.html", null ],
+    [ "sneze::keyboard::key_modifier", "structsneze_1_1keyboard_1_1key__modifier.html", null ],
     [ "sneze::components::label", "structsneze_1_1components_1_1label.html", null ],
     [ "sneze::components::line", "structsneze_1_1components_1_1line.html", null ],
+    [ "sneze::keyboard::modifier", "classsneze_1_1keyboard_1_1modifier.html", null ],
     [ "sneze::components::position", "structsneze_1_1components_1_1position.html", [
       [ "sneze::components::layout", "structsneze_1_1components_1_1layout.html", null ]
     ] ],

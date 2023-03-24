@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['warning_0',['warning',['../namespacesneze_1_1logger.html#a08459585cec2a8e71c7ef1018eceba16',1,'sneze::logger::warning(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; warning&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7b83d3f08fa392b79e3f553b585971cd',1,'sneze::logger::warning']]],
-  ['white_1',['white',['../classsneze_1_1components_1_1color.html#a8d11fcfb22911be5d4e36e026031c724',1,'sneze::components::color']]],
-  ['width_2',['width',['../structsneze_1_1components_1_1size.html#aa189004f0600e6e7234b861b59ad82d5',1,'sneze::components::size']]],
-  ['window_3',['window',['../classsneze_1_1config.html#a31e1083503bac06afbbb92aa292c3b5d',1,'sneze::config']]],
-  ['world_4',['world',['../classsneze_1_1world.html',1,'sneze::world'],['../classsneze_1_1application.html#a053e3e5dfc2ed525b9779ffbad4e76ab',1,'sneze::application::world()'],['../classsneze_1_1world.html#a85dfa93aa55964e31c1d5e5186a404cf',1,'sneze::world::world()']]]
+  ['u_0',['u',['../classsneze_1_1keyboard_1_1key.html#ac523c2ff39f5659c735a33b2ad9f16b4',1,'sneze::keyboard::key']]],
+  ['unknown_1',['unknown',['../classsneze_1_1keyboard_1_1key.html#a9635c46a898c1136124511dc63b5a65d',1,'sneze::keyboard::key']]],
+  ['unload_5ffont_2',['unload_font',['../classsneze_1_1application.html#ab488ae7a23ba8ec7ed35f7fe7e1d0d94',1,'sneze::application']]],
+  ['unload_5fsprite_3',['unload_sprite',['../classsneze_1_1application.html#adf04dbb77deac251078b55cbb9110628',1,'sneze::application']]],
+  ['unload_5fsprite_5fsheet_4',['unload_sprite_sheet',['../classsneze_1_1application.html#ac6505efe69f0e01941ed99b14944dc8d',1,'sneze::application']]],
+  ['untag_5',['untag',['../classsneze_1_1world.html#a33a03ac70990783d30ac7c18931b9937',1,'sneze::world']]],
+  ['untinted_6',['untinted',['../classsneze_1_1components_1_1color.html#a09bcc64fe29ed23b377dd7650ea28fe0',1,'sneze::components::color']]],
+  ['update_7',['update',['../classsneze_1_1world.html#adb681364d86ff384a171866d2c5423a0',1,'sneze::world']]]
 ];

@@ -1,13 +1,17 @@
 var searchData=
 [
-  ['b_0',['b',['../classsneze_1_1components_1_1color.html#a3d3ee9833eac130b73a49c7be9beb3fd',1,'sneze::components::color']]],
-  ['before_5fapplications_1',['before_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962a4b86d833d24e882554388d49202212a7',1,'sneze::world']]],
-  ['beige_2',['beige',['../classsneze_1_1components_1_1color.html#a444d81ac6dfb8b34767109418bc7b682',1,'sneze::components::color']]],
-  ['black_3',['black',['../classsneze_1_1components_1_1color.html#a77e9dabc0aa2c111eefdb6c3c79afe91',1,'sneze::components::color']]],
-  ['blend_4',['blend',['../classsneze_1_1components_1_1color.html#a580ec98066a8efbc3598927b9426f792',1,'sneze::components::color']]],
-  ['blue_5',['blue',['../classsneze_1_1components_1_1color.html#a0ca50fdba3147cd12d53ba879410862c',1,'sneze::components::color']]],
-  ['border_5fbox_6',['border_box',['../structsneze_1_1components_1_1border__box.html',1,'sneze::components']]],
-  ['bottom_7',['bottom',['../namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43a71f262d796bed1ab30e8a2d5a8ddee6f',1,'sneze::components']]],
-  ['box_8',['box',['../structsneze_1_1components_1_1box.html',1,'sneze::components']]],
-  ['brown_9',['brown',['../classsneze_1_1components_1_1color.html#a7c140f14df9d08a768f5d120025bb559',1,'sneze::components::color']]]
+  ['a_0',['a',['../classsneze_1_1components_1_1color.html#a1f529b85733ed2e6ecf58fcea052deb9',1,'sneze::components::color::a'],['../classsneze_1_1keyboard_1_1key.html#a9b40ad39d2f655b5e1857425427f343f',1,'sneze::keyboard::key::a']]],
+  ['add_5fentity_1',['add_entity',['../classsneze_1_1world.html#a674ced6bd76f7e498f4d1b6fce2ac125',1,'sneze::world']]],
+  ['add_5flistener_2',['add_listener',['../classsneze_1_1world.html#a1f5739a0a2846bc6f01c05eb8e66516c',1,'sneze::world']]],
+  ['add_5flistener_5fto_5fadd_5fcomponent_3',['add_listener_to_add_component',['../classsneze_1_1world.html#a7211ea69db095aa132677453f372d3c5',1,'sneze::world']]],
+  ['add_5fsystem_4',['add_system',['../classsneze_1_1world.html#a8d7338854eb15141cdad5d01df9d94de',1,'sneze::world']]],
+  ['add_5fsystem_5fwith_5fpriority_5',['add_system_with_priority',['../classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2',1,'sneze::world']]],
+  ['after_5fapplications_6',['after_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032',1,'sneze::world']]],
+  ['alignment_7',['alignment',['../structsneze_1_1components_1_1label.html#ae360248a63227fc718dd1601888f99bb',1,'sneze::components::label::alignment'],['../structsneze_1_1components_1_1alignment.html',1,'sneze::components::alignment']]],
+  ['alpha_8',['alpha',['../classsneze_1_1components_1_1color.html#a6adf95bc37a1b2070343dbb3204f3243',1,'sneze::components::color::alpha(component alpha) const -&gt; color'],['../classsneze_1_1components_1_1color.html#af592d4cf9993c9f00179622e88fe5f54',1,'sneze::components::color::alpha(float alpha) const -&gt; color'],['../classsneze_1_1components_1_1color.html#a0135e5d6a16352d3f3e18550cd88289f',1,'sneze::components::color::alpha(opacity alpha) const -&gt; color']]],
+  ['alt_9',['alt',['../classsneze_1_1keyboard_1_1modifier.html#ac910a616e039088da3ef0ae787e2757a',1,'sneze::keyboard::modifier']]],
+  ['ampersand_10',['ampersand',['../classsneze_1_1keyboard_1_1key.html#a411f67d188e9883cc9b5823143d41ca3',1,'sneze::keyboard::key']]],
+  ['anchor_11',['anchor',['../structsneze_1_1components_1_1anchor.html',1,'sneze::components']]],
+  ['application_12',['application',['../classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc',1,'sneze::application::application()'],['../classsneze_1_1application.html',1,'sneze::application']]],
+  ['asterisk_13',['asterisk',['../classsneze_1_1keyboard_1_1key.html#a9915b37e0c0d0961e94f4a3c75dfe012',1,'sneze::keyboard::key']]]
 ];

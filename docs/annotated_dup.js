@@ -18,6 +18,11 @@ var annotated_dup =
         [ "sprite", "structsneze_1_1components_1_1sprite.html", "structsneze_1_1components_1_1sprite" ],
         [ "tag", "structsneze_1_1components_1_1tag.html", null ]
       ] ],
+      [ "keyboard", "namespacesneze_1_1keyboard.html", [
+        [ "key", "classsneze_1_1keyboard_1_1key.html", "classsneze_1_1keyboard_1_1key" ],
+        [ "key_modifier", "structsneze_1_1keyboard_1_1key__modifier.html", "structsneze_1_1keyboard_1_1key__modifier" ],
+        [ "modifier", "classsneze_1_1keyboard_1_1modifier.html", "classsneze_1_1keyboard_1_1modifier" ]
+      ] ],
       [ "application", "classsneze_1_1application.html", "classsneze_1_1application" ],
       [ "config", "classsneze_1_1config.html", "classsneze_1_1config" ],
       [ "error", "classsneze_1_1error.html", "classsneze_1_1error" ],

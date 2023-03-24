@@ -1,10 +1,15 @@
 var searchData=
 [
-  ['dark_5fblue_0',['dark_blue',['../classsneze_1_1components_1_1color.html#a00c6454166f807a98393d24d50073b25',1,'sneze::components::color']]],
-  ['dark_5fbrown_1',['dark_brown',['../classsneze_1_1components_1_1color.html#ac1ef384be65ea2f7736b50e7acf34074',1,'sneze::components::color']]],
-  ['dark_5fgray_2',['dark_gray',['../classsneze_1_1components_1_1color.html#ab80d7c0bcd3f5710384fa1c9d48c2b33',1,'sneze::components::color']]],
-  ['dark_5fgreen_3',['dark_green',['../classsneze_1_1components_1_1color.html#a19c31cc6dcfeb42cbc4d23553d8d5e67',1,'sneze::components::color']]],
-  ['dark_5fpurple_4',['dark_purple',['../classsneze_1_1components_1_1color.html#ac8a4e4469ab6e56f0470b296dc386a82',1,'sneze::components::color']]],
-  ['debug_5',['debug',['../namespacesneze_1_1logger.html#a73104fba4a19234c53fb9a44da78f6f5',1,'sneze::logger::debug(fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; debug&lt; Args... &gt;'],['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7aad42f6697b035b7580e4fef93be20b4d',1,'sneze::logger::debug']]],
-  ['depth_6',['depth',['../structsneze_1_1components_1_1renderable.html#a69c1b4c734514d9e2926ab58ca1befb3',1,'sneze::components::renderable']]]
+  ['c_0',['c',['../classsneze_1_1keyboard_1_1key.html#a82547aa78eb502f6e80634e808d5f6f5',1,'sneze::keyboard::key']]],
+  ['caps_5flock_1',['caps_lock',['../classsneze_1_1keyboard_1_1key.html#a5c4364166a7cb708163b046b9f00c86d',1,'sneze::keyboard::key']]],
+  ['center_2',['center',['../namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43aadb115059e28d960fa8badfac5516667',1,'sneze::components::center'],['../namespacesneze_1_1components.html#a35e88ac59a84ece38c7b8e5af8b6d4f5aadb115059e28d960fa8badfac5516667',1,'sneze::components::center']]],
+  ['clear_3',['clear',['../classsneze_1_1config.html#a57ccbdb04ec6263edf248b9996998fc0',1,'sneze::config::clear()'],['../classsneze_1_1world.html#af9755abf52731a956addc3d4d3a7c222',1,'sneze::world::clear()']]],
+  ['code_4',['code',['../namespacesneze_1_1keyboard.html#ae43f256a260dcc1ddf9af4fc9636ef1f',1,'sneze::keyboard']]],
+  ['color_5',['color',['../structsneze_1_1components_1_1border__box.html#a9e0d19e0d712bc91d8348724a1ffb7f6',1,'sneze::components::border_box::color'],['../classsneze_1_1components_1_1color.html',1,'sneze::components::color']]],
+  ['comma_6',['comma',['../classsneze_1_1keyboard_1_1key.html#ac2865a9e747329c8e9e0a911e60aa498',1,'sneze::keyboard::key']]],
+  ['component_7',['component',['../classsneze_1_1components_1_1color.html#a55c57241916f40895482d147c167c75b',1,'sneze::components::color']]],
+  ['config_8',['config',['../classsneze_1_1config.html#a45280ab7d39251d38e1fbba8738fb37b',1,'sneze::config::config()'],['../classsneze_1_1config.html',1,'sneze::config']]],
+  ['configure_9',['configure',['../classsneze_1_1application.html#ab7d60d8bb77447f5701286ccee2f77ce',1,'sneze::application']]],
+  ['control_10',['control',['../classsneze_1_1keyboard_1_1modifier.html#a5d8ec5f85e7fc262e8706ca2f02f1349',1,'sneze::keyboard::modifier']]],
+  ['critical_11',['critical',['../namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7e85bcb66fb9a809d5ab4f62a8b8bea8',1,'sneze::logger']]]
 ];
