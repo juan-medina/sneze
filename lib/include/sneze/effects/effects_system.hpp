@@ -27,12 +27,20 @@ SOFTWARE.
 
 namespace sneze {
 
+/**
+ * @brief Effects system
+ *
+ * This system will handle all the effects that can be applied to any renderable object.
+ */
 class effects_system: public system {
 public:
+    //! initialize the system
     void init(world *world) override;
 
+    //! shutdown the system
     void end(world *world) override;
 
+    //! update the system
     void update(world *world) override;
 };
 

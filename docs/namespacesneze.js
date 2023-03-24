@@ -1,6 +1,7 @@
 var namespacesneze =
 [
     [ "components", "namespacesneze_1_1components.html", "namespacesneze_1_1components" ],
+    [ "effects", "namespacesneze_1_1effects.html", "namespacesneze_1_1effects" ],
     [ "keyboard", "namespacesneze_1_1keyboard.html", "namespacesneze_1_1keyboard" ],
     [ "logger", "namespacesneze_1_1logger.html", [
       [ "level", "namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7", [
@@ -31,6 +32,7 @@ var namespacesneze =
     ] ],
     [ "application", "classsneze_1_1application.html", "classsneze_1_1application" ],
     [ "config", "classsneze_1_1config.html", "classsneze_1_1config" ],
+    [ "effects_system", "classsneze_1_1effects__system.html", "classsneze_1_1effects__system" ],
     [ "error", "classsneze_1_1error.html", "classsneze_1_1error" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
     [ "settings", "classsneze_1_1settings.html", "classsneze_1_1settings" ],

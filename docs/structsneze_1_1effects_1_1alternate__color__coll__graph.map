@@ -1,0 +1,4 @@
+<map id="sneze::effects::alternate_color" name="sneze::effects::alternate_color">
+<area shape="rect" id="node1" title="Alternate color effect." alt="" coords="5,244,184,284"/>
+<area shape="rect" id="node2" href="$classsneze_1_1components_1_1color.html" title="component that indicates the color of the entity" alt="" coords="17,66,173,106"/>
+</map>

@@ -18,6 +18,9 @@ var annotated_dup =
         [ "sprite", "structsneze_1_1components_1_1sprite.html", "structsneze_1_1components_1_1sprite" ],
         [ "tag", "structsneze_1_1components_1_1tag.html", null ]
       ] ],
+      [ "effects", "namespacesneze_1_1effects.html", [
+        [ "alternate_color", "structsneze_1_1effects_1_1alternate__color.html", "structsneze_1_1effects_1_1alternate__color" ]
+      ] ],
       [ "keyboard", "namespacesneze_1_1keyboard.html", [
         [ "key", "classsneze_1_1keyboard_1_1key.html", "classsneze_1_1keyboard_1_1key" ],
         [ "key_modifier", "structsneze_1_1keyboard_1_1key__modifier.html", "structsneze_1_1keyboard_1_1key__modifier" ],
@@ -25,6 +28,7 @@ var annotated_dup =
       ] ],
       [ "application", "classsneze_1_1application.html", "classsneze_1_1application" ],
       [ "config", "classsneze_1_1config.html", "classsneze_1_1config" ],
+      [ "effects_system", "classsneze_1_1effects__system.html", "classsneze_1_1effects__system" ],
       [ "error", "classsneze_1_1error.html", "classsneze_1_1error" ],
       [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
       [ "settings", "classsneze_1_1settings.html", "classsneze_1_1settings" ],

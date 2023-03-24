@@ -8,10 +8,11 @@ var searchData=
   ['add_5fsystem_5fwith_5fpriority_5',['add_system_with_priority',['../classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2',1,'sneze::world']]],
   ['after_5fapplications_6',['after_applications',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962af4db91cdfda4f9af9f8c9f9470c12032',1,'sneze::world']]],
   ['alignment_7',['alignment',['../structsneze_1_1components_1_1label.html#ae360248a63227fc718dd1601888f99bb',1,'sneze::components::label::alignment'],['../structsneze_1_1components_1_1alignment.html',1,'sneze::components::alignment']]],
-  ['alpha_8',['alpha',['../classsneze_1_1components_1_1color.html#a6adf95bc37a1b2070343dbb3204f3243',1,'sneze::components::color::alpha(component alpha) const -&gt; color'],['../classsneze_1_1components_1_1color.html#af592d4cf9993c9f00179622e88fe5f54',1,'sneze::components::color::alpha(float alpha) const -&gt; color'],['../classsneze_1_1components_1_1color.html#a0135e5d6a16352d3f3e18550cd88289f',1,'sneze::components::color::alpha(opacity alpha) const -&gt; color']]],
+  ['alpha_8',['alpha',['../classsneze_1_1components_1_1color.html#a0135e5d6a16352d3f3e18550cd88289f',1,'sneze::components::color::alpha(opacity alpha) const -&gt; color'],['../classsneze_1_1components_1_1color.html#a6adf95bc37a1b2070343dbb3204f3243',1,'sneze::components::color::alpha(component alpha) const -&gt; color'],['../classsneze_1_1components_1_1color.html#af592d4cf9993c9f00179622e88fe5f54',1,'sneze::components::color::alpha(float alpha) const -&gt; color']]],
   ['alt_9',['alt',['../classsneze_1_1keyboard_1_1modifier.html#ac910a616e039088da3ef0ae787e2757a',1,'sneze::keyboard::modifier']]],
-  ['ampersand_10',['ampersand',['../classsneze_1_1keyboard_1_1key.html#a411f67d188e9883cc9b5823143d41ca3',1,'sneze::keyboard::key']]],
-  ['anchor_11',['anchor',['../structsneze_1_1components_1_1anchor.html',1,'sneze::components']]],
-  ['application_12',['application',['../classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc',1,'sneze::application::application()'],['../classsneze_1_1application.html',1,'sneze::application']]],
-  ['asterisk_13',['asterisk',['../classsneze_1_1keyboard_1_1key.html#a9915b37e0c0d0961e94f4a3c75dfe012',1,'sneze::keyboard::key']]]
+  ['alternate_5fcolor_10',['alternate_color',['../structsneze_1_1effects_1_1alternate__color.html',1,'sneze::effects']]],
+  ['ampersand_11',['ampersand',['../classsneze_1_1keyboard_1_1key.html#a411f67d188e9883cc9b5823143d41ca3',1,'sneze::keyboard::key']]],
+  ['anchor_12',['anchor',['../structsneze_1_1components_1_1anchor.html',1,'sneze::components']]],
+  ['application_13',['application',['../classsneze_1_1application.html#a513b04c9c1c4b28dd5dcafa1660ef5cc',1,'sneze::application::application()'],['../classsneze_1_1application.html',1,'sneze::application']]],
+  ['asterisk_14',['asterisk',['../classsneze_1_1keyboard_1_1key.html#a9915b37e0c0d0961e94f4a3c75dfe012',1,'sneze::keyboard::key']]]
 ];

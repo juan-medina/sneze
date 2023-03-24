@@ -1,11 +1,13 @@
 var hierarchy =
 [
     [ "sneze::components::alignment", "structsneze_1_1components_1_1alignment.html", null ],
+    [ "sneze::effects::alternate_color", "structsneze_1_1effects_1_1alternate__color.html", null ],
     [ "sneze::components::anchor", "structsneze_1_1components_1_1anchor.html", null ],
     [ "sneze::application", "classsneze_1_1application.html", null ],
     [ "sneze::components::box", "structsneze_1_1components_1_1box.html", null ],
     [ "sneze::components::color", "classsneze_1_1components_1_1color.html", null ],
     [ "sneze::config", "classsneze_1_1config.html", null ],
+    [ "sneze::effects_system", "classsneze_1_1effects__system.html", null ],
     [ "sneze::error", "classsneze_1_1error.html", null ],
     [ "std::ios_base", null, [
       [ "std::basic_ios< Char >", null, [

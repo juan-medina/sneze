@@ -18,5 +18,6 @@ var searchData=
   ['flip_5fy_15',['flip_y',['../structsneze_1_1components_1_1sprite.html#ae44129e739d240c0eceef2ddd5d48d75',1,'sneze::components::sprite']]],
   ['font_16',['font',['../structsneze_1_1components_1_1label.html#ab97bfc193dc3a985568cc7d81b804fc0',1,'sneze::components::label']]],
   ['forward_5fslash_17',['forward_slash',['../classsneze_1_1keyboard_1_1key.html#a283c89bfa36ee45800433d7940ea832e',1,'sneze::keyboard::key']]],
-  ['frame_18',['frame',['../structsneze_1_1components_1_1sprite.html#a274c9614d03bd53f935b1b8da617a914',1,'sneze::components::sprite']]]
+  ['frame_18',['frame',['../structsneze_1_1components_1_1sprite.html#a274c9614d03bd53f935b1b8da617a914',1,'sneze::components::sprite']]],
+  ['from_19',['from',['../structsneze_1_1effects_1_1alternate__color.html#a5f361add18b581d420f6e0ac5d8f15fd',1,'sneze::effects::alternate_color']]]
 ];

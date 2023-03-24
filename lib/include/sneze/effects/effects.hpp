@@ -26,15 +26,30 @@ SOFTWARE.
 
 #include "../components/renderable.hpp"
 
+//! effects namespace
 namespace sneze::effects {
 
+/**
+ * @brief Alternate color effect
+ *
+ * This effect will alternate between two colors, it can be used to create a blinking effect
+ * or since you can control the time and delay, you can create a fade in/out effect.
+ *
+ * This works for any renderable object, including labels, sprites, etc.
+ */
 struct alternate_color {
+    //! the color to alternate from, default is white
     class components::color from = components::color::white; // cppcheck-suppress unusedStructMember
-    class components::color to = components::color::white;   // cppcheck-suppress unusedStructMember
-    float time = 150.0F;                                     // cppcheck-suppress unusedStructMember
-    float delay = 100.F;                                     // cppcheck-suppress unusedStructMember
-    bool pause = false;                                      // cppcheck-suppress unusedStructMember
-    float current_time = 0.F;                                // cppcheck-suppress unusedStructMember
+    //! the color to alternate to, default is white
+    class components::color to = components::color::white; // cppcheck-suppress unusedStructMember
+    //! the time to alternate cycles, in milliseconds, default is 150
+    float time = 150.0F; // cppcheck-suppress unusedStructMember
+    //! the delay/pause between each cycle, in milliseconds, default is 100
+    float delay = 100.F; // cppcheck-suppress unusedStructMember
+    //! if the effect is paused, default is false
+    bool pause = false; // cppcheck-suppress unusedStructMember
+    //! the current time, in milliseconds, default is 0
+    float current_time = 0.F; // cppcheck-suppress unusedStructMember
 };
 
 } // namespace sneze::effects
