@@ -46,6 +46,7 @@ var hierarchy =
       [ "sneze::components::layout", "structsneze_1_1components_1_1layout.html", null ]
     ] ],
     [ "sneze::components::rect", "structsneze_1_1components_1_1rect.html", null ],
+    [ "sneze::render", "classsneze_1_1render.html", null ],
     [ "sneze::components::renderable", "structsneze_1_1components_1_1renderable.html", null ],
     [ "sneze::result< Value, Error >", "classsneze_1_1result.html", null ],
     [ "sneze::settings", "classsneze_1_1settings.html", null ],

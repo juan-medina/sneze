@@ -47,6 +47,7 @@ var namespacesneze =
     [ "glyph", "structsneze_1_1glyph.html", "structsneze_1_1glyph" ],
     [ "keys_system", "classsneze_1_1keys__system.html", "classsneze_1_1keys__system" ],
     [ "layout_system", "classsneze_1_1layout__system.html", "classsneze_1_1layout__system" ],
+    [ "render", "classsneze_1_1render.html", "classsneze_1_1render" ],
     [ "render_system", "classsneze_1_1render__system.html", "classsneze_1_1render__system" ],
     [ "result", "classsneze_1_1result.html", "classsneze_1_1result" ],
     [ "sdl_events_system", "classsneze_1_1sdl__events__system.html", "classsneze_1_1sdl__events__system" ],

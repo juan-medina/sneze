@@ -4,7 +4,7 @@ var searchData=
   ['label_1',['label',['../structsneze_1_1components_1_1label.html',1,'sneze::components']]],
   ['layout_2',['layout',['../structsneze_1_1components_1_1layout.html',1,'sneze::components']]],
   ['layout_5fsystem_3',['layout_system',['../classsneze_1_1layout__system.html',1,'sneze']]],
-  ['left_4',['left',['../classsneze_1_1keyboard_1_1key.html#a47b1057885c0620667c261952f8bfbc9',1,'sneze::keyboard::key::left'],['../namespacesneze_1_1components.html#a35e88ac59a84ece38c7b8e5af8b6d4f5a811882fecd5c7618d7099ebbd39ea254',1,'sneze::components::left']]],
+  ['left_4',['left',['../namespacesneze_1_1components.html#a35e88ac59a84ece38c7b8e5af8b6d4f5a811882fecd5c7618d7099ebbd39ea254',1,'sneze::components::left'],['../classsneze_1_1keyboard_1_1key.html#a47b1057885c0620667c261952f8bfbc9',1,'sneze::keyboard::key::left']]],
   ['left_5falt_5',['left_alt',['../classsneze_1_1keyboard_1_1modifier.html#a2cdc77affaf257685b6681e47d218599',1,'sneze::keyboard::modifier']]],
   ['left_5fbracket_6',['left_bracket',['../classsneze_1_1keyboard_1_1key.html#a77b4bfeff584aab352b7b5d8e9538226',1,'sneze::keyboard::key']]],
   ['left_5fcontrol_7',['left_control',['../classsneze_1_1keyboard_1_1modifier.html#aa1b2bf3d133536673949691415726e08',1,'sneze::keyboard::modifier']]],
@@ -16,11 +16,12 @@ var searchData=
   ['light_5fgray_13',['light_gray',['../classsneze_1_1components_1_1color.html#a1fe90fb85cea70b58aff845ef8902005',1,'sneze::components::color']]],
   ['lime_14',['lime',['../classsneze_1_1components_1_1color.html#a0d0a62b731200f5b993054daad888717',1,'sneze::components::color']]],
   ['line_15',['line',['../structsneze_1_1components_1_1line.html',1,'sneze::components']]],
-  ['load_5ffont_16',['load_font',['../classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1',1,'sneze::application']]],
-  ['load_5fsprite_17',['load_sprite',['../classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4',1,'sneze::application']]],
-  ['load_5fsprite_5fsheet_18',['load_sprite_sheet',['../classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e',1,'sneze::application']]],
-  ['logical_19',['logical',['../structsneze_1_1events_1_1window__resized.html#aa11452ab698afc9303800a602f2dda50',1,'sneze::events::window_resized::logical'],['../classsneze_1_1config.html#aa53f52ddcbb60ea6a94a5f5424a4fafb',1,'sneze::config::logical()']]],
-  ['logo_20',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
-  ['logo_5fstring_21',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]],
-  ['low_22',['low',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962a632cc3677ca855035975cc88e2e70b16',1,'sneze::world']]]
+  ['load_5ffont_16',['load_font',['../classsneze_1_1application.html#a4d869b104c3f955c6e29bfaffe322cd1',1,'sneze::application::load_font()'],['../classsneze_1_1render.html#a1bd41c59288ae0ee7a8c5fb123830721',1,'sneze::render::load_font(const std::string &amp;font_path) -&gt; result&lt;&gt;']]],
+  ['load_5fsprite_17',['load_sprite',['../classsneze_1_1render.html#aa9124a121e3dbc5c4681e63b2f908018',1,'sneze::render::load_sprite()'],['../classsneze_1_1application.html#a3dd5d26d8e031f19aeeb0e5b9ec663f4',1,'sneze::application::load_sprite(const std::string &amp;sprite_path) -&gt; result&lt;&gt;']]],
+  ['load_5fsprite_5fsheet_18',['load_sprite_sheet',['../classsneze_1_1application.html#aa79961c6db97ef128ac326945092fd1e',1,'sneze::application::load_sprite_sheet()'],['../classsneze_1_1render.html#a136ec9e6a432a4230cf7e5220b73ca6b',1,'sneze::render::load_sprite_sheet(const std::string &amp;sprite_sheet_path) -&gt; result&lt;&gt;']]],
+  ['load_5ftexture_19',['load_texture',['../classsneze_1_1render.html#a10b5da8ce8db89d65e1f4dd0d658be82',1,'sneze::render']]],
+  ['logical_20',['logical',['../structsneze_1_1events_1_1window__resized.html#aa11452ab698afc9303800a602f2dda50',1,'sneze::events::window_resized::logical'],['../classsneze_1_1config.html#aa53f52ddcbb60ea6a94a5f5424a4fafb',1,'sneze::config::logical()']]],
+  ['logo_21',['logo',['../namespacesneze_1_1version.html#ad6f44274d31659c227185910e775e121',1,'sneze::version']]],
+  ['logo_5fstring_22',['logo_string',['../namespacesneze_1_1version.html#aed11412391673d71a9f2ee2ee9b28737',1,'sneze::version']]],
+  ['low_23',['low',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962a632cc3677ca855035975cc88e2e70b16',1,'sneze::world']]]
 ];

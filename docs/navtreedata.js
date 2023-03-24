@@ -60,8 +60,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classsneze_1_1keyboard_1_1key.html#a5c4364166a7cb708163b046b9f00c86d",
-"classsneze_1_1world.html#a40e806e1cb8a7ba4bb7585ac9c3233c2",
-"structsneze_1_1components_1_1rect.html#a49e2dfe775e33128901066953c6707fa"
+"classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973",
+"namespacesneze_1_1version.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
