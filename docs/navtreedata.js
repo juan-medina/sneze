@@ -61,7 +61,8 @@ var NAVTREEINDEX =
 "annotated.html",
 "classsneze_1_1keyboard_1_1key.html#a5c4364166a7cb708163b046b9f00c86d",
 "classsneze_1_1resources__cache.html#a4df415e233d7b3f9e980cbc7da451b4f",
-"namespacesneze_1_1embedded.html#ae808d1878ba6ee0f67a42ff6b5a4857b"
+"namespacesneze_1_1components.html#a7919b944f1098d25a904b523b3e73e43a334c4a4c42fdb79d7ebc3e73b517e6f8",
+"type__name_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

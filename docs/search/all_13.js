@@ -24,7 +24,7 @@ var searchData=
   ['shift_21',['shift',['../classsneze_1_1keyboard_1_1modifier.html#a8c2d831be54d26098849d6d6ede27f48',1,'sneze::keyboard::modifier']]],
   ['simple_20not_20easy_20zestful_20engine_22',['Simple Not Easy Zestful Engine',['../index.html',1,'']]],
   ['single_5fquote_23',['single_quote',['../classsneze_1_1keyboard_1_1key.html#a71717401941a8db9aeaa0a4fd1769331',1,'sneze::keyboard::key']]],
-  ['size_24',['size',['../classsneze_1_1font.html#a9421432cb20d6cd19979af39a272ee20',1,'sneze::font::size()'],['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config::size()'],['../structsneze_1_1glyph.html#a523120a6c382604751baddd0341e9767',1,'sneze::glyph::size'],['../structsneze_1_1components_1_1rect.html#a92884f77f9cb0cef8bebfa933dc464f5',1,'sneze::components::rect::size'],['../structsneze_1_1components_1_1label.html#a2aad787d4b8dc32f2a67f798154e29ad',1,'sneze::components::label::size'],['../structsneze_1_1components_1_1size.html',1,'sneze::components::size']]],
+  ['size_24',['size',['../classsneze_1_1font.html#a9421432cb20d6cd19979af39a272ee20',1,'sneze::font::size()'],['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config::size()'],['../structsneze_1_1glyph.html#a523120a6c382604751baddd0341e9767',1,'sneze::glyph::size'],['../structsneze_1_1components_1_1label.html#a2aad787d4b8dc32f2a67f798154e29ad',1,'sneze::components::label::size'],['../structsneze_1_1components_1_1rect.html#a92884f77f9cb0cef8bebfa933dc464f5',1,'sneze::components::rect::size'],['../structsneze_1_1components_1_1size.html',1,'sneze::components::size']]],
   ['sky_5fblue_25',['sky_blue',['../classsneze_1_1components_1_1color.html#ad64e40e40504fe4470d1e01c162ca865',1,'sneze::components::color']]],
   ['sneze_26',['sneze',['../namespacesneze.html',1,'']]],
   ['sneze_5flogo_27',['sneze_logo',['../namespacesneze_1_1embedded.html#ae808d1878ba6ee0f67a42ff6b5a4857b',1,'sneze::embedded']]],
@@ -33,10 +33,11 @@ var searchData=
   ['space_30',['space',['../classsneze_1_1keyboard_1_1key.html#a4bc6d1fa2dcc91d63ae4531ef050c4a5',1,'sneze::keyboard::key']]],
   ['span_5fistream_31',['span_istream',['../classsneze_1_1span__istream.html',1,'sneze::span_istream'],['../classsneze_1_1span__istream.html#a220d43a1161b8447c67cda4d78cc5c33',1,'sneze::span_istream::span_istream()']]],
   ['sprite_32',['sprite',['../structsneze_1_1components_1_1sprite.html',1,'sneze::components']]],
-  ['string_33',['string',['../classsneze_1_1keyboard_1_1key.html#a61dd83209744be75c45d6be5452f600d',1,'sneze::keyboard::key::string()'],['../classsneze_1_1keyboard_1_1modifier.html#a73b29a83ec2eaed94f39ab058bf5c32b',1,'sneze::keyboard::modifier::string()'],['../structsneze_1_1keyboard_1_1key__modifier.html#a3d0dea373a42aa0399951a15ac91079a',1,'sneze::keyboard::key_modifier::string()'],['../namespacesneze_1_1version.html#a9126c7c9e6611ab0d5e13f7e7a3c372f',1,'sneze::version::string']]],
-  ['string_5ffrom_5flevel_34',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]],
-  ['supr_35',['supr',['../classsneze_1_1keyboard_1_1key.html#a476cce615b98686eebea5f3ea467b9c8',1,'sneze::keyboard::key']]],
-  ['system_36',['system',['../structsneze_1_1system.html',1,'sneze']]],
-  ['system_5fwith_5fpriority_37',['system_with_priority',['../classsneze_1_1system__with__priority.html',1,'sneze::system_with_priority'],['../classsneze_1_1system__with__priority.html#ad405b6bd495b519d0b8f317e79d00985',1,'sneze::system_with_priority::system_with_priority()']]],
-  ['version_38',['version',['../namespacesneze_1_1version.html',1,'sneze']]]
+  ['sprite_5fsheet_33',['sprite_sheet',['../classsneze_1_1sprite__sheet.html',1,'sneze::sprite_sheet'],['../classsneze_1_1sprite__sheet.html#a1dbd8b6cd34d929636feb09c3026e689',1,'sneze::sprite_sheet::sprite_sheet()']]],
+  ['string_34',['string',['../classsneze_1_1keyboard_1_1key.html#a61dd83209744be75c45d6be5452f600d',1,'sneze::keyboard::key::string()'],['../classsneze_1_1keyboard_1_1modifier.html#a73b29a83ec2eaed94f39ab058bf5c32b',1,'sneze::keyboard::modifier::string()'],['../structsneze_1_1keyboard_1_1key__modifier.html#a3d0dea373a42aa0399951a15ac91079a',1,'sneze::keyboard::key_modifier::string()'],['../namespacesneze_1_1version.html#a9126c7c9e6611ab0d5e13f7e7a3c372f',1,'sneze::version::string']]],
+  ['string_5ffrom_5flevel_35',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]],
+  ['supr_36',['supr',['../classsneze_1_1keyboard_1_1key.html#a476cce615b98686eebea5f3ea467b9c8',1,'sneze::keyboard::key']]],
+  ['system_37',['system',['../structsneze_1_1system.html',1,'sneze']]],
+  ['system_5fwith_5fpriority_38',['system_with_priority',['../classsneze_1_1system__with__priority.html',1,'sneze::system_with_priority'],['../classsneze_1_1system__with__priority.html#ad405b6bd495b519d0b8f317e79d00985',1,'sneze::system_with_priority::system_with_priority()']]],
+  ['version_39',['version',['../namespacesneze_1_1version.html',1,'sneze']]]
 ];

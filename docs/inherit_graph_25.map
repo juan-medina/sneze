@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classsneze_1_1resource.html" title=" " alt="" coords="5,5,152,31"/>
-<area shape="rect" id="node2" href="$classsneze_1_1font.html" title="font resource contains the information for a font" alt="" coords="200,5,295,31"/>
+<area shape="rect" id="node1" href="$classsneze_1_1resource.html" title=" " alt="" coords="5,5,188,31"/>
+<area shape="rect" id="node2" href="$classsneze_1_1sprite__sheet.html" title="sprite_sheet class this class is used to load and draw sprites" alt="" coords="236,5,384,31"/>
 </map>

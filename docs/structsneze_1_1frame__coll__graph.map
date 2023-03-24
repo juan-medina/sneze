@@ -1,0 +1,6 @@
+<map id="sneze::frame" name="sneze::frame">
+<area shape="rect" id="node1" title="sprite_sheet frame" alt="" coords="51,196,158,221"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1rect.html" title="component to hold the rectangular area of an entity" alt="" coords="145,108,326,133"/>
+<area shape="rect" id="node3" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="5,5,161,45"/>
+<area shape="rect" id="node4" href="$structsneze_1_1components_1_1size.html" title="component to hold the size of an entity" alt="" coords="185,13,368,38"/>
+</map>

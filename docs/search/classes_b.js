@@ -6,6 +6,7 @@ var searchData=
   ['solid_5fbox_3',['solid_box',['../structsneze_1_1components_1_1solid__box.html',1,'sneze::components']]],
   ['span_5fistream_4',['span_istream',['../classsneze_1_1span__istream.html',1,'sneze']]],
   ['sprite_5',['sprite',['../structsneze_1_1components_1_1sprite.html',1,'sneze::components']]],
-  ['system_6',['system',['../structsneze_1_1system.html',1,'sneze']]],
-  ['system_5fwith_5fpriority_7',['system_with_priority',['../classsneze_1_1system__with__priority.html',1,'sneze']]]
+  ['sprite_5fsheet_6',['sprite_sheet',['../classsneze_1_1sprite__sheet.html',1,'sneze']]],
+  ['system_7',['system',['../structsneze_1_1system.html',1,'sneze']]],
+  ['system_5fwith_5fpriority_8',['system_with_priority',['../classsneze_1_1system__with__priority.html',1,'sneze']]]
 ];

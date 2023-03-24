@@ -19,7 +19,7 @@ var searchData=
   ['flip_5fy_16',['flip_y',['../structsneze_1_1components_1_1sprite.html#ae44129e739d240c0eceef2ddd5d48d75',1,'sneze::components::sprite']]],
   ['font_17',['font',['../structsneze_1_1components_1_1label.html#ab97bfc193dc3a985568cc7d81b804fc0',1,'sneze::components::label::font'],['../classsneze_1_1font.html#abf612fa6c9b02b8f0be9a61129dda4bd',1,'sneze::font::font()'],['../classsneze_1_1font.html',1,'sneze::font']]],
   ['forward_5fslash_18',['forward_slash',['../classsneze_1_1keyboard_1_1key.html#a283c89bfa36ee45800433d7940ea832e',1,'sneze::keyboard::key']]],
-  ['frame_19',['frame',['../structsneze_1_1components_1_1sprite.html#a274c9614d03bd53f935b1b8da617a914',1,'sneze::components::sprite']]],
+  ['frame_19',['frame',['../structsneze_1_1components_1_1sprite.html#a274c9614d03bd53f935b1b8da617a914',1,'sneze::components::sprite::frame'],['../structsneze_1_1frame.html',1,'sneze::frame']]],
   ['free_5fsdl_5frwops_20',['free_sdl_rwops',['../classsneze_1_1render.html#a2cc896516794b2a8361f7cbec3022e8b',1,'sneze::render']]],
   ['from_21',['from',['../structsneze_1_1effects_1_1alternate__color.html#a5f361add18b581d420f6e0ac5d8f15fd',1,'sneze::effects::alternate_color']]]
 ];
