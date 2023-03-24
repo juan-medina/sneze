@@ -62,6 +62,7 @@ var annotated_dup =
       [ "sprite_sheet", "classsneze_1_1sprite__sheet.html", "classsneze_1_1sprite__sheet" ],
       [ "system", "structsneze_1_1system.html", "structsneze_1_1system" ],
       [ "system_with_priority", "classsneze_1_1system__with__priority.html", "classsneze_1_1system__with__priority" ],
+      [ "texture", "classsneze_1_1texture.html", "classsneze_1_1texture" ],
       [ "type_name_format", "structsneze_1_1type__name__format.html", "structsneze_1_1type__name__format" ],
       [ "world", "classsneze_1_1world.html", "classsneze_1_1world" ]
     ] ]

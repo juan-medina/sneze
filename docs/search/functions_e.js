@@ -10,7 +10,7 @@ var searchData=
   ['set_5fsetting_7',['set_setting',['../classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499',1,'sneze::application']]],
   ['settings_8',['settings',['../classsneze_1_1settings.html#a9ccb5b84dd12faff4d2a7202b84fe83e',1,'sneze::settings']]],
   ['setup_5flog_9',['setup_log',['../namespacesneze_1_1logger.html#a1b7484ec500e53ca56bdabb0cd574378',1,'sneze::logger']]],
-  ['size_10',['size',['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config::size()'],['../classsneze_1_1font.html#a9421432cb20d6cd19979af39a272ee20',1,'sneze::font::size()']]],
+  ['size_10',['size',['../classsneze_1_1texture.html#a0a137132f59228cdc6b6d2795d140877',1,'sneze::texture::size()'],['../classsneze_1_1font.html#a9421432cb20d6cd19979af39a272ee20',1,'sneze::font::size()'],['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config::size()']]],
   ['sort_11',['sort',['../classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89',1,'sneze::world']]],
   ['span_5fistream_12',['span_istream',['../classsneze_1_1span__istream.html#a220d43a1161b8447c67cda4d78cc5c33',1,'sneze::span_istream']]],
   ['sprite_5fsheet_13',['sprite_sheet',['../classsneze_1_1sprite__sheet.html#a1dbd8b6cd34d929636feb09c3026e689',1,'sneze::sprite_sheet']]],

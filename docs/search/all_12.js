@@ -28,7 +28,7 @@ var searchData=
   ['resources_5fcache_25',['resources_cache',['../classsneze_1_1resources__cache.html#a4df415e233d7b3f9e980cbc7da451b4f',1,'sneze::resources_cache::resources_cache()'],['../classsneze_1_1resources__cache.html',1,'sneze::resources_cache&lt; Type, Args &gt;']]],
   ['resources_5fcache_3c_20sneze_3a_3afont_20_3e_26',['resources_cache&lt; sneze::font &gt;',['../classsneze_1_1resources__cache.html',1,'sneze']]],
   ['resources_5fcache_3c_20sneze_3a_3asprite_5fsheet_2c_20bool_20_3e_27',['resources_cache&lt; sneze::sprite_sheet, bool &gt;',['../classsneze_1_1resources__cache.html',1,'sneze']]],
-  ['resources_5fcache_3c_20texture_20_3e_28',['resources_cache&lt; texture &gt;',['../classsneze_1_1resources__cache.html',1,'sneze']]],
+  ['resources_5fcache_3c_20sneze_3a_3atexture_20_3e_28',['resources_cache&lt; sneze::texture &gt;',['../classsneze_1_1resources__cache.html',1,'sneze']]],
   ['result_29',['result',['../classsneze_1_1result.html#a93f17764a2297deb5124e5e71ffd21d1',1,'sneze::result::result(const Value &amp;value)'],['../classsneze_1_1result.html#adf42c27c401c067eccd9cb76c7db0973',1,'sneze::result::result(const Error &amp;error)'],['../classsneze_1_1result.html',1,'sneze::result&lt; Value, Error &gt;']]],
   ['rgb_30',['rgb',['../classsneze_1_1components_1_1color.html#a3c8441c896da3a9cc6d8fc6246ec2987',1,'sneze::components::color']]],
   ['rgba_31',['rgba',['../classsneze_1_1components_1_1color.html#ac71c9d8ee292d2756fbdd2cd5af66f85',1,'sneze::components::color']]],

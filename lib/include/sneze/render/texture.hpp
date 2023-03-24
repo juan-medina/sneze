@@ -38,8 +38,17 @@ namespace sneze {
 
 class render;
 
+/**
+ * @brief Class that represents a texture resource
+ * @see sneze::render
+ * @see sneze::resources_cache
+ */
 class texture: resource<> {
 public:
+    /**
+     * @brief Construct a new texture object
+     * @param render The render object that will be used to create the texture
+     */
     explicit texture(class render *render): resource(render){};
 
     ~texture() override;
@@ -49,12 +58,35 @@ public:
     auto operator=(const texture &) -> texture & = delete;
     auto operator=(texture &&) -> texture & = delete;
 
+    /**
+     * @brief Initialize the texture
+     * @param file The path to the file that contains the texture
+     * @return true if the texture was initialized successfully, error otherwise
+     */
     [[nodiscard]] auto init(const std::string &file) -> result<> override;
 
+    /**
+     * @brief end the texture
+     */
     void end() noexcept override;
 
+    /**
+     * @brief Draw the texture
+     * @param origin The origin rectangle
+     * @param destination The destination rectangle
+     * @param color The color to tint the texture, white = no tint
+     */
     void draw(components::rect origin, components::rect destination, components::color color);
 
+    /**
+     * @brief Draw the texture
+     * @param origin The origin rectangle
+     * @param destination The destination rectangle
+     * @param flip_x Flip the texture in the x axis
+     * @param flip_y Flip the texture in the y axis
+     * @param rotation The rotation of the texture
+     * @param color The color to tint the texture, white = no tint
+     */
     void draw(components::rect origin,
               components::rect destination,
               const bool &flip_x,
@@ -62,14 +94,25 @@ public:
               float rotation,
               components::color color);
 
+    /**
+     * @brief Get the size of the texture
+     * @return the size of the texture
+     */
     [[nodiscard]] auto size() const noexcept -> components::size {
         return size_;
     }
 
 private:
+    //! The size of the texture
     components::size size_{0, 0};
+    //! the SDL texture
     SDL_Texture *texture_{nullptr};
 
+    /**
+     * @brief Load the texture from a file
+     * @param file_path The path to the file that contains the texture
+     * @return the SDL texture, error otherwise
+     */
     [[nodiscard]] auto load_texture(const std::string &file_path) -> result<SDL_Texture *const, error>;
 };
 

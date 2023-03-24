@@ -53,13 +53,14 @@ var hierarchy =
       [ "sneze::sprite_sheet", "classsneze_1_1sprite__sheet.html", null ]
     ] ],
     [ "sneze::resource<>", "classsneze_1_1resource.html", [
-      [ "sneze::font", "classsneze_1_1font.html", null ]
+      [ "sneze::font", "classsneze_1_1font.html", null ],
+      [ "sneze::texture", "classsneze_1_1texture.html", null ]
     ] ],
     [ "sneze::resource_entry< Type, Args >", "structsneze_1_1resource__entry.html", null ],
     [ "sneze::resources_cache< Type, Args >", "classsneze_1_1resources__cache.html", null ],
     [ "sneze::resources_cache< sneze::font >", "classsneze_1_1resources__cache.html", null ],
     [ "sneze::resources_cache< sneze::sprite_sheet, bool >", "classsneze_1_1resources__cache.html", null ],
-    [ "sneze::resources_cache< texture >", "classsneze_1_1resources__cache.html", null ],
+    [ "sneze::resources_cache< sneze::texture >", "classsneze_1_1resources__cache.html", null ],
     [ "sneze::result< Value, Error >", "classsneze_1_1result.html", null ],
     [ "sneze::settings", "classsneze_1_1settings.html", null ],
     [ "sneze::components::size", "structsneze_1_1components_1_1size.html", null ],
