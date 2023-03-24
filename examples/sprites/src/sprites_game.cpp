@@ -26,8 +26,10 @@ SOFTWARE.
 
 using namespace std::string_literals;
 
-const auto robot_sprite_sheet = "resources/sprites/robot.json"s;
-const auto robot_sprite_name = "Idle_01.png"s;
+const auto ghost_sprite_sheet = "resources/sprites/kawaii-ghost/kawaii-ghost.json"s;
+const auto ghost_default_frame = "default.png"s;
+const auto ghost_happy_frame = "happy.png"s;
+const auto ghost_damaged_frame = "damaged.png"s;
 
 sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
 
@@ -55,7 +57,7 @@ auto sprites_game::init() -> result {
 
     using error = sneze::error;
 
-    if(load_sprite_sheet(robot_sprite_sheet).ko()) {
+    if(load_sprite_sheet(ghost_sprite_sheet).ko()) {
         logger::error("game can't load sprite sheet");
         return error("Can't load sprite sheet.");
     }
@@ -65,9 +67,26 @@ auto sprites_game::init() -> result {
     using position = components::position;
 
     world()->add_entity(renderable{},
-                        sprite{robot_sprite_sheet, robot_sprite_name},
+                        sprite{ghost_sprite_sheet, ghost_default_frame},
                         position{1920.F / 2.F, 1080.F / 2.F},
                         color::untinted);
+
+    static constexpr auto text = "Space to change sprite, cursors to flip direction.";
+
+    using label = components::label;
+    using alignment = components::alignment;
+    using vertical = components::vertical;
+    using horizontal = components::horizontal;
+    using anchor = components::anchor;
+    namespace embedded = sneze::embedded;
+
+    world()->add_entity(renderable{},
+                        label{text, embedded::regular_font, 40.F, alignment{horizontal::right, vertical::bottom}},
+                        anchor{horizontal::right, vertical::bottom},
+                        color::white);
+
+    world()->add_listener<key_up, &sprites_game::on_key_up>(this);
+    world()->add_listener<key_down, &sprites_game::on_key_down>(this);
 
     return true;
 }
@@ -75,5 +94,36 @@ auto sprites_game::init() -> result {
 void sprites_game::end() {
     logger::debug("ending sprites game");
 
-    unload_sprite_sheet(robot_sprite_sheet);
+    unload_sprite_sheet(ghost_sprite_sheet);
+
+    world()->remove_listeners(this);
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+void sprites_game::on_key_up(const key_up &event) {
+    if(event.key == sneze::keyboard::key::space) {
+        for(auto [entity, sprite]: event.world->get_entities<components::sprite>()) {
+            auto frame = sprite.frame;
+            if(frame == ghost_default_frame) {
+                sprite.frame = ghost_happy_frame;
+            } else if(frame == ghost_happy_frame) {
+                sprite.frame = ghost_damaged_frame;
+            } else if(frame == ghost_damaged_frame) {
+                sprite.frame = ghost_default_frame;
+            }
+        }
+    }
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+void sprites_game::on_key_down(const key_down &event) {
+    if(event.key == sneze::keyboard::key::left) {
+        for(auto [entity, sprite]: event.world->get_entities<components::sprite>()) {
+            sprite.flip_x = true;
+        }
+    } else if(event.key == sneze::keyboard::key::right) {
+        for(auto [entity, sprite]: event.world->get_entities<components::sprite>()) {
+            sprite.flip_x = false;
+        }
+    }
 }

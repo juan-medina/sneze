@@ -29,6 +29,8 @@ SOFTWARE.
 using config = sneze::config;
 using application = sneze::application;
 using result = sneze::result<>;
+using key_up = sneze::events::key_up;
+using key_down = sneze::events::key_down;
 
 class sprites_game: public application {
 public:
@@ -47,4 +49,7 @@ public:
     auto init() -> result override;
 
     void end() override;
+private:
+    void on_key_up(const key_up &event);
+    void on_key_down(const key_down &event);
 };

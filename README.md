@@ -87,6 +87,7 @@ SNEZE examples use these beautiful resources:
 
 - **Font**: [Tilt Warp](https://fonts.google.com/specimen/Tilt+Warp) by [Andy Clymer](https://github.com/andyclymer).
 - **Font**: [Fira Mono](https://fonts.google.com/specimen/Fira+Mono) by [Carrois Apostrophe](https://carrois.com/).
+- **Sprites**: [Kawaii Ghost Sprite Pack](https://kububbis.itch.io/kawaii-ghost-sprite-pack) by [Kububbis](https://kububbis.itch.io/).
 
 ## Contributions
 
