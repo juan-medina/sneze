@@ -53,13 +53,13 @@ struct glyph {
     //! position of the glyph in the texture
     components::position position; // cppcheck-suppress unusedStructMember
     //! size of the glyph in the texture
-    components::size size;         // cppcheck-suppress unusedStructMember
+    components::size size; // cppcheck-suppress unusedStructMember
     //! offset of the glyph in the texture
-    components::position offset;   // cppcheck-suppress unusedStructMember
+    components::position offset; // cppcheck-suppress unusedStructMember
     //! number of pixels to advance after drawing the glyph
-    float advance;                 // cppcheck-suppress unusedStructMember
+    float advance; // cppcheck-suppress unusedStructMember
     //! texture page where the glyph is located
-    int page;                      // cppcheck-suppress unusedStructMember
+    int page; // cppcheck-suppress unusedStructMember
 
     /**
      * @brief check if the glyph is valid
@@ -75,6 +75,7 @@ struct glyph {
  * @brief font resource
  * contains the information for a font
  * @see resource
+ * @see resources_cache
  */
 class font: resource<> {
 public:
@@ -180,7 +181,6 @@ private:
      * @return pair of the type and the params
      */
     [[nodiscard]] auto tokens(const std::string &line) -> std::pair<std::string, params>;
-
 
     /**
      * parsing a key
