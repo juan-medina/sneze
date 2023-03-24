@@ -36,16 +36,33 @@ namespace sneze {
 
 class render;
 
+/**
+ * @brief Base class for all resources
+ * @tparam Args... Arguments to be passed to the init method of the resource
+ * @see sneze::render
+ * @see sneze::resources_cache
+ */
 template<typename... Args>
 class resource {
 public:
+    /**
+     * @brief Construct a new resource object
+     * @param render The render object that will be used to create the resource
+     */
     explicit resource(render *render): render_{render} {};
 
     virtual ~resource() = default;
 
-    virtual auto init(const std::string &uri, Args... args) -> result<> = 0;
+    /**
+     * @brief Initialize the resource
+     * @param uri The URI of the resource
+     * @param args Arguments to be passed to the resource init method
+     * @return true if the resource was initialized successfully, error otherwise
+     */
+    [[nodiscard]] virtual auto init(const std::string &uri, Args... args) -> result<> = 0;
 
-    virtual auto end() -> void = 0;
+    //! Destroy the resource
+    virtual void end() = 0;
 
     resource(const resource &) = delete;
     resource(resource &&) = delete;
@@ -53,29 +70,54 @@ public:
     auto operator=(resource &&) -> resource & = delete;
 
 protected:
+    /**
+     * @brief Get the render object
+     * @return the render object
+     */
     [[maybe_unused]] [[nodiscard]] auto get_render() const noexcept -> render * {
         return render_;
     };
 
 private:
+    //! The render object that will be used to create the resource
     class render *render_{nullptr};
 };
 
+/**
+ * @brief Helper class to store the resource and the count of how many times it has been loaded
+ * @tparam Type the type of the resource
+ * @tparam Args the types of the arguments to be passed to the init method of the resource
+ */
 template<typename Type, typename... Args>
 struct resource_entry {
     static_assert(std::is_base_of<resource<Args...>, Type>::value,
                   "resource entry must be for a descent of sneze::resource");
+    //! The resource data
     std::shared_ptr<Type> data{nullptr}; // cppcheck-suppress unusedStructMember
-    int count{0};                        // cppcheck-suppress unusedStructMember
+    //! The count of how many times it has been loaded
+    int count{0}; // cppcheck-suppress unusedStructMember
 };
 
+/**
+ * @brief Helper class to cache resources
+ * @details This class is used to cache resources, so that they are not loaded more than once, when unloading a resource
+ * the count is decreased, and when it reaches 0 the resource is destroyed
+ * @note resources must inherit from sneze::resource
+ * @tparam Type the type of the resource
+ * @tparam Args the types of the arguments to be passed to the init method of the resource
+ * @see sneze::resource
+ */
 template<typename Type, typename... Args>
 class resources_cache {
     static_assert(std::is_base_of<resource<Args...>, Type>::value,
                   "resources cache must be for a descent of sneze::resource");
 
 public:
-    [[maybe_unused]] explicit resources_cache(render *render): render_{render} {}
+    /**
+     * @brief Construct a new resources cache object
+     * @param render The render object that will be used to create the resource
+     */
+    explicit resources_cache(render *render): render_{render} {}
     ~resources_cache() = default;
 
     resources_cache(const resources_cache &) = delete;
@@ -83,7 +125,14 @@ public:
     auto operator=(const resources_cache &) -> resources_cache & = delete;
     auto operator=(resources_cache &&) -> resources_cache & = delete;
 
-    auto load(const std::string &uri, Args... args) -> result<> {
+    /**
+     * @brief Load a resource
+     * If the resource is already loaded, the count is increased, otherwise the resource is loaded
+     * @param uri The URI of the resource
+     * @param args Arguments to be passed to the resource
+     * @return true if the resource was loaded successfully, error otherwise
+     */
+    [[nodiscard]] auto load(const std::string &uri, Args... args) -> result<> {
         if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
             it_resource->second.count++;
             logger::trace("request to load resource<{}>: {}, increase count to: {}",
@@ -103,7 +152,13 @@ public:
         return true;
     }
 
-    auto unload(const std::string &uri) -> result<> {
+    /**
+     * @brief Unload a resource
+     * @details If the resource is loaded more than once, the count is decreased, otherwise the resource is unloaded
+     * @param uri The URI of the resource
+     * @return true if the resource was unloaded successfully, error otherwise
+     */
+    [[nodiscard]] auto unload(const std::string &uri) -> result<> {
         if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
             it_resource->second.count--;
             logger::trace("request to unload resource<{}>: {}, decrease count to: {}",
@@ -120,7 +175,13 @@ public:
         return error("Fail to unload resource.");
     }
 
-    auto get(const std::string &uri) -> result<std::shared_ptr<Type>, error> {
+    /**
+     * @brief Get a resource
+     * @note if it is not loaded, an error is returned
+     * @param uri The URI of the resource
+     * @return true if the resource is loaded, error otherwise
+     */
+    [[nodiscard]] auto get(const std::string &uri) -> result<std::shared_ptr<Type>, error> {
         if(auto it_resource = resources_.find(uri); it_resource != resources_.end()) {
             return it_resource->second.data;
         }
@@ -128,12 +189,17 @@ public:
         return error("Fail to get resource.");
     }
 
+    /**
+     * @brief Clear the cache
+     */
     void clear() {
         resources_.clear();
     }
 
 private:
+    //! resources entries
     std::unordered_map<std::string, resource_entry<Type, Args...>> resources_ = {};
+    //! The render object that will be used to create the resource
     render *render_{nullptr};
 };
 

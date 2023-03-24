@@ -6,5 +6,6 @@ var searchData=
   ['comma_3',['comma',['../classsneze_1_1keyboard_1_1key.html#ac2865a9e747329c8e9e0a911e60aa498',1,'sneze::keyboard::key']]],
   ['component_4',['component',['../structsneze_1_1events_1_1add__component.html#a173fe6ce4a4d77c0d13b6034648867dd',1,'sneze::events::add_component']]],
   ['control_5',['control',['../classsneze_1_1keyboard_1_1modifier.html#a5d8ec5f85e7fc262e8706ca2f02f1349',1,'sneze::keyboard::modifier']]],
-  ['current_5ftime_6',['current_time',['../structsneze_1_1effects_1_1alternate__color.html#aa72fd762f22491168b65f0b65b2ef652',1,'sneze::effects::alternate_color']]]
+  ['count_6',['count',['../structsneze_1_1resource__entry.html#abf50e7df1a76faae357bfdda7526daf1',1,'sneze::resource_entry']]],
+  ['current_5ftime_7',['current_time',['../structsneze_1_1effects_1_1alternate__color.html#aa72fd762f22491168b65f0b65b2ef652',1,'sneze::effects::alternate_color']]]
 ];

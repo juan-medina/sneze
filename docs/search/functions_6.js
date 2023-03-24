@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get_0',['get',['../classsneze_1_1settings.html#a9b864a2f171b8954a3835e27e357791f',1,'sneze::settings']]],
+  ['get_0',['get',['../classsneze_1_1resources__cache.html#a4f6e89ba55c9d5f2e40888966e161e73',1,'sneze::resources_cache::get()'],['../classsneze_1_1settings.html#a9b864a2f171b8954a3835e27e357791f',1,'sneze::settings::get()']]],
   ['get_5fapp_5fsetting_1',['get_app_setting',['../classsneze_1_1application.html#a7cfedeb4eb81a02edc9a39968a9d7ece',1,'sneze::application']]],
   ['get_5fcauses_2',['get_causes',['../classsneze_1_1error.html#a10c0beaa5e6d5382b078b9403714e3b0',1,'sneze::error']]],
   ['get_5fclear_5fcolor_3',['get_clear_color',['../classsneze_1_1config.html#ae59c5a3efd81dd7cb44e74c2dc8c623b',1,'sneze::config']]],
@@ -15,14 +15,15 @@ var searchData=
   ['get_5fmonitor_12',['get_monitor',['../classsneze_1_1render.html#a39bf6aaa4ea06654c3db1eca892d96eb',1,'sneze::render']]],
   ['get_5fname_13',['get_name',['../classsneze_1_1application.html#aba5489425cb811da16633b20e8c9fe8b',1,'sneze::application']]],
   ['get_5fparent_14',['get_parent',['../classsneze_1_1render.html#ac1a1cb86daabab3d9358e74584a52ebe',1,'sneze::render']]],
-  ['get_5fsdl_5frenderer_15',['get_sdl_renderer',['../classsneze_1_1render.html#aa43ac836b0b585eb3f2c06f4e6635ecb',1,'sneze::render']]],
-  ['get_5fsdl_5frwops_16',['get_sdl_rwops',['../classsneze_1_1render.html#ab0463f013c500e2486037e25ead58814',1,'sneze::render']]],
-  ['get_5fsetting_17',['get_setting',['../classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70',1,'sneze::application']]],
-  ['get_5ftagged_18',['get_tagged',['../classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897',1,'sneze::world']]],
-  ['get_5fteam_19',['get_team',['../classsneze_1_1application.html#a687de67755798796e30edd49423c7fa9',1,'sneze::application']]],
-  ['get_5ftexture_20',['get_texture',['../classsneze_1_1render.html#a165c366007bb720430745d9a88b1fe20',1,'sneze::render']]],
-  ['get_5ftoggle_5ffull_5fscreen_5fkey_21',['get_toggle_full_screen_key',['../classsneze_1_1config.html#a59249ce8d12e94560dcdb375ce33ec8a',1,'sneze::config']]],
-  ['get_5fvalue_22',['get_value',['../classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936',1,'sneze::result']]],
-  ['get_5fwindow_5ficon_23',['get_window_icon',['../classsneze_1_1config.html#a5d0969c794eb92e61ecbf9a655a17008',1,'sneze::config']]],
-  ['get_5fwindow_5fsize_24',['get_window_size',['../classsneze_1_1config.html#a79f7b5e19c320c85581e688e957f51e5',1,'sneze::config::get_window_size()'],['../classsneze_1_1render.html#aa2f5dd9e505132203222c7fda17c8898',1,'sneze::render::get_window_size()']]]
+  ['get_5frender_15',['get_render',['../classsneze_1_1resource.html#af3f8334847a1d25e2c1c5e50f92ae6ad',1,'sneze::resource']]],
+  ['get_5fsdl_5frenderer_16',['get_sdl_renderer',['../classsneze_1_1render.html#aa43ac836b0b585eb3f2c06f4e6635ecb',1,'sneze::render']]],
+  ['get_5fsdl_5frwops_17',['get_sdl_rwops',['../classsneze_1_1render.html#ab0463f013c500e2486037e25ead58814',1,'sneze::render']]],
+  ['get_5fsetting_18',['get_setting',['../classsneze_1_1application.html#ab809762bf4da9bd0cd4717abcc572c70',1,'sneze::application']]],
+  ['get_5ftagged_19',['get_tagged',['../classsneze_1_1world.html#a5918c152140be58ef44ca9f9fc232897',1,'sneze::world']]],
+  ['get_5fteam_20',['get_team',['../classsneze_1_1application.html#a687de67755798796e30edd49423c7fa9',1,'sneze::application']]],
+  ['get_5ftexture_21',['get_texture',['../classsneze_1_1render.html#a165c366007bb720430745d9a88b1fe20',1,'sneze::render']]],
+  ['get_5ftoggle_5ffull_5fscreen_5fkey_22',['get_toggle_full_screen_key',['../classsneze_1_1config.html#a59249ce8d12e94560dcdb375ce33ec8a',1,'sneze::config']]],
+  ['get_5fvalue_23',['get_value',['../classsneze_1_1result.html#a840f154babf94bd241e0f579a140e936',1,'sneze::result']]],
+  ['get_5fwindow_5ficon_24',['get_window_icon',['../classsneze_1_1config.html#a5d0969c794eb92e61ecbf9a655a17008',1,'sneze::config']]],
+  ['get_5fwindow_5fsize_25',['get_window_size',['../classsneze_1_1config.html#a79f7b5e19c320c85581e688e957f51e5',1,'sneze::config::get_window_size()'],['../classsneze_1_1render.html#aa2f5dd9e505132203222c7fda17c8898',1,'sneze::render::get_window_size()']]]
 ];

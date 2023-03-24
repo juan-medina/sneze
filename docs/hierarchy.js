@@ -23,7 +23,6 @@ var hierarchy =
       [ "sneze::events::toggle_fullscreen", "structsneze_1_1events_1_1toggle__fullscreen.html", null ],
       [ "sneze::events::window_resized", "structsneze_1_1events_1_1window__resized.html", null ]
     ] ],
-    [ "sneze::font", "classsneze_1_1font.html", null ],
     [ "sneze::game_time", "structsneze_1_1game__time.html", null ],
     [ "sneze::glyph", "structsneze_1_1glyph.html", null ],
     [ "std::ios_base", null, [
@@ -48,6 +47,16 @@ var hierarchy =
     [ "sneze::components::rect", "structsneze_1_1components_1_1rect.html", null ],
     [ "sneze::render", "classsneze_1_1render.html", null ],
     [ "sneze::components::renderable", "structsneze_1_1components_1_1renderable.html", null ],
+    [ "sneze::resource< Args >", "classsneze_1_1resource.html", null ],
+    [ "sneze::resource< bool >", "classsneze_1_1resource.html", null ],
+    [ "sneze::resource<>", "classsneze_1_1resource.html", [
+      [ "sneze::font", "classsneze_1_1font.html", null ]
+    ] ],
+    [ "sneze::resource_entry< Type, Args >", "structsneze_1_1resource__entry.html", null ],
+    [ "sneze::resources_cache< Type, Args >", "classsneze_1_1resources__cache.html", null ],
+    [ "sneze::resources_cache< sneze::font >", "classsneze_1_1resources__cache.html", null ],
+    [ "sneze::resources_cache< sprite_sheet, bool >", "classsneze_1_1resources__cache.html", null ],
+    [ "sneze::resources_cache< texture >", "classsneze_1_1resources__cache.html", null ],
     [ "sneze::result< Value, Error >", "classsneze_1_1result.html", null ],
     [ "sneze::settings", "classsneze_1_1settings.html", null ],
     [ "sneze::components::size", "structsneze_1_1components_1_1size.html", null ],
