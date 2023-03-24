@@ -30,21 +30,38 @@ SOFTWARE.
 
 namespace sneze {
 
+/**
+ * @brief keys system
+ *
+ * system that handles the keyboard events
+ */
 class keys_system: public system {
 public:
+    /**
+     * @brief Construct a new keys system object
+     * @param exit the key modifier to exit the game
+     * @param toggle_fullscreen the key modifier to toggle fullscreen
+     */
     keys_system(const keyboard::key_modifier &exit, const keyboard::key_modifier &toggle_fullscreen)
         : exit_(exit), toggle_full_screen_(toggle_fullscreen) {}
 
+    //! init the system
     void init(world *world) override;
 
+    //! shutdown the system
     void end(world *world) override;
 
+    //! update the system
     void update(world *world) override;
 
 private:
+    //! handle the key up event
     void key_up(const events::key_up &event);
 
+    //! exit key and modifier
     keyboard::key_modifier exit_;
+
+    //! toggle fullscreen key and modifier
     keyboard::key_modifier toggle_full_screen_;
 };
 

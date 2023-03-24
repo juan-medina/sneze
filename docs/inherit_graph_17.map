@@ -1,3 +1,15 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classsneze_1_1error.html" title="Represents an error with a message and a list of causes." alt="" coords="5,5,104,31"/>
+<area shape="rect" id="node1" href="$structsneze_1_1events_1_1event.html" title="event base class." alt="" coords="6,221,163,247"/>
+<area shape="rect" id="node2" href="$structsneze_1_1events_1_1add__component.html" title="event that indicates that we want to add a component to an entity." alt="" coords="212,86,449,126"/>
+<area shape="rect" id="node3" href="$structsneze_1_1events_1_1application__want__closing.html" title="event that indicates that the application is closing." alt="" coords="235,150,427,190"/>
+<area shape="rect" id="node4" href="$structsneze_1_1events_1_1key__event.html" title="key base event." alt="" coords="259,22,402,62"/>
+<area shape="rect" id="node7" href="$structsneze_1_1events_1_1mouse__button.html" title="mouse button base event." alt="" coords="249,214,413,254"/>
+<area shape="rect" id="node10" href="$structsneze_1_1events_1_1mouse__moved.html" title="mouse moved event." alt="" coords="249,278,413,318"/>
+<area shape="rect" id="node11" href="$structsneze_1_1events_1_1toggle__fullscreen.html" title="event that indicates that we want to toggle fullscreen." alt="" coords="250,342,411,382"/>
+<area shape="rect" id="node12" href="$structsneze_1_1events_1_1window__resized.html" title="window resized event." alt="" coords="245,406,416,446"/>
+<area shape="rect" id="node5" href="$structsneze_1_1events_1_1key__down.html" title="key down event." alt="" coords="497,5,683,31"/>
+<area shape="rect" id="node6" href="$structsneze_1_1events_1_1key__up.html" title="key up event." alt="" coords="507,55,673,80"/>
+<area shape="rect" id="node8" href="$structsneze_1_1events_1_1mouse__button__down.html" title="mouse button down event." alt="" coords="508,182,672,222"/>
+<area shape="rect" id="node9" href="$structsneze_1_1events_1_1mouse__button__up.html" title="mouse button up event." alt="" coords="508,246,672,286"/>
+<area shape="rect" id="node13" href="$structsneze_1_1keyboard_1_1key__modifier.html" title="Key and modifier pair." alt="" coords="5,22,164,62"/>
 </map>

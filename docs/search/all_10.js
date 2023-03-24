@@ -10,6 +10,6 @@ var searchData=
   ['point_7',['point',['../structsneze_1_1events_1_1mouse__moved.html#a081c8f71deba881a9ac72ed362c89e20',1,'sneze::events::mouse_moved::point'],['../structsneze_1_1events_1_1mouse__button.html#a74733590c046e6ac32c55bc4240f33a7',1,'sneze::events::mouse_button::point']]],
   ['position_8',['position',['../structsneze_1_1components_1_1rect.html#a49e2dfe775e33128901066953c6707fa',1,'sneze::components::rect::position'],['../structsneze_1_1components_1_1position.html',1,'sneze::components::position']]],
   ['print_5fscreen_9',['print_screen',['../classsneze_1_1keyboard_1_1key.html#ad91cff59495940fc2fff71748f9888c4',1,'sneze::keyboard::key']]],
-  ['priority_10',['priority',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962',1,'sneze::world']]],
+  ['priority_10',['priority',['../classsneze_1_1world.html#af882eb0734ac9b4457209c4da1f76962',1,'sneze::world::priority'],['../classsneze_1_1system__with__priority.html#a261f4776c71db4573774f2466f03a010',1,'sneze::system_with_priority::priority()']]],
   ['purple_11',['purple',['../classsneze_1_1components_1_1color.html#aa92d2c36bc8cf37d031bcc773b6002cb',1,'sneze::components::color']]]
 ];

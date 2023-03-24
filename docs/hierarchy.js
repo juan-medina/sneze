@@ -7,7 +7,6 @@ var hierarchy =
     [ "sneze::components::box", "structsneze_1_1components_1_1box.html", null ],
     [ "sneze::components::color", "classsneze_1_1components_1_1color.html", null ],
     [ "sneze::config", "classsneze_1_1config.html", null ],
-    [ "sneze::effects_system", "classsneze_1_1effects__system.html", null ],
     [ "sneze::error", "classsneze_1_1error.html", null ],
     [ "sneze::events::event", "structsneze_1_1events_1_1event.html", [
       [ "sneze::events::add_component< ComponentType >", "structsneze_1_1events_1_1add__component.html", null ],
@@ -53,6 +52,11 @@ var hierarchy =
       [ "sneze::components::border_box", "structsneze_1_1components_1_1border__box.html", null ]
     ] ],
     [ "sneze::components::sprite", "structsneze_1_1components_1_1sprite.html", null ],
+    [ "sneze::system", "structsneze_1_1system.html", [
+      [ "sneze::effects_system", "classsneze_1_1effects__system.html", null ],
+      [ "sneze::keys_system", "classsneze_1_1keys__system.html", null ]
+    ] ],
+    [ "sneze::system_with_priority", "classsneze_1_1system__with__priority.html", null ],
     [ "sneze::components::tag< Type >", "structsneze_1_1components_1_1tag.html", null ],
     [ "sneze::type_name_format", "structsneze_1_1type__name__format.html", null ],
     [ "sneze::world", "classsneze_1_1world.html", null ]
