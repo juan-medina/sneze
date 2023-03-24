@@ -16,7 +16,7 @@ var searchData=
   ['file_13',['file',['../structsneze_1_1components_1_1sprite.html#acc8c7f8bd778ddd49b0eeed8a9155200',1,'sneze::components::sprite']]],
   ['flip_5fx_14',['flip_x',['../structsneze_1_1components_1_1sprite.html#ab502080b2fa38746a6f661e2810232bb',1,'sneze::components::sprite']]],
   ['flip_5fy_15',['flip_y',['../structsneze_1_1components_1_1sprite.html#ae44129e739d240c0eceef2ddd5d48d75',1,'sneze::components::sprite']]],
-  ['font_16',['font',['../structsneze_1_1components_1_1label.html#ab97bfc193dc3a985568cc7d81b804fc0',1,'sneze::components::label']]],
+  ['font_16',['font',['../structsneze_1_1components_1_1label.html#ab97bfc193dc3a985568cc7d81b804fc0',1,'sneze::components::label::font'],['../classsneze_1_1font.html#abf612fa6c9b02b8f0be9a61129dda4bd',1,'sneze::font::font()'],['../classsneze_1_1font.html',1,'sneze::font']]],
   ['forward_5fslash_17',['forward_slash',['../classsneze_1_1keyboard_1_1key.html#a283c89bfa36ee45800433d7940ea832e',1,'sneze::keyboard::key']]],
   ['frame_18',['frame',['../structsneze_1_1components_1_1sprite.html#a274c9614d03bd53f935b1b8da617a914',1,'sneze::components::sprite']]],
   ['from_19',['from',['../structsneze_1_1effects_1_1alternate__color.html#a5f361add18b581d420f6e0ac5d8f15fd',1,'sneze::effects::alternate_color']]]

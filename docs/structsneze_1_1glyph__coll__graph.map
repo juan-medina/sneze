@@ -1,0 +1,5 @@
+<map id="sneze::glyph" name="sneze::glyph">
+<area shape="rect" id="node1" title="font glyph contains the information for a single glyph" alt="" coords="127,123,231,148"/>
+<area shape="rect" id="node2" href="$structsneze_1_1components_1_1position.html" title="component to hold the position of an entity" alt="" coords="5,5,161,45"/>
+<area shape="rect" id="node3" href="$structsneze_1_1components_1_1size.html" title="component to hold the size of an entity" alt="" coords="185,13,368,38"/>
+</map>

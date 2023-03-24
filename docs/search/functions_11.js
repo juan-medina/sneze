@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7eworld_0',['~world',['../classsneze_1_1world.html#a0fd61555aac4d8f1a995f4c00a159a91',1,'sneze::world']]]
+  ['valid_0',['valid',['../structsneze_1_1glyph.html#a13c413c84543c66bc3717e2331fa2209',1,'sneze::glyph']]]
 ];

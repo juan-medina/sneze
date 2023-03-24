@@ -11,5 +11,6 @@ var searchData=
   ['delta_8',['delta',['../structsneze_1_1game__time.html#a7d8ead26a8c8bb43b26397833c413275',1,'sneze::game_time']]],
   ['depth_9',['depth',['../structsneze_1_1components_1_1renderable.html#a69c1b4c734514d9e2926ab58ca1befb3',1,'sneze::components::renderable']]],
   ['dollar_10',['dollar',['../classsneze_1_1keyboard_1_1key.html#a75b0cac5233764af41213a2c2dec6637',1,'sneze::keyboard::key']]],
-  ['double_5fquote_11',['double_quote',['../classsneze_1_1keyboard_1_1key.html#a5cbefbb520f56ac2d8e654ca94edf008',1,'sneze::keyboard::key']]]
+  ['double_5fquote_11',['double_quote',['../classsneze_1_1keyboard_1_1key.html#a5cbefbb520f56ac2d8e654ca94edf008',1,'sneze::keyboard::key']]],
+  ['draw_5ftext_12',['draw_text',['../classsneze_1_1font.html#ac166cf1c55f15ad8447f6dfea062516a',1,'sneze::font']]]
 ];

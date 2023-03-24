@@ -1,7 +1,19 @@
 var searchData=
 [
-  ['tag_0',['tag',['../classsneze_1_1world.html#a3d10d4bb69f1b40dda312e47e21f5787',1,'sneze::world']]],
-  ['toggle_5ffull_5fscreen_1',['toggle_full_screen',['../classsneze_1_1config.html#a039b372d069282b3aef451b1a918aa05',1,'sneze::config::toggle_full_screen(const keyboard::code &amp;key) -&gt; config'],['../classsneze_1_1config.html#a3178c7d8f674204ae96a958b707bb6a3',1,'sneze::config::toggle_full_screen(const keyboard::mod &amp;modifier, const keyboard::code &amp;key) -&gt; config']]],
-  ['type_2',['type',['../classsneze_1_1system__with__priority.html#acb4e49ab70158698baac379b3a3f84b2',1,'sneze::system_with_priority']]],
-  ['type_5fname_3',['type_name',['../namespacesneze.html#a11165fdc2815714f1490e38fa5a6b19c',1,'sneze']]]
+  ['save_0',['save',['../classsneze_1_1settings.html#a5623c354647fa1df2a537600e461aa98',1,'sneze::settings']]],
+  ['sdl_5fevents_5fsystem_1',['sdl_events_system',['../classsneze_1_1sdl__events__system.html#a06e4b2fe35094091ec333795e79154db',1,'sneze::sdl_events_system']]],
+  ['set_2',['set',['../classsneze_1_1settings.html#af124674e88887972af607a4d04d8dafd',1,'sneze::settings']]],
+  ['set_5fapp_5fsetting_3',['set_app_setting',['../classsneze_1_1application.html#ab7f647502d0de4d654145fd5a6f735d1',1,'sneze::application']]],
+  ['set_5fcomponent_4',['set_component',['../classsneze_1_1world.html#a0c40e2a0feccfe8e7a890f6e78a2ea74',1,'sneze::world']]],
+  ['set_5fglobal_5',['set_global',['../classsneze_1_1world.html#aedf4b8c72bfe477f429f35eff774a946',1,'sneze::world']]],
+  ['set_5flevel_6',['set_level',['../namespacesneze_1_1logger.html#a8dc1bc397b33440d038268fff57da583',1,'sneze::logger']]],
+  ['set_5fsetting_7',['set_setting',['../classsneze_1_1application.html#a3549d50570717ecd6cf6714238d8a499',1,'sneze::application']]],
+  ['settings_8',['settings',['../classsneze_1_1settings.html#a9ccb5b84dd12faff4d2a7202b84fe83e',1,'sneze::settings']]],
+  ['setup_5flog_9',['setup_log',['../namespacesneze_1_1logger.html#a1b7484ec500e53ca56bdabb0cd574378',1,'sneze::logger']]],
+  ['size_10',['size',['../classsneze_1_1font.html#a9421432cb20d6cd19979af39a272ee20',1,'sneze::font::size()'],['../classsneze_1_1config.html#ae8b535f4e410a50f497c4686f817699d',1,'sneze::config::size()']]],
+  ['sort_11',['sort',['../classsneze_1_1world.html#a00482c687c49ec5d199d7b2fccc24a89',1,'sneze::world']]],
+  ['span_5fistream_12',['span_istream',['../classsneze_1_1span__istream.html#a220d43a1161b8447c67cda4d78cc5c33',1,'sneze::span_istream']]],
+  ['string_13',['string',['../classsneze_1_1keyboard_1_1key.html#a61dd83209744be75c45d6be5452f600d',1,'sneze::keyboard::key::string()'],['../classsneze_1_1keyboard_1_1modifier.html#a73b29a83ec2eaed94f39ab058bf5c32b',1,'sneze::keyboard::modifier::string()'],['../structsneze_1_1keyboard_1_1key__modifier.html#a3d0dea373a42aa0399951a15ac91079a',1,'sneze::keyboard::key_modifier::string()']]],
+  ['string_5ffrom_5flevel_14',['string_from_level',['../namespacesneze_1_1logger.html#a29e749ad17d3d8798bc727bfd657fa94',1,'sneze::logger']]],
+  ['system_5fwith_5fpriority_15',['system_with_priority',['../classsneze_1_1system__with__priority.html#ad405b6bd495b519d0b8f317e79d00985',1,'sneze::system_with_priority']]]
 ];
