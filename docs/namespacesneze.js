@@ -2,6 +2,13 @@ var namespacesneze =
 [
     [ "components", "namespacesneze_1_1components.html", "namespacesneze_1_1components" ],
     [ "effects", "namespacesneze_1_1effects.html", "namespacesneze_1_1effects" ],
+    [ "embedded", "namespacesneze_1_1embedded.html", [
+      [ "sneze_logo", "namespacesneze_1_1embedded.html#ae808d1878ba6ee0f67a42ff6b5a4857b", null ],
+      [ "mono_font", "namespacesneze_1_1embedded.html#acd6fa1e6517f5e7301f0c05cd58cf5e0", null ],
+      [ "mono_font_texture", "namespacesneze_1_1embedded.html#a6667dcf9ef206941d3b8aac9ec04c6a1", null ],
+      [ "regular_font", "namespacesneze_1_1embedded.html#a83ff19a70f419a5ea1b3a1027b3ecc5b", null ],
+      [ "regular_font_texture", "namespacesneze_1_1embedded.html#a1f288ea65e8c7323fe9b5d40a176e93c", null ]
+    ] ],
     [ "keyboard", "namespacesneze_1_1keyboard.html", "namespacesneze_1_1keyboard" ],
     [ "logger", "namespacesneze_1_1logger.html", [
       [ "level", "namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7", [

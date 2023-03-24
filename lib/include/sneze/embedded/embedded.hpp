@@ -24,12 +24,18 @@ SOFTWARE.
 
 #pragma once
 
+//! embedded namespace
 namespace sneze::embedded {
 
+//! embedded sneze logo, in png format
 static constexpr const char *const sneze_logo = "embedded://sneze_logo.png";
+//! embedded mono spaced font, in fnt format
 static constexpr const char *const mono_font = "embedded://sneze_mono.fnt";
+//! embedded mono spaced font texture, in png format
 static constexpr const char *const mono_font_texture = "embedded://mono_font.png";
+//! embedded regular font, in fnt format
 static constexpr const char *const regular_font = "embedded://regular_font.fnt";
+//! embedded regular font texture, in png format
 static constexpr const char *const regular_font_texture = "embedded://regular_font.png";
 
 } // namespace sneze::embedded
