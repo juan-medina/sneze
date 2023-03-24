@@ -75,7 +75,7 @@ auto render::init(const components::size &window,
         return error("Error creating window.");
     }
 
-    if(auto err = handle_icon(icon).ko(); err) {
+    if(auto err = set_icon(icon).ko(); err) {
         logger::error("error handling icon");
         SDL_DestroyWindow(window_);
         window_ = nullptr;
@@ -103,7 +103,7 @@ auto render::init(const components::size &window,
     SDL_SetHint(SDL_HINT_WINDOWS_DPI_AWARENESS, "permonitorv2");
     SDL_SetHint(SDL_HINT_WINDOWS_DPI_SCALING, "1");
 
-    auto real_size = render::window();
+    auto real_size = render::get_window_size();
     logger::info("rendering engine initialized. window: {}x{}, mode: {}",
                  real_size.width,
                  real_size.height,
@@ -115,7 +115,7 @@ auto render::init(const components::size &window,
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 #endif
 
-    clear_color(color);
+    clear_color_ = color;
 
     // forcing SDL to recalculate the DPI and viewport
     SDL_Event event;
@@ -195,7 +195,7 @@ auto render::unload_font(const std::string &font_path) -> result<> {
     return true;
 }
 
-auto render::window() -> components::size {
+auto render::get_window_size() -> components::size {
     if(window_ != nullptr) {
         int width = 0;
         int height = 0;
@@ -205,8 +205,8 @@ auto render::window() -> components::size {
     return components::size{0, 0};
 }
 
-auto render::logical() -> components::rect {
-    return window_to_logical(render::window());
+auto render::get_logical_size() -> components::rect {
+    return window_to_logical(render::get_window_size());
 }
 
 auto render::window_to_logical(const components::position &position) -> components::position {
@@ -240,8 +240,8 @@ void render::toggle_fullscreen() {
 #endif
     }
 
-    auto real_size = render::window();
-    auto real_logical = render::logical();
+    auto real_size = render::get_window_size();
+    auto real_logical = render::get_logical_size();
     logger::trace("toggle full screen / windowed. size: {}x{}, mode: {}, logical: {}x{}",
                   real_size.width,
                   real_size.height,
@@ -324,7 +324,7 @@ auto render::get_texture(const std::string &texture_path) -> std::shared_ptr<tex
     return nullptr;
 }
 
-auto render::monitor() const -> int {
+auto render::get_monitor() const -> int {
     return SDL_GetWindowDisplayIndex(window_);
 }
 
@@ -474,7 +474,7 @@ void render::free_sdl_rwops(SDL_RWops *rwops) {
     SDL_RWclose(rwops);
 }
 
-auto render::handle_icon(const std::string &icon) -> result<> {
+auto render::set_icon(const std::string &icon) -> result<> {
     if(SDL_RWops *rwops = get_sdl_rwops(icon); rwops != nullptr) {
         if(auto *const icon_surface = IMG_Load_RW(rwops, SDL_FALSE); icon_surface != nullptr) {
             SDL_SetWindowIcon(window_, icon_surface);

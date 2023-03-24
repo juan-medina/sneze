@@ -59,7 +59,7 @@ auto texture::init(const std::string &file) -> result<> {
 
 auto texture::load_texture(const std::string &file_path) -> result<SDL_Texture *const, error> {
     if(auto *rwops = get_render()->get_sdl_rwops(file_path); rwops != nullptr) {
-        if(auto *texture = IMG_LoadTexture_RW(get_render()->sdl_renderer(), rwops, 1); texture != nullptr) {
+        if(auto *texture = IMG_LoadTexture_RW(get_render()->get_sdl_renderer(), rwops, 1); texture != nullptr) {
             int width{0};
             int height{0};
             SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
@@ -87,7 +87,7 @@ void texture::draw(components::rect origin, components::rect destination, compon
                                   static_cast<int>(destination.size.height)};
         SDL_SetTextureColorMod(texture_, color.r, color.g, color.b);
         SDL_SetTextureAlphaMod(texture_, color.a);
-        SDL_RenderCopy(get_render()->sdl_renderer(), texture_, &src, &dst);
+        SDL_RenderCopy(get_render()->get_sdl_renderer(), texture_, &src, &dst);
     }
 }
 
@@ -112,7 +112,7 @@ void texture::draw(components::rect origin,
         auto sdl_flip = static_cast<SDL_RendererFlip>(static_cast<int>(flip_y) * SDL_FLIP_VERTICAL
                                                       | static_cast<int>(flip_x) * SDL_FLIP_HORIZONTAL);
 
-        SDL_RenderCopyEx(get_render()->sdl_renderer(), texture_, &src, &dst, rotation, nullptr, sdl_flip);
+        SDL_RenderCopyEx(get_render()->get_sdl_renderer(), texture_, &src, &dst, rotation, nullptr, sdl_flip);
     }
 }
 

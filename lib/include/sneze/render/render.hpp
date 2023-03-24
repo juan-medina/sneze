@@ -25,10 +25,10 @@ SOFTWARE.
 #pragma once
 
 #include <cstddef>
+#include <filesystem>
 #include <istream>
 #include <memory>
 #include <span>
-#include <filesystem>
 
 #include "../app/world.hpp"
 #include "../components/geometry.hpp"
@@ -57,10 +57,6 @@ public:
     auto operator=(const render &) -> render & = delete;
     auto operator=(render &&) -> render & = delete;
 
-    [[maybe_unused]] void clear_color(const components::color &color) {
-        clear_color_ = color;
-    }
-
     [[nodiscard]] auto init(const components::size &size,
                             const components::size &logical,
                             const bool &fullscreen,
@@ -85,9 +81,9 @@ public:
 
     [[maybe_unused]] [[nodiscard]] auto load_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
 
-    [[maybe_unused]] [[nodiscard]] auto load_sprite(const std::string &sprite_path) -> result<>;
-
     [[maybe_unused]] auto unload_sprite_sheet(const std::string &sprite_sheet_path) -> result<>;
+
+    [[maybe_unused]] [[nodiscard]] auto load_sprite(const std::string &sprite_path) -> result<>;
 
     [[maybe_unused]] auto unload_sprite(const std::string &sprite_path) -> result<>;
 
@@ -106,28 +102,25 @@ public:
 
     void draw_sprite(components::sprite &sprite, const components::position &from, const components::color &color);
 
-    [[nodiscard]] auto window() -> components::size;
+    [[nodiscard]] auto get_window_size() -> components::size;
 
-    [[nodiscard]] auto logical() -> components::rect;
+    [[nodiscard]] auto get_logical_size() -> components::rect;
 
     [[nodiscard]] auto window_to_logical(const components::position &position) -> components::position;
 
     [[nodiscard]] auto window_to_logical(const components::size &size) -> components::rect;
 
-    [[nodiscard]] auto monitor() const -> int;
+    [[nodiscard]] auto get_monitor() const -> int;
 
-    [[nodiscard]] auto fullscreen() const {
+    [[nodiscard]] auto is_fullscreen() const {
         return fullscreen_;
     }
 
-    [[nodiscard]] auto sdl_renderer() -> SDL_Renderer * {
+    [[nodiscard]] auto get_sdl_renderer() -> SDL_Renderer * {
         return renderer_;
     }
 
     void toggle_fullscreen();
-
-    friend class font;
-    friend class sprite_sheet;
 
     [[nodiscard]] auto get_sdl_rwops(const std::string &path) -> SDL_RWops *;
 
@@ -138,6 +131,9 @@ public:
     [[maybe_unused]] [[nodiscard]] auto file_exists(const std::string &path) -> bool;
 
     [[maybe_unused]] [[nodiscard]] auto get_parent(const std::string &path) -> std::filesystem::path;
+
+    friend class font;
+    friend class sprite_sheet;
 
 protected:
     [[nodiscard]] auto get_texture(const std::string &texture_path) -> std::shared_ptr<texture>;
@@ -160,7 +156,7 @@ private:
 
     void fill_points_with_triangles(const std::vector<components::position> &points, const components::color &color);
 
-    [[nodiscard]] auto handle_icon(const std::string &icon) -> result<>;
+    [[nodiscard]] auto set_icon(const std::string &icon) -> result<>;
 
     [[nodiscard]] static auto get_embedded_sdl_rwops(std::span<std::byte const> &data) -> SDL_RWops *;
 

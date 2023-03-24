@@ -273,13 +273,13 @@ auto application::get_window_settings(const config &cfg) -> std::tuple<component
 
 void application::save_window_settings() {
     using namespace std::literals;
-    if(!render_->fullscreen()) {
-        auto window = render_->window();
+    if(!render_->is_fullscreen()) {
+        auto window = render_->get_window_size();
         settings_.set("window"s, "width"s, static_cast<std::int64_t>(window.width));
         settings_.set("window"s, "height"s, static_cast<std::int64_t>(window.height));
     }
-    settings_.set("window"s, "fullscreen"s, render_->fullscreen());
-    settings_.set("window"s, "monitor"s, static_cast<std::int64_t>(render_->monitor()));
+    settings_.set("window"s, "fullscreen"s, render_->is_fullscreen());
+    settings_.set("window"s, "monitor"s, static_cast<std::int64_t>(render_->get_monitor()));
 }
 
 auto application::load_embedded_fonts() -> result<> {

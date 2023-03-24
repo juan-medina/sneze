@@ -75,7 +75,7 @@ void sdl_events_system::update(world *world) {
         case SDL_WINDOWEVENT:
             switch(event_data.window.event) {
             case SDL_WINDOWEVENT_DISPLAY_CHANGED: {
-                auto window = render_->window();
+                auto window = render_->get_window_size();
                 auto logical = render_->window_to_logical(window);
                 world->emmit<events::window_resized>(window, logical);
             } break;
