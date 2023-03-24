@@ -71,11 +71,31 @@ public:
 
     ~config() = default;
 
-    config(const config &) = default; // NOLINT(bugprone-exception-escape)
-    config(config &&) = default;
+    /**
+     * copy constructor
+     * @param other The config object to copy
+     */
+    config(const config &other) = default; // NOLINT(bugprone-exception-escape)
 
-    auto operator=(const config &) -> config & = default;
-    auto operator=(config &&) -> config & = default;
+    /**
+     * move constructor
+     * @param other The config object to move
+     */
+    config(config &&other) = default;
+
+    /**
+     * copy assignment operator
+     * @param other The config object to copy
+     * @return config& A reference to the config object to allow chaining
+     */
+    auto operator=(const config &other) -> config & = default;
+
+    /**
+     * move assignment operator
+     * @param other The config object to move
+     * @return config& A reference to the config object to allow chaining
+     */
+    auto operator=(config &&other) -> config & = default;
 
     /**
      * @brief Set the clear color

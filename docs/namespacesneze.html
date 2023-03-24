@@ -225,9 +225,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ac2fc40755e8c87cf6d924201b19a21f4"><td class="memItemLeft" align="right" valign="top"><a id="ac2fc40755e8c87cf6d924201b19a21f4" name="ac2fc40755e8c87cf6d924201b19a21f4"></a>
-constexpr <a class="el" href="structsneze_1_1type__name__format.html">type_name_format</a>&#160;</td><td class="memItemRight" valign="bottom"><b>type_name_format_arr</b></td></tr>
-<tr class="memdesc:ac2fc40755e8c87cf6d924201b19a21f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the format of the type name for the current compiler. <br /></td></tr>
+<tr class="memitem:ac2fc40755e8c87cf6d924201b19a21f4"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structsneze_1_1type__name__format.html">type_name_format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesneze.html#ac2fc40755e8c87cf6d924201b19a21f4">type_name_format_arr</a></td></tr>
+<tr class="memdesc:ac2fc40755e8c87cf6d924201b19a21f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the format of the type name for the current compiler.  <br /></td></tr>
 <tr class="separator:ac2fc40755e8c87cf6d924201b19a21f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a776319c93836947f5127be1520ff7dc0"><td class="memTemplParams" colspan="2">template&lt;typename Type &gt; </td></tr>
 <tr class="memitem:a776319c93836947f5127be1520ff7dc0"><td class="memTemplItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze.html#a776319c93836947f5127be1520ff7dc0">type_name_storage</a></td></tr>
@@ -316,6 +315,39 @@ template&lt;typename Type &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="ac2fc40755e8c87cf6d924201b19a21f4" name="ac2fc40755e8c87cf6d924201b19a21f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2fc40755e8c87cf6d924201b19a21f4">&#9670;&#160;</a></span>type_name_format_arr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structsneze_1_1type__name__format.html">type_name_format</a> sneze::type_name_format_arr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= [] {</div>
+<div class="line">    type_name_format ret;</div>
+<div class="line">    std::string_view <span class="keyword">const</span> sample = raw_type_name&lt;int&gt;();</div>
+<div class="line">    ret.junk_leading = sample.find(<span class="stringliteral">&quot;int&quot;</span>);</div>
+<div class="line">    ret.junk_total = sample.size() - 3;</div>
+<div class="line">    <span class="keywordflow">return</span> ret;</div>
+<div class="line">}()</div>
+</div><!-- fragment -->
+<p>Holds the format of the type name for the current compiler. </p>
+
+<p class="definition">Definition at line <a class="el" href="type__name_8hpp_source.html#l00060">60</a> of file <a class="el" href="type__name_8hpp_source.html">type_name.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a776319c93836947f5127be1520ff7dc0" name="a776319c93836947f5127be1520ff7dc0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a776319c93836947f5127be1520ff7dc0">&#9670;&#160;</a></span>type_name_storage</h2>
 

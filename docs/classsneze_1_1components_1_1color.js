@@ -1,7 +1,10 @@
 var classsneze_1_1components_1_1color =
 [
     [ "component", "classsneze_1_1components_1_1color.html#a55c57241916f40895482d147c167c75b", null ],
-    [ "opacity", "classsneze_1_1components_1_1color.html#a9c3f04325b0062b932b5c4b182bdd961", null ],
+    [ "opacity", "classsneze_1_1components_1_1color.html#a9c3f04325b0062b932b5c4b182bdd961", [
+      [ "translucent", "classsneze_1_1components_1_1color.html#a9c3f04325b0062b932b5c4b182bdd961a58897288cb9e6574594b4097adac1e2f", null ],
+      [ "opaque", "classsneze_1_1components_1_1color.html#a9c3f04325b0062b932b5c4b182bdd961a3f1d76dffc9f18194e86e0c69dd192a2", null ]
+    ] ],
     [ "rgba", "classsneze_1_1components_1_1color.html#ac71c9d8ee292d2756fbdd2cd5af66f85", null ],
     [ "rgb", "classsneze_1_1components_1_1color.html#a3c8441c896da3a9cc6d8fc6246ec2987", null ],
     [ "alpha", "classsneze_1_1components_1_1color.html#a6adf95bc37a1b2070343dbb3204f3243", null ],

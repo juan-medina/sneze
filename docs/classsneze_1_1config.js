@@ -1,6 +1,10 @@
 var classsneze_1_1config =
 [
     [ "config", "classsneze_1_1config.html#a45280ab7d39251d38e1fbba8738fb37b", null ],
+    [ "config", "classsneze_1_1config.html#af866d10ebfb8721421a285be7774cae8", null ],
+    [ "config", "classsneze_1_1config.html#a2c6bfb25a2963003570af97e246764da", null ],
+    [ "operator=", "classsneze_1_1config.html#ac2491df21f9deb3b10bbb701394c13db", null ],
+    [ "operator=", "classsneze_1_1config.html#a1f79326d4d689106dffd4e7e2336f7ad", null ],
     [ "clear", "classsneze_1_1config.html#a57ccbdb04ec6263edf248b9996998fc0", null ],
     [ "exit", "classsneze_1_1config.html#a2f18a8155624282441dbfe183a366213", null ],
     [ "exit", "classsneze_1_1config.html#aad1960513c8c2ffc0c4c279949003fe4", null ],

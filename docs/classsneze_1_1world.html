@@ -95,6 +95,7 @@ $(document).ready(function(){initNavTree('classsneze_1_1world.html',''); initRes
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classsneze_1_1world-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">sneze::world Class Reference</div></div>
 </div><!--header-->
@@ -115,6 +116,18 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>~world</b> ()=default</td></tr>
 <tr class="memdesc:a0fd61555aac4d8f1a995f4c00a159a91"><td class="mdescLeft">&#160;</td><td class="mdescRight">world Default destructor <br /></td></tr>
 <tr class="separator:a0fd61555aac4d8f1a995f4c00a159a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9de6282bd24a4b0dfcc6e3b9dc60ecd4"><td class="memItemLeft" align="right" valign="top"><a id="a9de6282bd24a4b0dfcc6e3b9dc60ecd4" name="a9de6282bd24a4b0dfcc6e3b9dc60ecd4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>world</b> (const <a class="el" href="classsneze_1_1world.html">world</a> &amp;)=delete</td></tr>
+<tr class="separator:a9de6282bd24a4b0dfcc6e3b9dc60ecd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad91e34d033bff347d5eba0a28ce19f98"><td class="memItemLeft" align="right" valign="top"><a id="ad91e34d033bff347d5eba0a28ce19f98" name="ad91e34d033bff347d5eba0a28ce19f98"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>world</b> (const <a class="el" href="classsneze_1_1world.html">world</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:ad91e34d033bff347d5eba0a28ce19f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae401585204241157d47cd601e188fe9d"><td class="memItemLeft" align="right" valign="top"><a id="ae401585204241157d47cd601e188fe9d" name="ae401585204241157d47cd601e188fe9d"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classsneze_1_1world.html">world</a> &amp;) -&gt; <a class="el" href="classsneze_1_1world.html">world</a> &amp;=delete</td></tr>
+<tr class="separator:ae401585204241157d47cd601e188fe9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a455f12d719e098952df1db0ade784495"><td class="memItemLeft" align="right" valign="top"><a id="a455f12d719e098952df1db0ade784495" name="a455f12d719e098952df1db0ade784495"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classsneze_1_1world.html">world</a> &amp;&amp;) -&gt; <a class="el" href="classsneze_1_1world.html">world</a> &amp;=delete</td></tr>
+<tr class="separator:a455f12d719e098952df1db0ade784495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a674ced6bd76f7e498f4d1b6fce2ac125"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:a674ced6bd76f7e498f4d1b6fce2ac125"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a674ced6bd76f7e498f4d1b6fce2ac125">add_entity</a> (Args... args)</td></tr>
 <tr class="memdesc:a674ced6bd76f7e498f4d1b6fce2ac125"><td class="mdescLeft">&#160;</td><td class="mdescRight">add an entity to the world This function will add an entity to the world, and will return the entity id.  <br /></td></tr>
@@ -243,6 +256,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
 <tr class="memdesc:af9755abf52731a956addc3d4d3a7c222"><td class="mdescLeft">&#160;</td><td class="mdescRight">clear the world <br /></td></tr>
 <tr class="separator:af9755abf52731a956addc3d4d3a7c222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a5b97104505447c42689b96b15027d832"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1world.html#a5b97104505447c42689b96b15027d832">application</a></td></tr>
+<tr class="separator:a5b97104505447c42689b96b15027d832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The world class This class is the main class of the engine, it will hold all the entities, globals, components, and systems. </p>
@@ -1502,6 +1520,31 @@ template&lt;typename ComponentType , typename InstanceType &gt; </div>
 <a class="el" href="classsneze_1_1world.html#a716691c4afaca1b1872408aa6f0b4e22" title="remove listener to addition of a component type to an entity">world::remove_listener_to_add_component</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00481">481</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a5b97104505447c42689b96b15027d832" name="a5b97104505447c42689b96b15027d832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b97104505447c42689b96b15027d832">&#9670;&#160;</a></span>application</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classsneze_1_1application.html">application</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="world_8hpp_source.html#l00066">66</a> of file <a class="el" href="world_8hpp_source.html">world.hpp</a>.</p>
 
 </div>
 </div>

@@ -108,6 +108,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4df415e233d7b3f9e980cbc7da451b4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1resources__cache.html#a4df415e233d7b3f9e980cbc7da451b4f">resources_cache</a> (<a class="el" href="classsneze_1_1render.html">render</a> *<a class="el" href="classsneze_1_1render.html">render</a>)</td></tr>
 <tr class="memdesc:a4df415e233d7b3f9e980cbc7da451b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new resources cache object.  <br /></td></tr>
 <tr class="separator:a4df415e233d7b3f9e980cbc7da451b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af11b00d327bd0a550f3b9d6d725e905b"><td class="memItemLeft" align="right" valign="top"><a id="af11b00d327bd0a550f3b9d6d725e905b" name="af11b00d327bd0a550f3b9d6d725e905b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>resources_cache</b> (const <a class="el" href="classsneze_1_1resources__cache.html">resources_cache</a> &amp;)=delete</td></tr>
+<tr class="separator:af11b00d327bd0a550f3b9d6d725e905b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbea774a24ca9bcc95aa902827228c0f"><td class="memItemLeft" align="right" valign="top"><a id="afbea774a24ca9bcc95aa902827228c0f" name="afbea774a24ca9bcc95aa902827228c0f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>resources_cache</b> (<a class="el" href="classsneze_1_1resources__cache.html">resources_cache</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:afbea774a24ca9bcc95aa902827228c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ce890943031981acfd05a82d6713262"><td class="memItemLeft" align="right" valign="top"><a id="a0ce890943031981acfd05a82d6713262" name="a0ce890943031981acfd05a82d6713262"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classsneze_1_1resources__cache.html">resources_cache</a> &amp;) -&gt; <a class="el" href="classsneze_1_1resources__cache.html">resources_cache</a> &amp;=delete</td></tr>
+<tr class="separator:a0ce890943031981acfd05a82d6713262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d74aebb01054780033a759b157cee6"><td class="memItemLeft" align="right" valign="top"><a id="ae7d74aebb01054780033a759b157cee6" name="ae7d74aebb01054780033a759b157cee6"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classsneze_1_1resources__cache.html">resources_cache</a> &amp;&amp;) -&gt; <a class="el" href="classsneze_1_1resources__cache.html">resources_cache</a> &amp;=delete</td></tr>
+<tr class="separator:ae7d74aebb01054780033a759b157cee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a769453faeaa4e5ac30d65991936935df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1resources__cache.html#a769453faeaa4e5ac30d65991936935df">load</a> (const std::string &amp;uri, Args... args) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;</td></tr>
 <tr class="memdesc:a769453faeaa4e5ac30d65991936935df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a resource If the resource is already loaded, the count is increased, otherwise the resource is loaded.  <br /></td></tr>
 <tr class="separator:a769453faeaa4e5ac30d65991936935df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,9 +129,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f6e89ba55c9d5f2e40888966e161e73"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1resources__cache.html#a4f6e89ba55c9d5f2e40888966e161e73">get</a> (const std::string &amp;uri) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt; std::shared_ptr&lt; Type &gt;, <a class="el" href="classsneze_1_1error.html">error</a> &gt;</td></tr>
 <tr class="memdesc:a4f6e89ba55c9d5f2e40888966e161e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a resource.  <br /></td></tr>
 <tr class="separator:a4f6e89ba55c9d5f2e40888966e161e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32ad77f8513b50cdd7262e0776e8cec1"><td class="memItemLeft" align="right" valign="top"><a id="a32ad77f8513b50cdd7262e0776e8cec1" name="a32ad77f8513b50cdd7262e0776e8cec1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
-<tr class="memdesc:a32ad77f8513b50cdd7262e0776e8cec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the cache. <br /></td></tr>
+<tr class="memitem:a32ad77f8513b50cdd7262e0776e8cec1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1resources__cache.html#a32ad77f8513b50cdd7262e0776e8cec1">clear</a> ()</td></tr>
+<tr class="memdesc:a32ad77f8513b50cdd7262e0776e8cec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the cache.  <br /></td></tr>
 <tr class="separator:a32ad77f8513b50cdd7262e0776e8cec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -302,6 +313,37 @@ template&lt;typename Type , typename... Args&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if the resource is loaded, error otherwise </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="resource_8hpp_source.html#l00184">184</a> of file <a class="el" href="resource_8hpp_source.html">resource.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a32ad77f8513b50cdd7262e0776e8cec1" name="a32ad77f8513b50cdd7262e0776e8cec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ad77f8513b50cdd7262e0776e8cec1">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Type , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsneze_1_1resources__cache.html">sneze::resources_cache</a>&lt; Type, Args &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clear the cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="resource_8hpp_source.html#l00195">195</a> of file <a class="el" href="resource_8hpp_source.html">resource.hpp</a>.</p>
 
 </div>
 </div>

@@ -109,6 +109,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:af11440623e7ffa816f8db539145a30c8"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:af11440623e7ffa816f8db539145a30c8"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze_1_1logger.html#af11440623e7ffa816f8db539145a30c8">log</a> (const <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7">level</a> <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7">level</a>, std::source_location source, fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...args)</td></tr>
+<tr class="memdesc:af11440623e7ffa816f8db539145a30c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">log a message with the given level, source location and format string  <br /></td></tr>
+<tr class="separator:af11440623e7ffa816f8db539145a30c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc327f3c47e754f9672d84f57135ca37"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:abc327f3c47e754f9672d84f57135ca37"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze_1_1logger.html#abc327f3c47e754f9672d84f57135ca37">info</a> (fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; info&lt; Args... &gt;</td></tr>
 <tr class="memdesc:abc327f3c47e754f9672d84f57135ca37"><td class="mdescLeft">&#160;</td><td class="mdescRight">log a message with <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7acaf9b6b99962bf5c2264824231d7a40c" title="log info, warning, error and critical messages">sneze::logger::level::info</a>  <br /></td></tr>
@@ -125,6 +129,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a08459585cec2a8e71c7ef1018eceba16"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze_1_1logger.html#a08459585cec2a8e71c7ef1018eceba16">warning</a> (fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; warning&lt; Args... &gt;</td></tr>
 <tr class="memdesc:a08459585cec2a8e71c7ef1018eceba16"><td class="mdescLeft">&#160;</td><td class="mdescRight">log a message with <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7b83d3f08fa392b79e3f553b585971cd" title="log warning, error and critical messages">sneze::logger::level::warning</a>  <br /></td></tr>
 <tr class="separator:a08459585cec2a8e71c7ef1018eceba16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c761dc1df43dfcc5d8672e948658e21"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a6c761dc1df43dfcc5d8672e948658e21"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesneze_1_1logger.html#a6c761dc1df43dfcc5d8672e948658e21">trace</a> (fmt::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...) -&gt; trace&lt; Args... &gt;</td></tr>
+<tr class="memdesc:a6c761dc1df43dfcc5d8672e948658e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">log a message with <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a04a75036e9d520bb983c5ed03b8d0182" title="log all messages">sneze::logger::level::trace</a>  <br /></td></tr>
+<tr class="separator:a6c761dc1df43dfcc5d8672e948658e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b7484ec500e53ca56bdabb0cd574378"><td class="memItemLeft" align="right" valign="top"><a id="a1b7484ec500e53ca56bdabb0cd574378" name="a1b7484ec500e53ca56bdabb0cd574378"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setup_log</b> ()</td></tr>
 <tr class="memdesc:a1b7484ec500e53ca56bdabb0cd574378"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup the logger system <br /></td></tr>
@@ -192,6 +200,75 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setup_log</b> ()</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="af11440623e7ffa816f8db539145a30c8" name="af11440623e7ffa816f8db539145a30c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af11440623e7ffa816f8db539145a30c8">&#9670;&#160;</a></span>log()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void sneze::logger::log </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7">level</a>&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::source_location&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">fmt::format_string&lt; Args... &gt;&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>log a message with the given level, source location and format string </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>the types of the arguments to be formatted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>the level of the message </td></tr>
+    <tr><td class="paramname">source</td><td>the source location of the message </td></tr>
+    <tr><td class="paramname">fmt</td><td>the format string </td></tr>
+    <tr><td class="paramname">args</td><td>the arguments to be formatted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="logger_8hpp_source.html#l00123">123</a> of file <a class="el" href="logger_8hpp_source.html">logger.hpp</a>.</p>
+
+</div>
+</div>
 <a id="abc327f3c47e754f9672d84f57135ca37" name="abc327f3c47e754f9672d84f57135ca37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc327f3c47e754f9672d84f57135ca37">&#9670;&#160;</a></span>info()</h2>
 
@@ -353,6 +430,50 @@ template&lt;typename... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>log a message with <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a7b83d3f08fa392b79e3f553b585971cd" title="log warning, error and critical messages">sneze::logger::level::warning</a> </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>the types of the arguments to be formatted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>the format string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6c761dc1df43dfcc5d8672e948658e21" name="a6c761dc1df43dfcc5d8672e948658e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c761dc1df43dfcc5d8672e948658e21">&#9670;&#160;</a></span>trace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">sneze::logger::trace </td>
+          <td>(</td>
+          <td class="paramtype">fmt::format_string&lt; Args... &gt;&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  trace&lt; Args... &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>log a message with <a class="el" href="namespacesneze_1_1logger.html#a7652a857f727b24ffa46724d8712f6d7a04a75036e9d520bb983c5ed03b8d0182" title="log all messages">sneze::logger::level::trace</a> </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Args</td><td>the types of the arguments to be formatted </td></tr>

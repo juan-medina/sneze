@@ -110,6 +110,14 @@ enum class level : int {
     off = spdlog::level::off
 };
 
+/**
+ * @brief log a message with the given level, source location and format string
+ * @tparam Args the types of the arguments to be formatted
+ * @param level the level of the message
+ * @param source the source location of the message
+ * @param fmt the format string
+ * @param args the arguments to be formatted
+ */
 template<typename... Args>
 static void
 log(const level level, std::source_location source, fmt::format_string<Args...> fmt, Args &&...args) {
@@ -198,6 +206,12 @@ struct trace {
     }
 };
 
+/**
+ * @brief log a message with sneze::logger::level::trace
+ *
+ * @tparam Args the types of the arguments to be formatted
+ * @param fmt the format string
+ */
 template<typename... Args>
 trace(fmt::format_string<Args...> fmt, Args &&...) -> trace<Args...>;
 

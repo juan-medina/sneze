@@ -112,10 +112,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2bad309d431f8ffd368ea6c67d342da1"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1resource.html#a2bad309d431f8ffd368ea6c67d342da1">init</a> (const std::string &amp;uri, Args... args) -&gt; <a class="el" href="classsneze_1_1result.html">result</a>&lt;&gt;=0</td></tr>
 <tr class="memdesc:a2bad309d431f8ffd368ea6c67d342da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the resource.  <br /></td></tr>
 <tr class="separator:a2bad309d431f8ffd368ea6c67d342da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72071099bcc5212a94ba2d4adcbc338b"><td class="memItemLeft" align="right" valign="top"><a id="a72071099bcc5212a94ba2d4adcbc338b" name="a72071099bcc5212a94ba2d4adcbc338b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()=0</td></tr>
-<tr class="memdesc:a72071099bcc5212a94ba2d4adcbc338b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the resource. <br /></td></tr>
+<tr class="memitem:a72071099bcc5212a94ba2d4adcbc338b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsneze_1_1resource.html#a72071099bcc5212a94ba2d4adcbc338b">end</a> ()=0</td></tr>
+<tr class="memdesc:a72071099bcc5212a94ba2d4adcbc338b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the resource.  <br /></td></tr>
 <tr class="separator:a72071099bcc5212a94ba2d4adcbc338b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45d6706bea5e065931007895378d8b41"><td class="memItemLeft" align="right" valign="top"><a id="a45d6706bea5e065931007895378d8b41" name="a45d6706bea5e065931007895378d8b41"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>resource</b> (const <a class="el" href="classsneze_1_1resource.html">resource</a> &amp;)=delete</td></tr>
+<tr class="separator:a45d6706bea5e065931007895378d8b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a016876d0226acec643c635988d64df6b"><td class="memItemLeft" align="right" valign="top"><a id="a016876d0226acec643c635988d64df6b" name="a016876d0226acec643c635988d64df6b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>resource</b> (<a class="el" href="classsneze_1_1resource.html">resource</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a016876d0226acec643c635988d64df6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae206d8d8e4bb59280b5f450175be99aa"><td class="memItemLeft" align="right" valign="top"><a id="ae206d8d8e4bb59280b5f450175be99aa" name="ae206d8d8e4bb59280b5f450175be99aa"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classsneze_1_1resource.html">resource</a> &amp;) -&gt; <a class="el" href="classsneze_1_1resource.html">resource</a> &amp;=delete</td></tr>
+<tr class="separator:ae206d8d8e4bb59280b5f450175be99aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1995bd65cb93d6ddc22d0aa50871276"><td class="memItemLeft" align="right" valign="top"><a id="ae1995bd65cb93d6ddc22d0aa50871276" name="ae1995bd65cb93d6ddc22d0aa50871276"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classsneze_1_1resource.html">resource</a> &amp;&amp;) -&gt; <a class="el" href="classsneze_1_1resource.html">resource</a> &amp;=delete</td></tr>
+<tr class="separator:ae1995bd65cb93d6ddc22d0aa50871276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -222,6 +233,37 @@ template&lt;typename... Args&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the resource was initialized successfully, error otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a72071099bcc5212a94ba2d4adcbc338b" name="a72071099bcc5212a94ba2d4adcbc338b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72071099bcc5212a94ba2d4adcbc338b">&#9670;&#160;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classsneze_1_1resource.html">sneze::resource</a>&lt; Args &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the resource. </p>
+
+<p>Implemented in <a class="el" href="classsneze_1_1texture.html#ae13126f62966a8a25a488ef2975bead3">sneze::texture</a>, <a class="el" href="classsneze_1_1font.html#a05d100a3f28e081bf3e2469f3f934045">sneze::font</a>, and <a class="el" href="classsneze_1_1sprite__sheet.html#a77009c31f52f7314686afa30c340eeba">sneze::sprite_sheet</a>.</p>
 
 </div>
 </div>
