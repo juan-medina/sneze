@@ -59,6 +59,8 @@ auto sprites_game::init() -> sneze::result<> {
                                      sneze::components::sprite{ghost_sprite_sheet, ghost_default_frame},
                                      sneze::components::position{logical_width / 2.F, logical_height / 2.F},
                                      sneze::components::color::untinted);
+    // tag the ghost entity
+    world()->tag<ghost_tag>(ghost);
 
     // add the shadow entity to the world, it is a single sprite
     world()->add_entity(sneze::components::renderable{},
@@ -66,8 +68,6 @@ auto sprites_game::init() -> sneze::result<> {
                         sneze::components::position{logical_width / 2.F, (logical_height / 2.F) + shadow_gap},
                         sneze::components::color::untinted);
 
-    // tag the ghost entity
-    world()->tag<ghost_tag>(ghost);
 
     // add the bottom text to the world
     world()->add_entity(
