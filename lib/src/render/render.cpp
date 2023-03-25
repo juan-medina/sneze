@@ -25,13 +25,17 @@ SOFTWARE.
 #include "sneze/render/render.hpp"
 
 #include "sneze/embedded/embedded.hpp"
+#include "sneze/embedded/mono_font_data.hpp"
+#include "sneze/embedded/mono_font_texture_data.hpp"
+#include "sneze/embedded/regular_font_data.hpp"
+#include "sneze/embedded/regular_font_texture_data.hpp"
+#include "sneze/embedded/sneze_logo_data.hpp"
 #include "sneze/platform/logger.hpp"
 #include "sneze/platform/span_istream.hpp"
 #include "sneze/render/font.hpp"
 
 #include <fstream>
 
-#include <binary_resources/binary.hpp>
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -520,11 +524,26 @@ auto render::get_from_embedded_data(const std::string &path) -> std::optional<st
 
 void render::init_embedded_data() {
     logger::info("initializing embedded data");
-    add_to_embedded_data(embedded::sneze_logo, embedded::sneze_logo_data());
-    add_to_embedded_data(embedded::mono_font, embedded::mono_font_data());
-    add_to_embedded_data(embedded::mono_font_texture, embedded::mono_font_texture_data());
-    add_to_embedded_data(embedded::regular_font, embedded::regular_font_data());
-    add_to_embedded_data(embedded::regular_font_texture, embedded::regular_font_texture_data());
+
+    add_to_embedded_data(embedded::sneze_logo,
+                         std::as_bytes(std::span<unsigned char const>{embedded::sneze_logo_data.data(),
+                                                                      embedded::sneze_logo_data.size()}));
+
+    add_to_embedded_data(embedded::mono_font,
+                         std::as_bytes(std::span<unsigned char const>{embedded::mono_font_data.data(),
+                                                                      embedded::mono_font_data.size()}));
+
+    add_to_embedded_data(embedded::mono_font_texture,
+                         std::as_bytes(std::span<unsigned char const>{embedded::mono_font_texture_data.data(),
+                                                                      embedded::mono_font_texture_data.size()}));
+
+    add_to_embedded_data(embedded::regular_font,
+                         std::as_bytes(std::span<unsigned char const>{embedded::regular_font_data.data(),
+                                                                      embedded::regular_font_data.size()}));
+
+    add_to_embedded_data(embedded::regular_font_texture,
+                         std::as_bytes(std::span<unsigned char const>{embedded::regular_font_texture_data.data(),
+                                                                      embedded::regular_font_texture_data.size()}));
 }
 
 auto render::file_exists(const std::string &path) -> bool {

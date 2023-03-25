@@ -36,6 +36,44 @@ set(LIBRARY_INCLUDE_PATH "${LIBRARY_MODULE_PATH}/include")
 file(GLOB_RECURSE LIB_HEADER_FILES "${LIBRARY_INCLUDE_PATH}/*.hpp")
 file(GLOB_RECURSE LIB_SOURCE_FILES "${LIBRARY_SRC_PATH}/*.cpp")
 
+#create embedded resources
+set(EMBEDDED_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/_deps/embedded-src/include/sneze/embedded")
+
+#create embedded directory
+file(MAKE_DIRECTORY "${EMBEDDED_OUTPUT_DIR}")
+
+set_property(GLOBAL PROPERTY EMBEDDED_FILES)
+
+function(add_embedded_resource INPUT_FILE OUTPUT_FILE)
+    set(INPUT_EMBEDDED_FILE "${PROJECT_SOURCE_DIR}/lib/embedded/${INPUT_FILE}")
+    set(OUTPUT_EMBEDDED_FILE "${EMBEDDED_OUTPUT_DIR}/${OUTPUT_FILE}.hpp")
+
+    get_property(local_EMBEDDED_FILES GLOBAL PROPERTY EMBEDDED_FILES)
+
+    add_custom_command(
+            OUTPUT "${OUTPUT_EMBEDDED_FILE}"
+            COMMAND "dump" "${INPUT_EMBEDDED_FILE}" "${OUTPUT_EMBEDDED_FILE}"
+            DEPENDS "${INPUT_EMBEDDED_FILE}"
+    )
+
+    list(APPEND local_EMBEDDED_FILES "${OUTPUT_EMBEDDED_FILE}")
+    set_property(GLOBAL PROPERTY EMBEDDED_FILES "${local_EMBEDDED_FILES}")
+    message(
+            "add embedded resource: ${INPUT_EMBEDDED_FILE} -> ${OUTPUT_EMBEDDED_FILE}"
+    )
+endfunction()
+
+add_embedded_resource("sprites/sneze.png" "sneze_logo_data")
+add_embedded_resource("fonts/fira_mono.fnt" "mono_font_data")
+add_embedded_resource("fonts/fira_mono_0.png" "mono_font_texture_data")
+add_embedded_resource("fonts/tilt_warp.fnt" "regular_font_data")
+add_embedded_resource("fonts/tilt_warp_0.png" "regular_font_texture_data")
+
+get_property(EMBEDDED_FILES GLOBAL PROPERTY EMBEDDED_FILES)
+
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/_deps/embedded-src/include")
+
+
 # enable FetchContent
 include(FetchContent)
 Set(FETCHCONTENT_QUIET FALSE)
@@ -151,21 +189,6 @@ FetchContent_MakeAvailable(CMakeEmbed)
 
 list(APPEND CMAKE_MODULE_PATH "${CMakeEmbed_SOURCE_DIR}/cmake")
 
-include(EmbedResources)
-
-add_embedded_binary_resources(
-        sneze_resources_binary
-        OUT_DIR binary_resources
-        HEADER binary.hpp
-        NAMESPACE sneze::embedded
-        RESOURCE_NAMES sneze_logo_data mono_font_data mono_font_texture_data regular_font_data regular_font_texture_data
-        RESOURCES
-        "${PROJECT_SOURCE_DIR}/lib/embedded/sprites/sneze.png"
-        "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/fira_mono.fnt"
-        "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/fira_mono_0.png"
-        "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/tilt_warp.fnt"
-        "${PROJECT_SOURCE_DIR}/lib/embedded/fonts/tilt_warp_0.png"
-)
 
 # restore flags
 set(CMAKE_CXX_FLAGS ${SNEZE_CXX_FLAGS})
@@ -176,7 +199,9 @@ endif ()
 
 
 #set library
-add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES})
+add_library(${LIB_NAME} STATIC ${LIB_SOURCE_FILES} ${LIB_HEADER_FILES} ${EMBEDDED_FILES})
+
+add_dependencies(${LIB_NAME} dump)
 
 #add dependencies
 target_link_libraries(${LIB_NAME}
@@ -187,7 +212,6 @@ target_link_libraries(${LIB_NAME}
         PUBLIC EnTT::EnTT
         PUBLIC SDL2::SDL2-static
         PUBLIC SDL2_image::SDL2_image-static
-        PRIVATE sneze_resources_binary
         )
 
 #set includes
