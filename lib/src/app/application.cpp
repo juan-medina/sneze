@@ -119,7 +119,7 @@ auto application::launch() -> result<> {
                              config.get_logical_size(),
                              fullscreen,
                              monitor,
-                             get_name(),
+                             fmt::format("{} - {}", get_team(), get_name()),
                              config.get_window_icon(),
                              config.get_clear_color())
                       .ko()) {
