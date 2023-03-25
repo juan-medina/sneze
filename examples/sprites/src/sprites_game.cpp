@@ -24,86 +24,97 @@ SOFTWARE.
 
 #include "sprites_game.hpp"
 
-using namespace std::string_literals;
+// this is the name of the team, and the name of the application, it will be used to create the
+// window, and for saving the settings
+sprites_game::sprites_game(): application(team_name, game_name) {}
 
-const auto ghost_sprite_sheet = "resources/sprites/kawaii-ghost/kawaii-ghost.json"s;
-const auto ghost_default_frame = "default.png"s;
-const auto ghost_happy_frame = "happy.png"s;
-const auto ghost_damaged_frame = "damaged.png"s;
+// configure the game, this is called before the game starts, and it is used to configure the game
+auto sprites_game::configure() -> sneze::config {
+    // log that we are configuring the game
+    sneze::logger::debug("configure");
 
-sprites_game::sprites_game(): application("sneze", "Sprites Game") {}
-
-namespace logger = sneze::logger;
-using config = sneze::config;
-namespace components = sneze::components;
-using color = components::color;
-
-auto sprites_game::configure() -> config {
-    logger::debug("configure");
-
-    namespace keyboard = sneze::keyboard;
-    using key = keyboard::key;
-    using modifier = keyboard::modifier;
-
-    return config()
-        .size(1920, 1080)
-        .clear(color::light_gray)
-        .exit(key::escape)
-        .toggle_full_screen(modifier::alt, key::_return);
+    // create the configuration with the size, the clear color and the exit and the full screen toggle keys
+    return sneze::config()
+        .size(logical_width, logical_height)
+        .clear(sneze::components::color::light_gray)
+        .exit(sneze::keyboard::key::escape)
+        .toggle_full_screen(sneze::keyboard::modifier::alt, sneze::keyboard::key::_return);
 }
 
-auto sprites_game::init() -> result {
-    logger::debug("init sprites game");
+// initialize the game, this is called before the game starts
+auto sprites_game::init() -> sneze::result<> {
+    // log that we are initializing the game
+    sneze::logger::debug("init sprites game");
 
-    using error = sneze::error;
-
+    // load the ghost sprite sheet, containing the ghost frames
     if(load_sprite_sheet(ghost_sprite_sheet).ko()) {
-        logger::error("game can't load sprite sheet");
-        return error("Can't load sprite sheet.");
+        sneze::logger::error("game can't load ghost sprite sheet");
+        return sneze::error("Can't load ghost sprite sheet.");
     }
 
-    using renderable = components::renderable;
-    using sprite = components::sprite;
-    using position = components::position;
+    // load the shadow sprite, is a single sprite without sheet
+    if(load_sprite(shadow_sprite).ko()) {
+        sneze::logger::error("game can't load shadow sprite");
+        return sneze::error("Can't load shadow sprite.");
+    }
 
-    world()->add_entity(renderable{},
-                        sprite{ghost_sprite_sheet, ghost_default_frame},
-                        position{1920.F / 2.F, 1080.F / 2.F},
-                        color::untinted);
+    // add the ghost entity to the world, it is contained in the sprite sheet
+    auto ghost = world()->add_entity(sneze::components::renderable{},
+                                     sneze::components::sprite{ghost_sprite_sheet, ghost_default_frame},
+                                     sneze::components::position{logical_width / 2.F, logical_height / 2.F},
+                                     sneze::components::color::untinted);
 
-    static constexpr auto text = "Space to change sprite, cursors to flip direction.";
+    // add the shadow entity to the world, it is a single sprite
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::sprite{shadow_sprite},
+                        sneze::components::position{logical_width / 2.F, (logical_height / 2.F) + shadow_gap},
+                        sneze::components::color::untinted);
 
-    using label = components::label;
-    using alignment = components::alignment;
-    using vertical = components::vertical;
-    using horizontal = components::horizontal;
-    using anchor = components::anchor;
-    namespace embedded = sneze::embedded;
+    // tag the ghost entity
+    world()->tag<ghost_tag>(ghost);
 
-    world()->add_entity(renderable{},
-                        label{text, embedded::regular_font, 40.F, alignment{horizontal::right, vertical::bottom}},
-                        anchor{horizontal::right, vertical::bottom},
-                        color::white);
+    // add the bottom text to the world
+    world()->add_entity(
+        sneze::components::renderable{},
+        sneze::components::label{
+            bottom_text,
+            sneze::embedded::regular_font,
+            text_size,
+            sneze::components::alignment{sneze::components::horizontal::right, sneze::components::vertical::bottom}},
+        sneze::components::anchor{sneze::components::horizontal::right, sneze::components::vertical::bottom},
+        sneze::components::color::white);
 
-    world()->add_listener<key_up, &sprites_game::on_key_up>(this);
-    world()->add_listener<key_down, &sprites_game::on_key_down>(this);
+    // listen for key up and key down events
+    world()->add_listener<sneze::events::key_up, &sprites_game::on_key_up>(this);
+    world()->add_listener<sneze::events::key_down, &sprites_game::on_key_down>(this);
 
+    // all good
     return true;
 }
 
 void sprites_game::end() {
-    logger::debug("ending sprites game");
+    // log that we are ending the game
+    sneze::logger::debug("ending sprites game");
 
+    // unload the ghost sprite sheet
     unload_sprite_sheet(ghost_sprite_sheet);
 
+    // unload the shadow sprite
+    unload_sprite(shadow_sprite);
+
+    // remove the listeners
     world()->remove_listeners(this);
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
-void sprites_game::on_key_up(const key_up &event) {
+void sprites_game::on_key_up(const sneze::events::key_up &event) {
+    // if the space key is pressed
     if(event.key == sneze::keyboard::key::space) {
-        for(auto [entity, sprite]: event.world->get_entities<components::sprite>()) {
+        // get all the entities with a sprite component and a ghost tag
+        for(auto [entity, sprite]: event.world->get_tagged<ghost_tag, sneze::components::sprite>()) {
+            // get the current frame
             auto frame = sprite.frame;
+            // change the frame
             if(frame == ghost_default_frame) {
                 sprite.frame = ghost_happy_frame;
             } else if(frame == ghost_happy_frame) {
@@ -116,14 +127,23 @@ void sprites_game::on_key_up(const key_up &event) {
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
-void sprites_game::on_key_down(const key_down &event) {
+void sprites_game::on_key_down(const sneze::events::key_down &event) {
+    // not flipped in the x axis by default
+    bool flip_x = false;
+
+    // if the key is the left key
     if(event.key == sneze::keyboard::key::left) {
-        for(auto [entity, sprite]: event.world->get_entities<components::sprite>()) {
-            sprite.flip_x = true;
-        }
-    } else if(event.key == sneze::keyboard::key::right) {
-        for(auto [entity, sprite]: event.world->get_entities<components::sprite>()) {
-            sprite.flip_x = false;
-        }
+        flip_x = true;
+    }
+    // if the key is not the right key
+    else if(event.key != sneze::keyboard::key::right) {
+        // we don't care about this key
+        return;
+    }
+
+    // get all the entities with a sprite component and a ghost tag
+    for(auto [entity, sprite]: event.world->get_tagged<ghost_tag, sneze::components::sprite>()) {
+        // flip the sprite in the x axis
+        sprite.flip_x = flip_x;
     }
 }

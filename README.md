@@ -64,7 +64,7 @@ To get started, simply follow the instructions in the [Getting Started](GETTING_
 
 ## Examples
 
-SNEZE comes with a few examples to help you get started. You can find them in the [examples](examples/README.md) folder.
+SNEZE comes with a few examples to help you get started. You can find them in the [examples](https://github.com/juan-medina/sneze/tree/main/examples/README.md) folder.
 
 ## Dependencies
 
