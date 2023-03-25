@@ -176,20 +176,6 @@ set(rapidjson_INCLUDE_DIR ${rapidjson_SOURCE_DIR}/include)
 
 include_directories(SYSTEM ${rapidjson_INCLUDE_DIR})
 
-# adding CMake embedded dependencies
-
-FetchContent_Declare(
-        CMakeEmbed
-        GIT_REPOSITORY https://github.com/MiSo1289/cmake-embed.git
-        GIT_TAG v0.3.0
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE
-)
-FetchContent_MakeAvailable(CMakeEmbed)
-
-list(APPEND CMAKE_MODULE_PATH "${CMakeEmbed_SOURCE_DIR}/cmake")
-
-
 # restore flags
 set(CMAKE_CXX_FLAGS ${SNEZE_CXX_FLAGS})
 

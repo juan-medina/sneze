@@ -121,7 +121,7 @@ auto sprite_sheet::init(const std::string &uri, bool is_single_texture) -> resul
 
 auto sprite_sheet::init_from_json(const std::filesystem::path &file_path) -> result<> {
 
-    auto stream = get_render()->get_istream(file_path);
+    auto stream = get_render()->get_istream(file_path.string());
     if(stream == nullptr) {
         logger::error("error opening sprite sheet file: {}", file_path.string());
         return error("Can't open sprite sheet file.");

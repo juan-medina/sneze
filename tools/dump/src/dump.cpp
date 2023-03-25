@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include <chrono>
+#include <array>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
@@ -118,12 +118,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     if(input_file.is_open()) {
         const auto total_bytes = std::filesystem::file_size(origin_path);
-        const auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        auto buffer = std::array<char, 80>{};
-        std::strftime(buffer.data(), buffer.size(), "%Y-%m-%d %H:%M:%S", std::localtime(&time));
-
-        output_file << "// " << file1.filename().string() << " size: " << total_bytes / 1024 << " kb "
-                    << "generated on: " << buffer.data() << std::endl;
+        output_file << "// " << file1.filename().string() << " size: " << total_bytes / 1024 << " kb " << std::endl;
         output_file << "static constexpr std::array<unsigned char," << total_bytes << "> "
                     << file2.filename().stem().string() << " {" << std::endl;
         output_file << "    ";
