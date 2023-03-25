@@ -24,10 +24,6 @@ SOFTWARE.
 
 #include "sprites_game.hpp"
 
-// this is the name of the team, and the name of the application, it will be used to create the
-// window, and for saving the settings
-sprites_game::sprites_game(): application(team_name, game_name) {}
-
 // configure the game, this is called before the game starts, and it is used to configure the game
 auto sprites_game::configure() -> sneze::config {
     // log that we are configuring the game

@@ -29,7 +29,9 @@ SOFTWARE.
 // this is the main class for the game, it inherits from sneze::application
 class sprites_game: public sneze::application {
 public:
-    sprites_game();
+    // create the application using the name of the team, and the name of the application
+    // it will be used to create the window, and for saving the settings
+    sprites_game(): sneze::application(team_name, game_name) {}
 
     ~sprites_game() override = default;
 
@@ -47,7 +49,7 @@ public:
 
 private:
     // this is the name of the team
-    static constexpr auto team_name = "sneze";
+    static constexpr auto team_name = "Sneze";
     // this is the name of the game
     static constexpr auto game_name = "Sprites Example";
 
