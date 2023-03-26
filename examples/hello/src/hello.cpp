@@ -27,7 +27,7 @@ SOFTWARE.
 #include "hello_game.hpp"
 
 auto main(int /*argc*/, char * /*argv*/[]) -> int {
-    if(auto err = sprites_game().run().ko(); err) {
+    if(auto err = hello_game().run().ko(); err) {
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;

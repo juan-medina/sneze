@@ -26,25 +26,40 @@ SOFTWARE.
 
 #include <sneze/sneze.hpp>
 
-using config = sneze::config;
-using application = sneze::application;
-using result = sneze::result<>;
-
-class sprites_game: public application {
+// this is the main class for the game, it inherits from sneze::application
+class hello_game: public sneze::application {
 public:
-    sprites_game();
+    // create the application using the name of the team, and the name of the application
+    // it will be used to create the window, and for saving the settings
+    hello_game(): sneze::application(team_name, game_name) {}
 
-    ~sprites_game() override = default;
+    ~hello_game() override = default;
 
-    sprites_game(const sprites_game &) = delete;
-    sprites_game(const sprites_game &&) = delete;
+    hello_game(const hello_game &) = delete;
+    hello_game(const hello_game &&) = delete;
 
-    auto operator=(const sprites_game &) -> sprites_game & = delete;
-    auto operator=(const sprites_game &&) -> sprites_game & = delete;
+    auto operator=(const hello_game &) -> hello_game & = delete;
+    auto operator=(const hello_game &&) -> hello_game & = delete;
 
-    [[nodiscard]] auto configure() -> config override;
+    [[nodiscard]] auto configure() -> sneze::config override;
 
-    auto init() -> result override;
+    auto init() -> sneze::result<> override;
 
     void end() override;
+
+private:
+    // this is the name of the team
+    static constexpr auto team_name = "Sneze";
+    // this is the name of the game
+    static constexpr auto game_name = "Hello Example";
+
+    // this is the logical width of the game
+    static constexpr auto logical_width = 1920;
+    // this is the logical height of the game
+    static constexpr auto logical_height = 1080;
+
+    // this is our text
+    static constexpr auto text = "Hello from Sneze!";
+    // this is the size of the text
+    static constexpr auto text_size = 60.F;
 };

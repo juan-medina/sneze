@@ -24,63 +24,43 @@ SOFTWARE.
 
 #include "hello_game.hpp"
 
-#include <string>
+// configure the game, this is called before the game starts, and it is used to configure the game
+auto hello_game::configure() -> sneze::config {
+    // log that we are configuring the game
+    sneze::logger::debug("configure");
 
-sprites_game::sprites_game(): application("sneze", "Hello Game") {}
-
-namespace logger = sneze::logger;
-using config = sneze::config;
-namespace components = sneze::components;
-using color = components::color;
-
-using namespace std::string_literals;
-const auto regular_font = "resources/fonts/tilt_warp.fnt"s;
-
-auto sprites_game::configure() -> config {
-    logger::debug("configure");
-
-    namespace keyboard = sneze::keyboard;
-    using key = keyboard::key;
-    using modifier = keyboard::modifier;
-
-    return config()
-        .size(1920, 1080)
-        .clear(color::light_gray)
-        .exit(key::escape)
-        .toggle_full_screen(modifier::alt, key::_return);
+    // create the configuration with the size, the clear color and the exit and the full screen toggle keys
+    return sneze::config()
+        .size(logical_width, logical_height)
+        .clear(sneze::components::color::light_gray)
+        .exit(sneze::keyboard::key::escape)
+        .toggle_full_screen(sneze::keyboard::modifier::alt, sneze::keyboard::key::_return);
 }
 
-auto sprites_game::init() -> result {
-    logger::debug("init hello game");
+// initialize the game, this is called before the game starts
+auto hello_game::init() -> sneze::result<> {
+    // log that we are initializing the game
+    sneze::logger::debug("init hello game");
 
-    using error = sneze::error;
+    // add the hello world entity to the world, is in the center of the screen, with a label, using an embedded font
+    // and has a blinking color effect
+    world()->add_entity(
+        sneze::components::renderable{},
+        sneze::components::label{
+            text,
+            sneze::embedded::regular_font,
+            text_size,
+            sneze::components::alignment{sneze::components::horizontal::center, sneze::components::vertical::center}},
+        sneze::components::anchor{sneze::components::horizontal::center, sneze::components::vertical::center},
+        sneze::components::color::white,
+        sneze::effects::alternate_color{sneze::components::color::white, sneze::components::color::red});
 
-    if(auto err = load_font(regular_font).ko()) {
-        logger::error("game can't load regular font: {}", regular_font);
-        return error("Can't load regular font.", *err);
-    }
-
-    namespace effects = sneze::effects;
-    using renderable = components::renderable;
-    using label = components::label;
-
-    using alignment = components::alignment;
-    using vertical = components::vertical;
-    using horizontal = components::horizontal;
-    using anchor = components::anchor;
-    using alternate_color = effects::alternate_color;
-
-    world()->add_entity(renderable{},
-                        label{"Hello from sneze!", regular_font, 60.F, alignment{horizontal::center, vertical::center}},
-                        anchor{horizontal::center, vertical::center},
-                        color::white,
-                        alternate_color{color::white, color::red});
-
+    // all good
     return true;
 }
 
-void sprites_game::end() {
-    logger::debug("ending hello game");
-
-    unload_font(regular_font);
+// we are ending the game
+void hello_game::end() {
+    // log that we are ending the game
+    sneze::logger::debug("ending hello game");
 }
