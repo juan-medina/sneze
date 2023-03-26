@@ -88,6 +88,7 @@ auto sprites_game::init() -> sneze::result<> {
     return true;
 }
 
+// we are ending the game
 void sprites_game::end() {
     // log that we are ending the game
     sneze::logger::debug("ending sprites game");
