@@ -26,13 +26,13 @@ SOFTWARE.
 
 #include <sneze/sneze.hpp>
 
-using config = sneze::config;
-using application = sneze::application;
-using result = sneze::result<>;
-
-class shapes_game: public application {
+class shapes_game: public sneze::application {
 public:
-    shapes_game();
+    // create the application using the name of the team, and the name of the application
+    // it will be used to create the window, and for saving the settings
+    shapes_game(): sneze::application(team_name, game_name) {}
+
+    ~shapes_game() override = default;
 
     shapes_game(const shapes_game &) = delete;
     shapes_game(const shapes_game &&) = delete;
@@ -40,9 +40,25 @@ public:
     auto operator=(const shapes_game &) -> shapes_game & = delete;
     auto operator=(const shapes_game &&) -> shapes_game & = delete;
 
-    [[nodiscard]] auto configure() -> config override;
+    [[nodiscard]] auto configure() -> sneze::config override;
 
-    auto init() -> result override;
+    auto init() -> sneze::result<> override;
 
     void end() override;
+
+private:
+    // this is the name of the team
+    static constexpr auto team_name = "Sneze";
+    // this is the name of the game
+    static constexpr auto game_name = "Shapes Example";
+
+    // this is the logical width of the game
+    static constexpr auto logical_width = 1920;
+    // this is the logical height of the game
+    static constexpr auto logical_height = 1080;
+
+    // the line thickness
+    static constexpr auto line_thickness = 15.F;
+    // the line length
+    static constexpr auto line_length = 400.F;
 };

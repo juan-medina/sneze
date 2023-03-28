@@ -24,92 +24,104 @@ SOFTWARE.
 
 #include "shapes_game.hpp"
 
-shapes_game::shapes_game(): application("sneze", "Shapes Game") {}
+// configure the game, this is called before the game starts, and it is used to configure the game
+auto shapes_game::configure() -> sneze::config {
+    // log that we are configuring the game
+    sneze::logger::debug("configure");
 
-namespace logger = sneze::logger;
-using config = sneze::config;
-namespace components = sneze::components;
-using color = components::color;
-
-auto shapes_game::configure() -> config {
-    logger::debug("configure shape game");
-
-    namespace keyboard = sneze::keyboard;
-    using key = keyboard::key;
-    using modifier = keyboard::modifier;
-
-    return config()
-        .size(1920, 1080)
-        .clear(color::light_gray)
-        .exit(key::escape)
-        .toggle_full_screen(modifier::alt, key::_return);
+    // create the configuration with the size, the clear color and the exit and the full screen toggle keys
+    return sneze::config()
+        .size(logical_width, logical_height)
+        .clear(sneze::components::color::light_gray)
+        .exit(sneze::keyboard::key::escape)
+        .toggle_full_screen(sneze::keyboard::modifier::alt, sneze::keyboard::key::_return);
 }
 
-auto shapes_game::init() -> result {
-    logger::debug("init shapes game");
+// initialize the game, this is called before the game starts
+auto shapes_game::init() -> sneze::result<> {
+    // log that we are initializing the game
+    sneze::logger::debug("init shapes game");
 
-    using rendereable = components::renderable;
-    using line = components::line;
-    using box = components::box;
-    using solid_box = components::solid_box;
-    using border_box = components::border_box;
-    using position = components::position;
+    // we will draw 4 squares, each one one in a different way
 
-    const auto line_thickness = 15.F;
-    const auto line_length = 400.F;
-    auto start_position = position{line_length, (1080.F / 4.F) - (line_length / 2.F)};
+    // the start position of the first square
+    auto start_position = sneze::components::position{line_length, (1080.F / 4.F) - (line_length / 2.F)};
 
-    world()->add_entity(rendereable{},
-                        position{start_position.x, start_position.y},
-                        line{{start_position.x + line_length, start_position.y}, line_thickness},
-                        color::red);
-    world()->add_entity(rendereable{},
-                        position{start_position.x + line_length, start_position.y},
-                        line{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
-                        color::yellow);
-    world()->add_entity(rendereable{},
-                        position{start_position.x + line_length, start_position.y + line_length},
-                        line{{start_position.x, start_position.y + line_length}, line_thickness},
-                        color::blue);
-    world()->add_entity(rendereable{},
-                        position{start_position.x, start_position.y + line_length},
-                        line{{start_position.x, start_position.y}, line_thickness},
-                        color::green);
-    world()->add_entity(rendereable{},
-                        position{start_position.x, start_position.y},
-                        line{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
-                        color::purple);
-    world()->add_entity(rendereable{},
-                        position{start_position.x, start_position.y + line_length},
-                        line{{start_position.x + line_length, start_position.y}, line_thickness},
-                        color::orange);
+    // first line
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::position{start_position.x, start_position.y},
+                        sneze::components::line{{start_position.x + line_length, start_position.y}, line_thickness},
+                        sneze::components::color::red);
 
+    // second line
+    world()->add_entity(
+        sneze::components::renderable{},
+        sneze::components::position{start_position.x + line_length, start_position.y},
+        sneze::components::line{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
+        sneze::components::color::yellow);
+
+    // third line
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::position{start_position.x + line_length, start_position.y + line_length},
+                        sneze::components::line{{start_position.x, start_position.y + line_length}, line_thickness},
+                        sneze::components::color::blue);
+
+    // fourth line
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::position{start_position.x, start_position.y + line_length},
+                        sneze::components::line{{start_position.x, start_position.y}, line_thickness},
+                        sneze::components::color::green);
+
+    // first diagonal line
+    world()->add_entity(
+        sneze::components::renderable{},
+        sneze::components::position{start_position.x, start_position.y},
+        sneze::components::line{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
+        sneze::components::color::purple);
+
+    // second diagonal line
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::position{start_position.x, start_position.y + line_length},
+                        sneze::components::line{{start_position.x + line_length, start_position.y}, line_thickness},
+                        sneze::components::color::orange);
+
+    // position for the next square
     start_position.x = 1920.F - line_length * 2.F;
 
-    world()->add_entity(rendereable{},
-                        position{start_position.x, start_position.y},
-                        solid_box{start_position.x + line_length, start_position.y + line_length},
-                        color::pink);
+    // add a solid box square, a square with a border but not filled
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::position{start_position.x, start_position.y},
+                        sneze::components::solid_box{start_position.x + line_length, start_position.y + line_length},
+                        sneze::components::color::pink);
 
+    // position for the next square
     start_position.x = line_length;
     start_position.y = 1080.F - (line_length * 1.25F);
 
-    world()->add_entity(rendereable{},
-                        position{start_position.x, start_position.y},
-                        box{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
-                        color::dark_purple);
+    // add box, is a filled square
+    world()->add_entity(
+        sneze::components::renderable{},
+        sneze::components::position{start_position.x, start_position.y},
+        sneze::components::box{{start_position.x + line_length, start_position.y + line_length}, line_thickness},
+        sneze::components::color::dark_purple);
 
+    // position for the next square
     start_position.x = 1920.F - line_length * 2.F;
 
-    world()->add_entity(
-        rendereable{},
-        position{start_position.x, start_position.y},
-        border_box{{start_position.x + line_length, start_position.y + line_length}, line_thickness, color::maroon},
-        color::sky_blue);
+    // add a border box, is a square with a border and filled
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::position{start_position.x, start_position.y},
+                        sneze::components::border_box{{start_position.x + line_length, start_position.y + line_length},
+                                                      line_thickness,
+                                                      sneze::components::color::maroon},
+                        sneze::components::color::sky_blue);
 
+    // all good
     return true;
 }
 
+// we are ending the game
 void shapes_game::end() {
-    logger::debug("ending shapes game");
+    // log that we are ending the game
+    sneze::logger::debug("ending shapes game");
 }
