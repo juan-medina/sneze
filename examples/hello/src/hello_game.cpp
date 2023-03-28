@@ -43,17 +43,14 @@ auto hello_game::init() -> sneze::result<> {
     sneze::logger::debug("init hello game");
 
     // add the hello world entity to the world, is in the center of the screen, with a label, using an embedded font
-    // and has a blinking color effect
-    world()->add_entity(
-        sneze::components::renderable{},
-        sneze::components::label{
-            text,
-            sneze::embedded::regular_font,
-            text_size,
-            sneze::components::alignment{sneze::components::horizontal::center, sneze::components::vertical::center}},
-        sneze::components::anchor{sneze::components::horizontal::center, sneze::components::vertical::center},
-        sneze::components::color::white,
-        sneze::effects::alternate_color{sneze::components::color::white, sneze::components::color::red});
+    world()->add_entity(sneze::components::renderable{},
+                        sneze::components::label{text,
+                                                 sneze::embedded::regular_font,
+                                                 text_size,
+                                                 sneze::components::alignment{sneze::components::horizontal::center,
+                                                                              sneze::components::vertical::center}},
+                        sneze::components::position{logical_width / 2.F, logical_height / 2.F},
+                        sneze::components::color::white);
 
     // all good
     return true;
