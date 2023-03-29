@@ -26,14 +26,12 @@ SOFTWARE.
 
 #include <sneze/sneze.hpp>
 
-using config = sneze::config;
-using application = sneze::application;
-using result = sneze::result<>;
-namespace events = sneze::events;
-
-class draw_game: public application {
+// this is the main class for the game, it inherits from sneze::application
+class draw_game: public sneze::application {
 public:
-    draw_game();
+    // create the application using the name of the team, and the name of the application
+    // it will be used to create the window, and for saving the settings
+    draw_game(): sneze::application(team_name, game_name) {}
 
     ~draw_game() override = default;
 
@@ -43,18 +41,40 @@ public:
     auto operator=(const draw_game &) -> draw_game & = delete;
     auto operator=(const draw_game &&) -> draw_game & = delete;
 
-    [[nodiscard]] auto configure() -> config override;
+    [[nodiscard]] auto configure() -> sneze::config override;
 
-    auto init() -> result override;
+    auto init() -> sneze::result<> override;
 
     void end() override;
 
 private:
-    struct drawing {};
+    // this is the name of the team
+    static constexpr auto team_name = "Sneze";
+    // this is the name of the game
+    static constexpr auto game_name = "Draw Example";
 
-    void mouse_button_down(const events::mouse_button_down &event);
+    // this is the logical width of the game
+    static constexpr auto logical_width = 1920;
+    // this is the logical height of the game
+    static constexpr auto logical_height = 1080;
 
-    void mouse_button_up(const events::mouse_button_up &event);
+    // this is the text to be displayed at the bottom-right of the screen
+    static constexpr auto text = "Drawing lines, press left mouse button to start and stop drawing.";
+    // this is the size of the text
+    static constexpr auto text_size = 40.F;
 
-    void mouse_moved(const events::mouse_moved &event);
+    // the line thickness
+    static constexpr auto line_thickness = 5.F;
+
+    // this is the tag that we will use to identify the line that we are drawing
+    struct drawing_tag {};
+
+    // mouse button down listener
+    void mouse_button_down(const sneze::events::mouse_button_down &event);
+
+    // mouse button up listener
+    void mouse_button_up(const sneze::events::mouse_button_up &event);
+
+    // mouse moved listener
+    void mouse_moved(const sneze::events::mouse_moved &event);
 };
