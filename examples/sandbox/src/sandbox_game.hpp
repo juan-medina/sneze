@@ -26,13 +26,11 @@ SOFTWARE.
 
 #include <sneze/sneze.hpp>
 
-using config = sneze::config;
-using application = sneze::application;
-using result = sneze::result<>;
-
-class sandbox_game: public application {
+class sandbox_game: public sneze::application {
 public:
-    sandbox_game();
+    // create the application using the name of the team, and the name of the application
+    // it will be used to create the window, and for saving the settings
+    sandbox_game(): sneze::application(team_name, game_name) {}
 
     ~sandbox_game() override = default;
 
@@ -42,9 +40,30 @@ public:
     auto operator=(const sandbox_game &) -> sandbox_game & = delete;
     auto operator=(const sandbox_game &&) -> sandbox_game & = delete;
 
-    [[nodiscard]] auto configure() -> config override;
+    [[nodiscard]] auto configure() -> sneze::config override;
 
-    auto init() -> result override;
+    auto init() -> sneze::result<> override;
 
     void end() override;
+
+private:
+    // this is the name of the team
+    static constexpr auto team_name = "Sneze";
+    // this is the name of the game
+    static constexpr auto game_name = "Sandbox Example";
+
+    // this is the logical width of the game
+    static constexpr auto logical_width = 1920;
+    // this is the logical height of the game
+    static constexpr auto logical_height = 1080;
+
+    // this is the font size for the small text
+    static constexpr auto font_size_small = 30.F;
+    // this is the font size for the large text
+    static constexpr auto font_size_large = 60.F;
+
+    // this is the counter for the first text
+    static constexpr auto counter_1 = 40000;
+    // this is the counter for the second text
+    static constexpr auto counter_2 = 20000;
 };

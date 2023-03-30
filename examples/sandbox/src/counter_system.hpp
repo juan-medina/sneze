@@ -26,18 +26,21 @@ SOFTWARE.
 
 #include <sneze/sneze.hpp>
 
-using world = sneze::world;
-
+// component that represent a counter
 struct counter {
-    int value = 0; // cppcheck-suppress unusedStructMember
+    // the counter value
+    int value = 0;
 };
 
+// the global acceleration for the counters
 struct acceleration {
-    int value = 0; // cppcheck-suppress unusedStructMember
+    // the acceleration value
+    int value = 0;
 };
 
+// system that update the counters and remove them when they reach 0
 class counter_system: public sneze::system {
-    void init(world *world) override;
-    void update(world *world) override;
-    void end(world *world) override;
+    void init(sneze::world *world) override;
+    void update(sneze::world *world) override;
+    void end(sneze::world *world) override;
 };

@@ -26,27 +26,33 @@ SOFTWARE.
 
 #include <fmt/format.h>
 
-namespace logger = sneze::logger;
-namespace components = sneze::components;
-using label = components::label;
-
-void counter_system::init(world * /*world*/) {
-    logger::debug("counter_system::init");
+// init the counter system
+void counter_system::init(sneze::world * /*world*/) {
+    sneze::logger::debug("counter_system::init");
 }
 
-void counter_system::end(world * /*world*/) {
-    logger::debug("counter_system::end");
+// shutdown the counter system
+void counter_system::end(sneze::world * /*world*/) {
+    sneze::logger::debug("counter_system::end");
 }
 
-void counter_system::update(world *world) {
+// update the counter system
+void counter_system::update(sneze::world *world) {
+    // get the global acceleration
     const auto acc = world->get_global<acceleration>();
+    // get the global game time
     const auto time = world->get_global<sneze::game_time>();
 
-    for(auto &&[entity, ct, lbl]: world->get_entities<counter, label>()) {
-        ct.value -= static_cast<int>(static_cast<float>(acc.value) * time.delta);
-        if(ct.value < 0) {
+    // get all the entities with counter and label components
+    for(auto &&[entity, counter, label]: world->get_entities<counter, sneze::components::label>()) {
+        // update the counter
+        counter.value -= static_cast<int>(static_cast<float>(acc.value) * time.delta);
+        // if the counter is less than 0, remove the entity
+        if(counter.value < 0) {
             world->remove_entity(entity);
+            continue;
         }
-        lbl.text = fmt::format("Counter: {}, elapsed: {}", ct.value, time.elapsed);
+        // update the label
+        label.text = fmt::format("Counter: {}, elapsed: {}", counter.value, time.elapsed);
     }
 }
