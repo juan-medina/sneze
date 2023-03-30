@@ -82,11 +82,15 @@ SNEZE is powered by these incredible projects:
 
 ## Resources
 
-SNEZE examples use these beautiful resources:
-
+SNEZE embeds some resources, than can be used by any game:
+ 
 - **Font**: [Tilt Warp](https://fonts.google.com/specimen/Tilt+Warp) by [Andy Clymer](https://github.com/andyclymer).
 - **Font**: [Fira Mono](https://fonts.google.com/specimen/Fira+Mono) by [Carrois Apostrophe](https://carrois.com/).
+
+SNEZE examples use these resources:
+
 - **Sprites**: [Kawaii Ghost Sprite Pack](https://kububbis.itch.io/kawaii-ghost-sprite-pack) by [Kububbis](https://kububbis.itch.io/).
+- **Font**: [Mystery Quest](https://fonts.google.com/specimen/Mystery+Quest) by [Font Diner](https://www.fontdiner.com).
 
 ## Contributions
 
