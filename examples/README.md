@@ -18,7 +18,8 @@
 
 ### List of examples
 
-- [Hello](https://github.com/juan-medina/sneze/tree/main/examples/hello/src) : Displaying text.
+- [Hello](https://github.com/juan-medina/sneze/tree/main/examples/hello/src) : Simple Text.
+- [Labels](https://github.com/juan-medina/sneze/tree/main/examples/labels/src) : Advanced Text.
 - [Shapes](https://github.com/juan-medina/sneze/tree/main/examples/shapes/src) : Drawing shapes such lines and boxes.
 - [Draw](https://github.com/juan-medina/sneze/tree/main/examples/draw/src) : Handle the mouse.
 - [Sprites](https://github.com/juan-medina/sneze/tree/main/examples/sprites/src) : Render sprite sheets and single image sprites.

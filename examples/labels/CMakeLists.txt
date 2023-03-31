@@ -20,13 +20,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# CMake build : labels
+
 cmake_minimum_required(VERSION 3.4)
 
-project(examples)
+#configure variables
+set(APP_NAME "labels")
 
-add_subdirectory(draw)
-add_subdirectory(hello)
-add_subdirectory(labels)
-add_subdirectory(shapes)
-add_subdirectory(sandbox)
-add_subdirectory(sprites)
+#configure directories
+set(APP_MODULE_PATH "${PROJECT_SOURCE_DIR}/${APP_NAME}")
+set(APP_SRC_PATH "${APP_MODULE_PATH}/src")
+
+#set sources
+file(GLOB APP_HEADER_FILES "${APP_SRC_PATH}/*.h")
+file(GLOB APP_SOURCE_FILES "${APP_SRC_PATH}/*.cpp")
+
+#set target executable
+add_executable(${APP_NAME} ${APP_HEADER_FILES} ${APP_SOURCE_FILES})
+
+#link the example with the libraries
+target_link_libraries(${APP_NAME} ${LIB_NAME} sneze)
+
+## copy resources
+set(RESOURCES_PATH "resources")
+add_custom_command(
+        TARGET ${APP_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/../${RESOURCES_PATH} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}
+)
+MESSAGE(STATUS "Copying resources to ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCES_PATH}...")
