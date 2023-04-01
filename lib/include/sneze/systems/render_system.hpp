@@ -75,6 +75,9 @@ private:
 
     //! sort renderables by depth
     static inline auto sort_by_depth(const components::renderable &lhs, const components::renderable &rhs) {
+        if(lhs.depth == rhs.depth) {
+            return lhs.creation_id < rhs.creation_id;
+        }
         return lhs.depth > rhs.depth;
     }
 

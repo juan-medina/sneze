@@ -51,4 +51,6 @@ namespace sneze::components {
 [[maybe_unused]] const color color::magenta = color::rgb(231, 72, 86);
 [[maybe_unused]] const color color::untinted = color::rgb(255, 255, 255);
 
+std::uint64_t renderable::creation_id_counter = 0; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+
 } // namespace sneze::components

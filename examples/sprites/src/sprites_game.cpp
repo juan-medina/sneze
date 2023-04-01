@@ -54,20 +54,20 @@ auto sprites_game::init() -> sneze::result<> {
         return sneze::error("Can't load shadow sprite.");
     }
 
-    // add the ghost entity to the world, it is contained in the sprite sheet
-    auto ghost = world()->add_entity(sneze::components::renderable{},
-                                     sneze::components::sprite{ghost_sprite_sheet, ghost_default_frame},
-                                     sneze::components::position{logical_width / 2.F, logical_height / 2.F},
-                                     sneze::components::color::untinted);
-    // tag the ghost entity
-    world()->tag<ghost_tag>(ghost);
-
-    // add the shadow entity to the world, it is a single sprite
+    // add the shadow entity to the world, it is a single sprite, we set it first to be rendered to be behind the ghost
     world()->add_entity(sneze::components::renderable{},
                         sneze::components::sprite{shadow_sprite},
                         sneze::components::position{logical_width / 2.F, (logical_height / 2.F) + shadow_gap},
                         sneze::components::color::untinted);
 
+    // add the ghost entity to the world, it is contained in the sprite sheet
+    auto ghost = world()->add_entity(sneze::components::renderable{},
+                                     sneze::components::sprite{ghost_sprite_sheet, ghost_default_frame},
+                                     sneze::components::position{logical_width / 2.F, logical_height / 2.F},
+                                     sneze::components::color::untinted);
+
+    // tag the ghost entity
+    world()->tag<ghost_tag>(ghost);
 
     // add the bottom text to the world
     world()->add_entity(
@@ -125,7 +125,7 @@ void sprites_game::on_key_up(const sneze::events::key_up &event) {
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 void sprites_game::on_key_down(const sneze::events::key_down &event) {
-    // not flipped in the x axis by default
+    // not flipped in the x-axis by default
     bool flip_x = false;
 
     // if the key is the left key
@@ -140,7 +140,7 @@ void sprites_game::on_key_down(const sneze::events::key_down &event) {
 
     // get all the entities with a sprite component and a ghost tag
     for(auto [entity, sprite]: event.world->get_tagged<ghost_tag, sneze::components::sprite>()) {
-        // flip the sprite in the x axis
+        // flip the sprite in the x-axis
         sprite.flip_x = flip_x;
     }
 }

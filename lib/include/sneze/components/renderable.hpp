@@ -26,7 +26,11 @@ SOFTWARE.
 
 #include <string>
 
-namespace sneze::components {
+namespace sneze {
+
+class render_system;
+
+namespace components {
 
 /**
  * @brief component that indicates that the entity is renderable
@@ -36,9 +40,32 @@ namespace sneze::components {
  */
 struct renderable {
     //! the depth of the entity
-    float depth{0.0F};  // cppcheck-suppress unusedStructMember
+    // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes,misc-non-private-member-variables-in-classes)
+    float depth;
+
     //! the visibility of the entity
-    bool visible{true}; // cppcheck-suppress unusedStructMember
+    // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes,misc-non-private-member-variables-in-classes)
+    bool visible;
+
+    /**
+     * @brief create a renderable component
+     *
+     * @param depth the depth of the entity
+     * @param visible the visibility of the entity
+     */
+    explicit renderable(float depth = 0.0F, bool visible = true)
+        : depth{depth}, visible{visible}, creation_id{++creation_id_counter} {}
+
+protected:
+    friend class sneze::render_system;
+
+    //! the creation id of the entity, used to sort the entities by creation order
+    // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes,misc-non-private-member-variables-in-classes)
+    std::uint64_t creation_id;
+
+private:
+    //! the counter used to create the creation id
+    static std::uint64_t creation_id_counter; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
 };
 
 /**
@@ -213,22 +240,23 @@ public:
  */
 struct sprite {
     //! the file for the sprite, single file name for single sprites or the sprite sheet
-    std::string file;              // cppcheck-suppress unusedStructMember
+    std::string file; // cppcheck-suppress unusedStructMember
 
     //! the frame of the sprite, if the sprite is a sprite sheet, if not "default"
     std::string frame = "default"; // cppcheck-suppress unusedStructMember
 
     //! if the sprite should be flipped on the x axis
-    bool flip_x{false};            // cppcheck-suppress unusedStructMember
+    bool flip_x{false}; // cppcheck-suppress unusedStructMember
 
     //! if the sprite should be flipped on the y axis
-    bool flip_y{false};            // cppcheck-suppress unusedStructMember
+    bool flip_y{false}; // cppcheck-suppress unusedStructMember
 
     //! the scale of the sprite
-    float scale{1.0F};             // cppcheck-suppress unusedStructMember
+    float scale{1.0F}; // cppcheck-suppress unusedStructMember
 
     //! the rotation of the sprite, in degrees
-    float rotation{0.0F};          // cppcheck-suppress unusedStructMember
+    float rotation{0.0F}; // cppcheck-suppress unusedStructMember
 };
 
-} // namespace sneze::components
+} // namespace components
+} // namespace sneze
