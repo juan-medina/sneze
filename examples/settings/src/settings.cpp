@@ -22,37 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "counter_system.hpp"
+#include <cstdlib>
 
-#include <fmt/format.h>
+#include "settings_game.hpp"
 
-// init the counter system
-void counter_system::init(sneze::world * /*world*/) {
-    sneze::logger::debug("counter_system::init");
-}
-
-// shutdown the counter system
-void counter_system::end(sneze::world * /*world*/) {
-    sneze::logger::debug("counter_system::end");
-}
-
-// update the counter system
-void counter_system::update(sneze::world *world) {
-    // get the global acceleration
-    const auto acc = world->get_global<acceleration>();
-    // get the global game time
-    const auto time = world->get_global<sneze::game_time>();
-
-    // get all the entities with counter and label components
-    for(auto &&[entity, counter, label]: world->get_entities<counter, sneze::components::label>()) {
-        // update the counter
-        counter.value -= static_cast<int>(static_cast<float>(acc.value) * time.delta);
-        // if the counter is less than 0, remove the entity
-        if(counter.value < 0) {
-            world->remove_entity(entity);
-            continue;
-        }
-        // update the label
-        label.text = fmt::format("Counter: {}, elapsed: {}", counter.value, time.elapsed);
+auto main(int /*argc*/, char * /*argv*/[]) -> int {
+    if(auto err = settings_game().run().ko(); err) {
+        return EXIT_FAILURE;
     }
+    return EXIT_SUCCESS;
 }

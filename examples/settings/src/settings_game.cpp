@@ -22,14 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ****************************************************************************/
 
-#include "sandbox_game.hpp"
+#include "settings_game.hpp"
 
 #include <fmt/format.h>
 
-#include "counter_system.hpp"
-
 // configure the game, this is called before the game starts, and it is used to configure the game
-auto sandbox_game::configure() -> sneze::config {
+auto settings_game::configure() -> sneze::config {
     // log that we are configuring the game
     sneze::logger::debug("configure");
 
@@ -42,24 +40,13 @@ auto sandbox_game::configure() -> sneze::config {
 }
 
 // initialize the game, this is called before the game starts
-auto sandbox_game::init() -> sneze::result<> {
+auto settings_game::init() -> sneze::result<> {
     // log that we are initializing the game
-    sneze::logger::debug("init sandbox game");
+    sneze::logger::debug("init settings game");
 
+    // get the visits an increase it by one
     auto visits = get_app_setting("visits", std::int64_t{0}) + 1;
     set_app_setting("visits", visits);
-
-    // add an entity to the world, this entity will be rendered as a label, with the text "Hello World!"
-    world()->add_entity(
-        sneze::components::renderable{},
-        sneze::components::label{
-            "Hello World!",
-            sneze::embedded::regular_font,
-            font_size_large,
-            sneze::components::alignment{sneze::components::horizontal::center, sneze::components::vertical::center}},
-        sneze::components::position{0, -font_size_small},
-        sneze::components::anchor{sneze::components::horizontal::center, sneze::components::vertical::center},
-        sneze::components::color::white);
 
     // add an entity to the world, this entity will be rendered as a label, this will have the visits counter
     world()->add_entity(
@@ -67,53 +54,17 @@ auto sandbox_game::init() -> sneze::result<> {
         sneze::components::label{
             fmt::format("You seen this {} times!", visits),
             sneze::embedded::regular_font,
-            font_size_large,
+            font_size,
             sneze::components::alignment{sneze::components::horizontal::center, sneze::components::vertical::center}},
-        sneze::components::position{0, font_size_small},
         sneze::components::anchor{sneze::components::horizontal::center, sneze::components::vertical::center},
         sneze::components::color::white);
-
-    // add an entity to the world, this entity will be rendered as a label, in the bottom left corner with the counter 1
-    world()->add_entity(
-        sneze::components::renderable{},
-        counter{counter_1},
-        sneze::components::label{
-            "Counter:",
-            sneze::embedded::mono_font,
-            font_size_small,
-            sneze::components::alignment{sneze::components::horizontal::left, sneze::components::vertical::bottom}},
-        sneze::components::anchor{sneze::components::horizontal::left, sneze::components::vertical::bottom},
-        sneze::components::color::red);
-
-    // add an entity to the world, this entity will be rendered as a label, in the top right corner with the counter 2
-    world()->add_entity(
-        sneze::components::renderable{},
-        counter{counter_2},
-        sneze::components::label{
-            "Counter:",
-            sneze::embedded::mono_font,
-            font_size_small,
-            sneze::components::alignment{sneze::components::horizontal::right, sneze::components::vertical::top}},
-        sneze::components::anchor{sneze::components::horizontal::right, sneze::components::vertical::top},
-        sneze::components::color::blue);
-
-    // set the global acceleration  to 5
-    world()->set_global<acceleration>(5);
-
-    // add the counter system to the world
-    world()->add_system<counter_system>();
 
     // all good
     return true;
 }
 
 // we are ending the game
-void sandbox_game::end() {
+void settings_game::end() {
     // log that we are ending the game
-    sneze::logger::debug("end sandbox game");
-
-    // remove the counter system
-    world()->remove_system<counter_system>();
-    // remove the acceleration global
-    world()->remove_global<acceleration>();
+    sneze::logger::debug("end settings game");
 }

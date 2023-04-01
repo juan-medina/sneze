@@ -26,21 +26,37 @@ SOFTWARE.
 
 #include <sneze/sneze.hpp>
 
-// component that represent a counter
-struct counter {
-    // the counter value
-    int value = 0;
-};
+class settings_game: public sneze::application {
+public:
+    // create the application using the name of the team, and the name of the application
+    // it will be used to create the window, and for saving the settings
+    settings_game(): sneze::application(team_name, game_name) {}
 
-// the global acceleration for the counters
-struct acceleration {
-    // the acceleration value
-    int value = 0;
-};
+    ~settings_game() override = default;
 
-// system that update the counters and remove them when they reach 0
-class counter_system: public sneze::system {
-    void init(sneze::world *world) override;
-    void update(sneze::world *world) override;
-    void end(sneze::world *world) override;
+    settings_game(const settings_game &) = delete;
+    settings_game(const settings_game &&) = delete;
+
+    auto operator=(const settings_game &) -> settings_game & = delete;
+    auto operator=(const settings_game &&) -> settings_game & = delete;
+
+    [[nodiscard]] auto configure() -> sneze::config override;
+
+    auto init() -> sneze::result<> override;
+
+    void end() override;
+
+private:
+    // this is the name of the team
+    static constexpr auto team_name = "Sneze";
+    // this is the name of the game
+    static constexpr auto game_name = "Settings Example";
+
+    // this is the logical width of the game
+    static constexpr auto logical_width = 1920;
+    // this is the logical height of the game
+    static constexpr auto logical_height = 1080;
+
+    // this is the font size for the text
+    static constexpr auto font_size = 100.F;
 };
